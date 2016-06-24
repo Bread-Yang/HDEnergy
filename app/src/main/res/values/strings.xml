@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">汇迪</string>
+
+    <!-- common -->
+    <string name="loading">加载中</string>
+    <string name="request_timeout">请求超时</string>
+    <string name="request_fail">请求失败</string>
+    <string name="network_unavailable">网络不可用,确保wifi或者移动网络是否已经打开</string>
+
+</resources>
