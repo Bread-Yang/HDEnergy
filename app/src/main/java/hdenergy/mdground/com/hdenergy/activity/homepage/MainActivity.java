@@ -1,4 +1,4 @@
-package hdenergy.mdground.com.hdenergy.activity;
+package hdenergy.mdground.com.hdenergy.activity.homepage;
 
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;

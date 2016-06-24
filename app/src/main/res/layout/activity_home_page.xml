@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <hdenergy.mdground.com.hdenergy.views.SlidingMenu
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        custom:rightMragin="40dp">
+
+        <LinearLayout
+            android:background="@color/colorTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+             <fragment
+                 android:name="hdenergy.mdground.com.hdenergy.activity.homepage.LeftMenuFragment"
+                 android:id="@+id/fgLeftMenu"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 ></fragment>
+            >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bb">
+               <fragment
+                   android:name="hdenergy.mdground.com.hdenergy.activity.homepage.RightContextFragment"
+                   android:id="@+id/ftRightContext"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   ></fragment>
+            </LinearLayout>
+
+        </LinearLayout>
+    </hdenergy.mdground.com.hdenergy.views.SlidingMenu>
+</LinearLayout>
