@@ -14,5 +14,6 @@
     <string name="reset_password">重设密码</string>
     <string name="input_password">请输入密码</string>
     <string name="homePage">首页</string>
+    <string name="name">人名</string>
 
 </resources>
