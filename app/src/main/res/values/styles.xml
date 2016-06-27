@@ -8,6 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="NormalLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/color_white</item>
+        <item name="android:paddingLeft">@dimen/margin_12</item>
+        <item name="android:paddingRight">@dimen/margin_12</item>
+        <item name="android:drawablePadding">@dimen/margin_8</item>
+    </style>
+
+    <style name="FixHeightLayoutStyle" parent="NormalLayoutStyle">
+        <item name="android:layout_height">@dimen/size_44</item>
+    </style>
 
     <style name="DividerVerticalStyle">
         <item name="android:layout_width">1dp</item>
@@ -26,6 +38,23 @@
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@drawable/layerlist_divider</item>
     </style>
+
+    <style name="NormalTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/color_333333</item>
+        <item name="android:textColorHint">@color/color_999999</item>
+    </style>
+
+    <style name="DimTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/color_666666</item>
+        <item name="android:textColorHint">@color/color_999999</item>
+    </style>
+
     <style name="ClickableTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
