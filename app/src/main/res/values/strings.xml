@@ -36,6 +36,7 @@
     <string name="project_expense_with_colon">项目费用:</string>
     <string name="project_details_with_colon">项目明细:</string>
     <string name="other_problem">其他问题</string>
+    <string name="input_other_problem">可输入其他问题</string>
     <string name="next_step">下一步</string>
 
     <!-- 锅炉详情1 -->

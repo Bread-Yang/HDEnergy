@@ -12,17 +12,22 @@
         <activity android:name=".activity.homepage.HomeActivity">
 
         </activity>
-        <activity android:name=".activity.login.LoginActivity"
-            >
+        <activity android:name=".activity.login.LoginActivity">
+
+        </activity>
+        <activity
+            android:name=".activity.login.ForgetPasswordActivity"
+            android:label="@string/forgetPassword" />
+
+        <activity
+            android:name=".activity.datareport.DataReportActivity"
+            android:label="@string/data_report">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.login.ForgetPasswordActivity"
-                   android:label="@string/forgetPassword"
-            ></activity>
     </application>
 
 </manifest>
