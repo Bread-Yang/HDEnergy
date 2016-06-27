@@ -8,7 +8,6 @@
     <attr name="rightBackground" format="reference"></attr>
     <attr name="rightText" format="string"></attr>
     <attr name="rightTextSize" format="dimension"></attr>
-
     <attr name="rightMragin" format="dimension"></attr>
     <declare-styleable name="SlidingMenu">
         <attr name="rightMragin"></attr>

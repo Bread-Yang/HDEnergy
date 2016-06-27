@@ -3,7 +3,6 @@ package hdenergy.mdground.com.hdenergy.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
 import com.nineoldandroids.view.ViewHelper;
+import com.socks.library.KLog;
 
 import hdenergy.mdground.com.hdenergy.R;
 
@@ -21,7 +21,7 @@ import hdenergy.mdground.com.hdenergy.R;
 public class SlidingMenu extends HorizontalScrollView {
     public static final String TAG="SLIDINMENU";
     private int mScreenWidth;
-    private float right_margin=50;//
+    private float right_margin;//
     LinearLayout wrapper;
     ViewGroup menu;
     ViewGroup home;
@@ -36,8 +36,12 @@ public class SlidingMenu extends HorizontalScrollView {
         super(context, attrs);
         WindowManager manager= (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         mScreenWidth=manager.getDefaultDisplay().getWidth();
+        KLog.e("mScreenWidth---->"+mScreenWidth);
         TypedArray typedArray=context.obtainStyledAttributes(attrs, R.styleable.SlidingMenu);
-        right_margin=typedArray.getDimensionPixelSize(R.styleable.SlidingMenu_rightMragin,dp2px((int) right_margin));
+        right_margin=typedArray.getDimensionPixelSize(R.styleable.SlidingMenu_rightMragin, (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 50f,
+                getResources().getDisplayMetrics()));
+        KLog.e("right_margin="+right_margin);
         typedArray.recycle();
 
     }
@@ -49,13 +53,13 @@ public class SlidingMenu extends HorizontalScrollView {
             wrapper= (LinearLayout) getChildAt(0);
             menu= (ViewGroup) wrapper.getChildAt(0);
             home= (ViewGroup) wrapper.getChildAt(1);
-            right_margin=dp2px((int) right_margin);
+            KLog.e("right_margin="+right_margin);
             menuWidth= (int) (mScreenWidth-right_margin);
-            Log.d(TAG,String.valueOf(mScreenWidth));
-            Log.d(TAG,String.valueOf(menuWidth));
+            KLog.e("屏幕宽度"+String.valueOf(mScreenWidth));
+            KLog.e("左侧宽度"+String.valueOf(menuWidth));
             menu.getLayoutParams().width=menuWidth;
-
             home.getLayoutParams().width=mScreenWidth;
+            once=true;
         }
     }
     //定义它的布局，一开始Menu是隐藏的
@@ -63,6 +67,7 @@ public class SlidingMenu extends HorizontalScrollView {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
           if(changed){
+              KLog.e("有点击进来");
               this.scrollTo(menuWidth,0);
               once=true;
           }
@@ -138,6 +143,6 @@ public class SlidingMenu extends HorizontalScrollView {
     //把dp转换为px
     public int dp2px(int dp){
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,dp,getResources().getDisplayMetrics());
-
     }
+
 }
