@@ -32,6 +32,7 @@
     <string name="data_with_colon">日期:</string>
     <string name="sale_product_with_colon">销售产品:</string>
     <string name="boiler">锅炉</string>
+    <string name="boiler_index">锅炉%s</string>
     <string name="expense">费用</string>
     <string name="project_expense_with_colon">项目费用:</string>
     <string name="project_details_with_colon">项目明细:</string>
@@ -39,25 +40,38 @@
     <string name="input_other_problem">可输入其他问题</string>
     <string name="next_step">下一步</string>
 
-    <!-- 锅炉详情1 -->
+    <!-- 锅炉编辑1 -->
     <string name="blow_in_duration">开炉时长</string>
     <string name="blow_in_duration_with_colon">开炉时长:</string>
+    <string name="please_choose_duration">请选择时长</string>
     <string name="flow">流量</string>
-    <string name="initial_flow">起始流量</string>
-    <string name="close_flow">截止流量</string>
+    <string name="flow_index">流量%d:</string>
+    <string name="initial_flow_index">起始流量%d:</string>
+    <string name="close_flow_index">截止流量%d:</string>
     <string name="flow_adjustment">流量调整</string>
     <string name="adjustment_description">调整说明</string>
     <string name="electric_quantity">电量</string>
-    <string name="water_quantity">水量</string>
+    <string name="electric_quantity_with_colon">电量:</string>
+    <string name="electric_quantity_two_with_colon">电量2:</string>
+    <string name="electric_quantity_three_with_colon">电量3:</string>
     <string name="electric_unit_consumption">电单耗</string>
+    <string name="water_quantity">水量</string>
+    <string name="water_quantity_with_colon">水量:</string>
+    <string name="water_quantity_two_with_colon">水量2:</string>
+    <string name="water_quantity_three_with_colon">水量3:</string>
     <string name="water_unit_consumption">水单耗</string>
 
-    <!-- 锅炉详情2 -->
+    <!-- 锅炉编辑2 -->
+    <string name="fuel">燃料</string>
     <string name="fuel_type_with_colon">燃料种类:</string>
     <string name="last_period_stock_with_colon">上期库存:</string>
-    <string name="stock_amount_with_colon">进料量:</string>
+    <string name="feedstock_amount_with_colon">进料量:</string>
+    <string name="supplier">供应商:</string>
+    <string name="license_plate">车牌号:</string>
+    <string name="delivery_capacity">送货量:</string>
     <string name="current_period_stock_with_colon">本期库存:</string>
     <string name="fuel_consumption_with_colon">燃料耗量:</string>
     <string name="fuel_unit_consumption_with_colon">燃料单耗:</string>
+
 
 </resources>

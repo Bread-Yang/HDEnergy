@@ -28,6 +28,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.datareport.BoilerEditOneActivity"
+            android:label="@string/data_report" />
+        <activity
+            android:name=".activity.datareport.BoilerEditTwoActivity"
+            android:label="@string/data_report" />
     </application>
 
 </manifest>

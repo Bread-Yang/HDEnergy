@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <RelativeLayout style="@style/TitleLayoutStyle">
+
+            <TextView
+                style="@style/TitleTextStyle"
+                android:text="@string/feedstock_amount_with_colon" />
+
+
+            <ImageView
+                android:id="@+id/ivAddOrDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/icon_addition_pay" />
+
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+            <TextView
+                style="@style/DimTextStyle"
+                android:text="@string/supplier" />
+
+            <TextView
+                android:id="@+id/tvSupplier"
+                style="@style/WithArrowIconTextStyle"
+                android:textSize="@dimen/text_size_16"
+                tools:text="盛大" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rltData"
+            style="@style/WhiteFixHeightLayoutStyle"
+            android:layout_marginTop="@dimen/margin_1"
+            android:onClick="SelectDataAction">
+
+            <TextView
+                style="@style/DimTextStyle"
+                android:text="@string/license_plate" />
+
+            <TextView
+                android:id="@+id/tvLicensePlate"
+                style="@style/WithArrowIconTextStyle"
+                android:textSize="@dimen/text_size_16"
+                tools:text="1256" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/WhiteFixHeightLayoutStyle"
+            android:layout_marginTop="@dimen/margin_1">
+
+            <TextView
+                style="@style/DimTextStyle"
+                android:text="@string/delivery_capacity" />
+
+            <TextView
+                android:id="@+id/tvDeliveryCapacity"
+                style="@style/WithArrowIconTextStyle"
+                android:textSize="@dimen/text_size_16"
+                tools:text="25631" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

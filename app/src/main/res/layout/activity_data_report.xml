@@ -13,16 +13,13 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/TitleLayoutStyle"
+                style="@style/SingleTitleLayoutStyle"
                 android:text="@string/project_status" />
 
-            <RelativeLayout
-                style="@style/WhiteFixHeightLayoutStyle"
-                android:layout_marginTop="@dimen/margin_1">
+            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:layout_centerVertical="true"
                     android:text="@string/project_with_colon" />
 
                 <TextView
@@ -33,11 +30,14 @@
 
             </RelativeLayout>
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                android:id="@+id/rltData"
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1"
+                android:onClick="SelectDataAction">
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:layout_centerVertical="true"
                     android:text="@string/data_with_colon" />
 
                 <TextView
@@ -53,7 +53,6 @@
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:layout_centerVertical="true"
                     android:text="@string/sale_product_with_colon" />
 
                 <TextView
@@ -65,23 +64,22 @@
             </RelativeLayout>
 
             <TextView
-                style="@style/TitleLayoutStyle"
+                style="@style/SingleTitleLayoutStyle"
                 android:text="@string/boiler" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
 
             <TextView
-                style="@style/TitleLayoutStyle"
+                style="@style/SingleTitleLayoutStyle"
                 android:text="@string/expense" />
 
             <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:layout_centerVertical="true"
                     android:text="@string/project_expense_with_colon" />
 
                 <TextView
@@ -98,7 +96,6 @@
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:layout_centerVertical="true"
                     android:text="@string/project_details_with_colon" />
 
                 <TextView
@@ -110,7 +107,7 @@
             </RelativeLayout>
 
             <TextView
-                style="@style/TitleLayoutStyle"
+                style="@style/SingleTitleLayoutStyle"
                 android:text="@string/other_problem" />
 
             <EditText
@@ -122,7 +119,7 @@
                 android:id="@+id/btnNextStep"
                 style="@style/NormalButtonStyle"
                 android:onClick="nextStepAction"
-                android:text="@string/next_step"
+                android:text="@string/submit"
                 android:textSize="@dimen/text_size_16" />
         </LinearLayout>
     </ScrollView>

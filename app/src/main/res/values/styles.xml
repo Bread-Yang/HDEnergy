@@ -16,13 +16,6 @@
         <item name="android:drawablePadding">@dimen/margin_8</item>
     </style>
 
-    <style name="TitleLayoutStyle" parent="NormalLayoutStyle">
-        <item name="android:layout_height">@dimen/size_44</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:textColor">@color/color_333333</item>
-        <item name="android:textSize">@dimen/text_size_16</item>
-    </style>
-
     <style name="FixHeightLayoutStyle" parent="NormalLayoutStyle">
         <item name="android:layout_height">@dimen/size_44</item>
     </style>
@@ -30,6 +23,17 @@
     <style name="WhiteFixHeightLayoutStyle" parent="NormalLayoutStyle">
         <item name="android:background">@color/color_white</item>
         <item name="android:layout_height">@dimen/size_44</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="TitleLayoutStyle" parent="NormalLayoutStyle">
+        <item name="android:layout_height">@dimen/size_44</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="SingleTitleLayoutStyle" parent="TitleLayoutStyle">
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/color_333333</item>
     </style>
 
     <style name="LargeEdittextLayoutStyle" parent="NormalLayoutStyle">
@@ -63,15 +67,17 @@
     <style name="NormalTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/color_333333</item>
         <item name="android:textColorHint">@color/color_999999</item>
+    </style>
+
+    <style name="TitleTextStyle" parent="NormalTextStyle">
+        <item name="android:textSize">@dimen/text_size_16</item>
     </style>
 
     <style name="DimTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/color_666666</item>
         <item name="android:textColorHint">@color/color_999999</item>
     </style>
@@ -86,7 +92,6 @@
     <style name="WithArrowIconTextStyle" parent="NormalTextStyle">
         <item name="android:drawablePadding">@dimen/margin_8</item>
         <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_centerVertical">true</item>
         <item name="android:drawableRight">@drawable/icon_neet</item>
     </style>
 
