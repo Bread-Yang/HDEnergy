@@ -51,7 +51,4 @@ public class RightContextFragment extends Fragment {
         return view;
     }
 
-//public ActionBarContextView getSupportActionBar() {
-//        return supportActionBar;
-//    }
 }

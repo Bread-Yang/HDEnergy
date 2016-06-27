@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#31C967"
@@ -12,87 +14,53 @@
         android:gravity="center_vertical"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@mipmap/ic_launcher" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civAvatar"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="@dimen/margin_6"
+            android:src="@drawable/bg_pic"
+            tools:src="@drawable/bg_pic" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/name"
+            android:textColor="@color/color_white"
             android:textSize="30sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <hdenergy.mdground.com.hdenergy.views.CustomImageButton
+        android:id="@+id/cibBasicInformation"
+        app:Src="@mipmap/ic_launcher"
+        app:titleText="@string/basic_information"
+        app:titleColor="@color/color_white"
+        android:layout_marginBottom="@dimen/margin_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@mipmap/ic_launcher" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:textSize="30sp" />
-    </LinearLayout>
+    <hdenergy.mdground.com.hdenergy.views.CustomImageButton
+        app:Src="@mipmap/ic_launcher"
+        app:titleText="@string/hostorcal_date_statistic"
+        android:layout_marginBottom="@dimen/margin_12"
+        android:layout_width="wrap_content"
+        app:titleColor="@color/color_white"
+        android:layout_height="wrap_content"/>
 
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <hdenergy.mdground.com.hdenergy.views.CustomImageButton
+        app:Src="@mipmap/ic_launcher"
+        app:titleText="@string/hostorcal_attence_statistic"
+        app:titleColor="@color/color_white"
+        android:layout_marginBottom="@dimen/margin_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@mipmap/ic_launcher" />
+    <hdenergy.mdground.com.hdenergy.views.CustomImageButton
+        app:Src="@mipmap/ic_launcher"
+        app:titleText="@string/setting"
+        app:titleColor="@color/color_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:textSize="30sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@mipmap/ic_launcher" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:textSize="30sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:gravity="center_vertical"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@mipmap/ic_launcher" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:textSize="30sp" />
-    </LinearLayout>
 </LinearLayout>

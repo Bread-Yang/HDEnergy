@@ -59,4 +59,15 @@
     <string name="fuel_consumption_with_colon">燃料耗量:</string>
     <string name="fuel_unit_consumption_with_colon">燃料单耗:</string>
 
+    <!--个人中心-->
+    <string name="basic_information">基本信息</string>
+    <string name="Name">姓名</string>
+    <string name="phone_nume">手机号码</string>
+    <string name="department">所在部门</string>
+    <string name="engineering">工程部</string>
+    <string name="used_option">常用选项</string>
+    <string name="used_project">常用项目</string>
+    <string name="hostorcal_date_statistic">历史数据统计</string>
+    <string name="hostorcal_attence_statistic">历史考勤统计</string>
+    <string name="setting">设置</string>
 </resources>

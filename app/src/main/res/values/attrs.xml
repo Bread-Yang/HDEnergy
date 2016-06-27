@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--主页侧滑的属性-->
     <attr name="titleText" format="string"></attr>
     <attr name="titleSize" format="dimension"></attr>
     <attr name="titleColor" format="color"></attr>
@@ -9,8 +10,25 @@
     <attr name="rightText" format="string"></attr>
     <attr name="rightTextSize" format="dimension"></attr>
     <attr name="rightMragin" format="dimension"></attr>
+
+    <!--带图文字的自定义属性-->
+    <attr name="ImgDrawWidth" format="dimension"></attr>
+    <attr name="ImgDrawHeight" format="dimension"></attr>
+    <attr name="Src" format="reference|integer"></attr>
+
     <declare-styleable name="SlidingMenu">
         <attr name="rightMragin"></attr>
+    </declare-styleable>
+
+    <!--像首页带图片按钮-->
+    <declare-styleable name="CustomImageButton">
+        <attr name="ImgDrawWidth"></attr>
+        <attr name="ImgDrawHeight"></attr>
+        <attr name="titleText"></attr>
+        <attr name="titleSize"></attr>
+        <attr name="titleColor"></attr>
+        <attr name="rightMragin"></attr>
+        <attr name="Src"></attr>
     </declare-styleable>
 
 </resources>
