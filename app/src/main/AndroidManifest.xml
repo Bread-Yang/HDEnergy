@@ -13,7 +13,11 @@
 
         </activity>
         <activity android:name=".activity.login.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.login.ForgetPasswordActivity"
@@ -22,11 +26,7 @@
         <activity
             android:name=".activity.datareport.DataReportActivity"
             android:label="@string/data_report">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.datareport.BoilerEditOneActivity"
@@ -34,6 +34,10 @@
         <activity
             android:name=".activity.datareport.BoilerEditTwoActivity"
             android:label="@string/data_report" />
+
+        <activity android:name=".activity.personalcenter.BasicInformationActivity"
+                  android:label="@string/basic_information"
+            ></activity>
     </application>
 
 </manifest>

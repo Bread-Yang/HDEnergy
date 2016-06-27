@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
+
     defaultConfig {
         applicationId "hdenergy.mdground.com.hdenergy"
         minSdkVersion 15
@@ -11,6 +12,23 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        debug {
+            storeFile file('MDGround_Keystore.jks')
+            storePassword "13560506833"
+            keyAlias "yoghourt"
+            keyPassword "13560506833"
+        }
+
+        release {
+            storeFile file('MDGround_Keystore.jks')
+            storePassword "13560506833"
+            keyAlias "yoghourt"
+            keyPassword "13560506833"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -29,16 +47,16 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    testCompile 'junit:junit:4.12'
 
-
-    compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha3'
+
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.malinskiy:superrecyclerview:1.1.4'
     compile 'joda-time:joda-time:2.9.3'
     compile 'com.github.zhaokaiqiang.klog:library:1.1.0'
-    testCompile 'junit:junit:4.12'
+    compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
 }
