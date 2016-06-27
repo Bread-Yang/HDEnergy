@@ -11,7 +11,6 @@
     <style name="NormalLayoutStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/color_white</item>
         <item name="android:paddingLeft">@dimen/margin_12</item>
         <item name="android:paddingRight">@dimen/margin_12</item>
         <item name="android:drawablePadding">@dimen/margin_8</item>
@@ -19,6 +18,32 @@
 
     <style name="FixHeightLayoutStyle" parent="NormalLayoutStyle">
         <item name="android:layout_height">@dimen/size_44</item>
+    </style>
+
+    <style name="WhiteFixHeightLayoutStyle" parent="NormalLayoutStyle">
+        <item name="android:background">@color/color_white</item>
+        <item name="android:layout_height">@dimen/size_44</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="TitleLayoutStyle" parent="NormalLayoutStyle">
+        <item name="android:layout_height">@dimen/size_44</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="SingleTitleLayoutStyle" parent="TitleLayoutStyle">
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/color_333333</item>
+    </style>
+
+    <style name="LargeEdittextLayoutStyle" parent="NormalLayoutStyle">
+        <item name="android:background">@color/color_white</item>
+        <item name="android:height">@dimen/size_200</item>
+        <item name="android:paddingTop">@dimen/margin_12</item>
+        <item name="android:gravity">top|left</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="DividerVerticalStyle">
@@ -42,15 +67,17 @@
     <style name="NormalTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/color_333333</item>
         <item name="android:textColorHint">@color/color_999999</item>
+    </style>
+
+    <style name="TitleTextStyle" parent="NormalTextStyle">
+        <item name="android:textSize">@dimen/text_size_16</item>
     </style>
 
     <style name="DimTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/color_666666</item>
         <item name="android:textColorHint">@color/color_999999</item>
     </style>
@@ -60,6 +87,24 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@drawable/selector_text_color_normal</item>
+    </style>
+
+    <style name="WithArrowIconTextStyle" parent="NormalTextStyle">
+        <item name="android:drawablePadding">@dimen/margin_8</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:drawableRight">@drawable/icon_neet</item>
+    </style>
+
+    <style name="NormalButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/size_44</item>
+        <item name="android:layout_marginLeft">@dimen/margin_24</item>
+        <item name="android:layout_marginRight">@dimen/margin_24</item>
+        <item name="android:paddingTop">@dimen/margin_6</item>
+        <item name="android:paddingBottom">@dimen/margin_6</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:background">@drawable/ripple_button_round_angle_green</item>
     </style>
 
     <style name="HomeImageStyle">

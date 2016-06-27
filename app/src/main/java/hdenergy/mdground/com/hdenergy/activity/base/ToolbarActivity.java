@@ -2,6 +2,7 @@ package hdenergy.mdground.com.hdenergy.activity.base;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,8 @@ import android.view.ViewStub;
 import android.widget.TextView;
 
 import hdenergy.mdground.com.hdenergy.R;
+
+import static hdenergy.mdground.com.hdenergy.R.id.toolbar;
 
 
 public abstract class ToolbarActivity<T extends ViewDataBinding> extends AppCompatActivity {
@@ -24,7 +27,7 @@ public abstract class ToolbarActivity<T extends ViewDataBinding> extends AppComp
 
         setContentView(R.layout.activity_toolbar);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(toolbar);
         setSupportActionBar(mToolbar);
 
         // 左边返回键
@@ -37,10 +40,11 @@ public abstract class ToolbarActivity<T extends ViewDataBinding> extends AppComp
         });
 
         // 标题
-        String title = (String) getSupportActionBar().getTitle();
-        tvTitle = ((TextView) mToolbar.findViewById(R.id.tvTitle));
-        tvTitle.setText(title);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        String title = (String) getSupportActionBar().getTitle();
+//        tvTitle = ((TextView) mToolbar.findViewById(R.id.tvTitle));
+//        tvTitle.setText(title);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mToolbar.setTitleTextColor(Color.WHITE);
 
         // 右边按钮
         tvRight = (TextView) mToolbar.findViewById(R.id.tvRight);

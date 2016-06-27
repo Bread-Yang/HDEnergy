@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/SingleTitleLayoutStyle"
+                android:text="@string/blow_in_duration" />
+
+            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/blow_in_duration_with_colon" />
+
+                <TextView
+                    style="@style/WithArrowIconTextStyle"
+                    android:hint="@string/please_choose_duration"
+                    android:textSize="@dimen/text_size_16" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnNextStep"
+                style="@style/NormalButtonStyle"
+                android:layout_marginTop="@dimen/margin_36"
+                android:onClick="nextStepAction"
+                android:text="@string/next_step"
+                android:textSize="@dimen/text_size_16" />
+        </LinearLayout>
+    </ScrollView>
+</layout>

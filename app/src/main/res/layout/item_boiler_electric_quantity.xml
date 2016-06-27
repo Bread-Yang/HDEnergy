@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="electricity"
+            type="hdenergy.mdground.com.hdenergy.models.Electricity" />
+
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <RelativeLayout style="@style/TitleLayoutStyle">
+
+            <TextView
+                style="@style/TitleTextStyle"
+                android:text="@string/electric_quantity" />
+
+            <ImageView
+                android:id="@+id/ivAddOrDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/icon_addition_pay" />
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+            <TextView
+                style="@style/DimTextStyle"
+                android:text="@{@string/initial_flow_index(position)}"
+                tools:text="@string/electric_quantity_with_colon" />
+
+            <TextView
+                android:id="@+id/tvElectircQuantity"
+                style="@style/WithArrowIconTextStyle"
+                android:textSize="@dimen/text_size_16"
+                tools:text="12345kw/h" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rltData"
+            style="@style/WhiteFixHeightLayoutStyle"
+            android:layout_marginTop="@dimen/margin_1"
+            android:onClick="SelectDataAction">
+
+            <TextView
+                style="@style/DimTextStyle"
+                android:text="@{@string/close_flow_index(position)}"
+                tools:text="@string/electric_quantity_two_with_colon" />
+
+            <TextView
+                android:id="@+id/tvElectircQuantityTwo"
+                style="@style/WithArrowIconTextStyle"
+                android:textSize="@dimen/text_size_16"
+                tools:text="1256" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/WhiteFixHeightLayoutStyle"
+            android:layout_marginTop="@dimen/margin_1">
+
+            <TextView
+                style="@style/DimTextStyle"
+                android:text="@string/electric_quantity_three_with_colon" />
+
+            <TextView
+                android:id="@+id/tvElectircQuantityThree"
+                style="@style/WithArrowIconTextStyle"
+                android:textSize="@dimen/text_size_16"
+                tools:text="25631" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/WhiteFixHeightLayoutStyle"
+            android:layout_marginTop="@dimen/margin_1">
+
+            <TextView
+                style="@style/DimTextStyle"
+                android:text="@string/electric_unit_consumption" />
+
+            <TextView
+                android:id="@+id/tvElectircUnitConsumption"
+                style="@style/WithArrowIconTextStyle"
+                android:textSize="@dimen/text_size_16"
+                tools:text="25631" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>
