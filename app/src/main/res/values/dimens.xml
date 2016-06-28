@@ -58,6 +58,7 @@
     <dimen name="size_88">88dp</dimen>
     <dimen name="size_74">74dp</dimen>
     <dimen name="size_72">72dp</dimen>
+    <dimen name="size_70">70dp</dimen>
     <dimen name="size_60">60dp</dimen>
     <dimen name="size_50">50dp</dimen>
     <dimen name="size_48">48dp</dimen>
@@ -67,7 +68,7 @@
     <dimen name="size_24">24dp</dimen>
     <dimen name="size_22">22dp</dimen>
     <dimen name="size_18">18dp</dimen>
-    <dimen name="size_6">6dp</dimen>
     <dimen name="size_14">14dp</dimen>
+    <dimen name="size_6">6dp</dimen>
 
 </resources>

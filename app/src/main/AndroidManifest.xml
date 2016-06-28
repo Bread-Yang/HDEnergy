@@ -33,6 +33,12 @@
             android:name=".activity.attendancereport.AttendanceReportActivity"
             android:label="@string/attendance_report" />
         <activity
+            android:name=".activity.projectstartstop.ProjectStartStopActivity"
+            android:label="@string/project_start_stop" />
+        <activity
+            android:name=".activity.projectstartstop.ProjectEditActivity"
+            android:label="@string/edit" />
+        <activity
             android:name=".activity.personalcenter.BasicInformationActivity"
             android:label="@string/basic_information" />
     </application>

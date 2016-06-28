@@ -71,7 +71,7 @@
                        android:orientation="vertical">
 
                        <LinearLayout
-                           android:id="@+id/ivDateRePort"
+                           android:id="@+id/lltDateReport"
                            android:layout_width="@dimen/size_164"
                            android:layout_height="@dimen/size_160"
                            android:background="@drawable/home_bg"
@@ -95,7 +95,7 @@
                        </LinearLayout>
 
                        <LinearLayout
-
+                           android:id="@+id/lltAttendanceReport"
                            android:layout_width="@dimen/size_164"
                            android:layout_height="@dimen/size_160"
                            android:background="@drawable/home_bg"
@@ -127,7 +127,7 @@
                        android:orientation="vertical">
 
                        <LinearLayout
-                           android:id="@+id/ivAttendanceReport"
+                           android:id="@+id/lltProjectStartStop"
                            android:layout_width="@dimen/size_164"
                            android:layout_height="@dimen/size_160"
                            android:background="@drawable/home_bg"

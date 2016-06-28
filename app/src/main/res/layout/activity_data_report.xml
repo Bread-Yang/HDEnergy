@@ -48,9 +48,9 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:onClick="selectSaleProductAction"
                 style="@style/WhiteFixHeightLayoutStyle"
-                android:layout_marginTop="@dimen/margin_1">
+                android:layout_marginTop="@dimen/margin_1"
+                android:onClick="selectSaleProductAction">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -84,8 +84,7 @@
 
                 <EditText
                     android:id="@+id/etProjectExpense"
-                    style="@style/WithArrowIconTextStyle"
-                    tools:text="用新" />
+                    style="@style/WithArrowIconTextStyle" />
 
             </RelativeLayout>
 
@@ -99,8 +98,7 @@
 
                 <EditText
                     android:id="@+id/etProjectDetail"
-                    style="@style/WithArrowIconTextStyle"
-                    tools:text="用新" />
+                    style="@style/WithArrowIconTextStyle" />
 
             </RelativeLayout>
 
