@@ -8,6 +8,7 @@
     <string name="network_unavailable">网络不可用,确保wifi或者移动网络是否已经打开</string>
     <string name="add">添加</string>
     <string name="delete">删除</string>
+    <string name="edit">编辑</string>
     <string name="submit">提交</string>
     <string name="please_input">请输入</string>
     <string name="already_input">已输入</string>
@@ -25,6 +26,9 @@
     <string name="auto_login">自动登录</string>
     <string name="forget_password">忘记密码？</string>
 
+    <!-- 公告 -->
+    <string name="announcement_list">公告列表</string>
+
     <!-- 数据汇报 -->
     <string name="data_report">数据汇报</string>
     <string name="project_status">项目情况</string>
@@ -39,7 +43,6 @@
     <string name="other_problem">其他问题</string>
     <string name="input_other_problem">可输入其他问题</string>
     <string name="next_step">下一步</string>
-
 
     <!-- 锅炉编辑1 -->
     <string name="blow_in_duration">开炉时长</string>
@@ -97,6 +100,18 @@
     <string name="rate">打分</string>
     <string name="rate_with_colon">打分:</string>
 
+    <!-- 项目启停 -->
+    <string name="project_start_stop">项目启停</string>
+    <string name="normal">正常</string>
+    <string name="maintain">维修</string>
+    <string name="shutdown">停炉</string>
+
+    <!-- 项目编辑 -->
+    <string name="status_with_colon">状态:</string>
+    <string name="start_time_with_colon">开始时间:</string>
+    <string name="end_time_with_colon">结束时间:</string>
+    <string name="reason_with_colon">原因:</string>
+
     <!--个人中心-->
     <string name="basic_information">基本信息</string>
     <string name="name">姓名</string>
@@ -110,7 +125,6 @@
     <string name="hostorical_attence_statistic">历史考勤统计</string>
     <string name="setting">设置</string>
     <string name="change_password">修改密码</string>
-    <string name="project_start_stop">项目启停</string>
     <string name="resonable_suggest">合理建议</string>
 
     <string name="yongxing">永新</string>

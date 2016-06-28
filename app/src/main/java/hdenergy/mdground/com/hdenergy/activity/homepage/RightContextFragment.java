@@ -13,8 +13,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import hdenergy.mdground.com.hdenergy.R;
+import hdenergy.mdground.com.hdenergy.activity.announcement.AnnouncementListActivity;
 import hdenergy.mdground.com.hdenergy.activity.attendancereport.AttendanceReportActivity;
 import hdenergy.mdground.com.hdenergy.activity.datareport.DataReportActivity;
+import hdenergy.mdground.com.hdenergy.activity.projectstartstop.ProjectStartStopActivity;
 import hdenergy.mdground.com.hdenergy.models.BannerItem;
 import hdenergy.mdground.com.hdenergy.views.SimpleImageBanner;
 
@@ -26,7 +28,7 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
     private View mTitleBar;
     private Toolbar mToolbar;
     private TextView tvTitle, tvRight;
-    private ArrayList<BannerItem> mArrayList=new ArrayList<>();
+    private ArrayList<BannerItem> mArrayList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -49,8 +51,10 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
         geUsertGuides();
         sib.setSource(mArrayList)
                 .startScroll();                  //获取图片列表并滚动
-        view.findViewById(R.id.ivDateRePort).setOnClickListener(this);
-        view.findViewById(R.id.ivAttendanceReport).setOnClickListener(this);
+        view.findViewById(R.id.tvRight).setOnClickListener(this);
+        view.findViewById(R.id.lltDateReport).setOnClickListener(this);
+        view.findViewById(R.id.lltAttendanceReport).setOnClickListener(this);
+        view.findViewById(R.id.lltProjectStartStop).setOnClickListener(this);
 
         return view;
     }
@@ -58,25 +62,38 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ivDateRePort: {
+            case R.id.tvRight: {
+                Intent intent = new Intent(getActivity(), AnnouncementListActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+            case R.id.lltDateReport: {
                 Intent intent = new Intent(getActivity(), DataReportActivity.class);
                 startActivity(intent);
                 break;
             }
 
-            case R.id.ivAttendanceReport: {
+            case R.id.lltAttendanceReport: {
                 Intent intent = new Intent(getActivity(), AttendanceReportActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+            case R.id.lltProjectStartStop: {
+                Intent intent = new Intent(getActivity(), ProjectStartStopActivity.class);
                 startActivity(intent);
                 break;
             }
         }
     }
+
     //没有网络广播的时候
     public void geUsertGuides() {
-        BannerItem bannerItem=new BannerItem();
+        BannerItem bannerItem = new BannerItem();
         bannerItem.setmLoadImage(R.drawable.home_banner);
         mArrayList.add(bannerItem);
-        BannerItem bannerItem1=new BannerItem();
+        BannerItem bannerItem1 = new BannerItem();
         bannerItem1.setmLoadImage(R.drawable.home_banners);
         mArrayList.add(bannerItem1);
     }

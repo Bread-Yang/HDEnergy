@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="boiler"
+            type="hdenergy.mdground.com.hdenergy.models.Boiler" />
+
+        <variable
+            name="position"
+            type="Integer" />
+
+    </data>
+
+    <LinearLayout
+        style="@style/WhiteFixHeightLayoutStyle"
+        android:layout_height="@dimen/size_70"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/viewStatus"
+                    android:layout_width="@dimen/size_14"
+                    android:layout_height="@dimen/size_14"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:background="@color/color_31C967" />
+
+                <TextView
+                    style="@style/NormalTextStyle"
+                    android:layout_marginLeft="@dimen/margin_16"
+                    android:text="火炉维修"
+                    android:textSize="@dimen/text_size_16" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="2016/12/28 12:00"
+                    android:textSize="@dimen/text_size_12" />
+
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:text="2016/12/28 12:00"
+                    android:textSize="@dimen/text_size_12" />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/NormalTextStyle"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="永新"
+                android:textSize="@dimen/text_size_18" />
+
+        </LinearLayout>
+
+        <View style="@style/DividerHorizontalStyle" />
+    </LinearLayout>
+
+</layout>

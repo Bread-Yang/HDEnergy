@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_height="@dimen/size_70"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/project_with_colon" />
+
+                <TextView
+                    style="@style/NormalTextStyle"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:text="永新"
+                    android:textSize="@dimen/text_size_16" />
+            </LinearLayout>
+
+
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_height="@dimen/size_70"
+                android:layout_marginTop="@dimen/margin_1">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/DimTextStyle"
+                        android:text="@string/status_with_colon" />
+
+                    <TextView
+                        style="@style/NormalTextStyle"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:text="维修"
+                        android:textSize="@dimen/text_size_16" />
+                </LinearLayout>
+
+                <TextView style="@style/WithArrowIconTextStyle" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_height="@dimen/size_70"
+                android:layout_marginTop="@dimen/margin_1">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/DimTextStyle"
+                        android:text="@string/start_time_with_colon" />
+
+                    <TextView
+                        style="@style/NormalTextStyle"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:text="2016/1/1 12:00:00"
+                        android:textSize="@dimen/text_size_16" />
+                </LinearLayout>
+
+                <TextView style="@style/WithArrowIconTextStyle" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_height="@dimen/size_70"
+                android:layout_marginTop="@dimen/margin_1">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/DimTextStyle"
+                        android:text="@string/end_time_with_colon" />
+
+                    <TextView
+                        style="@style/NormalTextStyle"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:text="2016/1/1 12:00:00"
+                        android:textSize="@dimen/text_size_16" />
+                </LinearLayout>
+
+                <TextView style="@style/WithArrowIconTextStyle" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_height="@dimen/size_70"
+                android:layout_marginTop="@dimen/margin_1">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/DimTextStyle"
+                        android:text="@string/reason_with_colon" />
+
+                    <TextView
+                        style="@style/NormalTextStyle"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:text="太累了"
+                        android:textSize="@dimen/text_size_16" />
+                </LinearLayout>
+
+                <TextView style="@style/WithArrowIconTextStyle" />
+
+            </RelativeLayout>
+
+
+            <Button
+                android:id="@+id/btnNextStep"
+                style="@style/NormalButtonStyle"
+                android:layout_marginTop="@dimen/margin_48"
+                android:onClick="nextStepAction"
+                android:text="@string/submit"
+                android:textSize="@dimen/text_size_16" />
+        </LinearLayout>
+    </ScrollView>
+</layout>

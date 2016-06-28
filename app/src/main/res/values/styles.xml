@@ -100,7 +100,7 @@
     <style name="WithArrowIconTextStyle" parent="NormalTextStyle">
         <item name="android:drawablePadding">@dimen/margin_8</item>
         <item name="android:layout_alignParentRight">true</item>
-        <item name="android:drawableRight">@drawable/icon_neet</item>
+        <item name="android:drawableRight">@drawable/icon_more</item>
         <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
