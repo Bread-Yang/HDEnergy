@@ -22,10 +22,10 @@ public class CustomImageButton extends RelativeLayout{
     private LayoutParams mImageLayoutParams;
     private LayoutParams mTextLayoutParams;
     private TextView mTextView;
-    private int mImageRightMargin=28;
-    private int mImageHight=50;
-    private int mImageWidth=50;
-    private int mTextSize=22;
+    private int mImageRightMargin=22;
+    private int mImageHight=30;
+    private int mImageWidth=30;
+    private int mTextSize=16;
     private int mTextColor;
     private String mTextString;
     private int mSrc;
@@ -52,14 +52,14 @@ public class CustomImageButton extends RelativeLayout{
 
         mImageView=new ImageView(context);
         mImageLayoutParams=new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        mImageLayoutParams.setMargins(0,0,0,0);
+        mImageLayoutParams.setMargins(0,mImageRightMargin,0,0);
         mImageLayoutParams.addRule(ALIGN_PARENT_LEFT|CENTER_VERTICAL);
         mImageView.setImageResource(mSrc);
         addView(mImageView,mImageLayoutParams);
 
         mTextView=new TextView(context);
         mTextLayoutParams=new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        mTextLayoutParams.setMargins(mImageWidth,0,0,0);
+            mTextLayoutParams.setMargins(0,0,0,0);
         mTextLayoutParams.addRule(ALIGN_PARENT_RIGHT|CENTER_VERTICAL);
         mTextView.setText(mTextString);
         mTextView.setTextSize(mTextSize);

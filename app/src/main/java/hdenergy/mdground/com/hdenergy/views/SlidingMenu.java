@@ -59,7 +59,6 @@ public class SlidingMenu extends HorizontalScrollView {
             KLog.e("左侧宽度"+String.valueOf(menuWidth));
             menu.getLayoutParams().width=menuWidth;
             home.getLayoutParams().width=mScreenWidth;
-            once=true;
         }
     }
     //定义它的布局，一开始Menu是隐藏的

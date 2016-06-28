@@ -4,7 +4,7 @@
      xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#31C967"
+    android:background="@color/color_31C967"
     android:paddingLeft="30dp"
     android:orientation="vertical">
 
@@ -12,52 +12,53 @@
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/size_50"
         android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civAvatar"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_margin="@dimen/margin_6"
-            android:src="@drawable/bg_pic"
-            tools:src="@drawable/bg_pic" />
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="@dimen/margin_12"
+            android:src="@drawable/home_banner"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/name"
             android:textColor="@color/color_white"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
     </LinearLayout>
 
     <hdenergy.mdground.com.hdenergy.views.CustomImageButton
         android:id="@+id/cibBasicInformation"
-        app:Src="@mipmap/ic_launcher"
+        app:Src="@drawable/tab_left_icon_information"
         app:titleText="@string/basic_information"
         app:titleColor="@color/color_white"
-        android:layout_marginBottom="@dimen/margin_12"
+        android:layout_marginBottom="@dimen/size_18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
 
     <hdenergy.mdground.com.hdenergy.views.CustomImageButton
-        app:Src="@mipmap/ic_launcher"
+        app:Src="@drawable/tab_left_icon_date"
         app:titleText="@string/hostorcal_date_statistic"
-        android:layout_marginBottom="@dimen/margin_12"
+        android:layout_marginBottom="@dimen/size_18"
         android:layout_width="wrap_content"
         app:titleColor="@color/color_white"
         android:layout_height="wrap_content"/>
 
     <hdenergy.mdground.com.hdenergy.views.CustomImageButton
-        app:Src="@mipmap/ic_launcher"
+        app:Src="@drawable/tab_left_icon_kaoqin"
         app:titleText="@string/hostorcal_attence_statistic"
         app:titleColor="@color/color_white"
-        android:layout_marginBottom="@dimen/margin_12"
+        android:layout_marginBottom="@dimen/size_18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <hdenergy.mdground.com.hdenergy.views.CustomImageButton
-        app:Src="@mipmap/ic_launcher"
+        app:Src="@drawable/tab_left_icon_setting"
         app:titleText="@string/setting"
         app:titleColor="@color/color_white"
         android:layout_width="wrap_content"

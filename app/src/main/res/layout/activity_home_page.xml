@@ -11,15 +11,15 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        custom:rightMragin="80dp">
+        custom:rightMragin="150dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorTheme"
+                android:background="@color/color_31C967"
             android:orientation="horizontal"
             >
             <LinearLayout
-                android:background="@color/colorTheme"
+                android:background="@color/color_31C967"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -34,7 +34,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bb">
+                    >
                     <fragment
                         android:name="hdenergy.mdground.com.hdenergy.activity.homepage.RightContextFragment"
                         android:id="@+id/ftRightContext"
