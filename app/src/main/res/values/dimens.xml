@@ -70,4 +70,5 @@
     <dimen name="size_216">216dp</dimen>
     <dimen name="size_164">164dp</dimen>
     <dimen name="size_136">137dp</dimen>
+    <dimen name="margin_14">14dp</dimen>
 </resources>
