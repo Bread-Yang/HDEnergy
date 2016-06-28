@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       >
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:gravity="center_horizontal"
+           android:orientation="vertical">
+
+           <TextView
+               style="@style/FixHeightLayoutStyle"
+               android:text="@string/project_status"
+               android:gravity="center_vertical"
+               android:textSize="@dimen/text_size_18"
+               android:textColor="@color/color_404040"
+               />
+
+           <LinearLayout
+               style="@style/WhiteFixHeightLayoutStyle"
+               android:orientation="horizontal"
+               android:gravity="center_vertical"
+               >
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/report_people"
+                   android:textSize="@dimen/text_size_14"
+                   android:gravity="center_vertical"
+                   android:textColor="@color/color_9A9A9A"
+                   />
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/color_404040"
+                   android:textSize="@dimen/text_size_18"
+                   tools:text="@string/yongxing"
+                   android:layout_weight="1"
+                   android:gravity="right"
+                   />
+           </LinearLayout>
+
+           <View style="@style/DividerHorizontalStyle"></View>
+
+           <LinearLayout
+               style="@style/WhiteFixHeightLayoutStyle"
+               android:orientation="horizontal"
+               android:gravity="center_vertical"
+               >
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/data_with_colon"
+                   android:textSize="@dimen/text_size_14"
+                   android:gravity="center_vertical"
+                   android:textColor="@color/color_9A9A9A"
+                   />
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/color_404040"
+                   android:textSize="@dimen/text_size_18"
+                   tools:text="@string/yongxing"
+                   android:layout_weight="1"
+                   android:gravity="right"
+                   />
+
+           </LinearLayout>
+
+           <View style="@style/DividerHorizontalStyle"></View>
+
+           <LinearLayout
+               style="@style/WhiteFixHeightLayoutStyle"
+               android:orientation="horizontal"
+               android:gravity="center_vertical"
+               >
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/sale_product_with_colon"
+                   android:textSize="@dimen/text_size_14"
+                   android:gravity="center_vertical"
+                   android:textColor="@color/color_9A9A9A"
+                   />
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/color_404040"
+                   android:textSize="@dimen/text_size_18"
+                   tools:text="@string/yongxing"
+                   android:layout_weight="1"
+                   android:gravity="right"
+                   />
+
+           </LinearLayout>
+
+           <View style="@style/DividerHorizontalStyle"></View>
+
+           <TextView
+               style="@style/FixHeightLayoutStyle"
+               android:text="@string/boiler"
+               android:gravity="center_vertical"
+               android:textSize="@dimen/text_size_18"
+               android:textColor="@color/color_404040"
+               />
+
+           <LinearLayout
+               style="@style/WhiteFixHeightLayoutStyle"
+               android:orientation="horizontal"
+               android:gravity="center_vertical"
+               >
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/boiler_a"
+                   android:textSize="@dimen/text_size_14"
+                   android:gravity="center_vertical"
+                   android:textColor="@color/color_9A9A9A"
+                   />
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/color_9A9A9A"
+                   android:textSize="@dimen/text_size_14"
+                   android:text="请查看"
+                   android:layout_weight="1"
+                   android:gravity="right"
+                   />
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/icon_more"
+                   />
+
+           </LinearLayout>
+
+           <View style="@style/DividerHorizontalStyle"></View>
+
+           <LinearLayout
+               style="@style/WhiteFixHeightLayoutStyle"
+               android:orientation="horizontal"
+               android:gravity="center_vertical"
+               >
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/boiler_b"
+                   android:textSize="@dimen/text_size_14"
+                   android:gravity="center_vertical"
+                   android:textColor="@color/color_9A9A9A"
+                   />
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/color_9A9A9A"
+                   android:textSize="@dimen/text_size_14"
+                   android:text="请查看"
+                   android:layout_weight="1"
+                   android:gravity="right"
+                   />
+
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/icon_more"
+                   />
+
+           </LinearLayout>
+
+           <TextView
+               style="@style/FixHeightLayoutStyle"
+               android:text="@string/expense"
+               android:gravity="center_vertical"
+               android:textSize="@dimen/text_size_18"
+               android:textColor="@color/color_404040"
+               />
+
+           <LinearLayout
+               style="@style/WhiteFixHeightLayoutStyle"
+               android:orientation="horizontal"
+               android:gravity="center_vertical"
+               >
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/project_date_expanse"
+                   android:textSize="@dimen/text_size_14"
+                   android:gravity="center_vertical"
+                   android:textColor="@color/color_9A9A9A"
+                   />
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/color_404040"
+                   android:textSize="@dimen/text_size_18"
+                   tools:text="@string/yongxing"
+                   android:layout_weight="1"
+                   android:gravity="right"
+                   />
+
+           </LinearLayout>
+
+           <View style="@style/DividerHorizontalStyle"></View>
+
+           <LinearLayout
+               style="@style/WhiteFixHeightLayoutStyle"
+               android:orientation="horizontal"
+               android:gravity="center_vertical"
+               >
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/expanse_detail"
+                   android:textSize="@dimen/text_size_14"
+                   android:gravity="center_vertical"
+                   android:textColor="@color/color_9A9A9A"
+                   />
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/color_404040"
+                   android:textSize="@dimen/text_size_18"
+                   tools:text="@string/yongxing"
+                   android:layout_weight="1"
+                   android:gravity="right"
+                   />
+
+           </LinearLayout>
+
+           <TextView
+               style="@style/FixHeightLayoutStyle"
+               android:text="@string/other_problem"
+               android:gravity="center_vertical"
+               android:textSize="@dimen/text_size_18"
+               android:textColor="@color/color_404040"
+               />
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="@color/color_white"
+               android:orientation="horizontal"
+               android:padding="@dimen/_margin_8"
+               >
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textSize="@dimen/text_size_18"
+                   android:layout_margin="@dimen/margin_8"
+                   android:textColor="@color/color_404040"
+                   tools:text="dfsdfdsfdsfds"
+                   />
+           </LinearLayout>
+       </LinearLayout>
+   </ScrollView>
+
+</layout>

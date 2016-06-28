@@ -120,6 +120,10 @@
     <string name="waters_untit_consumption">水消耗：</string>
     <string name="profit">利润:</string>
     <string name="question">问题:</string>
-
+    <string name="report_people">汇报人:</string>
+    <string name="boiler_a">锅炉A：</string>
+    <string name="boiler_b">锅炉B：</string>
+    <string name="project_date_expanse">项目日费用：</string>
+    <string name="expanse_detail">费用明细</string>
 
 </resources>
