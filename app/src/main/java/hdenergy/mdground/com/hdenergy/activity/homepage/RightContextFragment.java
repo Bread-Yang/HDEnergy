@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import hdenergy.mdground.com.hdenergy.R;
+import hdenergy.mdground.com.hdenergy.activity.announcement.AnnouncementListActivity;
 import hdenergy.mdground.com.hdenergy.activity.attendancereport.AttendanceReportActivity;
 import hdenergy.mdground.com.hdenergy.activity.datareport.DataReportActivity;
 import hdenergy.mdground.com.hdenergy.activity.projectstartstop.ProjectStartStopActivity;
@@ -50,6 +51,7 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
         geUsertGuides();
         sib.setSource(mArrayList)
                 .startScroll();                  //获取图片列表并滚动
+        view.findViewById(R.id.tvRight).setOnClickListener(this);
         view.findViewById(R.id.lltDateReport).setOnClickListener(this);
         view.findViewById(R.id.lltAttendanceReport).setOnClickListener(this);
         view.findViewById(R.id.lltProjectStartStop).setOnClickListener(this);
@@ -60,6 +62,12 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tvRight: {
+                Intent intent = new Intent(getActivity(), AnnouncementListActivity.class);
+                startActivity(intent);
+                break;
+            }
+
             case R.id.lltDateReport: {
                 Intent intent = new Intent(getActivity(), DataReportActivity.class);
                 startActivity(intent);

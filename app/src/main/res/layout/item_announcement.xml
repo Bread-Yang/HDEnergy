@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="boiler"
+            type="hdenergy.mdground.com.hdenergy.models.Boiler" />
+
+        <variable
+            name="position"
+            type="Integer" />
+
+    </data>
+
+    <LinearLayout
+        style="@style/WhiteFixHeightLayoutStyle"
+        android:layout_height="@dimen/size_120"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/NormalTextStyle"
+                android:layout_marginTop="@dimen/margin_15"
+                android:text="Three-line item"
+                android:textSize="@dimen/text_size_16" />
+
+            <TextView
+                android:id="@+id/tvContent"
+                style="@style/DimTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/tvTitle"
+                android:layout_marginTop="@dimen/margin_8"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容" />
+
+            <TextView
+                style="@style/DimTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tvContent"
+                android:layout_marginTop="@dimen/margin_12"
+                android:gravity="center"
+                android:text="2016-02-21" />
+
+        </RelativeLayout>
+
+        <View style="@style/DividerHorizontalStyle" />
+    </LinearLayout>
+
+</layout>
