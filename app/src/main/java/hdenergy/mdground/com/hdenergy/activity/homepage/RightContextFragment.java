@@ -10,9 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.attendancereport.AttendanceReportActivity;
 import hdenergy.mdground.com.hdenergy.activity.datareport.DataReportActivity;
+import hdenergy.mdground.com.hdenergy.models.BannerItem;
+import hdenergy.mdground.com.hdenergy.views.SimpleImageBanner;
 
 /**
  * Created by PC on 2016-06-24.
@@ -20,8 +24,9 @@ import hdenergy.mdground.com.hdenergy.activity.datareport.DataReportActivity;
 
 public class RightContextFragment extends Fragment implements View.OnClickListener {
     private View mTitleBar;
-    protected Toolbar mToolbar;
-    protected TextView tvTitle, tvRight;
+    private Toolbar mToolbar;
+    private TextView tvTitle, tvRight;
+    private ArrayList<BannerItem> mArrayList=new ArrayList<>();
 
     @Nullable
     @Override
@@ -29,26 +34,31 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
         View view = inflater.inflate(R.layout.fragment_right_context, container, false);
         mToolbar = (Toolbar) view.findViewById(R.id.toolbars);
         // 左边返回键
-        mToolbar.setNavigationIcon(R.drawable.btn_return_public);
+        mToolbar.setNavigationIcon(R.drawable.nav_icon_menu);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finish();
+                HomeActivity.mSlidingMenu.toggle();
             }
         });
 
         // 标题
         tvTitle = ((TextView) mToolbar.findViewById(R.id.tvTitle));
-        tvTitle.setText(R.string.home_page);
-        view.findViewById(R.id.ivDateReport).setOnClickListener(this);
+        tvTitle.setText(R.string.app_name);
+        SimpleImageBanner sib = (SimpleImageBanner) view.findViewById(R.id.simpleImageBanner);
+        geUsertGuides();
+        sib.setSource(mArrayList)
+                .startScroll();                  //获取图片列表并滚动
+        view.findViewById(R.id.ivDateRePort).setOnClickListener(this);
         view.findViewById(R.id.ivAttendanceReport).setOnClickListener(this);
+
         return view;
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ivDateReport: {
+            case R.id.ivDateRePort: {
                 Intent intent = new Intent(getActivity(), DataReportActivity.class);
                 startActivity(intent);
                 break;
@@ -61,4 +71,14 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
             }
         }
     }
+    //没有网络广州的时候
+    public void geUsertGuides() {
+        BannerItem bannerItem=new BannerItem();
+        bannerItem.setmLoadImage(R.drawable.home_banners);
+        mArrayList.add(bannerItem);
+        BannerItem bannerItem1=new BannerItem();
+        bannerItem1.setmLoadImage(R.drawable.home_banner);
+        mArrayList.add(bannerItem1);
+    }
+
 }

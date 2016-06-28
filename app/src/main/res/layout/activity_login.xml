@@ -84,7 +84,7 @@
                 android:button="@drawable/selector_radio_auto_login"
                 android:paddingLeft="@dimen/margin_10"
                 android:textColor="@color/color_black"
-                android:text="@string/autoLogin"
+                android:text="@string/auto_login"
                 android:textSize="@dimen/text_size_14" />
 
             <TextView
@@ -93,7 +93,7 @@
                 android:layout_centerVertical="true"
                 android:clickable="true"
                 android:onClick="forgetPasswordAction"
-                android:text="@string/forgetPassword"
+                android:text="@string/forget_password"
                 android:textColor="@color/color_00943F"
                 android:textSize="@dimen/text_size_14" />
 

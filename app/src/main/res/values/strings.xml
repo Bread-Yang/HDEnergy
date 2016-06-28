@@ -40,6 +40,7 @@
     <string name="input_other_problem">可输入其他问题</string>
     <string name="next_step">下一步</string>
 
+
     <!-- 锅炉编辑1 -->
     <string name="blow_in_duration">开炉时长</string>
     <string name="blow_in_duration_with_colon">开炉时长:</string>
@@ -107,4 +108,7 @@
     <string name="hostorical_data_statistic">历史数据统计</string>
     <string name="hostorical_attence_statistic">历史考勤统计</string>
     <string name="setting">设置</string>
+
+    <string name="project_start_stop">项目启停</string>
+    <string name="resonable_suggest">合理建议</string>
 </resources>
