@@ -53,13 +53,13 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
     }
 
-
     //region  ACTION
     public void nextStepAction(View view) {
 
     }
     //endregion
 
+    //region ADAPTER
     class EditTwoAdapter extends RecyclerView.Adapter<EditTwoAdapter.ViewHolder> {
 
         @Override
@@ -113,4 +113,5 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
             }
         }
     }
+    //endregion
 }

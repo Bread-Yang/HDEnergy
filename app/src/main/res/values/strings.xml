@@ -19,7 +19,7 @@
     <string name="reset_password">重设密码</string>
     <string name="input_password">请输入密码</string>
     <string name="homePage">首页</string>
-    <string name="name">人名</string>
+    <string name="people_name">人名</string>
 
     <!-- 忘记密码 -->
     <string name="autoLogin">自动登录</string>
@@ -73,15 +73,19 @@
     <string name="fuel_consumption_with_colon">燃料耗量:</string>
     <string name="fuel_unit_consumption_with_colon">燃料单耗:</string>
 
+    <!-- 考勤汇报 -->
+    <string name="attendance_report">考勤汇报</string>
+    <string name="department">部门</string>
+
     <!--个人中心-->
     <string name="basic_information">基本信息</string>
-    <string name="Name">姓名</string>
-    <string name="phone_nume">手机号码</string>
-    <string name="department">所在部门</string>
-    <string name="engineering">工程部</string>
-    <string name="used_option">常用选项</string>
-    <string name="used_project">常用项目</string>
-    <string name="hostorcal_date_statistic">历史数据统计</string>
+    <string name="name">姓名</string>
+    <string name="phone_num">手机号码</string>
+    <string name="belongs_department">所在部门</string>
+    <string name="engineering_department">工程部</string>
+    <string name="common_option">常用选项</string>
+    <string name="common_project">常用项目</string>
+    <string name="hostorcal_data_statistic">历史数据统计</string>
     <string name="hostorcal_attence_statistic">历史考勤统计</string>
     <string name="setting">设置</string>
 </resources>
