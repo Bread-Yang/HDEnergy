@@ -58,10 +58,10 @@
 
            </RelativeLayout>
 
-           <View style="@style/DividerHorizontalStyle"/>
 
            <RelativeLayout
                style="@style/WhiteFixHeightLayoutStyle"
+               android:layout_marginTop="@dimen/margin_1"
                android:gravity="center_vertical">
 
                <TextView
@@ -75,9 +75,9 @@
 
            </RelativeLayout>
 
-           <View style="@style/DividerHorizontalStyle"/>
 
            <RelativeLayout
+               android:layout_marginTop="@dimen/margin_1"
                style="@style/WhiteFixHeightLayoutStyle"
                android:gravity="center_vertical">
 
@@ -116,42 +116,47 @@
                    <TextView
                        style="@style/DimTextStyle"
                        android:text="@string/common_project"
+                       android:layout_centerVertical="true"
                        android:layout_alignParentLeft="true"/>
 
                    <ImageView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:src="@drawable/icon_more"
+                       android:layout_centerVertical="true"
                        android:layout_alignParentRight="true" />
 
                </RelativeLayout>
 
-               <View style="@style/DividerHorizontalStyle"/>
 
                <RelativeLayout
+                   android:layout_marginTop="@dimen/margin_1"
                    style="@style/FixHeightLayoutStyle"
                    android:gravity="center_vertical">
 
                    <TextView
                        style="@style/DimTextStyle"
                        android:text="@string/common_contact"
+                       android:layout_centerVertical="true"
                        android:layout_alignParentLeft="true"/>
 
                    <ImageView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:src="@drawable/icon_more"
+                       android:layout_centerVertical="true"
                        android:layout_alignParentRight="true" />
 
                </RelativeLayout>
 
-               <View style="@style/DividerHorizontalStyle"/>
 
                <RelativeLayout
+                   android:layout_marginTop="@dimen/margin_1"
                    style="@style/FixHeightLayoutStyle"
                    android:gravity="center_vertical">
 
                    <TextView
+                       android:layout_centerVertical="true"
                        style="@style/DimTextStyle"
                        android:text="@string/change_password"
                        android:layout_alignParentLeft="true"/>
@@ -160,6 +165,7 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:src="@drawable/icon_more"
+                       android:layout_centerVertical="true"
                        android:layout_alignParentRight="true" />
 
                </RelativeLayout>

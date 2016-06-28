@@ -26,7 +26,6 @@
     <dimen name="margin_2">2dp</dimen>
     <dimen name="margin_1">1dp</dimen>
     <dimen name="margin_0">0dp</dimen>
-    <dimen name="_margin_1">-1dp</dimen>
     <dimen name="text_size_30">30sp</dimen>
     <dimen name="text_size_28">28sp</dimen>
     <dimen name="text_size_24">24sp</dimen>
