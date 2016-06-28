@@ -14,7 +14,6 @@
             android:id="@+id/toolbars"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_1"
             android:background="@color/color_green"
             android:minHeight="?attr/actionBarSize">
 
@@ -51,6 +50,7 @@
                 android:id="@+id/simpleImageBanner"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/size_216"
+                android:background="@color/color_999999"
                 android:layout_marginBottom="@dimen/text_size_14"
                 app:bb_scale="0.8"/>
                <ScrollView
