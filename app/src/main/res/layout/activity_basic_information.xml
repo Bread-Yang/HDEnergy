@@ -31,7 +31,7 @@
 
           <LinearLayout
             android:layout_width="match_parent"
-              android:layout_height="@dimen/size_44"
+              android:layout_height="@dimen/size_50"
               android:gravity="center_vertical"
               android:paddingLeft="@dimen/margin_12"
               android:orientation="vertical">
@@ -48,7 +48,7 @@
 
              <TextView
                style="@style/DimTextStyle"
-                 android:text="@string/Name"
+                 android:text="@string/name"
                  android:layout_alignParentLeft="true"/>
 
                <TextView
@@ -66,7 +66,7 @@
 
                <TextView
                    style="@style/DimTextStyle"
-                   android:text="@string/phone_nume"
+                   android:text="@string/phone_num"
                    android:layout_alignParentLeft="true"/>
                <TextView
                    style="@style/NormalTextStyle"
@@ -83,24 +83,24 @@
 
                <TextView
                    style="@style/DimTextStyle"
-                   android:text="@string/department"
+                   android:text="@string/belongs_department"
                    android:layout_alignParentLeft="true"/>
                <TextView
                    style="@style/NormalTextStyle"
-                   tools:text="@string/engineering"
+                   tools:text="@string/engineering_department"
                    android:layout_alignParentRight="true"/>
            </RelativeLayout>
 
            <LinearLayout
                android:layout_width="match_parent"
-               android:layout_height="@dimen/size_44"
+               android:layout_height="@dimen/size_50"
                android:gravity="center_vertical"
                android:paddingLeft="@dimen/margin_12"
                android:orientation="vertical">
 
                <TextView
                    style="@style/NormalTextStyle"
-                   android:text="@string/used_option" />
+                   android:text="@string/common_option" />
            </LinearLayout>
            <LinearLayout
                android:layout_width="match_parent"
@@ -115,7 +115,7 @@
 
                    <TextView
                        style="@style/DimTextStyle"
-                       android:text="@string/used_project"
+                       android:text="@string/common_project"
                        android:layout_alignParentLeft="true"/>
 
                    <ImageView
@@ -133,7 +133,7 @@
 
                    <TextView
                        style="@style/DimTextStyle"
-                       android:text="@string/used_project"
+                       android:text="@string/common_project"
                        android:layout_alignParentLeft="true"/>
 
                    <ImageView
@@ -151,7 +151,7 @@
 
                    <TextView
                        style="@style/DimTextStyle"
-                       android:text="@string/used_project"
+                       android:text="@string/common_project"
                        android:layout_alignParentLeft="true"/>
 
                    <ImageView

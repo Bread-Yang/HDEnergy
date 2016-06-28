@@ -17,17 +17,17 @@
     </style>
 
     <style name="FixHeightLayoutStyle" parent="NormalLayoutStyle">
-        <item name="android:layout_height">@dimen/size_44</item>
+        <item name="android:layout_height">@dimen/size_50</item>
     </style>
 
     <style name="WhiteFixHeightLayoutStyle" parent="NormalLayoutStyle">
         <item name="android:background">@color/color_white</item>
-        <item name="android:layout_height">@dimen/size_44</item>
+        <item name="android:layout_height">@dimen/size_50</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="TitleLayoutStyle" parent="NormalLayoutStyle">
-        <item name="android:layout_height">@dimen/size_44</item>
+        <item name="android:layout_height">@dimen/size_50</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 
@@ -93,11 +93,12 @@
         <item name="android:drawablePadding">@dimen/margin_8</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:drawableRight">@drawable/icon_neet</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
     </style>
 
     <style name="NormalButtonStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/size_44</item>
+        <item name="android:layout_height">@dimen/size_50</item>
         <item name="android:layout_marginLeft">@dimen/margin_24</item>
         <item name="android:layout_marginRight">@dimen/margin_24</item>
         <item name="android:paddingTop">@dimen/margin_6</item>

@@ -123,7 +123,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             }
 
             if (isHeader(position)) {
-                ivAddOrDelete.setImageResource(R.drawable.icon_addition_pay);
+                ivAddOrDelete.setImageResource(R.drawable.add);
 
                 ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -143,7 +143,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                     }
                 });
             } else {
-                ivAddOrDelete.setImageResource(R.drawable.icon_reduce_pay);
+                ivAddOrDelete.setImageResource(R.drawable.delete);
 
                 ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
