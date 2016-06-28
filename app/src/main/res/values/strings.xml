@@ -125,5 +125,6 @@
     <string name="boiler_b">锅炉B：</string>
     <string name="project_date_expanse">项目日费用：</string>
     <string name="expanse_detail">费用明细</string>
+    <string name="date_details">数据详情</string>
 
 </resources>
