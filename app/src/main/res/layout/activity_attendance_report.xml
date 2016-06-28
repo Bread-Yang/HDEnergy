@@ -20,10 +20,9 @@
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:text="@string/project_with_colon" />
+                    android:text="@string/department_with_colon" />
 
                 <TextView
-                    android:id="@+id/tvProject"
                     style="@style/WithArrowIconTextStyle"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
@@ -38,10 +37,9 @@
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:text="@string/data_with_colon" />
+                    android:text="@string/project_with_colon" />
 
                 <TextView
-                    android:id="@+id/tvData"
                     style="@style/WithArrowIconTextStyle"
                     android:textSize="@dimen/text_size_16"
                     tools:text="2016-04-11" />
@@ -53,10 +51,9 @@
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:text="@string/sale_product_with_colon" />
+                    android:text="@string/name_with_colon" />
 
                 <TextView
-                    android:id="@+id/tvCache"
                     style="@style/WithArrowIconTextStyle"
                     android:textSize="@dimen/text_size_16"
                     tools:text="蒸汽" />
@@ -65,25 +62,15 @@
 
             <TextView
                 style="@style/SingleTitleLayoutStyle"
-                android:text="@string/boiler" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                style="@style/SingleTitleLayoutStyle"
-                android:text="@string/expense" />
+                android:text="@string/man_hours_check" />
 
             <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:text="@string/project_expense_with_colon" />
+                    android:text="@string/working_status_with_colon" />
 
                 <TextView
-                    android:id="@+id/tvProjectExpense"
                     style="@style/WithArrowIconTextStyle"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
@@ -96,10 +83,155 @@
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:text="@string/project_details_with_colon" />
+                    android:text="@string/start_work_time" />
 
                 <TextView
-                    android:id="@+id/tvProjectDetail"
+                    style="@style/WithArrowIconTextStyle"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="用新" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1">
+
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/end_work_time" />
+
+                <TextView
+                    style="@style/WithArrowIconTextStyle"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="用新" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1">
+
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/man_hours" />
+
+                <TextView
+                    style="@style/WithArrowIconTextStyle"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="用新" />
+
+            </RelativeLayout>
+
+            <TextView
+                style="@style/SingleTitleLayoutStyle"
+                android:text="@string/overtime" />
+
+            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/overtime_duration" />
+
+                <TextView
+                    style="@style/WithArrowIconTextStyle"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="用新" />
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/overtime_reason" />
+
+                <TextView
+                    style="@style/WithArrowIconTextStyle"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="用新" />
+
+            </RelativeLayout>
+
+            <TextView
+                style="@style/SingleTitleLayoutStyle"
+                android:text="@string/category" />
+
+            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/category_with_colon" />
+
+                <TextView
+                    style="@style/WithArrowIconTextStyle"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="用新" />
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/work_detail_with_colon" />
+
+                <TextView
+                    style="@style/WithArrowIconTextStyle"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="用新" />
+
+            </RelativeLayout>
+
+            <TextView
+                style="@style/SingleTitleLayoutStyle"
+                android:text="@string/business_trip" />
+
+            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/business_trip_location" />
+
+                <TextView
+                    style="@style/WithArrowIconTextStyle"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="用新" />
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/transportation_fare" />
+
+                <TextView
+                    style="@style/WithArrowIconTextStyle"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="用新" />
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/transportation_time_consuming" />
+
+                <TextView
+                    style="@style/WithArrowIconTextStyle"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="用新" />
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/accommodation" />
+
+                <TextView
                     style="@style/WithArrowIconTextStyle"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
@@ -115,8 +247,26 @@
                 style="@style/LargeEdittextLayoutStyle"
                 android:hint="@string/input_other_problem" />
 
+            <TextView
+                style="@style/SingleTitleLayoutStyle"
+                android:text="@string/rate" />
+
+            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/rate_with_colon" />
+
+                <TextView
+                    style="@style/WithArrowIconTextStyle"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="用新" />
+
+            </RelativeLayout>
+
             <Button
                 android:id="@+id/btnNextStep"
+                android:layout_marginTop="@dimen/margin_48"
                 style="@style/NormalButtonStyle"
                 android:onClick="nextStepAction"
                 android:text="@string/submit"

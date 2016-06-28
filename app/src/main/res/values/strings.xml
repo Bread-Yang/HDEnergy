@@ -18,12 +18,12 @@
     <string name="auth_code">验证码</string>
     <string name="reset_password">重设密码</string>
     <string name="input_password">请输入密码</string>
-    <string name="homePage">首页</string>
+    <string name="home_page">首页</string>
     <string name="people_name">人名</string>
 
     <!-- 忘记密码 -->
-    <string name="autoLogin">自动登录</string>
-    <string name="forgetPassword">忘记密码？</string>
+    <string name="auto_login">自动登录</string>
+    <string name="forget_password">忘记密码？</string>
 
     <!-- 数据汇报 -->
     <string name="data_report">数据汇报</string>
@@ -75,7 +75,26 @@
 
     <!-- 考勤汇报 -->
     <string name="attendance_report">考勤汇报</string>
-    <string name="department">部门</string>
+    <string name="department_with_colon">部门:</string>
+    <string name="name_with_colon">姓名:</string>
+    <string name="man_hours_check">工时考勤</string>
+    <string name="man_hours">工时:</string>
+    <string name="working_status_with_colon">上班状态:</string>
+    <string name="start_work_time">上班时间:</string>
+    <string name="end_work_time">下班时间:</string>
+    <string name="overtime">加班</string>
+    <string name="overtime_duration">加班时间:</string>
+    <string name="overtime_reason">加班事由:</string>
+    <string name="category">类别</string>
+    <string name="category_with_colon">类别:</string>
+    <string name="work_detail_with_colon">工作内容:</string>
+    <string name="business_trip">出差</string>
+    <string name="business_trip_location">出差地点:</string>
+    <string name="transportation_fare">交通费:</string>
+    <string name="transportation_time_consuming">交通耗时:</string>
+    <string name="accommodation">住宿费:</string>
+    <string name="rate">打分</string>
+    <string name="rate_with_colon">打分:</string>
 
     <!--个人中心-->
     <string name="basic_information">基本信息</string>
@@ -85,7 +104,7 @@
     <string name="engineering_department">工程部</string>
     <string name="common_option">常用选项</string>
     <string name="common_project">常用项目</string>
-    <string name="hostorcal_data_statistic">历史数据统计</string>
-    <string name="hostorcal_attence_statistic">历史考勤统计</string>
+    <string name="hostorical_data_statistic">历史数据统计</string>
+    <string name="hostorical_attence_statistic">历史考勤统计</string>
     <string name="setting">设置</string>
 </resources>

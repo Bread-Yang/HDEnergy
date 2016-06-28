@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingLeft="@dimen/margin_10"
-                android:text="@string/autoLogin"
+                android:text="@string/auto_login"
                 android:textSize="@dimen/text_size_14" />
 
             <TextView
@@ -91,7 +91,7 @@
                 android:layout_centerVertical="true"
                 android:clickable="true"
                 android:onClick="forgetPasswordAction"
-                android:text="@string/forgetPassword"
+                android:text="@string/forget_password"
                 android:textColor="@color/colorTheme"
                 android:textSize="@dimen/text_size_14" />
 

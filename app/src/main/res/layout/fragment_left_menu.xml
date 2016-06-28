@@ -42,7 +42,7 @@
 
     <hdenergy.mdground.com.hdenergy.views.CustomImageButton
         app:Src="@mipmap/ic_launcher"
-        app:titleText="@string/hostorcal_data_statistic"
+        app:titleText="@string/hostorical_data_statistic"
         android:layout_marginBottom="@dimen/margin_12"
         android:layout_width="wrap_content"
         app:titleColor="@color/color_white"
@@ -50,7 +50,7 @@
 
     <hdenergy.mdground.com.hdenergy.views.CustomImageButton
         app:Src="@mipmap/ic_launcher"
-        app:titleText="@string/hostorcal_attence_statistic"
+        app:titleText="@string/hostorical_attence_statistic"
         app:titleColor="@color/color_white"
         android:layout_marginBottom="@dimen/margin_12"
         android:layout_width="wrap_content"
