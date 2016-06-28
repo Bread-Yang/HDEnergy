@@ -41,6 +41,12 @@
         <activity
             android:name=".activity.personalcenter.BasicInformationActivity"
             android:label="@string/basic_information" />
+        <activity
+            android:name=".activity.personalcenter.HistoryDataStaticsActivity"
+            android:label="@string/hostorical_data_statistic" />
+        <activity
+            android:name=".activity.personalcenter.HistoryDataDetailsActivity"
+            android:label="@string/date_details" />
     </application>
 
 </manifest>

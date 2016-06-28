@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-  >
+    xmlns:tools="http://schemas.android.com/tools">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/color_FAFAFA"
-        >
+        android:orientation="vertical">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbars"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_1"
             android:background="@color/color_green"
             android:minHeight="?attr/actionBarSize">
 
@@ -24,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/color_black"
+                android:textColor="@color/color_white"
                 android:textSize="@dimen/text_size_18"
                 tools:text="Toolbar Title" />
 
@@ -35,149 +33,154 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/nav_icon_announcemen"
-                 />
+                android:background="@drawable/nav_icon_announcemen" />
 
         </android.support.v7.widget.Toolbar>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
-
+            android:orientation="vertical">
 
             <hdenergy.mdground.com.hdenergy.views.SimpleImageBanner
                 android:id="@+id/simpleImageBanner"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/size_216"
                 android:layout_marginBottom="@dimen/text_size_14"
-                app:bb_scale="0.8"/>
-               <ScrollView
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent">
-               <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_weight="1"
-                   android:gravity="center_horizontal"
-                   android:orientation="horizontal">
+                android:background="@color/color_999999"
+                app:bb_scale="0.8" />
 
-                   <LinearLayout
-                       android:layout_width="wrap_content"
-                       android:layout_height="match_parent"
-                       android:layout_weight="1"
-                       android:gravity="center_horizontal"
-                       android:orientation="vertical">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                       <LinearLayout
-                           android:id="@+id/lltDateReport"
-                           android:layout_width="@dimen/size_164"
-                           android:layout_height="@dimen/size_160"
-                           android:background="@drawable/home_bg"
-                           android:orientation="vertical"
-                           android:gravity="center"
-                           android:layout_marginBottom="@dimen/margin_16"
-                           >
-                           <ImageView
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:src="@drawable/home_data"
-                               android:layout_marginBottom="@dimen/size_22"
-                               />
-                           <TextView
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/lltDateReport"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_16"
+                            android:layout_weight="1"
+                            android:background="@drawable/home_bg"
+                            android:gravity="center"
+                            android:orientation="vertical"
+
+                            >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/size_22"
+                                android:src="@drawable/home_data" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:text="@string/data_report"
-                               android:textSize="@dimen/margin_16"
-                               android:textColor="@color/color_404040"
-                               />
-                       </LinearLayout>
+                                android:textColor="@color/color_404040"
+                                android:textSize="@dimen/margin_16" />
+                        </LinearLayout>
 
-                       <LinearLayout
-                           android:id="@+id/lltAttendanceReport"
-                           android:layout_width="@dimen/size_164"
-                           android:layout_height="@dimen/size_160"
-                           android:background="@drawable/home_bg"
-                           android:orientation="vertical"
-                           android:gravity="center"
-                           android:layout_marginBottom="@dimen/margin_16"
-                           >
-                           <ImageView
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:src="@drawable/home_attendance"
-                               android:layout_marginBottom="@dimen/size_22"
-                               />
-                           <TextView
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:text="@string/attendance_report"
-                               android:textSize="@dimen/margin_16"
-                               android:textColor="@color/color_404040"
-                               />
-                       </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/lltAttendanceReport"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_16"
+                            android:layout_marginBottom="@dimen/margin_16"
+                            android:layout_weight="1"
+                            android:background="@drawable/home_bg"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                   </LinearLayout>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/size_22"
+                                android:src="@drawable/home_attendance" />
 
-                   <LinearLayout
-                       android:layout_width="wrap_content"
-                       android:layout_height="match_parent"
-                       android:layout_weight="1"
-                       android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/attendance_report"
+                                android:textColor="@color/color_404040"
+                                android:textSize="@dimen/margin_16" />
+                        </LinearLayout>
 
-                       <LinearLayout
-                           android:id="@+id/lltProjectStartStop"
-                           android:layout_width="@dimen/size_164"
-                           android:layout_height="@dimen/size_160"
-                           android:background="@drawable/home_bg"
-                           android:orientation="vertical"
-                           android:gravity="center"
-                           android:layout_marginBottom="@dimen/margin_16"
-                           >
-                           <ImageView
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:src="@drawable/home_project"
-                               android:layout_marginBottom="@dimen/size_22"
-                               />
-                           <TextView
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:text="@string/project_start_stop"
-                               android:textSize="@dimen/margin_16"
-                               android:textColor="@color/color_404040"
-                               />
-                       </LinearLayout>
+                    </LinearLayout>
 
-                       <LinearLayout
-                           android:layout_width="@dimen/size_164"
-                           android:layout_height="@dimen/size_160"
-                           android:background="@drawable/home_bg"
-                           android:gravity="center"
-                           android:orientation="vertical"
-                           android:layout_marginBottom="@dimen/margin_16"
-                           >
-                           <ImageView
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:src="@drawable/home_suggest"
-                               android:layout_marginBottom="@dimen/size_22"
-                               />
-                           <TextView
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:text="@string/resonable_suggest"
-                               android:textSize="@dimen/margin_16"
-                               android:textColor="@color/color_404040"
-                               />
-                       </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                   </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/lltProjectStartStop"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_16"
+                            android:layout_marginBottom="@dimen/margin_16"
+                            android:layout_weight="1"
+                            android:background="@drawable/home_bg"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-               </LinearLayout>
-               </ScrollView>
-            </LinearLayout>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/size_22"
+                                android:src="@drawable/home_project" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/project_start_stop"
+                                android:textColor="@color/color_404040"
+                                android:textSize="@dimen/margin_16" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_16"
+                            android:layout_marginBottom="@dimen/margin_16"
+                            android:layout_weight="1"
+                            android:background="@drawable/home_bg"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/size_22"
+                                android:src="@drawable/home_suggest" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/resonable_suggest"
+                                android:textColor="@color/color_404040"
+                                android:textSize="@dimen/margin_16" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
     </LinearLayout>
 
 </layout>

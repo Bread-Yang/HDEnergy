@@ -127,7 +127,21 @@
 
     <string name="yongxing">永新</string>
     <string name="standard_form">标单：</string>
-    <string name="alone_sume">单耗：</string>
-
+    <string name="individual_consumepotion">单耗：</string>
+    <string name="electricity_unit_consumption">电单耗:</string>
+    <string name="waters_untit_consumption">水消耗：</string>
+    <string name="profit">利润:</string>
+    <string name="question">问题:</string>
+    <string name="report_people">汇报人:</string>
+    <string name="boiler_a">锅炉A：</string>
+    <string name="boiler_b">锅炉B：</string>
+    <string name="project_date_expanse">项目日费用：</string>
+    <string name="expanse_detail">费用明细</string>
+    <string name="date_details">数据详情</string>
+    <string name="open_boiler_time">开炉时长：</string>
+    <string name="start_flow_one">起始流量1：</string>
+    <string name="stop_flow_one">截止流量1：</string>
+    <string name="flow_one">流量1：</string>
+    <string name="adjustment_explain">调整说明：</string>
 
 </resources>
