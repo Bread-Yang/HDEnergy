@@ -12,12 +12,15 @@ import android.widget.DatePicker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
 import hdenergy.mdground.com.hdenergy.databinding.ActivityDataReportBinding;
 import hdenergy.mdground.com.hdenergy.databinding.ItemBoilerBinding;
 import hdenergy.mdground.com.hdenergy.models.Boiler;
+import hdenergy.mdground.com.hdenergy.utils.DateUtils;
+import hdenergy.mdground.com.hdenergy.views.BaoPickerDialog;
 
 /**
  * Created by yoghourt on 2016-06-27.
@@ -29,6 +32,8 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     private DataReportAdapter mAdapter;
 
+    private BaoPickerDialog mBaoPickerDialog;
+
     private ArrayList<Boiler> mBoilerArrayList = new ArrayList<>();
 
     @Override
@@ -38,6 +43,9 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     @Override
     protected void initData() {
+        Date previousDate = DateUtils.previousDate(new Date());
+        mDataBinding.tvData.setText(DateUtils.getYearMonthDayWithDash(previousDate));
+
         mBoilerArrayList.add(new Boiler());
         mBoilerArrayList.add(new Boiler());
 
@@ -47,6 +55,14 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
         mAdapter = new DataReportAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
+
+        // 选择框
+        mBaoPickerDialog = new BaoPickerDialog(this);
+        ArrayList<String> pickerStringArrayList = new ArrayList<>();
+        pickerStringArrayList.add("测试数据1");
+        pickerStringArrayList.add("测试数据2");
+        pickerStringArrayList.add("测试数据3");
+        mBaoPickerDialog.bindWheelViewData(pickerStringArrayList);
     }
 
     @Override
@@ -60,6 +76,14 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
     }
 
     //region  ACTION
+    public void selectProjectAction(View view) {
+        mBaoPickerDialog.show();
+    }
+
+    public void selectSaleProductAction(View view) {
+        mBaoPickerDialog.show();
+    }
+
     public void SelectDataAction(View view) {
         if (mBirthdayDatePickerDialog == null) {
             Calendar calendar = Calendar.getInstance();

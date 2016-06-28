@@ -16,7 +16,9 @@
                 style="@style/SingleTitleLayoutStyle"
                 android:text="@string/project_status" />
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:onClick="selectProjectAction">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -46,6 +48,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:onClick="selectSaleProductAction"
                 style="@style/WhiteFixHeightLayoutStyle"
                 android:layout_marginTop="@dimen/margin_1">
 
@@ -79,8 +82,8 @@
                     style="@style/DimTextStyle"
                     android:text="@string/project_expense_with_colon" />
 
-                <TextView
-                    android:id="@+id/tvProjectExpense"
+                <EditText
+                    android:id="@+id/etProjectExpense"
                     style="@style/WithArrowIconTextStyle"
                     tools:text="用新" />
 
@@ -94,8 +97,8 @@
                     style="@style/DimTextStyle"
                     android:text="@string/project_details_with_colon" />
 
-                <TextView
-                    android:id="@+id/tvProjectDetail"
+                <EditText
+                    android:id="@+id/etProjectDetail"
                     style="@style/WithArrowIconTextStyle"
                     tools:text="用新" />
 

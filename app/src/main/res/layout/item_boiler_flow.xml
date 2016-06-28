@@ -41,7 +41,7 @@
                 android:text="@{@string/initial_flow_index(position)}"
                 tools:text="@string/initial_flow_index" />
 
-            <TextView
+            <EditText
                 style="@style/WithArrowIconTextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="颗粒(8元)" />
@@ -52,14 +52,14 @@
             android:id="@+id/rltData"
             style="@style/WhiteFixHeightLayoutStyle"
             android:layout_marginTop="@dimen/margin_1"
-            android:onClick="SelectDataAction">
+            >
 
             <TextView
                 style="@style/DimTextStyle"
                 android:text="@{@string/close_flow_index(position)}"
                 tools:text="@string/close_flow_index" />
 
-            <TextView
+            <EditText
                 style="@style/WithArrowIconTextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="1256" />

@@ -23,7 +23,6 @@
     <style name="WhiteFixHeightLayoutStyle" parent="NormalLayoutStyle">
         <item name="android:background">@color/color_white</item>
         <item name="android:layout_height">@dimen/size_50</item>
-        <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="TitleLayoutStyle" parent="NormalLayoutStyle">
@@ -36,10 +35,18 @@
         <item name="android:textColor">@color/color_333333</item>
     </style>
 
+    <style name="EditTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
     <style name="LargeEdittextLayoutStyle" parent="NormalLayoutStyle">
         <item name="android:background">@color/color_white</item>
         <item name="android:height">@dimen/size_200</item>
-        <item name="android:paddingTop">@dimen/margin_12</item>
+        <item name="android:paddingTop">@dimen/margin_20</item>
         <item name="android:gravity">top|left</item>
         <item name="android:inputType">textMultiLine</item>
         <item name="android:scrollbars">vertical</item>
@@ -80,6 +87,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/color_666666</item>
         <item name="android:textColorHint">@color/color_999999</item>
+        <item name="android:layout_centerVertical">true</item>
     </style>
 
     <style name="ClickableTextStyle">
@@ -94,6 +102,7 @@
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:drawableRight">@drawable/icon_neet</item>
         <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:layout_centerVertical">true</item>
     </style>
 
     <style name="NormalButtonStyle">
@@ -113,5 +122,22 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/margin_16</item>
         <item name="android:background">@color/color_white</item>
+    </style>
+
+    <style name="customDialogStyle" parent="android:style/Theme.Dialog">
+
+        <!-- 背景颜色及透明程度 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 是否有标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否模糊 -->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="action_sheet_animation" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/anim_dialog_enter</item>
+        <item name="@android:windowExitAnimation">@anim/anim_dialog_exit</item>
     </style>
 </resources>

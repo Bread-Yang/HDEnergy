@@ -40,33 +40,49 @@
                 android:text="@{@string/initial_flow_index(position)}"
                 tools:text="@string/electric_quantity_with_colon" />
 
-            <TextView
-                android:id="@+id/tvElectircQuantity"
-                style="@style/WithArrowIconTextStyle"
-                android:textSize="@dimen/text_size_16"
+            <EditText
+                android:id="@+id/etElectircQuantity"
+                style="@style/EditTextStyle"
+                android:layout_toLeftOf="@+id/ivDeleteOne"
                 tools:text="12345kw/h" />
+
+            <ImageView
+                android:id="@+id/ivDeleteOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_delete2"
+                android:visibility="invisible" />
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/rltData"
+            android:id="@+id/rltElectricQuantityTwo"
             style="@style/WhiteFixHeightLayoutStyle"
-            android:layout_marginTop="@dimen/margin_1"
-            android:onClick="SelectDataAction">
+            android:layout_marginTop="@dimen/margin_1">
 
             <TextView
                 style="@style/DimTextStyle"
-                android:text="@{@string/close_flow_index(position)}"
-                tools:text="@string/electric_quantity_two_with_colon" />
+                android:text="@string/electric_quantity_two_with_colon" />
 
-            <TextView
-                android:id="@+id/tvElectircQuantityTwo"
-                style="@style/WithArrowIconTextStyle"
-                android:textSize="@dimen/text_size_16"
+            <EditText
+                android:id="@+id/etElectircQuantityTwo"
+                style="@style/EditTextStyle"
+                android:layout_toLeftOf="@+id/ivDeleteTwo"
                 tools:text="1256" />
+
+            <ImageView
+                android:id="@+id/ivDeleteTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_delete2" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rltElectricQuantityThree"
             style="@style/WhiteFixHeightLayoutStyle"
             android:layout_marginTop="@dimen/margin_1">
 
@@ -74,11 +90,19 @@
                 style="@style/DimTextStyle"
                 android:text="@string/electric_quantity_three_with_colon" />
 
-            <TextView
-                android:id="@+id/tvElectircQuantityThree"
-                style="@style/WithArrowIconTextStyle"
-                android:textSize="@dimen/text_size_16"
-                tools:text="25631" />
+            <EditText
+                android:id="@+id/etElectircQuantityThree"
+                style="@style/EditTextStyle"
+                android:layout_toLeftOf="@+id/ivDeleteThree"
+                tools:text="1256" />
+
+            <ImageView
+                android:id="@+id/ivDeleteThree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_delete2" />
 
         </RelativeLayout>
 

@@ -105,63 +105,103 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         public void onBindViewHolder(ViewHolder holder, final int position) {
             ImageView ivAddOrDelete = null;
             switch (getItemViewType(position)) {
-                case FLOW_VIEW_TYPE:
+                case FLOW_VIEW_TYPE: {
                     ItemBoilerFlowBinding itemBoilerFlowBinding = ((ItemBoilerFlowBinding) holder.viewDataBinding);
                     itemBoilerFlowBinding.setFlow(mFlowArrayList.get(position));
                     ivAddOrDelete = itemBoilerFlowBinding.ivAddOrDelete;
+
+                    if (isHeader(position)) {
+                        ivAddOrDelete.setImageResource(R.drawable.add);
+
+                        ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mFlowArrayList.add(new Flow());
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        });
+                    } else {
+                        ivAddOrDelete.setImageResource(R.drawable.delete);
+
+                        ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mFlowArrayList.remove(position);
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
                     break;
-                case ELECTRICITY_VIEW_TYPE:
-                    ItemBoilerElectricQuantityBinding itemBoilerElectricQuantityBinding = ((ItemBoilerElectricQuantityBinding) holder.viewDataBinding);
+                }
+
+                case ELECTRICITY_VIEW_TYPE: {
+                    final ItemBoilerElectricQuantityBinding itemBoilerElectricQuantityBinding = ((ItemBoilerElectricQuantityBinding) holder.viewDataBinding);
                     itemBoilerElectricQuantityBinding.setElectricity(mElectricityArrayList.get(position - mFlowArrayList.size()));
                     ivAddOrDelete = itemBoilerElectricQuantityBinding.ivAddOrDelete;
+
+                    ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (itemBoilerElectricQuantityBinding.rltElectricQuantityTwo.getVisibility()
+                                    == View.GONE) {
+                                itemBoilerElectricQuantityBinding.rltElectricQuantityTwo.setVisibility(View.VISIBLE);
+                            } else if (itemBoilerElectricQuantityBinding.rltElectricQuantityThree.getVisibility()
+                                    == View.GONE) {
+                                itemBoilerElectricQuantityBinding.rltElectricQuantityThree.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    });
+
+                    itemBoilerElectricQuantityBinding.ivDeleteTwo.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            itemBoilerElectricQuantityBinding.rltElectricQuantityTwo.setVisibility(View.GONE);
+                        }
+                    });
+
+                    itemBoilerElectricQuantityBinding.ivDeleteThree.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            itemBoilerElectricQuantityBinding.rltElectricQuantityThree.setVisibility(View.GONE);
+                        }
+                    });
+
                     break;
-                case WATER_VIEW_TYPE:
-                    ItemBoilerWaterQuantityBinding itemBoilerWaterQuantityBinding = ((ItemBoilerWaterQuantityBinding) holder.viewDataBinding);
+                }
+
+                case WATER_VIEW_TYPE: {
+                    final ItemBoilerWaterQuantityBinding itemBoilerWaterQuantityBinding = ((ItemBoilerWaterQuantityBinding) holder.viewDataBinding);
                     itemBoilerWaterQuantityBinding.setWater(mWaterArrayList.get(position - mFlowArrayList.size() - mElectricityArrayList.size()));
                     ivAddOrDelete = itemBoilerWaterQuantityBinding.ivAddOrDelete;
+
+                    ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (itemBoilerWaterQuantityBinding.rltWaterQuantityTwo.getVisibility()
+                                    == View.GONE) {
+                                itemBoilerWaterQuantityBinding.rltWaterQuantityTwo.setVisibility(View.VISIBLE);
+                            } else if (itemBoilerWaterQuantityBinding.rltWaterQuantityThree.getVisibility()
+                                    == View.GONE) {
+                                itemBoilerWaterQuantityBinding.rltWaterQuantityThree.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    });
+
+                    itemBoilerWaterQuantityBinding.ivDeleteTwo.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            itemBoilerWaterQuantityBinding.rltWaterQuantityTwo.setVisibility(View.GONE);
+                        }
+                    });
+
+                    itemBoilerWaterQuantityBinding.ivDeleteThree.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            itemBoilerWaterQuantityBinding.rltWaterQuantityThree.setVisibility(View.GONE);
+                        }
+                    });
                     break;
-            }
-
-            if (isHeader(position)) {
-                ivAddOrDelete.setImageResource(R.drawable.add);
-
-                ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        switch (getItemViewType(position)) {
-                            case FLOW_VIEW_TYPE:
-                                mFlowArrayList.add(new Flow());
-                                break;
-                            case ELECTRICITY_VIEW_TYPE:
-                                mElectricityArrayList.add(new Electricity());
-                                break;
-                            case WATER_VIEW_TYPE:
-                                mWaterArrayList.add(new Water());
-                                break;
-                        }
-                        mAdapter.notifyDataSetChanged();
-                    }
-                });
-            } else {
-                ivAddOrDelete.setImageResource(R.drawable.delete);
-
-                ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        switch (getItemViewType(position)) {
-                            case FLOW_VIEW_TYPE:
-                                mFlowArrayList.remove(position);
-                                break;
-                            case ELECTRICITY_VIEW_TYPE:
-                                mElectricityArrayList.remove(position - mFlowArrayList.size());
-                                break;
-                            case WATER_VIEW_TYPE:
-                                mWaterArrayList.remove(position - mFlowArrayList.size() - mElectricityArrayList.size());
-                                break;
-                        }
-                        mAdapter.notifyDataSetChanged();
-                    }
-                });
+                }
             }
         }
 

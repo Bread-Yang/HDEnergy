@@ -41,8 +41,7 @@
         <RelativeLayout
             android:id="@+id/rltData"
             style="@style/WhiteFixHeightLayoutStyle"
-            android:layout_marginTop="@dimen/margin_1"
-            android:onClick="SelectDataAction">
+            android:layout_marginTop="@dimen/margin_1">
 
             <TextView
                 style="@style/DimTextStyle"
