@@ -42,6 +42,7 @@
 
 
     <hdenergy.mdground.com.hdenergy.views.CustomImageButton
+        android:id="@+id/tvHistoryDate"
         app:Src="@drawable/tab_left_icon_date"
         app:titleText="@string/hostorical_data_statistic"
         android:layout_marginBottom="@dimen/size_18"
