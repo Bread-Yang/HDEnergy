@@ -105,10 +105,15 @@
     <string name="engineering_department">工程部</string>
     <string name="common_option">常用选项</string>
     <string name="common_project">常用项目</string>
+    <string name="common_contact">常用联系人</string>
     <string name="hostorical_data_statistic">历史数据统计</string>
     <string name="hostorical_attence_statistic">历史考勤统计</string>
     <string name="setting">设置</string>
-
+    <string name="change_password">修改密码</string>
     <string name="project_start_stop">项目启停</string>
     <string name="resonable_suggest">合理建议</string>
+
+    <string name="yongxing">永新</string>
+
+
 </resources>

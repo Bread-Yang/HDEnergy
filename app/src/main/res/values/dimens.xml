@@ -69,4 +69,5 @@
     <dimen name="size_44">44dp</dimen>
     <dimen name="size_216">216dp</dimen>
     <dimen name="size_164">164dp</dimen>
+    <dimen name="size_136">137dp</dimen>
 </resources>

@@ -71,13 +71,13 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
             }
         }
     }
-    //没有网络广州的时候
+    //没有网络广播的时候
     public void geUsertGuides() {
         BannerItem bannerItem=new BannerItem();
-        bannerItem.setmLoadImage(R.drawable.home_banners);
+        bannerItem.setmLoadImage(R.drawable.home_banner);
         mArrayList.add(bannerItem);
         BannerItem bannerItem1=new BannerItem();
-        bannerItem1.setmLoadImage(R.drawable.home_banner);
+        bannerItem1.setmLoadImage(R.drawable.home_banners);
         mArrayList.add(bannerItem1);
     }
 
