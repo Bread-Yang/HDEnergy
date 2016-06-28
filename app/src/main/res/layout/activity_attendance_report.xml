@@ -248,10 +248,13 @@
                 android:hint="@string/input_other_problem" />
 
             <TextView
+                android:id="@+id/tvRateTitle"
                 style="@style/SingleTitleLayoutStyle"
                 android:text="@string/rate" />
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                android:id="@+id/rltRate"
+                style="@style/WhiteFixHeightLayoutStyle">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -261,13 +264,13 @@
                     style="@style/WithArrowIconTextStyle"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
-
+ 
             </RelativeLayout>
 
             <Button
                 android:id="@+id/btnNextStep"
-                android:layout_marginTop="@dimen/margin_48"
                 style="@style/NormalButtonStyle"
+                android:layout_marginTop="@dimen/margin_48"
                 android:onClick="nextStepAction"
                 android:text="@string/submit"
                 android:textSize="@dimen/text_size_16" />

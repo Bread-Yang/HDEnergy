@@ -32,6 +32,12 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
     }
 
+    // 选择工程公司则无打分的选项
+    private void hideRateLayout(boolean isShow) {
+        mDataBinding.tvRateTitle.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        mDataBinding.rltRate.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
     }

@@ -74,7 +74,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
             holder.viewDataBinding.setFuel(mFuelArrayList.get(position));
 
             if (position == 0) {
-                holder.viewDataBinding.ivAddOrDelete.setImageResource(R.drawable.icon_addition_pay);
+                holder.viewDataBinding.ivAddOrDelete.setImageResource(R.drawable.add);
 
                 holder.viewDataBinding.ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -85,7 +85,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                     }
                 });
             } else {
-                holder.viewDataBinding.ivAddOrDelete.setImageResource(R.drawable.icon_reduce_pay);
+                holder.viewDataBinding.ivAddOrDelete.setImageResource(R.drawable.delete);
 
                 holder.viewDataBinding.ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
