@@ -21,6 +21,7 @@ import hdenergy.mdground.com.hdenergy.R;
 public class SlidingMenu extends HorizontalScrollView {
     public static final String TAG="SLIDINMENU";
     private int mScreenWidth;
+    private int mScreenHight;
     private float right_margin;//
     LinearLayout wrapper;
     ViewGroup menu;
@@ -36,6 +37,7 @@ public class SlidingMenu extends HorizontalScrollView {
         super(context, attrs);
         WindowManager manager= (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         mScreenWidth=manager.getDefaultDisplay().getWidth();
+        mScreenHight=manager.getDefaultDisplay().getHeight();
         KLog.e("mScreenWidth---->"+mScreenWidth);
         TypedArray typedArray=context.obtainStyledAttributes(attrs, R.styleable.SlidingMenu);
         right_margin=typedArray.getDimensionPixelSize(R.styleable.SlidingMenu_rightMragin, (int) TypedValue.applyDimension(
@@ -59,7 +61,7 @@ public class SlidingMenu extends HorizontalScrollView {
             KLog.e("左侧宽度"+String.valueOf(menuWidth));
             menu.getLayoutParams().width=menuWidth;
             home.getLayoutParams().width=mScreenWidth;
-            once=true;
+            home.getLayoutParams().height=mScreenHight;
         }
     }
     //定义它的布局，一开始Menu是隐藏的
