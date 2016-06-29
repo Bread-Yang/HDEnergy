@@ -14,7 +14,6 @@
                 style="@style/TitleTextStyle"
                 android:text="@string/feedstock_amount_with_colon" />
 
-
             <ImageView
                 android:id="@+id/ivAddOrDelete"
                 android:layout_width="wrap_content"
@@ -47,11 +46,7 @@
                 style="@style/DimTextStyle"
                 android:text="@string/license_plate" />
 
-            <TextView
-                android:id="@+id/tvLicensePlate"
-                style="@style/WithArrowIconTextStyle"
-                android:textSize="@dimen/text_size_16"
-                tools:text="1256" />
+            <EditText style="@style/WithArrowEdittextStyle" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -62,11 +57,7 @@
                 style="@style/DimTextStyle"
                 android:text="@string/delivery_capacity" />
 
-            <TextView
-                android:id="@+id/tvDeliveryCapacity"
-                style="@style/WithArrowIconTextStyle"
-                android:textSize="@dimen/text_size_16"
-                tools:text="25631" />
+            <EditText style="@style/WithArrowEdittextStyle" />
 
         </RelativeLayout>
 

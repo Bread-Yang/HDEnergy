@@ -14,6 +14,7 @@ import java.util.List;
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.adapter.wheelview.BaoWheelAdapter;
 import hdenergy.mdground.com.hdenergy.databinding.DialogBaoPickerBinding;
+import kankan.wheel.widget.OnWheelScrollListener;
 
 /**
  * Created by yoghourt on 5/25/16.
@@ -24,6 +25,8 @@ public class BaoPickerDialog extends Dialog {
     private Context mContext;
 
     private DialogBaoPickerBinding mDataBinding;
+
+    private OnWheelScrollListener onWheelScrollListener;
 
     private List<String> mStringList;
 
@@ -61,12 +64,24 @@ public class BaoPickerDialog extends Dialog {
         if (mStringList != null) {
             mDataBinding.wheelView.setViewAdapter(new BaoWheelAdapter(mContext, mStringList));
         }
+        if (onWheelScrollListener != null) {
+            mDataBinding.wheelView.addScrollingListener(onWheelScrollListener);
+        }
     }
 
     public void bindWheelViewData(List<String> items) {
         mStringList = items;
         if (mDataBinding != null) {
+            mDataBinding.wheelView.setCurrentItem(0);
             mDataBinding.wheelView.setViewAdapter(new BaoWheelAdapter(mContext, mStringList));
         }
+    }
+
+    public OnWheelScrollListener getOnWheelScrollListener() {
+        return onWheelScrollListener;
+    }
+
+    public void setOnWheelScrollListener(OnWheelScrollListener onWheelScrollListener) {
+        this.onWheelScrollListener = onWheelScrollListener;
     }
 }

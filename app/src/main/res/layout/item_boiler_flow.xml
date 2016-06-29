@@ -42,17 +42,16 @@
                 tools:text="@string/initial_flow_index" />
 
             <EditText
-                style="@style/WithArrowIconTextStyle"
+                style="@style/WithArrowEdittextStyle"
                 android:textSize="@dimen/text_size_16"
-                tools:text="颗粒(8元)" />
+                tools:text="12345吨" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rltData"
             style="@style/WhiteFixHeightLayoutStyle"
-            android:layout_marginTop="@dimen/margin_1"
-            >
+            android:layout_marginTop="@dimen/margin_1">
 
             <TextView
                 style="@style/DimTextStyle"
@@ -60,7 +59,7 @@
                 tools:text="@string/close_flow_index" />
 
             <EditText
-                style="@style/WithArrowIconTextStyle"
+                style="@style/WithArrowEdittextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="1256" />
         </RelativeLayout>
@@ -75,8 +74,7 @@
                 tools:text="@string/flow_index" />
 
             <TextView
-                style="@style/WithArrowIconTextStyle"
-                android:textSize="@dimen/text_size_16"
+                style="@style/AlignRightTextStyle"
                 tools:text="25631" />
 
         </RelativeLayout>
@@ -89,8 +87,8 @@
                 style="@style/DimTextStyle"
                 android:text="@string/flow_adjustment" />
 
-            <TextView
-                style="@style/WithArrowIconTextStyle"
+            <EditText
+                style="@style/WithArrowEdittextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="25631" />
 
@@ -104,8 +102,8 @@
                 style="@style/DimTextStyle"
                 android:text="@string/adjustment_description" />
 
-            <TextView
-                style="@style/WithArrowIconTextStyle"
+            <EditText
+                style="@style/WithArrowEdittextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="25631" />
 

@@ -42,24 +42,29 @@
             android:name=".activity.projectstartstop.ProjectEditActivity"
             android:label="@string/edit" />
         <activity
+            android:name=".activity.advice.ReasonableAdviceActivity"
+            android:label="@string/reasonable_advice" />
+        <activity
             android:name=".activity.personalcenter.BasicInformationActivity"
             android:label="@string/basic_information" />
         <activity
             android:name=".activity.personalcenter.HistoryDataStaticsActivity"
             android:label="@string/hostorical_data_statistic" />
         <activity
+            android:name=".activity.personalcenter.HistoryAttendanceStaticsActivity"
+            android:label="@string/hostorical_attendance_statics" />
+        <activity
             android:name=".activity.personalcenter.HistoryDataDetailsActivity"
             android:label="@string/date_details" />
-        <activity android:name=".activity.personalcenter.SettingActivity"
-                  android:label="@string/setting"
-            />
-        <activity android:name=".activity.personalcenter.FeedBackActivity"
-                 android:label="@string/feedback"
-            ></activity>
         <activity
-              android:name=".activity.personalcenter.HistoryDataListActivity"
-              android:label="@string/data_list"
-            />
+            android:name=".activity.personalcenter.SettingActivity"
+            android:label="@string/setting" />
+        <activity
+            android:name=".activity.personalcenter.FeedBackActivity"
+            android:label="@string/feedback"></activity>
+        <activity
+            android:name=".activity.personalcenter.HistoryDataListActivity"
+            android:label="@string/data_list" />
     </application>
 
 </manifest>

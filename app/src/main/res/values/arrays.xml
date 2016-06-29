@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="project_status">
+        <item>正常</item>
+        <item>维修</item>
+        <item>停炉</item>
+    </string-array>
+
+    <string-array name="sale_product_type">
+        <item>蒸汽</item>
+        <item>热力</item>
+    </string-array>
+
+</resources>
