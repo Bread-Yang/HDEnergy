@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+      <TextView
+          android:textColor="@color/color_404040"
+          android:layout_height="60dp"
+          android:textSize="@dimen/text_size_16"
+           style="@style/WhiteFixHeightLayoutStyle"
+          android:drawableLeft="@drawable/icon_fed_back"
+          android:text="@string/feedback"
+           android:gravity="center_vertical"
+        />
+
+        <View style="@style/DividerHorizontalMarginStyle"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_60"
+            android:background="@color/color_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:onClick="onPopupUpdatePrompt"
+            >
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                 style="@style/WhiteFixHeightLayoutStyle"
+                android:textSize="@dimen/text_size_16"
+                android:drawableLeft="@drawable/icon_update"
+                android:gravity="center_vertical"
+                android:textColor="@color/color_404040"
+                android:text="@string/check_update"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/text_size_16"
+                android:textColor="@color/color_9A9A9A"
+                tools:text="@string/version_num"
+                />
+        </LinearLayout>
+
+        <View style="@style/DividerHorizontalMarginStyle"></View>
+        <TextView
+            style="@style/WhiteFixHeightLayoutStyle"
+            android:layout_height="60dp"
+            android:drawableLeft="@drawable/icon_fed_back"
+            android:text="@string/using_help"
+            android:textSize="@dimen/text_size_16"
+            android:textColor="@color/color_404040"
+            android:gravity="center_vertical"
+            />
+
+        <View style="@style/DividerHorizontalMarginStyle"
+            android:layout_marginBottom="68dp"
+            />
+
+        <Button
+            android:id="@+id/btnExitLogin"
+            android:layout_width="@dimen/size_305"
+            android:layout_height="@dimen/size_50"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/size_38"
+            android:background="@color/color_00943F"
+            android:gravity="center"
+            android:onClick="onExitLogin"
+            android:text="@string/exit_login"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_size_18" />
+
+
+
+</LinearLayout>
+
+    </layout>

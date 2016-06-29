@@ -126,7 +126,7 @@
     <string name="setting">设置</string>
     <string name="change_password">修改密码</string>
     <string name="resonable_suggest">合理建议</string>
-
+     <!--历史数据统计-->
     <string name="yongxing">永新</string>
     <string name="standard_form">标单：</string>
     <string name="individual_consumepotion">单耗：</string>
@@ -145,5 +145,15 @@
     <string name="stop_flow_one">截止流量1：</string>
     <string name="flow_one">流量1：</string>
     <string name="adjustment_explain">调整说明：</string>
+    <string name="feedback">意见反馈</string>
+    <string name="check_update">检查更新</string>
+    <string name="using_help">使用帮助</string>
+    <string name="version_num">当前版本：2.1.0</string>
+    <string name="exit_login">退出登录</string>
+    <string name="new_version">新版特性：</string>
+    <string name="cancel">取消</string>
+    <string name="update">更新</string>
+    <string name="current_version">已经是最新版本</string>
+
 
 </resources>

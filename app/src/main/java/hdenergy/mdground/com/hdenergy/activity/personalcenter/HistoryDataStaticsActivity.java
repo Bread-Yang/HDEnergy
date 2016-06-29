@@ -54,7 +54,7 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-
+//            holder.itemHistoryDatastaticsBinding.tvTitles.
             holder.itemHistoryDatastaticsBinding.tvStandardUnit.setText(mArrayList.get(position));
             holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(mArrayList.get(position));
             holder.itemHistoryDatastaticsBinding.tvProfit.setText(mArrayList.get(position));
