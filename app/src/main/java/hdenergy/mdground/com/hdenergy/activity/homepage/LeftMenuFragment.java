@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.personalcenter.BasicInformationActivity;
+import hdenergy.mdground.com.hdenergy.activity.personalcenter.HistoryDataStaticsActivity;
+import hdenergy.mdground.com.hdenergy.activity.personalcenter.SettingActivity;
 import hdenergy.mdground.com.hdenergy.views.CustomImageButton;
 
 
@@ -18,12 +20,16 @@ import hdenergy.mdground.com.hdenergy.views.CustomImageButton;
  */
 
 public class LeftMenuFragment extends Fragment implements View.OnClickListener{
-  CustomImageButton mBasicInformation;
+  private CustomImageButton mBasicInformation,mHistoryDate,mSetting;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_left_menu,container,false);
         mBasicInformation= (CustomImageButton) view.findViewById(R.id.cibBasicInformation);
+        mHistoryDate= (CustomImageButton) view.findViewById(R.id.tvHistoryDate);
+        mSetting= (CustomImageButton) view.findViewById(R.id.cibSetting);
+        mSetting.setOnClickListener(this);
+        mHistoryDate.setOnClickListener(this);
         mBasicInformation.setOnClickListener(this);
         return view;
     }
@@ -35,6 +41,14 @@ public class LeftMenuFragment extends Fragment implements View.OnClickListener{
             case R.id.cibBasicInformation:
                 Intent intent=new Intent(getActivity(), BasicInformationActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.tvHistoryDate:
+                Intent intent1=new Intent(getActivity(), HistoryDataStaticsActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.cibSetting:
+                Intent intent2=new Intent(getActivity(), SettingActivity.class);
+                startActivity(intent2);
                 break;
 
         }

@@ -53,6 +53,9 @@
         <activity
             android:name=".activity.personalcenter.HistoryDataDetailsActivity"
             android:label="@string/date_details" />
+        <activity android:name=".activity.personalcenter.SettingActivity"
+                  android:label="@string/setting"
+            />
     </application>
 
 </manifest>

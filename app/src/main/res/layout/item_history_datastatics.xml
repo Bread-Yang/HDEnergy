@@ -9,13 +9,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:background="@color/color_white"
-            android:paddingTop="14dp"
+            android:paddingTop="@dimen/margin_12"
             android:orientation="vertical"
-            android:layout_height="132dp">
+            android:layout_height="wrap_content">
            <RelativeLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:layout_marginBottom="@dimen/size_14"
+               android:layout_marginBottom="@dimen/margin_12"
                >
                <ImageView
                    android:id="@+id/ivWarning"
@@ -25,10 +25,11 @@
                    tools:src="@drawable/icon_warning"
                    />
                 <TextView
+                    android:id="@+id/tvTitles"
                     android:layout_toRightOf="@id/ivWarning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/yongxing"
+                    android:text="@string/yongxing"
                     android:layout_marginLeft="@dimen/margin_8"
                     android:textSize="@dimen/text_size_18"
                     />
@@ -59,6 +60,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/tvStandardUnit"
                     android:layout_toRightOf="@id/tvStandard2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,6 +82,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/tvUnitIndivdual"
                     android:layout_toRightOf="@id/individual2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -108,6 +111,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/tvElectircUnitConsumption"
                     android:layout_toRightOf="@id/tvElectricity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -129,6 +133,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/tvWaterUnitConsumption"
                     android:layout_toRightOf="@id/tvWater"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -158,6 +163,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/tvProfit"
                     android:layout_toRightOf="@id/tvPro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -179,6 +185,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/tvQuestion"
                     android:layout_toRightOf="@id/tvQue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
