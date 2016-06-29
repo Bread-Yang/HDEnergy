@@ -32,7 +32,7 @@
                     android:layout_toRightOf="@id/ivWarning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2016/01/09"
+                    android:text="@string/yongxing"
                     android:textColor="@color/color_404040"
                     android:layout_marginLeft="@dimen/margin_8"
                     android:textSize="@dimen/text_size_18"

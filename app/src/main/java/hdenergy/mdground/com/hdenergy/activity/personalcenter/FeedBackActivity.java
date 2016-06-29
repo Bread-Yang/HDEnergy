@@ -5,6 +5,7 @@ import android.view.View;
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
 import hdenergy.mdground.com.hdenergy.databinding.ActivityFeedbackBinding;
+import hdenergy.mdground.com.hdenergy.utils.ViewUtils;
 
 /**
  * Created by PC on 2016-06-29.
@@ -23,7 +24,8 @@ public class FeedBackActivity extends ToolbarActivity<ActivityFeedbackBinding> {
         tvRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ViewUtils.toast("提交成功");
+                finish();
             }
         });
 

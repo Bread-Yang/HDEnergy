@@ -56,6 +56,9 @@
         <activity android:name=".activity.personalcenter.FeedBackActivity"
                  android:label="@string/feedback"
             ></activity>
+        <activity
+              android:name=".activity.personalcenter.HistoryDataListActivity"
+            />
     </application>
 
 </manifest>
