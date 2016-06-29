@@ -58,6 +58,7 @@
             ></activity>
         <activity
               android:name=".activity.personalcenter.HistoryDataListActivity"
+              android:label="@string/data_list"
             />
     </application>
 
