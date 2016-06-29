@@ -51,11 +51,14 @@
             android:name=".activity.personalcenter.HistoryDataStaticsActivity"
             android:label="@string/hostorical_data_statistic" />
         <activity
+            android:name=".activity.personalcenter.HistoryAttendanceStaticsActivity"
+            android:label="@string/hostorical_attendance_statics" />
+        <activity
             android:name=".activity.personalcenter.HistoryDataDetailsActivity"
             android:label="@string/date_details" />
-        <activity android:name=".activity.personalcenter.SettingActivity"
-                  android:label="@string/setting"
-            />
+        <activity
+            android:name=".activity.personalcenter.SettingActivity"
+            android:label="@string/setting" />
     </application>
 
 </manifest>
