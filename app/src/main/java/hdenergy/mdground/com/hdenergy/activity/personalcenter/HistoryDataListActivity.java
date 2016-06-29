@@ -9,17 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
 import hdenergy.mdground.com.hdenergy.databinding.ActivityHistoryDatastaticsBinding;
 import hdenergy.mdground.com.hdenergy.databinding.ItemHistoryDatastaticsBinding;
 
 /**
- * Created by PC on 2016-06-28.
+ * Created by PC on 2016-06-29.
  */
 
-public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryDatastaticsBinding>{
-   private HistoryDateAdapter mAdapter;
+public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryDatastaticsBinding>{
+    private HistoryDateAdapter mAdapter;
     private ArrayList<String> mArrayList=new ArrayList<>();
     @Override
     protected int getContentLayout() {
@@ -28,25 +29,28 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
 
     @Override
     protected void initData() {
-         getDateList();
+        Intent intent=getIntent();
+        String title=intent.getStringExtra("name");
+       getDateList();
+        setTitle(title);
         mAdapter=new HistoryDateAdapter();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(HistoryDataStaticsActivity.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(HistoryDataListActivity.this);
         mDataBinding.recyclerView.setLayoutManager(linearLayoutManager);
         mDataBinding.recyclerView.setAdapter(mAdapter);
+
     }
 
     @Override
     protected void setListener() {
 
     }
-
     //region ADAPTER
     public class HistoryDateAdapter extends RecyclerView.Adapter<HistoryDateAdapter.MyViewHolder>{
 
 
         @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view= LayoutInflater.from(HistoryDataStaticsActivity.this)
+        public HistoryDateAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view= LayoutInflater.from(HistoryDataListActivity.this)
                     .inflate(R.layout.item_history_datastatics,parent,false);
             MyViewHolder holder=new MyViewHolder(view);
             return holder;
@@ -54,16 +58,14 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-           holder.itemHistoryDatastaticsBinding.tvTitles.setText(mArrayList.get(position));
+//            holder.itemHistoryDatastaticsBinding.tvTitles.setText(mArrayList.get(position));
             holder.itemHistoryDatastaticsBinding.tvStandardUnit.setText(mArrayList.get(position));
             holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(mArrayList.get(position));
             holder.itemHistoryDatastaticsBinding.tvProfit.setText(mArrayList.get(position));
             holder.itemHistoryDatastaticsBinding.tvQuestion.setText(mArrayList.get(position));
             holder.itemHistoryDatastaticsBinding.tvWaterUnitConsumption.setText(mArrayList.get(position));
             holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(mArrayList.get(position));
-
         }
-
 
         @Override
         public int getItemCount() {
@@ -71,18 +73,11 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
         }
 
         public class MyViewHolder extends RecyclerView.ViewHolder{
-//           public ItemHistoryDatastaticsBinding itemHistoryDatastaticsBinding;
-            public  ItemHistoryDatastaticsBinding itemHistoryDatastaticsBinding;
-            public MyViewHolder(final View itemView) {
+            //           public ItemHistoryDatastaticsBinding itemHistoryDatastaticsBinding;
+            public ItemHistoryDatastaticsBinding itemHistoryDatastaticsBinding;
+            public MyViewHolder(View itemView) {
                 super(itemView);
-               itemHistoryDatastaticsBinding= DataBindingUtil.bind(itemView);
-
-               itemHistoryDatastaticsBinding.lltItem.setOnClickListener(new View.OnClickListener() {
-                   @Override
-                   public void onClick(View v) {
-                     toHistoryDataListActivity(itemView);
-                   }
-               });
+                itemHistoryDatastaticsBinding= DataBindingUtil.bind(itemView);
             }
         }
 
@@ -96,14 +91,5 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
     }
 
 
-    //跳转到对应页面的
-        public void toHistoryDataListActivity(View view) {
-        int position = mDataBinding.recyclerView.getChildAdapterPosition(view);
-        String  name = mArrayList.get(position);
-        // KLog.e("第几个" + position);
-            Intent intent =new Intent(this,HistoryDataListActivity.class);
-            intent.putExtra("name",name);
-            startActivity(intent);
-    }
     //endregion
 }

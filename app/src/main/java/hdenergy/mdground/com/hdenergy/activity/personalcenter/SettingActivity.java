@@ -24,8 +24,9 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
 
     @Override
     protected void initData() {
-        mDialog=new CheckUpdateDialog(this);
+        mDialog=new CheckUpdateDialog(this,getString(R.string.current_version),getString(R.string.none));
         mDialog.setButtonListen(this);
+
     }
 
     @Override
@@ -46,12 +47,19 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
 
     @Override
     public void clickUpdate() {
-        Toast.makeText(SettingActivity.this,getString(R.string.current_version),Toast.LENGTH_SHORT).show();
+        Toast.makeText(SettingActivity.this,getString(R.string.newest_version),Toast.LENGTH_SHORT).show();
+        mDialog.dismiss();
     }
 
     public  void onExitLogin(View view){
         Intent intent=new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+    public void toFeedActivity(View view){
+        Intent intent=new Intent(this,FeedBackActivity.class);
+        startActivity(intent);
+    }
+
+
     //endregion
 }

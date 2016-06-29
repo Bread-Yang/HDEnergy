@@ -21,14 +21,18 @@ import hdenergy.mdground.com.hdenergy.databinding.DialogUpdatePromptBinding;
 public class CheckUpdateDialog extends Dialog {
     private Context mContext;
     private TextView mTvCancel,mTvUpdate;
+    public TextView mCurrentVersion,mNewestProperty;
     private DialogUpdatePromptBinding mDataBinding;
     private OnClickUpdateListener onClickUpdateListener;
+    private String mFirstContent,mScendContent;
     public interface  OnClickUpdateListener{
         void clickCancel();
         void clickUpdate();
     }
-    public CheckUpdateDialog(Context context) {
+    public CheckUpdateDialog(Context context,String firstContent,String scendContent) {
         super(context, R.style.CheckUpdateDialogStyle);
+        mFirstContent=firstContent;
+        mScendContent=scendContent;
         mContext=context;
 
     }
@@ -44,11 +48,15 @@ public class CheckUpdateDialog extends Dialog {
         mTvCancel= (TextView) view.findViewById(R.id.tvCancel);
         mTvUpdate= (TextView) view.findViewById(R.id.tvUpdate);
         mDataBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_update_prompt, null, false);
+        mCurrentVersion= (TextView) view.findViewById(R.id.tvCurrentVersion);
+        mCurrentVersion.setText(mFirstContent);
+        mNewestProperty= (TextView) view.findViewById(R.id.tvNewestProperty);
+        mNewestProperty.setText(mScendContent);
         setContentView(view);
         Window window = getWindow();
         window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT); // 填充满屏幕的宽度
         WindowManager.LayoutParams wlp = window.getAttributes();
-        wlp.gravity = Gravity.CENTER; // 使dialog在底部显示
+        wlp.gravity = Gravity.CENTER;
         window.setAttributes(wlp);
         setButtonClickListe();
     }

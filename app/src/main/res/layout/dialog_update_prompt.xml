@@ -10,16 +10,18 @@
         <LinearLayout
             android:background="@color/color_white"
             android:layout_width="268dp"
-            android:paddingTop="@dimen/margin_20"
             android:paddingLeft="@dimen/margin_26"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin_16"
             android:orientation="vertical">
 
+
             <TextView
+                android:id="@+id/tvCurrentVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="@string/date_details"
-                android:lines="2"
+                android:lineSpacingExtra="@dimen/margin_4"
                 android:textColor="@color/color_404040"
                 android:textSize="@dimen/text_size_14"
                 android:layout_marginBottom="@dimen/size_18"
@@ -35,9 +37,11 @@
                 />
 
             <TextView
+                android:id="@+id/tvNewestProperty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="@string/date_details"
+                android:lineSpacingExtra="@dimen/margin_4"
                 android:textColor="@color/color_404040"
                 android:textSize="@dimen/text_size_14"
                 android:layout_marginBottom="12dp"
@@ -58,7 +62,6 @@
                     android:layout_height="match_parent" />
                 <View
                   style="@style/DividerVerticalStyle"
-                    android:layout_margin="@dimen/margin_8"
                     />
                 <TextView
                     android:id="@+id/tvUpdate"
