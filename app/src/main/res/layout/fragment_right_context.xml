@@ -32,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:paddingBottom="@dimen/margin_16"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/nav_icon_announcemen" />
 
@@ -40,13 +41,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/color_FAFAFA"
+            android:paddingBottom="@dimen/margin_16"
             android:orientation="vertical">
 
             <hdenergy.mdground.com.hdenergy.views.SimpleImageBanner
                 android:id="@+id/simpleImageBanner"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/size_216"
-                android:layout_marginBottom="@dimen/text_size_14"
+                android:layout_marginBottom="@dimen/margin_14"
                 android:background="@color/color_999999"
                 app:bb_scale="0.8" />
 
@@ -54,6 +57,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/color_FAFAFA"
+                    android:paddingBottom="@dimen/margin_16"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal">
@@ -61,6 +66,8 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/margin_12"
+                        android:layout_marginRight="@dimen/margin_6"
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
@@ -69,7 +76,6 @@
                             android:id="@+id/lltDateReport"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/margin_16"
                             android:layout_weight="1"
                             android:background="@drawable/home_bg"
                             android:gravity="center"
@@ -95,8 +101,7 @@
                             android:id="@+id/lltAttendanceReport"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/margin_16"
-                            android:layout_marginBottom="@dimen/margin_16"
+
                             android:layout_weight="1"
                             android:background="@drawable/home_bg"
                             android:gravity="center"
@@ -121,6 +126,8 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/margin_12"
+                        android:layout_marginLeft="@dimen/margin_6"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -128,8 +135,6 @@
                             android:id="@+id/lltProjectStartStop"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/margin_16"
-                            android:layout_marginBottom="@dimen/margin_16"
                             android:layout_weight="1"
                             android:background="@drawable/home_bg"
                             android:gravity="center"
@@ -152,8 +157,6 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/margin_16"
-                            android:layout_marginBottom="@dimen/margin_16"
                             android:layout_weight="1"
                             android:background="@drawable/home_bg"
                             android:gravity="center"

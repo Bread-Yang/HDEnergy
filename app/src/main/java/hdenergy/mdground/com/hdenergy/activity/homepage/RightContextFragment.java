@@ -88,7 +88,7 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
         }
     }
 
-    //没有网络广播的时候
+    //没有网络广告的时候
     public void geUsertGuides() {
         BannerItem bannerItem = new BannerItem();
         bannerItem.setmLoadImage(R.drawable.home_banner);
