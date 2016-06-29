@@ -4,14 +4,6 @@
 
     <data>
 
-        <variable
-            name="boiler"
-            type="hdenergy.mdground.com.hdenergy.models.Boiler" />
-
-        <variable
-            name="position"
-            type="Integer" />
-
     </data>
 
     <LinearLayout

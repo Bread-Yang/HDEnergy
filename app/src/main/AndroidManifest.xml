@@ -42,6 +42,9 @@
             android:name=".activity.projectstartstop.ProjectEditActivity"
             android:label="@string/edit" />
         <activity
+            android:name=".activity.advice.ReasonableAdviceActivity"
+            android:label="@string/reasonable_advice" />
+        <activity
             android:name=".activity.personalcenter.BasicInformationActivity"
             android:label="@string/basic_information" />
         <activity

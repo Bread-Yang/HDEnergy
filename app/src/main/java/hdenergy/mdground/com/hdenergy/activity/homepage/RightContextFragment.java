@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import hdenergy.mdground.com.hdenergy.R;
+import hdenergy.mdground.com.hdenergy.activity.advice.ReasonableAdviceActivity;
 import hdenergy.mdground.com.hdenergy.activity.announcement.AnnouncementListActivity;
 import hdenergy.mdground.com.hdenergy.activity.attendancereport.AttendanceReportActivity;
 import hdenergy.mdground.com.hdenergy.activity.datareport.DataReportActivity;
@@ -55,6 +56,7 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
         view.findViewById(R.id.lltDateReport).setOnClickListener(this);
         view.findViewById(R.id.lltAttendanceReport).setOnClickListener(this);
         view.findViewById(R.id.lltProjectStartStop).setOnClickListener(this);
+        view.findViewById(R.id.lltReasonableAdvice).setOnClickListener(this);
 
         return view;
     }
@@ -82,6 +84,12 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
 
             case R.id.lltProjectStartStop: {
                 Intent intent = new Intent(getActivity(), ProjectStartStopActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+            case R.id.lltReasonableAdvice: {
+                Intent intent = new Intent(getActivity(), ReasonableAdviceActivity.class);
                 startActivity(intent);
                 break;
             }

@@ -112,6 +112,10 @@
     <string name="end_time_with_colon">结束时间:</string>
     <string name="reason_with_colon">原因:</string>
 
+    <!-- 合理化建议 -->
+    <string name="reasonable_advice">合理化建议</string>
+    <string name="reasonable_advice_tips">合理化的建议有助于我们改善用户体验,谢谢</string>
+
     <!--个人中心-->
     <string name="basic_information">基本信息</string>
     <string name="name">姓名</string>

@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 
 import hdenergy.mdground.com.hdenergy.R;
@@ -21,6 +22,8 @@ import hdenergy.mdground.com.hdenergy.databinding.ItemBoilerBinding;
 import hdenergy.mdground.com.hdenergy.models.Boiler;
 import hdenergy.mdground.com.hdenergy.utils.DateUtils;
 import hdenergy.mdground.com.hdenergy.views.BaoPickerDialog;
+import kankan.wheel.widget.OnWheelScrollListener;
+import kankan.wheel.widget.WheelView;
 
 /**
  * Created by yoghourt on 2016-06-27.
@@ -28,13 +31,19 @@ import hdenergy.mdground.com.hdenergy.views.BaoPickerDialog;
 public class DataReportActivity extends ToolbarActivity<ActivityDataReportBinding>
         implements DatePickerDialog.OnDateSetListener {
 
-    private DatePickerDialog mBirthdayDatePickerDialog;
+    private DatePickerDialog mDatePickerDialog;
 
     private DataReportAdapter mAdapter;
 
     private BaoPickerDialog mBaoPickerDialog;
 
     private ArrayList<Boiler> mBoilerArrayList = new ArrayList<>();
+
+    private ArrayList<String> mProjectStringArrayList = new ArrayList<>();
+
+    private ArrayList<String> mSalesProductArrayList = new ArrayList<>();
+
+    private int mWheelViewChooseResID;
 
     @Override
     protected int getContentLayout() {
@@ -56,18 +65,40 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         mAdapter = new DataReportAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
 
-        // 选择框
+        // 项目数据
         mBaoPickerDialog = new BaoPickerDialog(this);
-        ArrayList<String> pickerStringArrayList = new ArrayList<>();
-        pickerStringArrayList.add("测试数据1");
-        pickerStringArrayList.add("测试数据2");
-        pickerStringArrayList.add("测试数据3");
-        mBaoPickerDialog.bindWheelViewData(pickerStringArrayList);
+        mProjectStringArrayList = new ArrayList<>();
+        mProjectStringArrayList.add("项目1");
+        mProjectStringArrayList.add("项目2");
+        mProjectStringArrayList.add("项目3");
+
+        // 销售产品数据
+        String[] salesProductStrings = getResources().getStringArray(R.array.sale_product_type);
+        Collections.addAll(mSalesProductArrayList, salesProductStrings);
     }
 
     @Override
     protected void setListener() {
+        mBaoPickerDialog.setOnWheelScrollListener(new OnWheelScrollListener() {
+            @Override
+            public void onScrollingStarted(WheelView wheel) {
 
+            }
+
+            @Override
+            public void onScrollingFinished(WheelView wheel) {
+                int currentPosition = wheel.getCurrentItem();
+
+                switch (mWheelViewChooseResID) {
+                    case R.id.tvProject:
+                        mDataBinding.tvProject.setText(mProjectStringArrayList.get(currentPosition));
+                        break;
+                    case R.id.tvSaleProduct:
+                        mDataBinding.tvSaleProduct.setText(mSalesProductArrayList.get(currentPosition));
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -77,20 +108,24 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     //region  ACTION
     public void selectProjectAction(View view) {
+        mWheelViewChooseResID = R.id.tvProject;
+        mBaoPickerDialog.bindWheelViewData(mProjectStringArrayList);
         mBaoPickerDialog.show();
     }
 
     public void selectSaleProductAction(View view) {
+        mWheelViewChooseResID = R.id.tvSaleProduct;
+        mBaoPickerDialog.bindWheelViewData(mSalesProductArrayList);
         mBaoPickerDialog.show();
     }
 
     public void SelectDataAction(View view) {
-        if (mBirthdayDatePickerDialog == null) {
+        if (mDatePickerDialog == null) {
             Calendar calendar = Calendar.getInstance();
-            mBirthdayDatePickerDialog = new DatePickerDialog(this, this, calendar.get(Calendar.YEAR),
+            mDatePickerDialog = new DatePickerDialog(this, this, calendar.get(Calendar.YEAR),
                     calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         }
-        mBirthdayDatePickerDialog.show();
+        mDatePickerDialog.show();
     }
 
     public void nextStepAction(View view) {

@@ -6,11 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.homepage.HomeActivity;
-import hdenergy.mdground.com.hdenergy.utils.StringUtil;
 
 /**
  * Created by PC on 2016-06-24.
@@ -38,14 +36,15 @@ public class LoginActivity extends AppCompatActivity{
         Intent intent=new Intent(LoginActivity.this,ForgetPasswordActivity.class);
         startActivity(intent);
     }
+
     public void loginAction(View view){
         String phone =mEtAccount.getText().toString();
 
-        if (StringUtil.isEmpty(phone)) {
-         //   Toast.makeText(this, R.string.input_phone_number, Toast.LENGTH_SHORT).show();
-            return;
-
-        }
+//        if (StringUtil.isEmpty(phone)) {
+//            Toast.makeText(this, R.string.input_phone_number, Toast.LENGTH_SHORT).show();
+//            return;
+//
+//        }
 //        if (phone.length() != 11) {
 //         //   Toast.makeText(this, R.string.input_corrent_phone, Toast.LENGTH_SHORT).show();
 //            return;
@@ -53,10 +52,10 @@ public class LoginActivity extends AppCompatActivity{
 
         String password = mEtPassword.getText().toString();
 
-        if (StringUtil.isEmpty(password)) {
-            Toast.makeText(this, R.string.input_password, Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        if (StringUtil.isEmpty(password)) {
+//            Toast.makeText(this, R.string.input_password, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
 
 //        if (password.length() < 6 || password.length() > 16) {
 //            Toast.makeText(this, R.string.input_corrent_password, Toast.LENGTH_SHORT).show();
@@ -66,8 +65,5 @@ public class LoginActivity extends AppCompatActivity{
         startActivity(intent);
         finish();
     }
-
-    //endgion
-
-
+    //endregion
 }

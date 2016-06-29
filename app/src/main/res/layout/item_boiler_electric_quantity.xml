@@ -44,15 +44,12 @@
                 android:id="@+id/etElectircQuantity"
                 style="@style/EditTextStyle"
                 android:layout_toLeftOf="@+id/ivDeleteOne"
+                android:gravity="right"
                 tools:text="12345kw/h" />
 
             <ImageView
                 android:id="@+id/ivDeleteOne"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/icon_delete2"
+                style="@style/DeleteImageViewStyle"
                 android:visibility="invisible" />
 
         </RelativeLayout>
@@ -70,15 +67,12 @@
                 android:id="@+id/etElectircQuantityTwo"
                 style="@style/EditTextStyle"
                 android:layout_toLeftOf="@+id/ivDeleteTwo"
+                android:gravity="right"
                 tools:text="1256" />
 
             <ImageView
                 android:id="@+id/ivDeleteTwo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/icon_delete2" />
+                style="@style/DeleteImageViewStyle" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -94,15 +88,12 @@
                 android:id="@+id/etElectircQuantityThree"
                 style="@style/EditTextStyle"
                 android:layout_toLeftOf="@+id/ivDeleteThree"
+                android:gravity="right"
                 tools:text="1256" />
 
             <ImageView
                 android:id="@+id/ivDeleteThree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/icon_delete2" />
+                style="@style/DeleteImageViewStyle" />
 
         </RelativeLayout>
 
@@ -116,8 +107,7 @@
 
             <TextView
                 android:id="@+id/tvElectircUnitConsumption"
-                style="@style/WithArrowIconTextStyle"
-                android:textSize="@dimen/text_size_16"
+                style="@style/AlignRightTextStyle"
                 tools:text="25631" />
 
         </RelativeLayout>
