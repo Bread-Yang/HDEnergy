@@ -145,6 +145,8 @@
     <string name="stop_flow_one">截止流量1：</string>
     <string name="flow_one">流量1：</string>
     <string name="adjustment_explain">调整说明：</string>
+   
+    <!--设置-->
     <string name="feedback">意见反馈</string>
     <string name="check_update">检查更新</string>
     <string name="using_help">使用帮助</string>
@@ -154,6 +156,6 @@
     <string name="cancel">取消</string>
     <string name="update">更新</string>
     <string name="current_version">已经是最新版本</string>
-
+    <string name="reasonable_suggest_text">合理的建议有助于我们改善用户体验，谢谢</string>
 
 </resources>

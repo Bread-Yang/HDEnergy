@@ -10,6 +10,7 @@
         android:orientation="vertical">
 
       <TextView
+          android:onClick="toFeedActivity"
           android:textColor="@color/color_404040"
           android:layout_height="60dp"
           android:textSize="@dimen/text_size_16"

@@ -53,6 +53,9 @@
         <activity android:name=".activity.personalcenter.SettingActivity"
                   android:label="@string/setting"
             />
+        <activity android:name=".activity.personalcenter.FeedBackActivity"
+                 android:label="@string/feedback"
+            ></activity>
     </application>
 
 </manifest>
