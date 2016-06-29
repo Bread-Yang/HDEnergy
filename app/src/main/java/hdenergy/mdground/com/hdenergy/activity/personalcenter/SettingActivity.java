@@ -54,6 +54,7 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
     public  void onExitLogin(View view){
         Intent intent=new Intent(this, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
     public void toFeedActivity(View view){
         Intent intent=new Intent(this,FeedBackActivity.class);
