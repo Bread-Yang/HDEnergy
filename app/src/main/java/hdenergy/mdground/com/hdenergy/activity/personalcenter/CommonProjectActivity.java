@@ -6,13 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.ArrayList;
-
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
 import hdenergy.mdground.com.hdenergy.databinding.ActivityCommonProjectBinding;
 import hdenergy.mdground.com.hdenergy.databinding.ItemContactsBinding;
+import hdenergy.mdground.com.hdenergy.utils.ViewUtils;
 import hdenergy.mdground.com.hdenergy.views.AddProjectDialog;
 
 /**
@@ -61,9 +60,15 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
 
     @Override
     public void clickUpdate(String project) {
+        if(!"".equals(project)){
         mArrayList.add(project);
         mDialog.dismiss();
         mAdapter.notifyDataSetChanged();
+            mDataBinding.tvContactsAmount.setText(getString(R.string.left_bracket)
+                    +mArrayList.size()+getString(R.string.right_bracket));
+        }else{
+            ViewUtils.toast(getString(R.string.project_no_empt));
+        }
     }
 
     public void showAddDialog(View view){

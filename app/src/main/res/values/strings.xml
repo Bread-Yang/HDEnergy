@@ -160,7 +160,10 @@
     <string name="flow_one">流量1：</string>
     <string name="adjustment_explain">调整说明：</string>
     <string name="data_list">数据列表</string>
-   
+    <string name="project_no_empt">项目名不能为空</string>
+    <string name="project_amount">项目数</string>
+
+
     <!--设置-->
     <string name="feedback">意见反馈</string>
     <string name="check_update">检查更新</string>
@@ -174,7 +177,6 @@
     <string name="current_version">你当前的版本是1.0.0</string>
     <string name="none">无</string>
     <string name="reasonable_suggest_text">合理的建议有助于我们改善用户体验，谢谢</string>
-
 
 
 </resources>

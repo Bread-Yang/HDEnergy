@@ -61,6 +61,7 @@
                     android:layout_height="match_parent" />
                 <View
                   style="@style/DividerVerticalStyle"
+                    android:layout_margin="@dimen/margin_6"
                     />
                 <TextView
                     android:id="@+id/tvConfirm"

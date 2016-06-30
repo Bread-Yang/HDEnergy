@@ -11,6 +11,7 @@
             android:background="@color/color_white"
             android:layout_width="268dp"
             android:paddingLeft="@dimen/margin_26"
+            android:paddingRight="@dimen/margin_26"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/margin_16"
             android:orientation="vertical">
@@ -46,10 +47,9 @@
                 android:textSize="@dimen/text_size_14"
                 android:layout_marginBottom="12dp"
                 />
-            <View style="@style/DividerHorizontalMarginStyle"></View>
+            <View style="@style/DividerHorizontalStyle"></View>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginRight="@dimen/margin_26"
                 android:orientation="horizontal"
                 android:layout_height="@dimen/size_50">
                 <TextView
@@ -62,6 +62,7 @@
                     android:layout_height="match_parent" />
                 <View
                   style="@style/DividerVerticalStyle"
+                    android:layout_margin="@dimen/size_6"
                     />
                 <TextView
                     android:id="@+id/tvUpdate"
