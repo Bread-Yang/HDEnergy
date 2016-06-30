@@ -137,6 +137,9 @@
     <string name="contacts_amount">联系人数</string>
     <string name="change_password">修改密码</string>
     <string name="resonable_suggest">合理建议</string>
+    <string name="prompt">提示</string>
+    <string name="input_new_project">请输入新项目名称</string>
+    <string name="comfirm">确定</string>
      <!--历史数据统计-->
     <string name="yongxing">永新</string>
     <string name="standard_form">标单：</string>

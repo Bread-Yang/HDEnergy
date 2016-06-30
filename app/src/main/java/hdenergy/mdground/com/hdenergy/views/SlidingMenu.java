@@ -69,12 +69,12 @@ public class SlidingMenu extends HorizontalScrollView {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-//          if(changed){
+         if(changed){
               KLog.e("有点击进来");
               this.scrollTo(menuWidth,0);
               once=true;
               isOpen=false;
-      //    }
+          }
 
     }
 

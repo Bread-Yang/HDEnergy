@@ -29,5 +29,10 @@ public class BasicInformationActivity extends ToolbarActivity<ActivityBasicInfor
         Intent intent=new Intent(BasicInformationActivity.this,CommonContactsActivity.class);
         startActivity(intent);
     }
+
+    public void toCommonProjectActivity(View view){
+        Intent intent=new Intent(BasicInformationActivity.this,CommonProjectActivity.class);
+        startActivity(intent);
+    }
     //endregion
 }

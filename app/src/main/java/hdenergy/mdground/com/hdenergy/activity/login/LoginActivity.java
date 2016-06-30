@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity{
         Intent  intent=getIntent();
         isFromExit=intent.getStringExtra(Constants.KEY_IS_EXIT_LOGIN);
         if(intent!=null){
-            if(isFromExit!=null){
+            if(isFromExit==null){
                 if (MDGroundApplication.mInstance.getLoginUser() != null) {
                     Intent intent1=new Intent(this, HomeActivity.class);
                     startActivity(intent1);

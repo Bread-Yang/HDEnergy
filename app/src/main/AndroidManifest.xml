@@ -68,6 +68,9 @@
         <activity android:name=".activity.personalcenter.CommonContactsActivity"
                android:label="@string/common_contact"
             />
+        <activity android:name=".activity.personalcenter.CommonProjectActivity"
+                  android:label="@string/common_option"
+            />
     </application>
 
 </manifest>
