@@ -34,7 +34,7 @@ public class ForgetPasswordActivity extends ToolbarActivity<ActivityForgetPasswo
          public void onClick(View v) {
              mAccount=mDataBinding.cetAccount.getText().toString();
              mPassword=mDataBinding.cetPassword.getText().toString();
-//             mVerfify=mDataBinding.cetVerify.getText.toString();
+             mVerfify=mDataBinding.cetVerify.getText().toString();
              if(StringUtil.isEmpty(mAccount)){
                  ViewUtils.toast(getString(R.string.input_phone));
                  return;
@@ -43,10 +43,10 @@ public class ForgetPasswordActivity extends ToolbarActivity<ActivityForgetPasswo
                   ViewUtils.toast(getString(R.string.input_password));
                   return;
               }
-//             if(StringUtil.isEmpty(mVerfify)){
-//                 ViewUtils.toast(getString(R.string.input_verify));
-//                 return;
-//             }
+             if(StringUtil.isEmpty(mVerfify)){
+                 ViewUtils.toast(getString(R.string.input_verify));
+                 return;
+             }
              Intent  intent=new Intent(ForgetPasswordActivity.this,LoginActivity.class);
              startActivity(intent);
          }
