@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/color_FAFAFA"
-            android:paddingBottom="@dimen/margin_16"
+            android:paddingBottom="@dimen/margin_8"
             android:orientation="vertical">
 
             <hdenergy.mdground.com.hdenergy.views.SimpleImageBanner
@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/color_FAFAFA"
-                    android:paddingBottom="@dimen/margin_16"
+                    android:paddingBottom="@dimen/margin_8"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal">
@@ -79,6 +79,8 @@
                             android:background="@drawable/home_bg"
                             android:gravity="center"
                             android:orientation="vertical"
+                            android:layout_marginBottom="@dimen/margin_6"
+
 
                             >
 
@@ -100,7 +102,7 @@
                             android:id="@+id/lltAttendanceReport"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
+                            android:layout_marginTop="@dimen/margin_6"
                             android:layout_weight="1"
                             android:background="@drawable/home_bg"
                             android:gravity="center"
@@ -137,6 +139,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/home_bg"
                             android:gravity="center"
+                            android:layout_marginBottom="@dimen/margin_6"
                             android:orientation="vertical">
 
                             <ImageView
@@ -158,6 +161,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:layout_marginTop="@dimen/margin_6"
                             android:background="@drawable/home_bg"
                             android:gravity="center"
                             android:orientation="vertical">

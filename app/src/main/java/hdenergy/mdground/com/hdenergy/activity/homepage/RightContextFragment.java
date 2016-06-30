@@ -106,4 +106,7 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
         mArrayList.add(bannerItem1);
     }
 
+
+
+
 }
