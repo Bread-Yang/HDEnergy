@@ -46,7 +46,7 @@
             android:label="@string/reasonable_advice" />
         <activity
             android:name=".activity.personalcenter.BasicInformationActivity"
-            android:label="@string/basic_information" />
+            android:label="@string/people_infomation" />
         <activity
             android:name=".activity.personalcenter.HistoryDataStaticsActivity"
             android:label="@string/hostorical_data_statistic" />
