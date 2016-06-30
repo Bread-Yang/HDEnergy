@@ -1,5 +1,8 @@
 package hdenergy.mdground.com.hdenergy.activity.personalcenter;
 
+import android.content.Intent;
+import android.view.View;
+
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
 import hdenergy.mdground.com.hdenergy.databinding.ActivityBasicInformationBinding;
@@ -21,4 +24,10 @@ public class BasicInformationActivity extends ToolbarActivity<ActivityBasicInfor
     protected void setListener() {
 
     }
+    //region ACTION
+    public void toCommonContactsActivity(View view){
+        Intent intent=new Intent(BasicInformationActivity.this,CommonContactsActivity.class);
+        startActivity(intent);
+    }
+    //endregion
 }

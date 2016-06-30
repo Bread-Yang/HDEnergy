@@ -65,6 +65,9 @@
         <activity
             android:name=".activity.personalcenter.HistoryDataListActivity"
             android:label="@string/data_list" />
+        <activity android:name=".activity.personalcenter.CommonContactsActivity"
+               android:label="@string/common_contact"
+            />
     </application>
 
 </manifest>

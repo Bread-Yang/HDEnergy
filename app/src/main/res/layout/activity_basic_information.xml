@@ -135,6 +135,8 @@
 
 
                <RelativeLayout
+                   android:onClick="toCommonContactsActivity"
+                   android:id="@+id/tvCommonContacts"
                    android:layout_marginTop="@dimen/margin_1"
                    style="@style/FixHeightLayoutStyle"
                    android:background="@color/color_white"

@@ -26,15 +26,21 @@ public class LoginActivity extends AppCompatActivity{
     private EditText mEtAccount;
     private EditText mEtPassword;
     private CheckBox cbAutoLogin;
-
+    private String isFromExit;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        if (MDGroundApplication.mInstance.getLoginUser() != null) {
-            Intent intent=new Intent(this, HomeActivity.class);
-            startActivity(intent);
-            finish();
+        Intent  intent=getIntent();
+        isFromExit=intent.getStringExtra(Constants.KEY_IS_EXIT_LOGIN);
+        if(intent!=null){
+            if(isFromExit!=null){
+                if (MDGroundApplication.mInstance.getLoginUser() != null) {
+                    Intent intent1=new Intent(this, HomeActivity.class);
+                    startActivity(intent1);
+                    finish();
+                }
+            }
         }
         init();
     }
@@ -81,6 +87,7 @@ public class LoginActivity extends AppCompatActivity{
             startActivity(intent);
             finish();
         }else{
+            MDGroundApplication.mInstance.setLoginUser(null);
             Intent intent=new Intent(this, HomeActivity.class);
             startActivity(intent);
             finish();

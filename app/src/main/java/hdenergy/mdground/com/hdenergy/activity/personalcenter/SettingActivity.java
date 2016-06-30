@@ -7,6 +7,7 @@ import android.widget.Toast;
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
 import hdenergy.mdground.com.hdenergy.activity.login.LoginActivity;
+import hdenergy.mdground.com.hdenergy.constants.Constants;
 import hdenergy.mdground.com.hdenergy.databinding.ActivitySettingBinding;
 import hdenergy.mdground.com.hdenergy.views.CheckUpdateDialog;
 
@@ -53,6 +54,7 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding> imp
 
     public  void onExitLogin(View view){
         Intent intent=new Intent(this, LoginActivity.class);
+        intent.putExtra(Constants.KEY_IS_EXIT_LOGIN,Constants.KEY_IS_EXIT_LOGIN);
         startActivity(intent);
         finish();
     }

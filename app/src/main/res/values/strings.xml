@@ -132,6 +132,9 @@
     <string name="hostorical_data_statistic">历史数据统计</string>
     <string name="hostorical_attendance_statics">历史考勤统计</string>
     <string name="setting">设置</string>
+    <string name="left_bracket">(</string>
+    <string name="right_bracket">)</string>
+    <string name="contacts_amount">联系人数</string>
     <string name="change_password">修改密码</string>
     <string name="resonable_suggest">合理建议</string>
      <!--历史数据统计-->
