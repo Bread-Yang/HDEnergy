@@ -121,6 +121,7 @@
 
     <!--个人中心-->
     <string name="basic_information">基本信息</string>
+    <string name="people_infomation">个人信息</string>
     <string name="name">姓名</string>
     <string name="phone_num">手机号码</string>
     <string name="belongs_department">所在部门</string>
