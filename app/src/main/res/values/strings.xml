@@ -67,17 +67,21 @@
     <string name="water_quantity_two_with_colon">水量2:</string>
     <string name="water_quantity_three_with_colon">水量3:</string>
     <string name="water_unit_consumption">水单耗</string>
+    <string name="water_unit_consumption_with_colon">水单耗</string>
 
     <!-- 锅炉编辑2 -->
     <string name="fuel">燃料</string>
     <string name="fuel_type_with_colon">燃料种类:</string>
     <string name="last_period_stock_with_colon">上期库存:</string>
     <string name="feedstock_amount_with_colon">进料量:</string>
+    <string name="feedstock_amount">进料量:</string>
     <string name="supplier">供应商:</string>
     <string name="license_plate">车牌号:</string>
     <string name="delivery_capacity">送货量:</string>
     <string name="current_period_stock_with_colon">本期库存:</string>
     <string name="fuel_consumption_with_colon">燃料耗量:</string>
+    <string name="fuel_adjust_with_colon">燃料调整:</string>
+    <string name="adjust_explain_with_colon">调整说明:</string>
     <string name="fuel_unit_consumption_with_colon">燃料单耗:</string>
 
     <!-- 考勤汇报 -->
@@ -162,6 +166,8 @@
     <string name="data_list">数据列表</string>
     <string name="project_no_empt">项目名不能为空</string>
     <string name="project_amount">项目数</string>
+    <string name="maintain_cost">维修费用</string>
+    <string name="please_check">请查看</string>
 
     <!-- 历史考勤统计 -->
     <string name="hostorical_attendance_statics">历史考勤统计</string>

@@ -1,274 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-   <ScrollView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       >
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:gravity="center_horizontal"
-           android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-           <TextView
-               style="@style/FixHeightLayoutStyle"
-               android:text="@string/project_status"
-               android:gravity="center_vertical"
-               android:textSize="@dimen/text_size_18"
-               android:textColor="@color/color_404040"
-               />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-           <LinearLayout
-               style="@style/WhiteFixHeightLayoutStyle"
-               android:orientation="horizontal"
-               android:gravity="center_vertical"
-               >
+            <TextView
+                style="@style/SingleTitleLayoutStyle"
+                android:text="@string/project_status" />
 
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="@string/report_people"
-                   android:textSize="@dimen/text_size_14"
-                   android:gravity="center_vertical"
-                   android:textColor="@color/color_9A9A9A"
-                   />
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:onClick="selectProjectAction">
 
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textColor="@color/color_404040"
-                   android:textSize="@dimen/text_size_18"
-                   tools:text="@string/yongxing"
-                   android:layout_weight="1"
-                   android:gravity="right"
-                   />
-           </LinearLayout>
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/report_people" />
 
-           <View style="@style/DividerHorizontalStyle"></View>
+                <TextView
+                    android:id="@+id/tvProject"
+                    style="@style/NormalTextStyle"
+                     android:layout_alignParentRight="true"
+                    android:gravity="center_vertical|right"
+                    android:textSize="@dimen/margin_16"
+                    android:layout_centerVertical="true"
+                    android:text="用新"
+                    tools:text="用新" />
 
-           <LinearLayout
-               style="@style/WhiteFixHeightLayoutStyle"
-               android:orientation="horizontal"
-               android:gravity="center_vertical"
-               >
+            </RelativeLayout>
 
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="@string/data_with_colon"
-                   android:textSize="@dimen/text_size_14"
-                   android:gravity="center_vertical"
-                   android:textColor="@color/color_9A9A9A"
-                   />
+            <RelativeLayout
+                android:id="@+id/rltData"
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1"
+                android:onClick="SelectDataAction">
 
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textColor="@color/color_404040"
-                   android:textSize="@dimen/text_size_18"
-                   tools:text="@string/yongxing"
-                   android:layout_weight="1"
-                   android:gravity="right"
-                   />
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/data_with_colon" />
 
-           </LinearLayout>
+                <TextView
+                    android:id="@+id/tvData"
+                    style="@style/NormalTextStyle"
+                    android:gravity="center_vertical|right"
+                    android:textSize="@dimen/margin_16"
+                    android:text="2016-04-11"
+                    tools:text="2016-04-11"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
 
-           <View style="@style/DividerHorizontalStyle"></View>
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1"
+                android:onClick="selectSaleProductAction">
 
-           <LinearLayout
-               style="@style/WhiteFixHeightLayoutStyle"
-               android:orientation="horizontal"
-               android:gravity="center_vertical"
-               >
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/sale_product_with_colon" />
 
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="@string/sale_product_with_colon"
-                   android:textSize="@dimen/text_size_14"
-                   android:gravity="center_vertical"
-                   android:textColor="@color/color_9A9A9A"
-                   />
+                <TextView
+                    android:id="@+id/tvSaleProduct"
+                    style="@style/NormalTextStyle"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical|right"
+                    android:textSize="@dimen/margin_16"
+                    android:layout_centerVertical="true"
+                    android:text="蒸汽"
+                    tools:text="蒸汽" />
 
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textColor="@color/color_404040"
-                   android:textSize="@dimen/text_size_18"
-                   tools:text="@string/yongxing"
-                   android:layout_weight="1"
-                   android:gravity="right"
-                   />
+            </RelativeLayout>
 
-           </LinearLayout>
+            <TextView
+                style="@style/SingleTitleLayoutStyle"
+                android:text="@string/boiler" />
 
-           <View style="@style/DividerHorizontalStyle"></View>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-           <TextView
-               style="@style/FixHeightLayoutStyle"
-               android:text="@string/boiler"
-               android:gravity="center_vertical"
-               android:textSize="@dimen/text_size_18"
-               android:textColor="@color/color_404040"
-               />
+            <TextView
+                style="@style/SingleTitleLayoutStyle"
+                android:text="@string/expense" />
 
-           <LinearLayout
-               style="@style/WhiteFixHeightLayoutStyle"
-               android:orientation="horizontal"
-               android:gravity="center_vertical"
-               >
+            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
 
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="@string/boiler_a"
-                   android:textSize="@dimen/text_size_14"
-                   android:gravity="center_vertical"
-                   android:textColor="@color/color_9A9A9A"
-                   />
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/project_expense_with_colon" />
 
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textColor="@color/color_9A9A9A"
-                   android:textSize="@dimen/text_size_14"
-                   android:text="请查看"
-                   android:layout_weight="1"
-                   android:gravity="right"
-                   />
-               <ImageView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:src="@drawable/icon_more"
-                   />
+                <TextView
+                    android:id="@+id/etProjectExpense"
+                    style="@style/AlignRightNoPaddingTextStyle"
+                    tools:text="200"
+                    android:text="200"
+                    />
 
-           </LinearLayout>
+            </RelativeLayout>
 
-           <View style="@style/DividerHorizontalStyle"></View>
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1">
 
-           <LinearLayout
-               style="@style/WhiteFixHeightLayoutStyle"
-               android:orientation="horizontal"
-               android:gravity="center_vertical"
-               >
+                <TextView
+                    style="@style/DimTextStyle"
+                    android:text="@string/project_details_with_colon" />
 
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="@string/boiler_b"
-                   android:textSize="@dimen/text_size_14"
-                   android:gravity="center_vertical"
-                   android:textColor="@color/color_9A9A9A"
-                   />
+                <TextView
+                    android:id="@+id/etProjectDetail"
+                    style="@style/AlignRightNoPaddingTextStyle"
+                    tools:text="@string/maintain_cost"
+                    android:layout_centerVertical="true"
+                    android:text="@string/maintain_cost"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
 
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textColor="@color/color_9A9A9A"
-                   android:textSize="@dimen/text_size_14"
-                   android:text="请查看"
-                   android:layout_weight="1"
-                   android:gravity="right"
-                   />
+            </RelativeLayout>
 
-               <ImageView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:src="@drawable/icon_more"
-                   />
+            <TextView
+                style="@style/SingleTitleLayoutStyle"
+                android:text="@string/other_problem" />
 
-           </LinearLayout>
+            <TextView
+                android:id="@+id/etOtherProblem"
+                style="@style/LargeTextViewLayoutStyle"
+                android:textColor="@color/color_404040"
+                android:text="@string/yongxing"
+                tools:text="@string/adjustment_explain" />
 
-           <TextView
-               style="@style/FixHeightLayoutStyle"
-               android:text="@string/expense"
-               android:gravity="center_vertical"
-               android:textSize="@dimen/text_size_18"
-               android:textColor="@color/color_404040"
-               />
 
-           <LinearLayout
-               style="@style/WhiteFixHeightLayoutStyle"
-               android:orientation="horizontal"
-               android:gravity="center_vertical"
-               >
-
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="@string/project_date_expanse"
-                   android:textSize="@dimen/text_size_14"
-                   android:gravity="center_vertical"
-                   android:textColor="@color/color_9A9A9A"
-                   />
-
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textColor="@color/color_404040"
-                   android:textSize="@dimen/text_size_18"
-                   tools:text="@string/yongxing"
-                   android:layout_weight="1"
-                   android:gravity="right"
-                   />
-
-           </LinearLayout>
-
-           <View style="@style/DividerHorizontalStyle"></View>
-
-           <LinearLayout
-               style="@style/WhiteFixHeightLayoutStyle"
-               android:orientation="horizontal"
-               android:gravity="center_vertical"
-               >
-
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="@string/expanse_detail"
-                   android:textSize="@dimen/text_size_14"
-                   android:gravity="center_vertical"
-                   android:textColor="@color/color_9A9A9A"
-                   />
-
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textColor="@color/color_404040"
-                   android:textSize="@dimen/text_size_18"
-                   tools:text="@string/yongxing"
-                   android:layout_weight="1"
-                   android:gravity="right"
-                   />
-
-           </LinearLayout>
-
-           <TextView
-               style="@style/FixHeightLayoutStyle"
-               android:text="@string/other_problem"
-               android:gravity="center_vertical"
-               android:textSize="@dimen/text_size_18"
-               android:textColor="@color/color_404040"
-               />
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:background="@color/color_white"
-               android:orientation="horizontal"
-               android:padding="@dimen/_margin_8"
-               >
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textSize="@dimen/text_size_18"
-                   android:layout_margin="@dimen/margin_8"
-                   android:textColor="@color/color_404040"
-                   tools:text="dfsdfdsfdsfds"
-                   />
-           </LinearLayout>
-       </LinearLayout>
-   </ScrollView>
-
+        </LinearLayout>
+    </ScrollView>
 </layout>

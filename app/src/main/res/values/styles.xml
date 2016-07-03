@@ -61,6 +61,13 @@
         <item name="android:scrollbars">vertical</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
+    <style name="LargeTextViewLayoutStyle" parent="NormalLayoutStyle">
+        <item name="android:paddingTop">@dimen/margin_20</item>
+        <item name="android:gravity">top|left</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
 
     <style name="DividerVerticalStyle">
         <item name="android:layout_width">1dp</item>
@@ -102,8 +109,11 @@
         <item name="android:paddingRight">@dimen/margin_24</item>
     </style>
 
-    <style name="WithArrowIconTextStyle" parent="AlignRightTextStyle">
-        <item name="android:drawableRight">@drawable/icon_more</item>
+    <style name="AlignRightNoPaddingTextStyle" parent="NormalTextStyle">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:layout_centerVertical">true</item>
     </style>
 
     <style name="DimTextStyle">
@@ -119,6 +129,14 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@drawable/selector_text_color_normal</item>
+    </style>
+
+    <style name="WithArrowIconTextStyle" parent="NormalTextStyle">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:drawableRight">@drawable/icon_more</item>
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:layout_centerVertical">true</item>
     </style>
 
     <style name="NormalButtonStyle">

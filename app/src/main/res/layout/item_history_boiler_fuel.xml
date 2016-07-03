@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <RelativeLayout style="@style/TitleLayoutStyle">
+
+            <TextView
+                style="@style/TitleTextStyle"
+                android:text="@string/fuel" />
+
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+            <TextView
+                style="@style/DimTextStyle"
+                android:text="@string/fuel_type_with_colon"
+              />
+
+            <TextView
+                android:id="@+id/etElectircQuantity"
+                style="@style/AlignRightNoPaddingTextStyle"
+                android:gravity="right"
+                tools:text="12345kw/h" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rltElectricQuantityTwo"
+            style="@style/WhiteFixHeightLayoutStyle"
+            android:layout_marginTop="@dimen/margin_1">
+
+            <TextView
+                style="@style/DimTextStyle"
+                android:text="@string/last_period_stock_with_colon" />
+
+            <TextView
+                android:id="@+id/etElectircQuantityTwo"
+                style="@style/AlignRightNoPaddingTextStyle"
+                android:gravity="right"
+                tools:text="1256" />
+
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+</layout>

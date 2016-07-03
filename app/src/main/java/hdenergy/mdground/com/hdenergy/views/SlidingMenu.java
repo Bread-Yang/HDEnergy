@@ -3,6 +3,7 @@ package hdenergy.mdground.com.hdenergy.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
@@ -35,9 +36,14 @@ public class SlidingMenu extends HorizontalScrollView {
 
     public SlidingMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
-        WindowManager manager= (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        mScreenWidth=manager.getDefaultDisplay().getWidth();
-        mScreenHight=manager.getDefaultDisplay().getHeight();
+        WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        manager.getDefaultDisplay().getMetrics(outMetrics);
+        mScreenWidth = outMetrics.widthPixels;
+        mScreenHight = outMetrics.heightPixels;
+//        WindowManager manager= (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+//        mScreenWidth=manager.getDefaultDisplay().getWidth();
+//        mScreenHight=manager.getDefaultDisplay().getHeight();
         KLog.e("mScreenWidth---->"+mScreenWidth);
         TypedArray typedArray=context.obtainStyledAttributes(attrs, R.styleable.SlidingMenu);
         right_margin=typedArray.getDimensionPixelSize(R.styleable.SlidingMenu_rightMragin, (int) TypedValue.applyDimension(
@@ -56,7 +62,6 @@ public class SlidingMenu extends HorizontalScrollView {
             wrapper= (LinearLayout) getChildAt(0);
             menu= (ViewGroup) wrapper.getChildAt(0);
             home= (ViewGroup) wrapper.getChildAt(1);
-            KLog.e("right_margin="+right_margin);
             menuWidth= (int) (mScreenWidth-right_margin);
             KLog.e("屏幕宽度"+String.valueOf(mScreenWidth));
             KLog.e("左侧宽度"+String.valueOf(menuWidth));

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+        <TextView
+            android:id="@+id/tvBoiler"
+            style="@style/DimTextStyle"
+            tools:text="@string/boiler_index" />
+
+        <TextView
+            style="@style/WithArrowIconTextStyle"
+            android:hint="@string/please_check"
+            android:textSize="@dimen/text_size_16" />
+
+    </RelativeLayout>
+
+</layout>

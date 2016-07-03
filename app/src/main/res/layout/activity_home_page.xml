@@ -30,18 +30,22 @@
                     android:id="@+id/fgLeftMenu"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    ></fragment>
+                    />
+
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     >
+
                     <fragment
                         android:name="hdenergy.mdground.com.hdenergy.activity.homepage.RightContextFragment"
                         android:id="@+id/ftRightContext"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        ></fragment>
+                        />
+
                 </LinearLayout>
 
             </LinearLayout>
