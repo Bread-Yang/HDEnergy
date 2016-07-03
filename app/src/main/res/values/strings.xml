@@ -27,7 +27,7 @@
 
     <!-- 忘记密码 -->
     <string name="auto_login">自动登录</string>
-    <string name="forget_password">忘记密码？</string>
+    <string name="forget_password">忘记密码</string>
 
     <!-- 公告 -->
     <string name="announcement_list">公告列表</string>
@@ -130,7 +130,6 @@
     <string name="common_project">常用项目</string>
     <string name="common_contact">常用联系人</string>
     <string name="hostorical_data_statistic">历史数据统计</string>
-    <string name="hostorical_attendance_statics">历史考勤统计</string>
     <string name="setting">设置</string>
     <string name="left_bracket">(</string>
     <string name="right_bracket">)</string>
@@ -140,7 +139,8 @@
     <string name="prompt">提示</string>
     <string name="input_new_project">请输入新项目名称</string>
     <string name="comfirm">确定</string>
-     <!--历史数据统计-->
+
+    <!--历史数据统计-->
     <string name="yongxing">永新</string>
     <string name="standard_form">标单：</string>
     <string name="individual_consumepotion">单耗：</string>
@@ -164,6 +164,14 @@
     <string name="project_amount">项目数</string>
     <string name="maintain_cost">维修费用</string>
 
+    <!-- 历史考勤统计 -->
+    <string name="hostorical_attendance_statics">历史考勤统计</string>
+
+    <!-- 员工考勤统计 -->
+    <string name="employee_attendance_statics">员工考勤统计</string>
+
+    <!-- 员工考勤详情 -->
+    <string name="employee_attendance_detail">员工考勤详情</string>
 
     <!--设置-->
     <string name="feedback">意见反馈</string>
@@ -178,6 +186,5 @@
     <string name="current_version">你当前的版本是1.0.0</string>
     <string name="none">无</string>
     <string name="reasonable_suggest_text">合理的建议有助于我们改善用户体验，谢谢</string>
-
 
 </resources>

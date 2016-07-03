@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.personalcenter.BasicInformationActivity;
-import hdenergy.mdground.com.hdenergy.activity.personalcenter.HistoryAttendanceStaticsActivity;
+import hdenergy.mdground.com.hdenergy.activity.attendancestatics.HistoryAttendanceStaticsActivity;
 import hdenergy.mdground.com.hdenergy.activity.personalcenter.HistoryDataStaticsActivity;
 import hdenergy.mdground.com.hdenergy.activity.personalcenter.SettingActivity;
 import hdenergy.mdground.com.hdenergy.views.CustomImageButton;

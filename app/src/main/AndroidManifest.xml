@@ -51,8 +51,14 @@
             android:name=".activity.personalcenter.HistoryDataStaticsActivity"
             android:label="@string/hostorical_data_statistic" />
         <activity
-            android:name=".activity.personalcenter.HistoryAttendanceStaticsActivity"
+            android:name=".activity.attendancestatics.HistoryAttendanceStaticsActivity"
             android:label="@string/hostorical_attendance_statics" />
+        <activity
+            android:name=".activity.attendancestatics.EmployeeAttendanceStaticsActivity"
+            android:label="@string/employee_attendance_statics" />
+        <activity
+            android:name=".activity.attendancestatics.EmployeeAttendanceDetailActivity"
+            android:label="@string/employee_attendance_detail" />
         <activity
             android:name=".activity.personalcenter.HistoryDataDetailsActivity"
             android:label="@string/date_details" />
@@ -61,16 +67,16 @@
             android:label="@string/setting" />
         <activity
             android:name=".activity.personalcenter.FeedBackActivity"
-            android:label="@string/feedback"></activity>
+            android:label="@string/feedback" />
         <activity
             android:name=".activity.personalcenter.HistoryDataListActivity"
             android:label="@string/data_list" />
-        <activity android:name=".activity.personalcenter.CommonContactsActivity"
-               android:label="@string/common_contact"
-            />
-        <activity android:name=".activity.personalcenter.CommonProjectActivity"
-                  android:label="@string/common_project"
-            />
+        <activity
+            android:name=".activity.personalcenter.CommonContactsActivity"
+            android:label="@string/common_contact" />
+        <activity
+            android:name=".activity.personalcenter.CommonProjectActivity"
+            android:label="@string/common_project" />
     </application>
 
 </manifest>

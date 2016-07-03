@@ -18,17 +18,21 @@ import hdenergy.mdground.com.hdenergy.R;
  */
 
 public class AddProjectDialog extends Dialog {
+
     private Context mContext;
-    private TextView mTvCancel,tvConfirm;
+    private TextView mTvCancel, tvConfirm;
     private EditText etProjectName;
     private OnClickUpdateListener onClickUpdateListener;
-    public interface  OnClickUpdateListener{
+
+    public interface OnClickUpdateListener {
         void clickCancel();
+
         void clickUpdate(String project);
     }
+
     public AddProjectDialog(Context context) {
         super(context, R.style.CheckUpdateDialogStyle);
-        mContext=context;
+        mContext = context;
 
     }
 
@@ -39,10 +43,10 @@ public class AddProjectDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view=LayoutInflater.from(getContext()).inflate(R.layout.dialog_add_project,null,false);
-        mTvCancel= (TextView) view.findViewById(R.id.tvCancel);
-        tvConfirm= (TextView) view.findViewById(R.id.tvConfirm);
-        etProjectName= (EditText) view.findViewById(R.id.etProjectName);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_add_project, null, false);
+        mTvCancel = (TextView) view.findViewById(R.id.tvCancel);
+        tvConfirm = (TextView) view.findViewById(R.id.tvConfirm);
+        etProjectName = (EditText) view.findViewById(R.id.etProjectName);
         setContentView(view);
         Window window = getWindow();
         window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT); // 填充满屏幕的宽度
@@ -51,10 +55,12 @@ public class AddProjectDialog extends Dialog {
         window.setAttributes(wlp);
         setButtonClickListe();
     }
-    public void setButtonListen(OnClickUpdateListener onClickUpdateListener ){
-        this.onClickUpdateListener=onClickUpdateListener;
+
+    public void setButtonListen(OnClickUpdateListener onClickUpdateListener) {
+        this.onClickUpdateListener = onClickUpdateListener;
     }
-    public void setButtonClickListe(){
+
+    public void setButtonClickListe() {
         mTvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +70,7 @@ public class AddProjectDialog extends Dialog {
         tvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String project=etProjectName.getText().toString();
+                String project = etProjectName.getText().toString();
                 onClickUpdateListener.clickUpdate(project);
             }
         });

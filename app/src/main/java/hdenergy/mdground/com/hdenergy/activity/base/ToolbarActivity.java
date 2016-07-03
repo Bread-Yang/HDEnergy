@@ -9,11 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.TextView;
-
 import hdenergy.mdground.com.hdenergy.R;
 
 import static hdenergy.mdground.com.hdenergy.R.id.toolbar;
-
 
 public abstract class ToolbarActivity<T extends ViewDataBinding> extends AppCompatActivity {
 

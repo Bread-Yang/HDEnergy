@@ -1,5 +1,6 @@
-package hdenergy.mdground.com.hdenergy.activity.personalcenter;
+package hdenergy.mdground.com.hdenergy.activity.attendancestatics;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,22 +12,22 @@ import java.util.ArrayList;
 
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
-import hdenergy.mdground.com.hdenergy.databinding.ActivityHistoryAttendanceStaticsBinding;
-import hdenergy.mdground.com.hdenergy.databinding.ItemHistoryAttendanceStaticsBinding;
+import hdenergy.mdground.com.hdenergy.databinding.ActivityEmployeeAttendanceStaticsBinding;
+import hdenergy.mdground.com.hdenergy.databinding.ItemEmployeeAttendanceStaticsBinding;
 
 /**
  * Created by yoghourt on 6/29/16.
  */
 
-public class HistoryAttendanceStaticsActivity extends ToolbarActivity<ActivityHistoryAttendanceStaticsBinding> {
+public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityEmployeeAttendanceStaticsBinding> {
 
-    private HistoryAttendanceStaticsAdapter mAdapter;
+    private EmployeeAttendanceStaticsAdapter mAdapter;
 
     private ArrayList<String> mAttendanceArrayList = new ArrayList<>();
 
     @Override
     protected int getContentLayout() {
-        return R.layout.activity_history_attendance_statics;
+        return R.layout.activity_employee_attendance_statics;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class HistoryAttendanceStaticsActivity extends ToolbarActivity<ActivityHi
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new HistoryAttendanceStaticsAdapter();
+        mAdapter = new EmployeeAttendanceStaticsAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
     }
 
@@ -49,25 +50,18 @@ public class HistoryAttendanceStaticsActivity extends ToolbarActivity<ActivityHi
     }
 
     //region ADAPTER
-    class HistoryAttendanceStaticsAdapter extends RecyclerView.Adapter<HistoryAttendanceStaticsAdapter.ViewHolder> {
+    class EmployeeAttendanceStaticsAdapter extends RecyclerView.Adapter<EmployeeAttendanceStaticsAdapter.ViewHolder> {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_history_attendance_statics, parent, false);
+                    .inflate(R.layout.item_employee_attendance_statics, parent, false);
             return new ViewHolder(itemView);
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-
-            holder.viewDataBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    Intent intent = new Intent(HistoryAttendanceStatics.this, BoilerEditOneActivity.class);
-//                    startActivity(intent);
-                }
-            });
+            setItemListener(holder, position);
         }
 
         @Override
@@ -75,9 +69,19 @@ public class HistoryAttendanceStaticsActivity extends ToolbarActivity<ActivityHi
             return mAttendanceArrayList.size();
         }
 
+        private void setItemListener(ViewHolder holder, final int position) {
+            holder.viewDataBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(EmployeeAttendanceStaticsActivity.this, EmployeeAttendanceDetailActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
+
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            private ItemHistoryAttendanceStaticsBinding viewDataBinding;
+            private ItemEmployeeAttendanceStaticsBinding viewDataBinding;
 
             public ViewHolder(View itemView) {
                 super(itemView);
