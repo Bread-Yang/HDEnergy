@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
+import hdenergy.mdground.com.hdenergy.constants.Constants;
 import hdenergy.mdground.com.hdenergy.databinding.ActivityHistoryDataDetailsBinding;
 import hdenergy.mdground.com.hdenergy.databinding.ItemCheckBoilerBinding;
 import hdenergy.mdground.com.hdenergy.models.ProjectWorkFurnace;
@@ -70,6 +71,7 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(HistoryDataDetailsActivity.this, HistoryBoilerDetailActivity.class);
+                    intent.putExtra(Constants.KEY_BOILERR_NAME,mProjectWorkFurnaceArrayList.get(position).getFurnaceName());
                     startActivity(intent);
                 }
             });

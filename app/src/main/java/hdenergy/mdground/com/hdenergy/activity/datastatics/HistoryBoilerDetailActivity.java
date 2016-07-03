@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
@@ -22,6 +23,7 @@ import hdenergy.mdground.com.hdenergy.databinding.ItemHistoryBoilerProjectBindin
 import hdenergy.mdground.com.hdenergy.databinding.ItemHistoryBoilerStockBinding;
 import hdenergy.mdground.com.hdenergy.databinding.ItemHistoryBoilerWaterBinding;
 import hdenergy.mdground.com.hdenergy.models.Project;
+import hdenergy.mdground.com.hdenergy.models.ProjectFuelWarehouse;
 import hdenergy.mdground.com.hdenergy.models.ProjectWorkFlowrate;
 import hdenergy.mdground.com.hdenergy.models.ProjectWorkFuel;
 
@@ -35,6 +37,7 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
     private ArrayList<Project> mProjectArraylist = new ArrayList<>();
     private ArrayList<ProjectWorkFlowrate> mFlowArrayList = new ArrayList<>();
     private ArrayList<ProjectWorkFuel> mFuelArrayList = new ArrayList<>();
+    private List<ProjectFuelWarehouse> mProjectFuelWarehouseList;
 
     @Override
     protected int getContentLayout() {
@@ -49,7 +52,6 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
         mProjectArraylist.add(new Project());
         mFlowArrayList.add(new ProjectWorkFlowrate());
         mFuelArrayList.add(new ProjectWorkFuel());
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(layoutManager);

@@ -75,7 +75,7 @@
             android:label="@string/people_infomation"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.personalcenter.HistoryDataStaticsActivity"
+            android:name=".activity.datastatics.HistoryDataStaticsActivity"
             android:label="@string/hostorical_data_statistic"
             android:screenOrientation="portrait"/>
         <activity
@@ -91,7 +91,7 @@
             android:label="@string/employee_attendance_detail"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.personalcenter.HistoryDataDetailsActivity"
+            android:name=".activity.datastatics.HistoryDataDetailsActivity"
             android:label="@string/yongxing"
             android:screenOrientation="portrait"/>
         <activity
@@ -103,7 +103,7 @@
             android:label="@string/feedback"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.personalcenter.HistoryDataListActivity"
+            android:name=".activity.datastatics.HistoryDataListActivity"
             android:label="@string/data_list"
             android:screenOrientation="portrait"/>
         <activity
@@ -112,10 +112,10 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.personalcenter.CommonProjectActivity"
-            android:label="@string/common_project"
-            android:screenOrientation="portrait"/>
+        android:label="@string/common_project"
+        android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.personalcenter.HistoryBoilerDetailActivity"
+            android:name=".activity.datastatics.HistoryBoilerDetailActivity"
             android:screenOrientation="portrait"/>
     </application>
 

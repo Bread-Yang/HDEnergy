@@ -9,7 +9,7 @@
 
     <hdenergy.mdground.com.hdenergy.views.SlidingMenu
         android:id="@+id/slidingMenu"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
         custom:rightMragin="100dp">

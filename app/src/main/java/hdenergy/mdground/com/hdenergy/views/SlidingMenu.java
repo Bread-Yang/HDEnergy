@@ -78,13 +78,13 @@ public class SlidingMenu extends HorizontalScrollView {
         super.onLayout(changed, l, t, r, b);
         if (changed) {
             KLog.e("有点击进来");
-            KLog.e("menuWidth--"+menuWidth);
-//            this.scrollBy(menuWidth,0);
-
           this.scrollTo(menuWidth, 0);
-         //  this.smoothScrollTo(menuWidth,0);
+            if(this.getScrollX()==menuWidth){
+                this.scrollTo(menuWidth, 0);
+            }
             once = true;
             isOpen = false;
+
         }
 
     }
@@ -116,6 +116,7 @@ public class SlidingMenu extends HorizontalScrollView {
         if (isOpen) {
             smoothScrollTo(menuWidth, 0);
             isOpen = false;
+            once=true;
             //     skipObtainFouse();
 
         }
