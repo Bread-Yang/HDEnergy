@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
     private View mTitleBar;
     private Toolbar mToolbar;
     private TextView tvTitle, tvRight;
+    public static  LinearLayout lltContent;
     private ArrayList<BannerItem> mArrayList = new ArrayList<>();
 
     @Nullable
@@ -57,7 +59,7 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
         view.findViewById(R.id.lltAttendanceReport).setOnClickListener(this);
         view.findViewById(R.id.lltProjectStartStop).setOnClickListener(this);
         view.findViewById(R.id.lltReasonableAdvice).setOnClickListener(this);
-
+        lltContent= (LinearLayout) view.findViewById(R.id.lltContent);
         return view;
     }
 
@@ -93,6 +95,12 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
                 startActivity(intent);
                 break;
             }
+            case R.id.lltContent:
+                if(HomeActivity.mSlidingMenu.isOpen){
+                    HomeActivity.mSlidingMenu.scrollTo(HomeActivity.mSlidingMenu.menuWidth,0);
+                    HomeActivity.mSlidingMenu.isOpen=false;
+                }
+                break;
         }
     }
 

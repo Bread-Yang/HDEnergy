@@ -107,6 +107,7 @@ public class SlidingMenu extends HorizontalScrollView {
           if(isOpen){
               smoothScrollTo(menuWidth,0);
               isOpen=false;
+
           }
       }
       //打开一个menu
