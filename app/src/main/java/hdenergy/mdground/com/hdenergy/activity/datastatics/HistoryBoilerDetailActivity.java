@@ -1,5 +1,6 @@
-package hdenergy.mdground.com.hdenergy.activity.personalcenter;
+package hdenergy.mdground.com.hdenergy.activity.datastatics;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
+import hdenergy.mdground.com.hdenergy.constants.Constants;
 import hdenergy.mdground.com.hdenergy.databinding.ActivityBoilerDetailBinding;
 import hdenergy.mdground.com.hdenergy.databinding.ItemHistoryBoilerElectricBinding;
 import hdenergy.mdground.com.hdenergy.databinding.ItemHistoryBoilerFlowBinding;
@@ -41,6 +43,9 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
 
     @Override
     protected void initData() {
+        Intent intent=getIntent();
+        String title=intent.getStringExtra(Constants.KEY_BOILERR_NAME);
+        setTitle(title);
         mProjectArraylist.add(new Project());
         mFlowArrayList.add(new ProjectWorkFlowrate());
         mFuelArrayList.add(new ProjectWorkFuel());

@@ -93,9 +93,11 @@ public class SlidingMenu extends HorizontalScrollView {
                 if(ScollX>=menuWidth/2){
                    smoothScrollTo(menuWidth,0);
                     isOpen=false;
+                  //   skipObtainFouse();
                 }else{
                     smoothScrollTo(0,0);
                     isOpen=true;
+                  //  skipLoseFouse();
                 }
                 return  true;
 
@@ -107,6 +109,8 @@ public class SlidingMenu extends HorizontalScrollView {
           if(isOpen){
               smoothScrollTo(menuWidth,0);
               isOpen=false;
+      //     skipObtainFouse();
+
           }
       }
       //打开一个menu
@@ -114,10 +118,34 @@ public class SlidingMenu extends HorizontalScrollView {
          if(!isOpen){
              smoothScrollTo(0,0);
              isOpen=true;
+            // skipLoseFouse();
+
          }
 
 
      }
+//    private void skipObtainFouse() {
+//        RightContextFragment.lltContent.setFocusable(false);
+//        RightContextFragment.lltContent.setFocusableInTouchMode(false);
+//        RightContextFragment.simpleImageBanner.setFocusable(true);
+//        RightContextFragment.simpleImageBanner.setFocusableInTouchMode(true);
+//        RightContextFragment.simpleImageBanner.setClickable(true);
+////        RightContextFragment.lltDateReport.setClickable(true);
+////        RightContextFragment.lltAttendanceReport.setClickable(true);
+//    }
+//    private void skipLoseFouse() {
+//
+//        RightContextFragment.lltContent.setFocusable(true);
+//        RightContextFragment.lltContent.setFocusableInTouchMode(true);
+//        RightContextFragment.lltContent.setClickable(true);
+//        RightContextFragment.lltContent.setT
+//        RightContextFragment.simpleImageBanner.setFocusable(false);
+//        RightContextFragment.simpleImageBanner.setFocusableInTouchMode(false);
+//        RightContextFragment.simpleImageBanner.setClickable(false);
+////        RightContextFragment.lltDateReport.setClickable(false);
+////        RightContextFragment.lltAttendanceReport.setClickable(false);
+//    }
+
     //一个开关
     public void toggle(){
         if (isOpen) {

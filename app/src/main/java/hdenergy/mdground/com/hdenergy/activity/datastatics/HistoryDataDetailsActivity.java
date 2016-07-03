@@ -1,4 +1,4 @@
-package hdenergy.mdground.com.hdenergy.activity.personalcenter;
+package hdenergy.mdground.com.hdenergy.activity.datastatics;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;

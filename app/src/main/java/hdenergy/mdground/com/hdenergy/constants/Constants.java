@@ -31,8 +31,11 @@ public final class Constants {
 
     public static final String KEY_IS_EXIT_LOGIN="key_is_exit_login";
 
+    public static final String KEY_BOILERR_NAME ="key_is_boiler_name";
+
     // application
     public static final String KEY_SAVE_LOGIN_USER_INFO = "key_save_login_user_info";
     public static final String KEY_ALREADY_LOGIN_USER_INFO = "key_already_login_user_info";
+
 
 }
