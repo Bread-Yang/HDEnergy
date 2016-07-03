@@ -11,6 +11,7 @@ import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.login.LoginActivity;
 import hdenergy.mdground.com.hdenergy.application.MDGroundApplication;
 import hdenergy.mdground.com.hdenergy.constants.Constants;
+import hdenergy.mdground.com.hdenergy.models.UserInfo;
 import hdenergy.mdground.com.hdenergy.utils.NavUtils;
 import hdenergy.mdground.com.hdenergy.utils.PreferenceUtils;
 
@@ -42,8 +43,9 @@ public class StartingActivity extends AppCompatActivity {
                 if (isFirstLaunch) {
                     toGuideActivity();
                 } else {
-                    if (MDGroundApplication.mInstance.getLoginUser() != null) {
-
+                    UserInfo saveUserInfo = MDGroundApplication.mInstance.getSaveUser();
+                    if (saveUserInfo != null) {
+                        MDGroundApplication.mInstance.setLoginUserInfo(saveUserInfo);
                         NavUtils.toHomeActivity(StartingActivity.this);
                         finish();
                     } else {
