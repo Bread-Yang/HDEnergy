@@ -26,12 +26,7 @@
                 style="@style/TitleTextStyle"
                 android:text="@string/flow" />
 
-            <ImageView
-                android:id="@+id/ivAddOrDelete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/add" />
+
         </RelativeLayout>
 
         <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
@@ -41,8 +36,8 @@
                 android:text="@{@string/initial_flow_index(position)}"
                 tools:text="@string/initial_flow_index" />
 
-            <EditText
-                style="@style/WithArrowEdittextStyle"
+            <TextView
+                style="@style/AlignRightNoPaddingTextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="12345吨" />
 
@@ -58,8 +53,8 @@
                 android:text="@{@string/close_flow_index(position)}"
                 tools:text="@string/close_flow_index" />
 
-            <EditText
-                style="@style/WithArrowEdittextStyle"
+            <TextView
+                style="@style/AlignRightNoPaddingTextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="1256" />
         </RelativeLayout>
@@ -74,7 +69,8 @@
                 tools:text="@string/flow_index" />
 
             <TextView
-                style="@style/AlignWithRightArrowTextStyle"
+                style="@style/AlignRightNoPaddingTextStyle"
+                android:textColor="@color/color_E92C0A"
                 tools:text="25631" />
 
         </RelativeLayout>
@@ -87,8 +83,8 @@
                 style="@style/DimTextStyle"
                 android:text="@string/flow_adjustment" />
 
-            <EditText
-                style="@style/WithArrowEdittextStyle"
+            <TextView
+                style="@style/AlignRightNoPaddingTextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="25631" />
 
@@ -102,8 +98,8 @@
                 style="@style/DimTextStyle"
                 android:text="@string/adjustment_description" />
 
-            <EditText
-                style="@style/WithArrowEdittextStyle"
+            <TextView
+                style="@style/AlignRightNoPaddingTextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="25631" />
 

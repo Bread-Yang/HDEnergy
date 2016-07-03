@@ -44,6 +44,15 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
     protected void setListener() {
 
     }
+
+    public void correspondingDetails(View view){
+     int postion=mDataBinding.recyclerView.getChildAdapterPosition(view);
+        Intent intent=new Intent(this,HistoryDataDetailsActivity.class);
+        startActivity(intent);
+
+    }
+
+
     //region ADAPTER
     public class HistoryDateAdapter extends RecyclerView.Adapter<HistoryDateAdapter.MyViewHolder>{
 
@@ -75,9 +84,15 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
         public class MyViewHolder extends RecyclerView.ViewHolder{
             //           public ItemHistoryDatastaticsBinding itemHistoryDatastaticsBinding;
             public ItemHistoryDatastaticsBinding itemHistoryDatastaticsBinding;
-            public MyViewHolder(View itemView) {
+            public MyViewHolder(final View itemView) {
                 super(itemView);
                 itemHistoryDatastaticsBinding= DataBindingUtil.bind(itemView);
+                itemHistoryDatastaticsBinding.lltItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        correspondingDetails(itemView);
+                    }
+                });
             }
         }
 

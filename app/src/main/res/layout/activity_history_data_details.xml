@@ -31,6 +31,7 @@
                     android:gravity="center_vertical|right"
                     android:textSize="@dimen/margin_16"
                     android:layout_centerVertical="true"
+                    android:text="用新"
                     tools:text="用新" />
 
             </RelativeLayout>
@@ -48,11 +49,13 @@
                 <TextView
                     android:id="@+id/tvData"
                     style="@style/NormalTextStyle"
-                    android:layout_alignParentRight="true"
                     android:gravity="center_vertical|right"
                     android:textSize="@dimen/margin_16"
+                    android:text="2016-04-11"
+                    tools:text="2016-04-11"
                     android:layout_centerVertical="true"
-                    tools:text="2016-04-11" />
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -71,6 +74,7 @@
                     android:gravity="center_vertical|right"
                     android:textSize="@dimen/margin_16"
                     android:layout_centerVertical="true"
+                    android:text="蒸汽"
                     tools:text="蒸汽" />
 
             </RelativeLayout>
@@ -98,6 +102,7 @@
                     android:id="@+id/etProjectExpense"
                     style="@style/AlignRightNoPaddingTextStyle"
                     tools:text="200"
+                    android:text="200"
                     />
 
             </RelativeLayout>
@@ -114,7 +119,10 @@
                     android:id="@+id/etProjectDetail"
                     style="@style/AlignRightNoPaddingTextStyle"
                     tools:text="@string/maintain_cost"
-                    />
+                    android:layout_centerVertical="true"
+                    android:text="@string/maintain_cost"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
 
@@ -126,6 +134,7 @@
                 android:id="@+id/etOtherProblem"
                 style="@style/LargeTextViewLayoutStyle"
                 android:textColor="@color/color_404040"
+                android:text="@string/yongxing"
                 tools:text="@string/adjustment_explain" />
 
 

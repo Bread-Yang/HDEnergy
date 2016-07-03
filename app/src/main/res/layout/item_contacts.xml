@@ -23,12 +23,13 @@
                    tools:text="@string/yongxing"
                    android:textColor="@color/color_404040"
                    />
-            <ImageView
+            <CheckBox
                 android:id="@+id/ivSelector"
                 android:layout_gravity="right|center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_checkbox_selected"
+                android:button="@null"
+                android:background="@drawable/selector_checkbox_contacts"
                 />
         </LinearLayout>
         <View style="@style/DividerHorizontalStyle"/>

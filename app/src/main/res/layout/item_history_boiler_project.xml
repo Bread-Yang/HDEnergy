@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="flow"
+            type="hdenergy.mdground.com.hdenergy.models.Flow" />
+
+        <variable
+            name="position"
+            type="Integer" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <RelativeLayout style="@style/TitleLayoutStyle">
+
+            <TextView
+                style="@style/TitleTextStyle"
+                android:text="@string/project_status" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+            <TextView
+                style="@style/DimTextStyle"
+                android:text="@string/report_people"
+
+                 />
+
+            <TextView
+                style="@style/AlignRightNoPaddingTextStyle"
+                android:textSize="@dimen/text_size_16"
+                tools:text="12345吨" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rltData"
+            style="@style/WhiteFixHeightLayoutStyle"
+            android:layout_marginTop="@dimen/margin_1">
+
+            <TextView
+                style="@style/DimTextStyle"
+                android:text="@string/data_with_colon"
+                />
+
+            <TextView
+                style="@style/AlignRightNoPaddingTextStyle"
+                android:textSize="@dimen/text_size_16"
+                tools:text="1256" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/WhiteFixHeightLayoutStyle"
+            android:layout_marginTop="@dimen/margin_1">
+
+            <TextView
+                style="@style/DimTextStyle"
+                android:text="@string/open_boiler_time"
+                />
+
+            <TextView
+                style="@style/AlignRightNoPaddingTextStyle"
+                tools:text="25631" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/WhiteFixHeightLayoutStyle"
+            android:layout_marginTop="@dimen/margin_1">
+
+            <TextView
+                style="@style/DimTextStyle"
+                android:text="@string/sale_product_with_colon" />
+
+            <TextView
+                style="@style/AlignRightNoPaddingTextStyle"
+                android:textSize="@dimen/text_size_16"
+                tools:text="25631" />
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+</layout>
