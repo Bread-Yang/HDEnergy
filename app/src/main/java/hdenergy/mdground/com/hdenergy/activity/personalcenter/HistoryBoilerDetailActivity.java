@@ -13,6 +13,12 @@ import java.util.ArrayList;
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
 import hdenergy.mdground.com.hdenergy.databinding.ActivityBoilerDetailBinding;
+import hdenergy.mdground.com.hdenergy.databinding.ItemHistoryBoilerElectricBinding;
+import hdenergy.mdground.com.hdenergy.databinding.ItemHistoryBoilerFlowBinding;
+import hdenergy.mdground.com.hdenergy.databinding.ItemHistoryBoilerFuelBinding;
+import hdenergy.mdground.com.hdenergy.databinding.ItemHistoryBoilerProjectBinding;
+import hdenergy.mdground.com.hdenergy.databinding.ItemHistoryBoilerStockBinding;
+import hdenergy.mdground.com.hdenergy.databinding.ItemHistoryBoilerWaterBinding;
 import hdenergy.mdground.com.hdenergy.models.Electricity;
 import hdenergy.mdground.com.hdenergy.models.Feedstock;
 import hdenergy.mdground.com.hdenergy.models.Flow;
@@ -77,18 +83,21 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
 
         private final int FLOW_VIEW_TYPE = 0x11;
         private final int ELECTRICITY_VIEW_TYPE = 0x12;
-        private final int WATER_VIEW_TYPE = 0x13;
-        private final int PROJECT_VIEW_TYPE = 0x15;
-        private final int FUEL_VIEW_TYPE = 0x16;
-        private final int FEEDSTROCK_VIEW_TYPE = 0x17;
+        private final int WATER_VIEW_TYPE = 0x10;
+        private final int PROJECT_VIEW_TYPE = 0x9;
+        private final int FUEL_VIEW_TYPE = 0x8;
+        private final int FEEDSTROCK_VIEW_TYPE = 0x6;
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView = null;
             switch (viewType) {
+
                 case PROJECT_VIEW_TYPE:
+
                     itemView=LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.item_history_boiler_project,parent,false);
+                    break;
                 case ELECTRICITY_VIEW_TYPE:
                     itemView = LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.item_history_boiler_electric, parent, false);
@@ -105,6 +114,7 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
                 case  FUEL_VIEW_TYPE:
                     itemView=LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.item_history_boiler_fuel,parent,false);
+
                     break;
                 case FEEDSTROCK_VIEW_TYPE:
                     itemView=LayoutInflater.from(parent.getContext())
@@ -118,12 +128,40 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
+           switch (getItemViewType(position)){
+                case PROJECT_VIEW_TYPE:
+
+                    ItemHistoryBoilerProjectBinding itemHistoryBoilerProjectBinding= (ItemHistoryBoilerProjectBinding) holder.viewDataBinding;
+
+                   break;
+
+               case FLOW_VIEW_TYPE:
+                   ItemHistoryBoilerFlowBinding itemHistoryBoilerFlowBinding= (ItemHistoryBoilerFlowBinding) holder.viewDataBinding;
+                   break;
+
+               case ELECTRICITY_VIEW_TYPE:
+                   ItemHistoryBoilerElectricBinding itemHistoryBoilerElectricBinding= (ItemHistoryBoilerElectricBinding) holder.viewDataBinding;
+                   break;
+
+               case WATER_VIEW_TYPE:
+                   ItemHistoryBoilerWaterBinding itemHistoryBoilerWaterBinding= (ItemHistoryBoilerWaterBinding) holder.viewDataBinding;
+
+                   break;
+               case FUEL_VIEW_TYPE:
+                   ItemHistoryBoilerFuelBinding itemHistoryBoilerFuelBinding= (ItemHistoryBoilerFuelBinding) holder.viewDataBinding;
+
+                   break;
+               case FEEDSTROCK_VIEW_TYPE:
+                   ItemHistoryBoilerStockBinding itemHistoryBoilerStockBinding= (ItemHistoryBoilerStockBinding) holder.viewDataBinding;
+
+                   break;
+           }
 
         }
 
         @Override
         public int getItemCount() {
-            return mProjectArraylist.size()+mFlowArrayList.size()+mElectricityArrayList.size()+mWaterArrayList.size()
+            return mProjectArraylist.size()+mFlowArrayList.size()+mElectricityArrayList.size()
                     +mWaterArrayList.size()+mFuelArrayList.size()+ mFeedstockArrayList.size();
         }
 
