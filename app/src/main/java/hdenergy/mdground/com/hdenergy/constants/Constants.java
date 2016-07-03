@@ -5,16 +5,16 @@ package hdenergy.mdground.com.hdenergy.constants;
  */
 public final class Constants {
 
-    public static final String HOST = "http://psuat.yideguan.com/";
+    public static final String HOST = "http://119.29.14.31:8080/";
 //    public static final String HOST = "http://192.168.0.152:9999/";
 
-    public static final String FILE_HOST = "http://psuat.yideguan.com/";
+    public static final String FILE_HOST = "http://119.29.14.31:8080/";
 //    public static final String FILE_HOST = "http://192.168.0.152:9999/";
 
     // APP在sdcar的目录
-    public static final String APP_PATH = "/mdground_hailan_print";
+    public static final String APP_PATH = "/mdground_huidi";
     // Preference文件名
-    public static String PREFERENCE = "hailan_print";
+    public static String PREFERENCE = "huidi";
     // glide图片缓存文件夹
     public static String GLIDE_DISK_CACHE_FILE_NAME = "Glide_cache_image";
 
@@ -22,17 +22,17 @@ public final class Constants {
     public static final String DATABASE_NAME = "mdground";
     //照片储存文件夹
     public static final String PHOTO_FILE = "/baoprint";
-    //临时相机拍完后照片的名字
-    public static final String PHOTO_NAME = "textbaoprint.jpg";
     // 短信接口参数
     public static final String SMS_APP_KEY = "fdd3cf873a60";
     public static final String SMS_APP_SECRECT = "bb31da16613ce49ba8cb815ccf5afe7d";
 
+    // 第一次打开APP
     public static final String KEY_IS_FIRST_LAUNCH = "key_is_first_launch";
 
     public static final String KEY_IS_EXIT_LOGIN="key_is_exit_login";
 
     // application
-    public static final String KEY_ALREADY_LOGIN_USER = "key_already_login_user";
+    public static final String KEY_SAVE_LOGIN_USER_INFO = "key_save_login_user_info";
+    public static final String KEY_ALREADY_LOGIN_USER_INFO = "key_already_login_user_info";
 
 }

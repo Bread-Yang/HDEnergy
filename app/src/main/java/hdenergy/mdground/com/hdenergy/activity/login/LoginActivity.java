@@ -13,30 +13,37 @@ import hdenergy.mdground.com.hdenergy.activity.homepage.HomeActivity;
 import hdenergy.mdground.com.hdenergy.application.MDGroundApplication;
 import hdenergy.mdground.com.hdenergy.constants.Constants;
 import hdenergy.mdground.com.hdenergy.models.UserInfo;
+import hdenergy.mdground.com.hdenergy.restfuls.GlobalRestful;
+import hdenergy.mdground.com.hdenergy.restfuls.bean.ResponseData;
 import hdenergy.mdground.com.hdenergy.utils.DeviceUtil;
 import hdenergy.mdground.com.hdenergy.utils.FileUtils;
 import hdenergy.mdground.com.hdenergy.utils.StringUtil;
 import hdenergy.mdground.com.hdenergy.utils.ViewUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by PC on 2016-06-24.
  */
+public class LoginActivity extends AppCompatActivity {
 
-public class LoginActivity extends AppCompatActivity{
-    private EditText mEtAccount;
-    private EditText mEtPassword;
+    private EditText etAccount;
+    private EditText etPassword;
     private CheckBox cbAutoLogin;
-    private String isFromExit;
+    private String mIsFromExit;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Intent  intent=getIntent();
-        isFromExit=intent.getStringExtra(Constants.KEY_IS_EXIT_LOGIN);
-        if(intent!=null){
-            if(isFromExit==null){
+
+        Intent intent = getIntent();
+        mIsFromExit = intent.getStringExtra(Constants.KEY_IS_EXIT_LOGIN);
+        if (intent != null) {
+            if (mIsFromExit == null) {
                 if (MDGroundApplication.mInstance.getLoginUser() != null) {
-                    Intent intent1=new Intent(this, HomeActivity.class);
+                    Intent intent1 = new Intent(this, HomeActivity.class);
                     startActivity(intent1);
                     finish();
                 }
@@ -45,32 +52,35 @@ public class LoginActivity extends AppCompatActivity{
         init();
     }
 
-
     private void init() {
-        mEtAccount= (EditText) findViewById(R.id.cetAccount);
-        mEtPassword= (EditText) findViewById(R.id.cetPassword);
-        cbAutoLogin= (CheckBox) findViewById(R.id.cbAutoLogin);
+        etAccount = (EditText) findViewById(R.id.cetAccount);
+        etPassword = (EditText) findViewById(R.id.cetPassword);
+        cbAutoLogin = (CheckBox) findViewById(R.id.cbAutoLogin);
+    }
+
+    private void saveUserAndToMainActivity(UserInfo userInfo) {
+        FileUtils.setObject(Constants.KEY_SAVE_LOGIN_USER_INFO, userInfo);
+        DeviceUtil.setDeviceId(userInfo.getDeviceID());
     }
 
     //region ACTION
-    public void  forgetPasswordAction(View view){
-        Intent intent=new Intent(LoginActivity.this,ForgetPasswordActivity.class);
+    public void forgetPasswordAction(View view) {
+        Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
         startActivity(intent);
     }
-    public void loginAction(View view){
-        String phone =mEtAccount.getText().toString();
+
+    public void loginAction(View view) {
+        String phone = etAccount.getText().toString();
 
         if (StringUtil.isEmpty(phone)) {
-         //   Toast.makeText(this, R.string.input_phone_number, Toast.LENGTH_SHORT).show();
             ViewUtils.toast(getString(R.string.please_input_account));
             return;
-
         }
 
-        String password = mEtPassword.getText().toString();
+        String password = etPassword.getText().toString();
 
         if (StringUtil.isEmpty(password)) {
-             ViewUtils.toast(getString(R.string.input_password));
+            ViewUtils.toast(getString(R.string.input_password));
             return;
         }
 
@@ -78,38 +88,28 @@ public class LoginActivity extends AppCompatActivity{
 //            Toast.makeText(this, R.string.input_corrent_password, Toast.LENGTH_SHORT).show();
 //            return;
 //        }
-        if(cbAutoLogin.isChecked()){
-            UserInfo userInfo =new UserInfo();
-            userInfo.setUserName(phone);
-            userInfo.setPassword(password);
-            saveUserAndToMainActivity(userInfo);
-            Intent intent=new Intent(this, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        }else{
-            MDGroundApplication.mInstance.setLoginUserInfo(null);
-            Intent intent=new Intent(this, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        ViewUtils.loading(this);
+        GlobalRestful.getInstance().LoginUser(phone, password, new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                ViewUtils.dismiss();
+                UserInfo userInfo = response.body().getContent(UserInfo.class);
 
+                if (cbAutoLogin.isChecked()) {
+                    saveUserAndToMainActivity(userInfo);
+                }
+
+                MDGroundApplication.mInstance.setLoginUserInfo(userInfo);
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
     }
-    public void toHomeActivity(){
-
-    }
-    //endgion
-    private void saveUserAndToMainActivity(UserInfo userInfo) {
-        MDGroundApplication.mInstance.setLoginUserInfo(userInfo);
-//        if (cbAutoLogin.isChecked()) {
-            FileUtils.setObject(Constants.KEY_ALREADY_LOGIN_USER, userInfo);
-            DeviceUtil.setDeviceId(userInfo.getDeviceID());
-        }
-   // }
-
-//    if (MDGroundApplication.mInstance.getLoginUser() != null) {
-//
-////                    loginRequest(MDGroundApplication.mLoginUser);
-//        NavUtils.toMainActivity(StartingActivity.this);
-//        finish();
-
+    //endregion
 }

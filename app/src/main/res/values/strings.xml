@@ -13,6 +13,10 @@
     <string name="please_input">请输入</string>
     <string name="already_input">已输入</string>
 
+    <!-- 引导页 -->
+    <string name="guide_page">引导页</string>
+    <string name="experience_immediately">立即体验</string>
+
     <!-- 登录 -->
     <string name="login">登录</string>
     <string name="password">密码</string>

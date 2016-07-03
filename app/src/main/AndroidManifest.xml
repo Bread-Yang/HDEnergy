@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="hdenergy.mdground.com.hdenergy">
+          package="hdenergy.mdground.com.hdenergy">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
 
     <application
         android:name=".application.MDGroundApplication"
@@ -9,75 +14,109 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.login.LoginActivity">
+        <activity
+            android:name=".activity.welcome.StartingActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.homepage.HomeActivity" />
+        <activity
+            android:name=".activity.welcome.GuideActivity"
+            android:label="@string/guide_page"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.login.LoginActivity"
+            android:label="@string/login"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.homepage.HomeActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.login.ForgetPasswordActivity"
-            android:label="@string/forget_password" />
+            android:label="@string/forget_password"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.bulletin.BulletinListActivity"
-            android:label="@string/bulletin_list" />
+            android:label="@string/bulletin_list"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.datareport.DataReportActivity"
-            android:label="@string/data_report" />
+            android:label="@string/data_report"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.datareport.BoilerEditOneActivity"
-            android:label="@string/data_report" />
+            android:label="@string/data_report"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.datareport.BoilerEditTwoActivity"
-            android:label="@string/data_report" />
+            android:label="@string/data_report"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.attendancereport.AttendanceReportActivity"
-            android:label="@string/attendance_report" />
+            android:label="@string/attendance_report"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.projectstartstop.ProjectStartStopActivity"
-            android:label="@string/project_start_stop" />
+            android:label="@string/project_start_stop"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.projectstartstop.ProjectEditActivity"
-            android:label="@string/edit" />
+            android:label="@string/edit"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.advice.ReasonableAdviceActivity"
-            android:label="@string/reasonable_advice" />
+            android:label="@string/reasonable_advice"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.personalcenter.BasicInformationActivity"
-            android:label="@string/people_infomation" />
+            android:label="@string/people_infomation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.personalcenter.HistoryDataStaticsActivity"
-            android:label="@string/hostorical_data_statistic" />
+            android:label="@string/hostorical_data_statistic"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.attendancestatics.HistoryAttendanceStaticsActivity"
-            android:label="@string/hostorical_attendance_statics" />
+            android:label="@string/hostorical_attendance_statics"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.attendancestatics.EmployeeAttendanceStaticsActivity"
-            android:label="@string/employee_attendance_statics" />
+            android:label="@string/employee_attendance_statics"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.attendancestatics.EmployeeAttendanceDetailActivity"
-            android:label="@string/employee_attendance_detail" />
+            android:label="@string/employee_attendance_detail"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.personalcenter.HistoryDataDetailsActivity"
-            android:label="@string/yongxing" />
+            android:label="@string/yongxing"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.personalcenter.SettingActivity"
-            android:label="@string/setting" />
+            android:label="@string/setting"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.personalcenter.FeedBackActivity"
-            android:label="@string/feedback" />
+            android:label="@string/feedback"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.personalcenter.HistoryDataListActivity"
-            android:label="@string/data_list" />
+            android:label="@string/data_list"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.personalcenter.CommonContactsActivity"
-            android:label="@string/common_contact" />
+            android:label="@string/common_contact"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.personalcenter.CommonProjectActivity"
-            android:label="@string/common_project" />
-        <activity android:name=".activity.personalcenter.HistoryBoilerDetailActivity" />
+            android:label="@string/common_project"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.personalcenter.HistoryBoilerDetailActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

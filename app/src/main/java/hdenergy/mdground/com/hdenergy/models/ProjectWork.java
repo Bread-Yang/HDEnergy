@@ -9,13 +9,13 @@ import java.util.List;
 public class ProjectWork {
 
     private String CreatedTime;
-    private int DailyExpense;
-    private String ExpenseDetail;
-    private int ProjectID;
-    private String ProjectName;
-    private List<ProjectWorkFurnace> ProjectWorkFurnaceList;
-    private String Remark;
-    private String SaleType;
+    private int DailyExpense;   // 项目日常费用
+    private String ExpenseDetail; // 费用明细
+    private int ProjectID;      // 项目标识
+    private String ProjectName; // 项目名称
+    private List<ProjectWorkFurnace> ProjectWorkFurnaceList;    // 费用明细
+    private String Remark;      // 费用明细
+    private String SaleType;    // 项目名称
     private int UserID;
     private String UserName;
     private int WorkID;
