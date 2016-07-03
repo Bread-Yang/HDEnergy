@@ -107,7 +107,7 @@
 
             <TextView
                 android:id="@+id/tvElectircUnitConsumption"
-                style="@style/AlignRightTextStyle"
+                style="@style/AlignWithRightArrowTextStyle"
                 tools:text="25631" />
 
         </RelativeLayout>

@@ -74,7 +74,7 @@
                 tools:text="@string/flow_index" />
 
             <TextView
-                style="@style/AlignRightTextStyle"
+                style="@style/AlignWithRightArrowTextStyle"
                 tools:text="25631" />
 
         </RelativeLayout>

@@ -107,7 +107,7 @@
 
             <TextView
                 android:id="@+id/tvWaterUnitConsumption"
-                style="@style/AlignRightTextStyle"
+                style="@style/AlignWithRightArrowTextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="25631" />
 

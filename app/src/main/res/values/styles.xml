@@ -96,7 +96,14 @@
         <item name="android:gravity">center_vertical|right</item>
         <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="AlignWithRightArrowTextStyle" parent="AlignRightTextStyle">
         <item name="android:paddingRight">@dimen/margin_24</item>
+    </style>
+
+    <style name="WithArrowIconTextStyle" parent="AlignRightTextStyle">
+        <item name="android:drawableRight">@drawable/icon_more</item>
     </style>
 
     <style name="DimTextStyle">
@@ -112,14 +119,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@drawable/selector_text_color_normal</item>
-    </style>
-
-    <style name="WithArrowIconTextStyle" parent="NormalTextStyle">
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:drawableRight">@drawable/icon_more</item>
-        <item name="android:gravity">center_vertical|right</item>
-        <item name="android:textSize">@dimen/text_size_16</item>
-        <item name="android:layout_centerVertical">true</item>
     </style>
 
     <style name="NormalButtonStyle">
