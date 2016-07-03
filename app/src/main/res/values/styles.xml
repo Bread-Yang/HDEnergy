@@ -61,6 +61,13 @@
         <item name="android:scrollbars">vertical</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
+    <style name="LargeTextViewLayoutStyle" parent="NormalLayoutStyle">
+        <item name="android:paddingTop">@dimen/margin_20</item>
+        <item name="android:gravity">top|left</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
 
     <style name="DividerVerticalStyle">
         <item name="android:layout_width">1dp</item>
@@ -97,6 +104,13 @@
         <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:paddingRight">@dimen/margin_24</item>
+    </style>
+
+    <style name="AlignRightNoPaddingTextStyle" parent="NormalTextStyle">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:layout_centerVertical">true</item>
     </style>
 
     <style name="DimTextStyle">
