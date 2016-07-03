@@ -1,5 +1,6 @@
 package hdenergy.mdground.com.hdenergy.activity.attendancestatics;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -60,19 +61,22 @@ public class HistoryAttendanceStaticsActivity extends ToolbarActivity<ActivityHi
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-
-            holder.viewDataBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    Intent intent = new Intent(HistoryAttendanceStatics.this, BoilerEditOneActivity.class);
-//                    startActivity(intent);
-                }
-            });
+            setItemListener(holder, position);
         }
 
         @Override
         public int getItemCount() {
             return mAttendanceArrayList.size();
+        }
+
+        private void setItemListener(ViewHolder holder, final int position) {
+            holder.viewDataBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HistoryAttendanceStaticsActivity.this, EmployeeAttendanceStaticsActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
