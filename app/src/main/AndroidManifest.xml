@@ -48,7 +48,7 @@
             android:name=".activity.personalcenter.BasicInformationActivity"
             android:label="@string/people_infomation" />
         <activity
-            android:name=".activity.personalcenter.HistoryDataStaticsActivity"
+            android:name=".activity.datastatics.HistoryDataStaticsActivity"
             android:label="@string/hostorical_data_statistic" />
         <activity
             android:name=".activity.attendancestatics.HistoryAttendanceStaticsActivity"
@@ -60,7 +60,7 @@
             android:name=".activity.attendancestatics.EmployeeAttendanceDetailActivity"
             android:label="@string/employee_attendance_detail" />
         <activity
-            android:name=".activity.personalcenter.HistoryDataDetailsActivity"
+            android:name=".activity.datastatics.HistoryDataDetailsActivity"
             android:label="@string/yongxing" />
         <activity
             android:name=".activity.personalcenter.SettingActivity"
@@ -69,7 +69,7 @@
             android:name=".activity.personalcenter.FeedBackActivity"
             android:label="@string/feedback" />
         <activity
-            android:name=".activity.personalcenter.HistoryDataListActivity"
+            android:name=".activity.datastatics.HistoryDataListActivity"
             android:label="@string/data_list" />
         <activity
             android:name=".activity.personalcenter.CommonContactsActivity"
@@ -77,7 +77,7 @@
         <activity
             android:name=".activity.personalcenter.CommonProjectActivity"
             android:label="@string/common_project" />
-        <activity android:name=".activity.personalcenter.HistoryBoilerDetailActivity" />
+        <activity android:name=".activity.datastatics.HistoryBoilerDetailActivity" />
     </application>
 
 </manifest>

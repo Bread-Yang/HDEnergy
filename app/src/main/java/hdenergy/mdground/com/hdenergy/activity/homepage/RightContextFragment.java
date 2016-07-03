@@ -30,8 +30,11 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
     private View mTitleBar;
     private Toolbar mToolbar;
     private TextView tvTitle, tvRight;
-    public static  LinearLayout lltContent;
+    public static LinearLayout lltContent;
+    private LinearLayout lltDateReport, lltAttendanceReport;
     private ArrayList<BannerItem> mArrayList = new ArrayList<>();
+    public static SimpleImageBanner simpleImageBanner;
+
 
     @Nullable
     @Override
@@ -55,11 +58,14 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
         sib.setSource(mArrayList)
                 .startScroll();                  //获取图片列表并滚动
         view.findViewById(R.id.tvRight).setOnClickListener(this);
-        view.findViewById(R.id.lltDateReport).setOnClickListener(this);
-        view.findViewById(R.id.lltAttendanceReport).setOnClickListener(this);
+        simpleImageBanner= (SimpleImageBanner) view.findViewById(R.id.simpleImageBanner);
+        lltDateReport = (LinearLayout) view.findViewById(R.id.lltDateReport);
+        lltDateReport.setOnClickListener(this);
+        lltAttendanceReport = (LinearLayout) view.findViewById(R.id.lltAttendanceReport);
+        lltAttendanceReport.setOnClickListener(this);
         view.findViewById(R.id.lltProjectStartStop).setOnClickListener(this);
         view.findViewById(R.id.lltReasonableAdvice).setOnClickListener(this);
-        lltContent= (LinearLayout) view.findViewById(R.id.lltContent);
+        lltContent = (LinearLayout) view.findViewById(R.id.lltContent);
         return view;
     }
 
@@ -67,14 +73,22 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvRight: {
-                Intent intent = new Intent(getActivity(), BulletinListActivity.class);
-                startActivity(intent);
+                if (!HomeActivity.mSlidingMenu.isOpen) {
+                    Intent intent = new Intent(getActivity(), BulletinListActivity.class);
+                    startActivity(intent);
+                } else {
+                    HomeActivity.mSlidingMenu.toggle();
+                }
                 break;
             }
 
             case R.id.lltDateReport: {
-                Intent intent = new Intent(getActivity(), DataReportActivity.class);
-                startActivity(intent);
+                if (!HomeActivity.mSlidingMenu.isOpen) {
+                    Intent intent = new Intent(getActivity(), DataReportActivity.class);
+                    startActivity(intent);
+                } else {
+                    HomeActivity.mSlidingMenu.toggle();
+                }
                 break;
             }
 
@@ -96,9 +110,8 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
                 break;
             }
             case R.id.lltContent:
-                if(HomeActivity.mSlidingMenu.isOpen){
-                    HomeActivity.mSlidingMenu.scrollTo(HomeActivity.mSlidingMenu.menuWidth,0);
-                    HomeActivity.mSlidingMenu.isOpen=false;
+                if (HomeActivity.mSlidingMenu.isOpen) {
+                    HomeActivity.mSlidingMenu.toggle();
                 }
                 break;
         }
@@ -113,8 +126,6 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
         bannerItem1.setmLoadImage(R.drawable.home_banners);
         mArrayList.add(bannerItem1);
     }
-
-
 
 
 }
