@@ -12,11 +12,13 @@ import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.homepage.HomeActivity;
 import hdenergy.mdground.com.hdenergy.application.MDGroundApplication;
 import hdenergy.mdground.com.hdenergy.constants.Constants;
+import hdenergy.mdground.com.hdenergy.enumobject.restfuls.ResponseCode;
 import hdenergy.mdground.com.hdenergy.models.UserInfo;
 import hdenergy.mdground.com.hdenergy.restfuls.GlobalRestful;
 import hdenergy.mdground.com.hdenergy.restfuls.bean.ResponseData;
 import hdenergy.mdground.com.hdenergy.utils.DeviceUtil;
 import hdenergy.mdground.com.hdenergy.utils.FileUtils;
+import hdenergy.mdground.com.hdenergy.utils.MD5Util;
 import hdenergy.mdground.com.hdenergy.utils.StringUtil;
 import hdenergy.mdground.com.hdenergy.utils.ViewUtils;
 import retrofit2.Call;
@@ -89,20 +91,24 @@ public class LoginActivity extends AppCompatActivity {
 //            return;
 //        }
         ViewUtils.loading(this);
-        GlobalRestful.getInstance().LoginUser(phone, password, new Callback<ResponseData>() {
+        GlobalRestful.getInstance().LoginUser(phone, MD5Util.MD5(password), new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 ViewUtils.dismiss();
-                UserInfo userInfo = response.body().getContent(UserInfo.class);
+                if (ResponseCode.isSuccess(response.body())) {
+                    UserInfo userInfo = response.body().getContent(UserInfo.class);
 
-                if (cbAutoLogin.isChecked()) {
-                    saveUserAndToMainActivity(userInfo);
+                    if (cbAutoLogin.isChecked()) {
+                        saveUserAndToMainActivity(userInfo);
+                    }
+
+                    MDGroundApplication.mInstance.setLoginUserInfo(userInfo);
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    ViewUtils.toast(response.body().getMessage());
                 }
-
-                MDGroundApplication.mInstance.setLoginUserInfo(userInfo);
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                startActivity(intent);
-                finish();
             }
 
             @Override

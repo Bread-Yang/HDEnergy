@@ -48,7 +48,7 @@ public class GlobalRestful extends BaseRestful {
 
         JsonObject obj = new JsonObject();
         obj.addProperty("UserPhone", userPhone);
-        obj.addProperty("Pwd", pwd);
+        obj.addProperty("Password", pwd);
         obj.add("Device", new Gson().toJsonTree(device));
 
         asynchronousPost("LoginUser", obj, callback);
