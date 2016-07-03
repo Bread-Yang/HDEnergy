@@ -32,11 +32,11 @@ public class MDGroundApplication extends Application {
 //    }
 
     public UserInfo getLoginUser() {
-        return (UserInfo) FileUtils.getObject(Constants.KEY_ALREADY_LOGIN_USER);
+        return (UserInfo) FileUtils.getObject(Constants.KEY_ALREADY_LOGIN_USER_INFO);
     }
 
     public void setLoginUserInfo(UserInfo loginUserInfo) {
-        FileUtils.setObject(Constants.KEY_ALREADY_LOGIN_USER, loginUserInfo);
+        FileUtils.setObject(Constants.KEY_ALREADY_LOGIN_USER_INFO, loginUserInfo);
     }
 
 }

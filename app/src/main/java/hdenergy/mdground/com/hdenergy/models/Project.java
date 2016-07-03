@@ -6,26 +6,26 @@ package hdenergy.mdground.com.hdenergy.models;
  */
 public class Project {
 
-    private String BeginTime;
-    private int BusinessFee;
-    private String CreatedTime;
-    private int DepreciationCost;
-    private int ElectricPrice;
+    private String BeginTime;       // 维修（停炉）开始时间
+    private int BusinessFee;        // 业务费用
+    private String CreatedTime;     // 维修（停炉）开始时间
+    private int DepreciationCost;   // 项目折旧费用
+    private int ElectricPrice;  // 电单价
     private String EndTime;
-    private int FinanceFee;
-    private int FuelCost;
-    private int LaborCost;
-    private int MaintainCost;
-    private int ManageFee;
+    private int FinanceFee;     // 财务费用
+    private int FuelCost;       // 标准燃料单耗
+    private int LaborCost;      // 人工费用
+    private int MaintainCost;   // 维修费用
+    private int ManageFee;      // 管理费用
     private int ProjectID;
     private String ProjectName;
-    private int ProjectStatus;
-    private String Remark;
-    private int RemouldFee;
-    public int SteamPrice;
-    private int ThermalPrice;
-    private int WaterPrice;
-    private int WorkingFee;
+    private int ProjectStatus;  // 停炉//正常//维修状态
+    private String Remark;      // //停炉//维修//原因
+    private int RemouldFee;     // 财务费用
+    public int SteamPrice;      // 蒸汽单价
+    private int ThermalPrice;   // 热力单价
+    private int WaterPrice;     // 水单价
+    private int WorkingFee;     // 运行费用
 
     public String getBeginTime() {
         return BeginTime;
