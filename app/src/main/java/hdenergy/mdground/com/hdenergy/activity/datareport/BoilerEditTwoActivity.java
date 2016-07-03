@@ -13,8 +13,8 @@ import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
 import hdenergy.mdground.com.hdenergy.databinding.ActivityBoilerEditTwoBinding;
 import hdenergy.mdground.com.hdenergy.databinding.ItemBoilerFuelBinding;
-import hdenergy.mdground.com.hdenergy.models.Feedstock;
-import hdenergy.mdground.com.hdenergy.models.Fuel;
+import hdenergy.mdground.com.hdenergy.models.ProjectFuelWarehouse;
+import hdenergy.mdground.com.hdenergy.models.ProjectWorkFuel;
 
 /**
  * Created by yoghourt on 2016-06-27.
@@ -23,7 +23,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
     private EditTwoAdapter mAdapter;
 
-    private ArrayList<Fuel> mFuelArrayList = new ArrayList<>();
+    private ArrayList<ProjectWorkFuel> mFuelArrayList = new ArrayList<>();
 
     @Override
     protected int getContentLayout() {
@@ -32,11 +32,11 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
     @Override
     protected void initData() {
-        Fuel fuel = new Fuel();
-        Feedstock feedstock = new Feedstock();
-        ArrayList<Feedstock> feedstockArrayList = new ArrayList<>();
-        feedstockArrayList.add(feedstock);
-        fuel.setFeedstocks(feedstockArrayList);
+        ProjectWorkFuel fuel = new ProjectWorkFuel();
+        ProjectFuelWarehouse fuelWarehouse = new ProjectFuelWarehouse();
+        ArrayList<ProjectFuelWarehouse> feedstockArrayList = new ArrayList<>();
+        feedstockArrayList.add(fuelWarehouse);
+        fuel.setProjectFuelWarehouseList(feedstockArrayList);
 
         mFuelArrayList.add(fuel);
 
@@ -79,7 +79,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                 holder.viewDataBinding.ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mFuelArrayList.add(new Fuel());
+                        mFuelArrayList.add(new ProjectWorkFuel());
 
                         mAdapter.notifyDataSetChanged();
                     }

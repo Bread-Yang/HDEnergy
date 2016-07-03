@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.advice.ReasonableAdviceActivity;
-import hdenergy.mdground.com.hdenergy.activity.announcement.AnnouncementListActivity;
+import hdenergy.mdground.com.hdenergy.activity.bulletin.BulletinListActivity;
 import hdenergy.mdground.com.hdenergy.activity.attendancereport.AttendanceReportActivity;
 import hdenergy.mdground.com.hdenergy.activity.datareport.DataReportActivity;
 import hdenergy.mdground.com.hdenergy.activity.projectstartstop.ProjectStartStopActivity;
@@ -65,7 +65,7 @@ public class RightContextFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvRight: {
-                Intent intent = new Intent(getActivity(), AnnouncementListActivity.class);
+                Intent intent = new Intent(getActivity(), BulletinListActivity.class);
                 startActivity(intent);
                 break;
             }

@@ -6,7 +6,7 @@
 
         <variable
             name="fuel"
-            type="hdenergy.mdground.com.hdenergy.models.Fuel" />
+            type="hdenergy.mdground.com.hdenergy.models.ProjectWorkFuel" />
     </data>
 
     <LinearLayout

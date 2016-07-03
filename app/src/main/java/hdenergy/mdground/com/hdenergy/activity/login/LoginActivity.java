@@ -12,7 +12,7 @@ import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.homepage.HomeActivity;
 import hdenergy.mdground.com.hdenergy.application.MDGroundApplication;
 import hdenergy.mdground.com.hdenergy.constants.Constants;
-import hdenergy.mdground.com.hdenergy.models.User;
+import hdenergy.mdground.com.hdenergy.models.UserInfo;
 import hdenergy.mdground.com.hdenergy.utils.DeviceUtil;
 import hdenergy.mdground.com.hdenergy.utils.FileUtils;
 import hdenergy.mdground.com.hdenergy.utils.StringUtil;
@@ -79,15 +79,15 @@ public class LoginActivity extends AppCompatActivity{
 //            return;
 //        }
         if(cbAutoLogin.isChecked()){
-            User user=new User();
-            user.setUserName(phone);
-            user.setPassword(password);
-            saveUserAndToMainActivity(user);
+            UserInfo userInfo =new UserInfo();
+            userInfo.setUserName(phone);
+            userInfo.setPassword(password);
+            saveUserAndToMainActivity(userInfo);
             Intent intent=new Intent(this, HomeActivity.class);
             startActivity(intent);
             finish();
         }else{
-            MDGroundApplication.mInstance.setLoginUser(null);
+            MDGroundApplication.mInstance.setLoginUserInfo(null);
             Intent intent=new Intent(this, HomeActivity.class);
             startActivity(intent);
             finish();
@@ -98,11 +98,11 @@ public class LoginActivity extends AppCompatActivity{
 
     }
     //endgion
-    private void saveUserAndToMainActivity(User user) {
-        MDGroundApplication.mInstance.setLoginUser(user);
+    private void saveUserAndToMainActivity(UserInfo userInfo) {
+        MDGroundApplication.mInstance.setLoginUserInfo(userInfo);
 //        if (cbAutoLogin.isChecked()) {
-            FileUtils.setObject(Constants.KEY_ALREADY_LOGIN_USER, user);
-            DeviceUtil.setDeviceId(user.getDeviceID());
+            FileUtils.setObject(Constants.KEY_ALREADY_LOGIN_USER, userInfo);
+            DeviceUtil.setDeviceId(userInfo.getDeviceID());
         }
    // }
 

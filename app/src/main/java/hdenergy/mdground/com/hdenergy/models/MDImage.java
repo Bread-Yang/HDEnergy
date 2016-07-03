@@ -9,30 +9,32 @@ import android.os.Parcelable;
  */
 public class MDImage extends BaseObservable implements Parcelable {
 
+    public static final Creator<MDImage> CREATOR = new Creator<MDImage>() {
+        @Override
+        public MDImage createFromParcel(Parcel in) {
+            return new MDImage(in);
+        }
+
+        @Override
+        public MDImage[] newArray(int size) {
+            return new MDImage[size];
+        }
+    };
     private int AutoID;
-
     private int PhotoID;
-
     private int PhotoSID;
-
     private int UserID;
-
-    private String imageLocalPath;
-
     private long duration;
-
+    private String imageLocalPath;
     private long lastUpdateAt;
 
-    public MDImage() {}
+    public MDImage() {
+    }
 
     public MDImage(String imageLocalPath, long lastUpdateAt, long duration) {
         this.imageLocalPath = imageLocalPath;
         this.duration = duration;
         this.lastUpdateAt = lastUpdateAt;
-    }
-
-    public boolean hasPhotoSID() {
-        return PhotoSID != 0;
     }
 
     protected MDImage(Parcel in) {
@@ -45,17 +47,9 @@ public class MDImage extends BaseObservable implements Parcelable {
         lastUpdateAt = in.readLong();
     }
 
-    public static final Creator<MDImage> CREATOR = new Creator<MDImage>() {
-        @Override
-        public MDImage createFromParcel(Parcel in) {
-            return new MDImage(in);
-        }
-
-        @Override
-        public MDImage[] newArray(int size) {
-            return new MDImage[size];
-        }
-    };
+    public boolean hasPhotoSID() {
+        return PhotoSID != 0;
+    }
 
     @Override
     public int describeContents() {

@@ -6,7 +6,7 @@
 
         <variable
             name="flow"
-            type="hdenergy.mdground.com.hdenergy.models.Flow" />
+            type="hdenergy.mdground.com.hdenergy.models.ProjectWorkFlowrate" />
 
         <variable
             name="position"

@@ -3,7 +3,7 @@ package hdenergy.mdground.com.hdenergy.application;
 import android.app.Application;
 
 import hdenergy.mdground.com.hdenergy.constants.Constants;
-import hdenergy.mdground.com.hdenergy.models.User;
+import hdenergy.mdground.com.hdenergy.models.UserInfo;
 import hdenergy.mdground.com.hdenergy.utils.FileUtils;
 
 /**
@@ -31,12 +31,12 @@ public class MDGroundApplication extends Application {
 //        mDaoSession = daoMaster.newSession();
 //    }
 
-    public User getLoginUser() {
-        return (User) FileUtils.getObject(Constants.KEY_ALREADY_LOGIN_USER);
+    public UserInfo getLoginUser() {
+        return (UserInfo) FileUtils.getObject(Constants.KEY_ALREADY_LOGIN_USER);
     }
 
-    public void setLoginUser(User loginUser) {
-        FileUtils.setObject(Constants.KEY_ALREADY_LOGIN_USER, loginUser);
+    public void setLoginUserInfo(UserInfo loginUserInfo) {
+        FileUtils.setObject(Constants.KEY_ALREADY_LOGIN_USER, loginUserInfo);
     }
 
 }
