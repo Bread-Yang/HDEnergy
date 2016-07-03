@@ -18,9 +18,7 @@ import hdenergy.mdground.com.hdenergy.databinding.ActivityBoilerEditOneBinding;
 import hdenergy.mdground.com.hdenergy.databinding.ItemBoilerElectricQuantityBinding;
 import hdenergy.mdground.com.hdenergy.databinding.ItemBoilerFlowBinding;
 import hdenergy.mdground.com.hdenergy.databinding.ItemBoilerWaterQuantityBinding;
-import hdenergy.mdground.com.hdenergy.models.Electricity;
-import hdenergy.mdground.com.hdenergy.models.Flow;
-import hdenergy.mdground.com.hdenergy.models.Water;
+import hdenergy.mdground.com.hdenergy.models.ProjectWorkFlowrate;
 
 /**
  * Created by yoghourt on 2016-06-27.
@@ -29,9 +27,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
     private EditOneAdapter mAdapter;
 
-    private ArrayList<Flow> mFlowArrayList = new ArrayList<>();
-    private ArrayList<Electricity> mElectricityArrayList = new ArrayList<>();
-    private ArrayList<Water> mWaterArrayList = new ArrayList<>();
+    private ArrayList<ProjectWorkFlowrate> mFlowArrayList = new ArrayList<>();
 
     @Override
     protected int getContentLayout() {
@@ -40,13 +36,13 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
     @Override
     protected void initData() {
-        mFlowArrayList.add(new Flow());
-        mElectricityArrayList.add(new Electricity());
-        mWaterArrayList.add(new Water());
+        mFlowArrayList.add(new ProjectWorkFlowrate());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(layoutManager);
+        mDataBinding.recyclerView.setNestedScrollingEnabled(false);
+        mDataBinding.recyclerView.setFocusable(false);
 
         mAdapter = new EditOneAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
@@ -60,7 +56,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
     private boolean isHeader(int positon) {
         if (positon == 0) {
             return true;
-        } else if (positon == mFlowArrayList.size() || positon == (mFlowArrayList.size() + mElectricityArrayList.size())) {
+        } else if (positon == mFlowArrayList.size() || positon == (mFlowArrayList.size() + 1)) {
             return true;
         }
         return false;
@@ -116,7 +112,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                         ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                mFlowArrayList.add(new Flow());
+                                mFlowArrayList.add(new ProjectWorkFlowrate());
                                 mAdapter.notifyDataSetChanged();
                             }
                         });
@@ -136,7 +132,6 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
                 case ELECTRICITY_VIEW_TYPE: {
                     final ItemBoilerElectricQuantityBinding itemBoilerElectricQuantityBinding = ((ItemBoilerElectricQuantityBinding) holder.viewDataBinding);
-                    itemBoilerElectricQuantityBinding.setElectricity(mElectricityArrayList.get(position - mFlowArrayList.size()));
                     ivAddOrDelete = itemBoilerElectricQuantityBinding.ivAddOrDelete;
 
                     ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +166,6 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
                 case WATER_VIEW_TYPE: {
                     final ItemBoilerWaterQuantityBinding itemBoilerWaterQuantityBinding = ((ItemBoilerWaterQuantityBinding) holder.viewDataBinding);
-                    itemBoilerWaterQuantityBinding.setWater(mWaterArrayList.get(position - mFlowArrayList.size() - mElectricityArrayList.size()));
                     ivAddOrDelete = itemBoilerWaterQuantityBinding.ivAddOrDelete;
 
                     ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
@@ -207,14 +201,14 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
         @Override
         public int getItemCount() {
-            return mFlowArrayList.size() + mElectricityArrayList.size() + mWaterArrayList.size();
+            return mFlowArrayList.size() + 2;
         }
 
         @Override
         public int getItemViewType(int position) {
             if (position < mFlowArrayList.size()) {
                 return FLOW_VIEW_TYPE;
-            } else if (position >= mFlowArrayList.size() && position < (mFlowArrayList.size() + mElectricityArrayList.size())) {
+            } else if (position == mFlowArrayList.size() + 1) {
                 return ELECTRICITY_VIEW_TYPE;
             } else {
                 return WATER_VIEW_TYPE;

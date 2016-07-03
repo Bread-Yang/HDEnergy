@@ -21,8 +21,8 @@
             android:name=".activity.login.ForgetPasswordActivity"
             android:label="@string/forget_password" />
         <activity
-            android:name=".activity.announcement.AnnouncementListActivity"
-            android:label="@string/announcement_list" />
+            android:name=".activity.bulletin.BulletinListActivity"
+            android:label="@string/bulletin_list" />
         <activity
             android:name=".activity.datareport.DataReportActivity"
             android:label="@string/data_report" />

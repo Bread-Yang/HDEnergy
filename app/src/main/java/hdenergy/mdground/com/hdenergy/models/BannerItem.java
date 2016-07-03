@@ -5,11 +5,10 @@ package hdenergy.mdground.com.hdenergy.models;
  */
 
 public class BannerItem {
+
     private String mImgUrl;
     private String mTitle;
-    private int    mLoadImage;
-
-
+    private int mLoadImage;
 
     public String getmTitle() {
         return mTitle;

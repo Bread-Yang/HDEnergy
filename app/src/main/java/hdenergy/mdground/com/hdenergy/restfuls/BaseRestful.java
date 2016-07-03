@@ -15,7 +15,7 @@ import hdenergy.mdground.com.hdenergy.application.MDGroundApplication;
 import hdenergy.mdground.com.hdenergy.enumobject.restfuls.BusinessType;
 import hdenergy.mdground.com.hdenergy.enumobject.restfuls.PlatformType;
 import hdenergy.mdground.com.hdenergy.enumobject.restfuls.ResponseCode;
-import hdenergy.mdground.com.hdenergy.models.User;
+import hdenergy.mdground.com.hdenergy.models.UserInfo;
 import hdenergy.mdground.com.hdenergy.restfuls.Interceptor.DecryptedPayloadInterceptor;
 import hdenergy.mdground.com.hdenergy.restfuls.Interceptor.ProgressRequestBody;
 import hdenergy.mdground.com.hdenergy.restfuls.bean.RequestData;
@@ -119,10 +119,10 @@ public abstract class BaseRestful {
         String serviceToken = "";
         requestData.setDeviceID(DeviceUtil.getDeviceId());
 
-        User user = MDGroundApplication.mInstance.getLoginUser();
-        if (user != null) {
-            serviceToken = user.getServiceToken();
-            requestData.setUserID(user.getUserID());
+        UserInfo userInfo = MDGroundApplication.mInstance.getLoginUser();
+        if (userInfo != null) {
+            serviceToken = userInfo.getServiceToken();
+            requestData.setUserID(userInfo.getUserID());
         }
         requestData.setServiceToken(serviceToken);
         requestData.setSign(EncryptUtil.appSign(requestData));
@@ -144,10 +144,10 @@ public abstract class BaseRestful {
         String serviceToken = "";
         requestDataForLogOnly.setDeviceID(DeviceUtil.getDeviceId());
 
-        User user = MDGroundApplication.mInstance.getLoginUser();
-        if (user != null) {
-            serviceToken = user.getServiceToken();
-            requestDataForLogOnly.setUserID(user.getUserID());
+        UserInfo userInfo = MDGroundApplication.mInstance.getLoginUser();
+        if (userInfo != null) {
+            serviceToken = userInfo.getServiceToken();
+            requestDataForLogOnly.setUserID(userInfo.getUserID());
         }
         requestDataForLogOnly.setServiceToken("测试,只是为了log");
         requestDataForLogOnly.setSign("测试,只是为了log");

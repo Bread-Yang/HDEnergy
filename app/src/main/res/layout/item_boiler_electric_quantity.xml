@@ -5,10 +5,6 @@
     <data>
 
         <variable
-            name="electricity"
-            type="hdenergy.mdground.com.hdenergy.models.Electricity" />
-
-        <variable
             name="position"
             type="Integer" />
     </data>

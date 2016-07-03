@@ -5,10 +5,6 @@
     <data>
 
         <variable
-            name="flow"
-            type="hdenergy.mdground.com.hdenergy.models.FuelAmount" />
-
-        <variable
             name="position"
             type="Integer" />
 

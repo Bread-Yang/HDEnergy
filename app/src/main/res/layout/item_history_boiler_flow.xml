@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="flow"
-            type="hdenergy.mdground.com.hdenergy.models.Flow" />
-
-        <variable
             name="position"
-            type="Integer" />
+            type="Integer"/>
 
     </data>
 
@@ -24,7 +20,7 @@
 
             <TextView
                 style="@style/TitleTextStyle"
-                android:text="@string/flow" />
+                android:text="@string/flow"/>
 
 
         </RelativeLayout>
@@ -34,12 +30,12 @@
             <TextView
                 style="@style/DimTextStyle"
                 android:text="@{@string/initial_flow_index(position)}"
-                tools:text="@string/initial_flow_index" />
+                tools:text="@string/initial_flow_index"/>
 
             <TextView
                 style="@style/AlignRightNoPaddingTextStyle"
                 android:textSize="@dimen/text_size_16"
-                tools:text="12345吨" />
+                tools:text="12345吨"/>
 
         </RelativeLayout>
 
@@ -51,12 +47,12 @@
             <TextView
                 style="@style/DimTextStyle"
                 android:text="@{@string/close_flow_index(position)}"
-                tools:text="@string/close_flow_index" />
+                tools:text="@string/close_flow_index"/>
 
             <TextView
                 style="@style/AlignRightNoPaddingTextStyle"
                 android:textSize="@dimen/text_size_16"
-                tools:text="1256" />
+                tools:text="1256"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -66,12 +62,12 @@
             <TextView
                 style="@style/DimTextStyle"
                 android:text="@{@string/flow_index(position)}"
-                tools:text="@string/flow_index" />
+                tools:text="@string/flow_index"/>
 
             <TextView
                 style="@style/AlignRightNoPaddingTextStyle"
                 android:textColor="@color/color_E92C0A"
-                tools:text="25631" />
+                tools:text="25631"/>
 
         </RelativeLayout>
 
@@ -81,12 +77,12 @@
 
             <TextView
                 style="@style/DimTextStyle"
-                android:text="@string/flow_adjustment" />
+                android:text="@string/flow_adjustment"/>
 
             <TextView
                 style="@style/AlignRightNoPaddingTextStyle"
                 android:textSize="@dimen/text_size_16"
-                tools:text="25631" />
+                tools:text="25631"/>
 
         </RelativeLayout>
 
@@ -96,12 +92,12 @@
 
             <TextView
                 style="@style/DimTextStyle"
-                android:text="@string/adjustment_description" />
+                android:text="@string/adjustment_description"/>
 
             <TextView
                 style="@style/AlignRightNoPaddingTextStyle"
                 android:textSize="@dimen/text_size_16"
-                tools:text="25631" />
+                tools:text="25631"/>
 
         </RelativeLayout>
 

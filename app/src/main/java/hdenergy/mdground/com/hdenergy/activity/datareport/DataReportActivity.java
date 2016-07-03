@@ -19,7 +19,7 @@ import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
 import hdenergy.mdground.com.hdenergy.databinding.ActivityDataReportBinding;
 import hdenergy.mdground.com.hdenergy.databinding.ItemBoilerBinding;
-import hdenergy.mdground.com.hdenergy.models.Boiler;
+import hdenergy.mdground.com.hdenergy.models.ProjectWorkFurnace;
 import hdenergy.mdground.com.hdenergy.utils.DateUtils;
 import hdenergy.mdground.com.hdenergy.views.BaoPickerDialog;
 import kankan.wheel.widget.OnWheelScrollListener;
@@ -37,7 +37,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     private BaoPickerDialog mBaoPickerDialog;
 
-    private ArrayList<Boiler> mBoilerArrayList = new ArrayList<>();
+    private ArrayList<ProjectWorkFurnace> mBoilerArrayList = new ArrayList<>();
 
     private ArrayList<String> mProjectStringArrayList = new ArrayList<>();
 
@@ -55,12 +55,29 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         Date previousDate = DateUtils.previousDate(new Date());
         mDataBinding.tvData.setText(DateUtils.getYearMonthDayWithDash(previousDate));
 
-        mBoilerArrayList.add(new Boiler());
-        mBoilerArrayList.add(new Boiler());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
+        mBoilerArrayList.add(new ProjectWorkFurnace());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(layoutManager);
+        mDataBinding.recyclerView.setNestedScrollingEnabled(false);
+        mDataBinding.recyclerView.setFocusable(false);
 
         mAdapter = new DataReportAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
@@ -75,6 +92,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         // 销售产品数据
         String[] salesProductStrings = getResources().getStringArray(R.array.sale_product_type);
         Collections.addAll(mSalesProductArrayList, salesProductStrings);
+
     }
 
     @Override

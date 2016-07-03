@@ -12,17 +12,17 @@ import java.util.ArrayList;
 
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
-import hdenergy.mdground.com.hdenergy.constants.Constants;
 import hdenergy.mdground.com.hdenergy.databinding.ActivityHistoryDataDetailsBinding;
 import hdenergy.mdground.com.hdenergy.databinding.ItemCheckBoilerBinding;
-import hdenergy.mdground.com.hdenergy.models.Boiler;
+import hdenergy.mdground.com.hdenergy.models.ProjectWorkFurnace;
 
 /**
  * Created by PC on 2016-06-28.
  */
 
 public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryDataDetailsBinding> {
-    private ArrayList<Boiler> boilers=new ArrayList<>();
+
+    private ArrayList<ProjectWorkFurnace> mProjectWorkFurnaceArrayList = new ArrayList<>();
     private DataDetailsAdapter mAdapter;
 
     @Override
@@ -34,14 +34,14 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
     protected void initData() {
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText(getString(R.string.edit));
-        Boiler boiler1=new Boiler();
-        boiler1.setName("锅炉A");
-        Boiler boiler2=new Boiler();
-        boiler2.setName("锅炉B");
-        boilers.add(boiler1);
-        boilers.add(boiler2);
-        mAdapter=new DataDetailsAdapter();
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        ProjectWorkFurnace boiler1 = new ProjectWorkFurnace();
+        boiler1.setFurnaceName("锅炉A");
+        ProjectWorkFurnace boiler2 = new ProjectWorkFurnace();
+        boiler2.setFurnaceName("锅炉B");
+        mProjectWorkFurnaceArrayList.add(boiler1);
+        mProjectWorkFurnaceArrayList.add(boiler2);
+        mAdapter = new DataDetailsAdapter();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(linearLayoutManager);
         mDataBinding.recyclerView.setAdapter(mAdapter);
@@ -65,12 +65,11 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
 
         @Override
         public void onBindViewHolder(DataDetailsAdapter.ViewHolder holder, final int position) {
-            holder.itemCheckBoilerBinding.tvBoiler.setText(boilers.get(position).getName());
+            holder.itemCheckBoilerBinding.tvBoiler.setText(mProjectWorkFurnaceArrayList.get(position).getFurnaceName());
             holder.itemCheckBoilerBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(HistoryDataDetailsActivity.this,HistoryBoilerDetailActivity.class);
-                    intent.putExtra(Constants.KEY_BOILERR_NAME,boilers.get(position).getName());
+                    Intent intent = new Intent(HistoryDataDetailsActivity.this, HistoryBoilerDetailActivity.class);
                     startActivity(intent);
                 }
             });
@@ -78,12 +77,13 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
 
         @Override
         public int getItemCount() {
-            return boilers.size();
+            return mProjectWorkFurnaceArrayList.size();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-             public ItemCheckBoilerBinding itemCheckBoilerBinding;
+            public ItemCheckBoilerBinding itemCheckBoilerBinding;
+
             public ViewHolder(View itemView) {
                 super(itemView);
                 itemCheckBoilerBinding = DataBindingUtil.bind(itemView);

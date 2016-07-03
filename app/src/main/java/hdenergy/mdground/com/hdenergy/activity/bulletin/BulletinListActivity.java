@@ -1,4 +1,4 @@
-package hdenergy.mdground.com.hdenergy.activity.announcement;
+package hdenergy.mdground.com.hdenergy.activity.bulletin;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,35 +11,35 @@ import java.util.ArrayList;
 
 import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
-import hdenergy.mdground.com.hdenergy.databinding.ActivityAnnouncementListBinding;
-import hdenergy.mdground.com.hdenergy.databinding.ItemAnnouncementBinding;
-import hdenergy.mdground.com.hdenergy.models.Announcement;
+import hdenergy.mdground.com.hdenergy.databinding.ActivityBulletinListBinding;
+import hdenergy.mdground.com.hdenergy.databinding.ItemBulletinBinding;
+import hdenergy.mdground.com.hdenergy.models.Bulletin;
 
 /**
  * Created by yoghourt on 6/28/16.
  */
-public class AnnouncementListActivity extends ToolbarActivity<ActivityAnnouncementListBinding> {
+public class BulletinListActivity extends ToolbarActivity<ActivityBulletinListBinding> {
 
-    private AnnouncementListAdapter mAdapter;
+    private BulletinListAdapter mAdapter;
 
-    private ArrayList<Announcement> mAnnouncementArrayList = new ArrayList<>();
+    private ArrayList<Bulletin> mBulletinArrayList = new ArrayList<>();
 
     @Override
     protected int getContentLayout() {
-        return R.layout.activity_announcement_list;
+        return R.layout.activity_bulletin_list;
     }
 
     @Override
     protected void initData() {
-        mAnnouncementArrayList.add(new Announcement());
-        mAnnouncementArrayList.add(new Announcement());
-        mAnnouncementArrayList.add(new Announcement());
+        mBulletinArrayList.add(new Bulletin());
+        mBulletinArrayList.add(new Bulletin());
+        mBulletinArrayList.add(new Bulletin());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new AnnouncementListAdapter();
+        mAdapter = new BulletinListAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
     }
 
@@ -49,12 +49,12 @@ public class AnnouncementListActivity extends ToolbarActivity<ActivityAnnounceme
     }
 
     //region ADAPTER
-    class AnnouncementListAdapter extends RecyclerView.Adapter<AnnouncementListAdapter.ViewHolder> {
+    class BulletinListAdapter extends RecyclerView.Adapter<BulletinListAdapter.ViewHolder> {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_announcement, parent, false);
+                    .inflate(R.layout.item_bulletin, parent, false);
             return new ViewHolder(itemView);
         }
 
@@ -65,12 +65,12 @@ public class AnnouncementListActivity extends ToolbarActivity<ActivityAnnounceme
 
         @Override
         public int getItemCount() {
-            return mAnnouncementArrayList.size();
+            return mBulletinArrayList.size();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            ItemAnnouncementBinding viewDataBinding;
+            ItemBulletinBinding viewDataBinding;
 
             public ViewHolder(View itemView) {
                 super(itemView);
