@@ -5,11 +5,11 @@ package hdenergy.mdground.com.hdenergy.constants;
  */
 public final class Constants {
 
-    public static final String HOST = "http://119.29.14.31:8080/";
-//    public static final String HOST = "http://192.168.0.152:9999/";
+    public static final String HOST = "http://huidi.yideguan.com/";
+//    public static final String HOST = "http://119.29.14.31:8080/";
 
-    public static final String FILE_HOST = "http://119.29.14.31:8080/";
-//    public static final String FILE_HOST = "http://192.168.0.152:9999/";
+    public static final String FILE_HOST = "http://huidi.yideguan.com/";
+//    public static final String FILE_HOST = "http://119.29.14.31:8080/";
 
     // APP在sdcar的目录
     public static final String APP_PATH = "/mdground_huidi";

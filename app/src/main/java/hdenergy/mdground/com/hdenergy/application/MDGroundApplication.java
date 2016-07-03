@@ -31,6 +31,10 @@ public class MDGroundApplication extends Application {
 //        mDaoSession = daoMaster.newSession();
 //    }
 
+    public UserInfo getSaveUser() {
+        return (UserInfo) FileUtils.getObject(Constants.KEY_SAVE_LOGIN_USER_INFO);
+    }
+
     public UserInfo getLoginUser() {
         return (UserInfo) FileUtils.getObject(Constants.KEY_ALREADY_LOGIN_USER_INFO);
     }

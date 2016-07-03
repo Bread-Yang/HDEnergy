@@ -71,4 +71,14 @@ public class GlobalRestful extends BaseRestful {
 
         asynchronousPost("SaveUserSuggestion", obj, callback);
     }
+
+    // 获取项目列表
+    public void GetProjectList(Callback<ResponseData> callback) {
+        asynchronousPost("GetProjectList", null, callback);
+    }
+
+    // 获取公告列表
+    public void GetBulletinList(Callback<ResponseData> callback) {
+        asynchronousPost("GetBulletinList", null, callback);
+    }
 }
