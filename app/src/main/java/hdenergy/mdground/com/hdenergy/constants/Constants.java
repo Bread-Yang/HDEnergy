@@ -30,6 +30,8 @@ public final class Constants {
 
     public static final String KEY_IS_FIRST_LAUNCH = "key_is_first_launch";
 
+    public static final String KEY_IS_EXIT_LOGIN="key_is_exit_login";
+
     // application
     public static final String KEY_ALREADY_LOGIN_USER = "key_already_login_user";
 

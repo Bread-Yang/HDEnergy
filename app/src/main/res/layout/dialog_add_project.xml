@@ -5,15 +5,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:orientation="vertical">
         <LinearLayout
             android:background="@color/color_white"
             android:layout_width="268dp"
-            android:paddingLeft="@dimen/margin_26"
-            android:paddingRight="@dimen/margin_26"
+            android:gravity="center"
+            android:paddingTop="@dimen/margin_4"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin_16"
             android:orientation="vertical">
 
 
@@ -21,33 +20,33 @@
                 android:id="@+id/tvCurrentVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="@string/date_details"
-                android:lineSpacingExtra="@dimen/margin_4"
+                android:text="@string/prompt"
                 android:textColor="@color/color_404040"
-                android:textSize="@dimen/text_size_14"
+                android:textSize="@dimen/text_size_12"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/size_18"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/new_version"
-                android:textColor="@color/color_404040"
+                android:text="@string/input_new_project"
+                android:textColor="@color/color_9A9A9A"
+                android:layout_gravity="center_horizontal"
                 android:textSize="@dimen/text_size_14"
-                android:layout_marginBottom="@dimen/margin_4"
+                android:layout_marginBottom="@dimen/margin_10"
 
                 />
 
-            <TextView
-                android:id="@+id/tvNewestProperty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="@string/date_details"
-                android:lineSpacingExtra="@dimen/margin_4"
-                android:textColor="@color/color_404040"
+            <EditText
+                style="@style/FixHeightLayoutStyle"
+                android:background="@color/color_divider"
+                android:id="@+id/etProjectName"
+                android:layout_width="200dp"
                 android:textSize="@dimen/text_size_14"
+                android:textColor="@color/color_404040"
                 android:layout_marginBottom="12dp"
                 />
-            <View style="@style/DividerHorizontalStyle"></View>
+            <View style="@style/DividerHorizontalMarginStyle"></View>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
@@ -62,13 +61,13 @@
                     android:layout_height="match_parent" />
                 <View
                   style="@style/DividerVerticalStyle"
-                    android:layout_margin="@dimen/size_6"
+                    android:layout_margin="@dimen/margin_6"
                     />
                 <TextView
-                    android:id="@+id/tvUpdate"
+                    android:id="@+id/tvConfirm"
                     android:layout_width="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/update"
+                    android:text="@string/comfirm"
                     android:textSize="@dimen/margin_16"
                     android:gravity="center"
                     android:textColor="@color/color_31C967"

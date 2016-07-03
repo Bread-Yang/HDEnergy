@@ -25,167 +25,179 @@
                    android:src="@drawable/home_banner"/>
 
            </LinearLayout>
-
-              <LinearLayout
-            android:layout_width="match_parent"
-              android:layout_height="@dimen/size_50"
-              android:gravity="center_vertical"
-              android:paddingLeft="@dimen/margin_12"
-              android:orientation="vertical">
-
-             <TextView
-                style="@style/NormalTextStyle"
-                 android:text="@string/basic_information" />
-
-          </LinearLayout>
-
-           <RelativeLayout
-             style="@style/WhiteFixHeightLayoutStyle"
-               android:gravity="center_vertical">
-
-             <TextView
-               style="@style/DimTextStyle"
-                 android:text="@string/name"
-                 android:layout_centerVertical="true"
-                 android:layout_alignParentLeft="true"/>
-
-               <TextView
-                   style="@style/NormalTextStyle"
-                   tools:text="@string/basic_information"
-                   android:layout_centerVertical="true"
-                   android:layout_alignParentRight="true"/>
-
-           </RelativeLayout>
-
-
-           <RelativeLayout
-               style="@style/WhiteFixHeightLayoutStyle"
-               android:layout_marginTop="@dimen/margin_1"
-               android:gravity="center_vertical">
-
-               <TextView
-                   style="@style/DimTextStyle"
-                   android:text="@string/phone_num"
-                   android:layout_centerVertical="true"
-                   android:layout_alignParentLeft="true"/>
-               <TextView
-                   style="@style/NormalTextStyle"
-                   tools:text="@string/app_name"
-                   android:layout_centerVertical="true"
-                   android:layout_alignParentRight="true"/>
-
-           </RelativeLayout>
-
-
-           <RelativeLayout
-               android:layout_marginTop="@dimen/margin_1"
-               style="@style/WhiteFixHeightLayoutStyle"
-
-               android:gravity="center_vertical">
-
-               <TextView
-                   style="@style/DimTextStyle"
-                   android:text="@string/belongs_department"
-                   android:layout_centerVertical="true"
-                   android:layout_alignParentLeft="true"/>
-               <TextView
-                   style="@style/NormalTextStyle"
-                   tools:text="@string/engineering_department"
-                   android:layout_centerVertical="true"
-                   android:layout_alignParentRight="true"/>
-           </RelativeLayout>
-
-           <LinearLayout
+           <ScrollView
+               android:scrollbars="none"
                android:layout_width="match_parent"
-               android:layout_height="@dimen/size_50"
-               android:gravity="center_vertical"
-               android:paddingLeft="@dimen/margin_12"
-               android:orientation="vertical">
+               android:layout_height="match_parent">
 
-               <TextView
-                   style="@style/NormalTextStyle"
-                   android:text="@string/common_option" />
-           </LinearLayout>
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:layout_weight="1"
-               android:orientation="vertical">
-
-               <RelativeLayout
-                   style="@style/FixHeightLayoutStyle"
-                   android:background="@color/color_white"
-                   android:gravity="center_vertical">
-
-                   <TextView
-                       style="@style/DimTextStyle"
-                       android:text="@string/common_project"
-                       android:layout_centerVertical="true"
-                       android:layout_alignParentLeft="true"/>
-
-                   <ImageView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:src="@drawable/icon_more"
-                       android:layout_centerVertical="true"
-                       android:layout_alignParentRight="true" />
-
-               </RelativeLayout>
-
-
-
-               <RelativeLayout
-                   android:layout_marginTop="@dimen/margin_1"
-                   style="@style/FixHeightLayoutStyle"
-                   android:background="@color/color_white"
-                   android:gravity="center_vertical">
-
-                   <TextView
-                       style="@style/DimTextStyle"
-                       android:text="@string/common_contact"
-                       android:layout_centerVertical="true"
-                       android:layout_alignParentLeft="true"/>
-
-                   <ImageView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:src="@drawable/icon_more"
-                       android:layout_centerVertical="true"
-                       android:layout_alignParentRight="true" />
-
-               </RelativeLayout>
-
-
-               <RelativeLayout
-                   style="@style/FixHeightLayoutStyle"
-                   android:layout_marginTop="@dimen/margin_1"
-                   android:background="@color/color_white"
-                   android:gravity="center_vertical">
-
-                   <TextView
-                       android:layout_centerVertical="true"
-                       style="@style/DimTextStyle"
-                       android:text="@string/change_password"
-                       android:layout_alignParentLeft="true"/>
-
-                   <ImageView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:src="@drawable/icon_more"
-                       android:layout_centerVertical="true"
-                       android:layout_alignParentRight="true" />
-
-               </RelativeLayout>
                <LinearLayout
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
-                   android:background="@color/color_white"></LinearLayout>
+                   android:orientation="vertical">
 
-           </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="@dimen/size_50"
+                       android:gravity="center_vertical"
+                       android:paddingLeft="@dimen/margin_12"
+                       android:orientation="vertical">
+
+                       <TextView
+                           style="@style/NormalTextStyle"
+                           android:text="@string/basic_information" />
+
+                   </LinearLayout>
+
+                   <RelativeLayout
+                       style="@style/WhiteFixHeightLayoutStyle"
+                       android:gravity="center_vertical">
+
+                       <TextView
+                           style="@style/DimTextStyle"
+                           android:text="@string/name"
+                           android:layout_centerVertical="true"
+                           android:layout_alignParentLeft="true"/>
+
+                       <TextView
+                           style="@style/NormalTextStyle"
+                           tools:text="@string/basic_information"
+                           android:layout_centerVertical="true"
+                           android:layout_alignParentRight="true"/>
+
+                   </RelativeLayout>
+
+                   <RelativeLayout
+                       style="@style/WhiteFixHeightLayoutStyle"
+                       android:layout_marginTop="@dimen/margin_1"
+                       android:gravity="center_vertical">
+
+                       <TextView
+                           style="@style/DimTextStyle"
+                           android:text="@string/phone_num"
+                           android:layout_centerVertical="true"
+                           android:layout_alignParentLeft="true"/>
+                       <TextView
+                           style="@style/NormalTextStyle"
+                           tools:text="@string/app_name"
+                           android:layout_centerVertical="true"
+                           android:layout_alignParentRight="true"/>
+
+                   </RelativeLayout>
+
+                   <RelativeLayout
+                       android:layout_marginTop="@dimen/margin_1"
+                       style="@style/WhiteFixHeightLayoutStyle"
+
+                       android:gravity="center_vertical">
+
+                       <TextView
+                           style="@style/DimTextStyle"
+                           android:text="@string/belongs_department"
+                           android:layout_centerVertical="true"
+                           android:layout_alignParentLeft="true"/>
+                       <TextView
+                           style="@style/NormalTextStyle"
+                           tools:text="@string/engineering_department"
+                           android:layout_centerVertical="true"
+                           android:layout_alignParentRight="true"/>
+                   </RelativeLayout>
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="@dimen/size_50"
+                       android:gravity="center_vertical"
+                       android:paddingLeft="@dimen/margin_12"
+                       android:orientation="vertical">
+
+                       <TextView
+                           style="@style/NormalTextStyle"
+                           android:text="@string/common_option" />
+                   </LinearLayout>
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:layout_weight="1"
+                       android:orientation="vertical">
+
+                       <RelativeLayout
+                           style="@style/FixHeightLayoutStyle"
+                           android:onClick="toCommonProjectActivity"
+                           android:background="@color/color_white"
+                           android:gravity="center_vertical">
+
+                           <TextView
+                               style="@style/DimTextStyle"
+                               android:text="@string/common_project"
+                               android:layout_centerVertical="true"
+                               android:layout_alignParentLeft="true"/>
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/icon_more"
+                               android:layout_centerVertical="true"
+                               android:layout_alignParentRight="true" />
+
+                       </RelativeLayout>
+
+
+
+                       <RelativeLayout
+                           android:onClick="toCommonContactsActivity"
+                           android:id="@+id/tvCommonContacts"
+                           android:layout_marginTop="@dimen/margin_1"
+                           style="@style/FixHeightLayoutStyle"
+                           android:background="@color/color_white"
+                           android:gravity="center_vertical">
+
+                           <TextView
+                               style="@style/DimTextStyle"
+                               android:text="@string/common_contact"
+                               android:layout_centerVertical="true"
+                               android:layout_alignParentLeft="true"/>
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/icon_more"
+                               android:layout_centerVertical="true"
+                               android:layout_alignParentRight="true" />
+
+                       </RelativeLayout>
+
+
+                       <RelativeLayout
+                           style="@style/FixHeightLayoutStyle"
+                           android:layout_marginTop="@dimen/margin_1"
+                           android:background="@color/color_white"
+                           android:gravity="center_vertical">
+
+                           <TextView
+                               android:layout_centerVertical="true"
+                               style="@style/DimTextStyle"
+                               android:text="@string/change_password"
+                               android:layout_alignParentLeft="true"/>
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/icon_more"
+                               android:layout_centerVertical="true"
+                               android:layout_alignParentRight="true" />
+
+                       </RelativeLayout>
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:background="@color/color_white"></LinearLayout>
+
+                   </LinearLayout>
+
+               </LinearLayout>
+
+           </ScrollView>
 
        </LinearLayout>
-
-
-
 
 </layout>
