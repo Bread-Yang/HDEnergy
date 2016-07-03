@@ -18,6 +18,12 @@ public class HomeActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         mSlidingMenu= (SlidingMenu) findViewById(R.id.slidingMenu);
+//        mSlidingMenu.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                mSlidingMenu.scrollTo(-mSlidingMenu.menuWidth,0);
+//            }
+//        });
     }
 
     @Override
