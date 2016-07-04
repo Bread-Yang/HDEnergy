@@ -79,9 +79,9 @@ public class SlidingMenu extends HorizontalScrollView {
         if (changed) {
             KLog.e("有点击进来");
           this.scrollTo(menuWidth, 0);
-            if(this.getScrollX()==menuWidth){
-                this.scrollTo(menuWidth, 0);
-            }
+//            if(this.getScrollX()=menuWidth){
+//                this.scrollTo(menuWidth, 0);
+//            }
             once = true;
             isOpen = false;
 

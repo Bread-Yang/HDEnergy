@@ -24,7 +24,7 @@ public class HomeActivity extends FragmentActivity {
 //                mSlidingMenu.scrollTo(-mSlidingMenu.menuWidth,0);
 //            }
 //        });
-    }
+}
 
     @Override
     protected void onResume() {
