@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <hdenergy.mdground.com.hdenergy.adapter.SimpleGuideBanner
+    <com.mdground.hdenergy.adapter.SimpleGuideBanner
         android:id="@+id/sgb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

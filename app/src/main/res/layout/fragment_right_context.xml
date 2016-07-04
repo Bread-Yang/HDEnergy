@@ -44,7 +44,7 @@
             android:paddingBottom="@dimen/margin_8"
             android:orientation="vertical">
 
-            <hdenergy.mdground.com.hdenergy.views.SimpleImageBanner
+            <com.mdground.hdenergy.views.SimpleImageBanner
                 android:id="@+id/simpleImageBanner"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/size_216"

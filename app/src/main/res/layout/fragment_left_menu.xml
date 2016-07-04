@@ -29,7 +29,7 @@
             android:textSize="25sp" />
     </LinearLayout>
 
-    <hdenergy.mdground.com.hdenergy.views.CustomImageButton
+    <com.mdground.hdenergy.views.CustomImageButton
         android:id="@+id/cibBasicInformation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         app:titleText="@string/basic_information" />
 
 
-    <hdenergy.mdground.com.hdenergy.views.CustomImageButton
+    <com.mdground.hdenergy.views.CustomImageButton
         android:id="@+id/cibHistoryDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
         app:titleColor="@color/color_white"
         app:titleText="@string/hostorical_data_statistic" />
 
-    <hdenergy.mdground.com.hdenergy.views.CustomImageButton
+    <com.mdground.hdenergy.views.CustomImageButton
         android:id="@+id/cibHistoryAttendanceStatics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
         app:titleColor="@color/color_white"
         app:titleText="@string/hostorical_attendance_statics" />
 
-    <hdenergy.mdground.com.hdenergy.views.CustomImageButton
+    <com.mdground.hdenergy.views.CustomImageButton
         android:id="@+id/cibSetting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

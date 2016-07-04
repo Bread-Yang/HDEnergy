@@ -22,7 +22,7 @@
             android:background="@drawable/shape_round_corner_area_white_bg"
             android:orientation="vertical">
 
-            <hdenergy.mdground.com.hdenergy.views.ClearEditText
+            <com.mdground.hdenergy.views.ClearEditText
                 android:id="@+id/cetAccount"
                 android:layout_width="@dimen/size_305"
                 android:layout_height="@dimen/size_50"
@@ -40,7 +40,7 @@
 
             <View style="@style/DividerHorizontalStyle" />
 
-            <hdenergy.mdground.com.hdenergy.views.ClearEditText
+            <com.mdground.hdenergy.views.ClearEditText
                 android:id="@+id/cetPassword"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_50"

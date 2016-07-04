@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <hdenergy.mdground.com.hdenergy.views.SlidingMenu
+    <com.mdground.hdenergy.views.SlidingMenu
         android:id="@+id/slidingMenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,7 +26,7 @@
                 android:orientation="horizontal">
 
                 <fragment
-                    android:name="hdenergy.mdground.com.hdenergy.activity.homepage.LeftMenuFragment"
+                    android:name="com.mdground.hdenergy.activity.homepage.LeftMenuFragment"
                     android:id="@+id/fgLeftMenu"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -40,7 +40,7 @@
                     >
 
                     <fragment
-                        android:name="hdenergy.mdground.com.hdenergy.activity.homepage.RightContextFragment"
+                        android:name="com.mdground.hdenergy.activity.homepage.RightContextFragment"
                         android:id="@+id/ftRightContext"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -50,5 +50,5 @@
 
             </LinearLayout>
 
-    </hdenergy.mdground.com.hdenergy.views.SlidingMenu>
+    </com.mdground.hdenergy.views.SlidingMenu>
 </LinearLayout>
