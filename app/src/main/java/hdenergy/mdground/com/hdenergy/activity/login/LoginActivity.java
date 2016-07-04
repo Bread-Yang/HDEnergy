@@ -9,7 +9,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import hdenergy.mdground.com.hdenergy.R;
-import hdenergy.mdground.com.hdenergy.activity.homepage.HomeActivity;
+import hdenergy.mdground.com.hdenergy.activity.homepage.MainActivity;
 import hdenergy.mdground.com.hdenergy.application.MDGroundApplication;
 import hdenergy.mdground.com.hdenergy.constants.Constants;
 import hdenergy.mdground.com.hdenergy.enumobject.restfuls.ResponseCode;
@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     MDGroundApplication.mInstance.setLoginUserInfo(userInfo);
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 } else {

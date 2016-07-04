@@ -67,11 +67,10 @@ public class GlobalRestful extends BaseRestful {
     }
 
     // 保存用户建议
-    public void SaveUserSuggestion(String userPhone, String suggestion, Callback<ResponseData> callback) {
+    public void SaveUserSuggestion(String suggestion, Callback<ResponseData> callback) {
         JsonObject obj = new JsonObject();
-        obj.addProperty("UserPhone ", userPhone);
-        obj.addProperty("Suggestion ", suggestion);
-
+     //   obj.addProperty("UserPhone", userPhone);
+        obj.addProperty("Suggestion",suggestion);
         asynchronousPost("SaveUserSuggestion", obj, callback);
     }
 
@@ -98,6 +97,7 @@ public class GlobalRestful extends BaseRestful {
     public void GetBulletinList(Callback<ResponseData> callback) {
         asynchronousPost("GetBulletinList", null, callback);
     }
+<<<<<<< HEAD
 
     // 提交数据汇报
     public void SaveProjectWork(ProjectWork projectWork, Callback<ResponseData> callback) {
@@ -135,4 +135,13 @@ public class GlobalRestful extends BaseRestful {
 
         asynchronousPost("GetUserListByDepartment", obj, callback);
     }
+=======
+    //分页获取历史数据统计
+    public void GetProjectWorkList(int PageIndex,Callback<ResponseData> callback){
+        JsonObject obj=new JsonObject();
+        obj.addProperty("PageIndex",PageIndex);
+        asynchronousPost("GetProjectWorkList",obj,callback);
+    }
+
+>>>>>>> 9fe7f7290273e48122e92d69443e74494d9ec7bb
 }

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.IntentCompat;
 
-import hdenergy.mdground.com.hdenergy.activity.homepage.HomeActivity;
+import hdenergy.mdground.com.hdenergy.activity.homepage.MainActivity;
 import hdenergy.mdground.com.hdenergy.activity.login.LoginActivity;
 
 /**
@@ -20,7 +20,7 @@ public class NavUtils {
     }
 
     public static void toHomeActivity(Context context) {
-        Intent intent = new Intent(context, HomeActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
