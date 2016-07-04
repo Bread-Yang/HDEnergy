@@ -32,9 +32,6 @@
             android:label="@string/login"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.homepage.HomeActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".activity.login.ForgetPasswordActivity"
             android:label="@string/forget_password"
             android:screenOrientation="portrait"/>
@@ -117,6 +114,9 @@
         <activity
             android:name=".activity.datastatics.HistoryBoilerDetailActivity"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.homepage.MainActivity"/>
+
     </application>
 
 </manifest>

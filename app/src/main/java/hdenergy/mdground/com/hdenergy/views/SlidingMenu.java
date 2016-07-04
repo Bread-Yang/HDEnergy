@@ -30,7 +30,7 @@ public class SlidingMenu extends HorizontalScrollView {
     public int menuWidth;
     private boolean once;
     public boolean isOpen;
-
+    private boolean mException=false;
     public SlidingMenu(Context context) {
         super(context, null);
     }
@@ -78,7 +78,13 @@ public class SlidingMenu extends HorizontalScrollView {
         super.onLayout(changed, l, t, r, b);
         if (changed) {
             KLog.e("有点击进来");
-          this.scrollTo(menuWidth, 0);
+            this.post(new Runnable() {
+                @Override
+                public void run() {
+                    scrollTo(menuWidth, 0);
+                }
+            });
+
 //            if(this.getScrollX()=menuWidth){
 //                this.scrollTo(menuWidth, 0);
 //            }
@@ -168,22 +174,29 @@ public class SlidingMenu extends HorizontalScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        float scale = l * 1.0f / menuWidth;  //1-0梯度变化
-        float leftScale = 1 - 0.3f * scale;
-        float rightScale = 0.7f + scale * 0.3f;
+//        if(!mException){
+//        if(l!=menuWidth){
+//            smoothScrollTo(menuWidth, 0);
+//            isOpen = false;
+//
+//        }
+//            mException=true;
+//        }
+            float scale = l * 1.0f / menuWidth;  //1-0梯度变化
+            float leftScale = 1 - 0.3f * scale;
+            float rightScale = 0.7f + scale * 0.3f;
 
-        ViewHelper.setScaleX(menu, leftScale);
-        ViewHelper.setScaleY(menu, leftScale);
-        ViewHelper.setAlpha(menu, 0.6f + 0.4f * (1 - scale));
-        ViewHelper.setTranslationX(menu, menuWidth * scale * 0.6f);
+            ViewHelper.setScaleX(menu, leftScale);
+            ViewHelper.setScaleY(menu, leftScale);
+            ViewHelper.setAlpha(menu, 0.6f + 0.4f * (1 - scale));
+            ViewHelper.setTranslationX(menu, menuWidth * scale * 0.6f);
 
-        ViewHelper.setPivotX(home, 0);
-        ViewHelper.setPivotY(home, home.getHeight() / 2);
-        ViewHelper.setScaleX(home, rightScale);
-        ViewHelper.setScaleY(home, rightScale);
+            ViewHelper.setPivotX(home, 0);
+            ViewHelper.setPivotY(home, home.getHeight() / 2);
+            ViewHelper.setScaleX(home, rightScale);
+            ViewHelper.setScaleY(home, rightScale);
+        }
 
-
-    }
 
     //把dp转换为px
     public int dp2px(int dp) {
