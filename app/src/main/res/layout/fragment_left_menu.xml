@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_31C967"
-    android:orientation="vertical"
-    android:paddingLeft="30dp">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_31C967"
+              android:orientation="vertical"
+              android:paddingLeft="30dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
 
     <hdenergy.mdground.com.hdenergy.views.CustomImageButton
         android:id="@+id/cibBasicInformation"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/size_18"
         app:Src="@drawable/tab_left_icon_information"
@@ -42,7 +42,7 @@
 
     <hdenergy.mdground.com.hdenergy.views.CustomImageButton
         android:id="@+id/cibHistoryDate"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/size_18"
         app:Src="@drawable/tab_left_icon_date"
@@ -51,7 +51,7 @@
 
     <hdenergy.mdground.com.hdenergy.views.CustomImageButton
         android:id="@+id/cibHistoryAttendanceStatics"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/size_18"
         app:Src="@drawable/tab_left_icon_kaoqin"
@@ -60,7 +60,7 @@
 
     <hdenergy.mdground.com.hdenergy.views.CustomImageButton
         android:id="@+id/cibSetting"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:Src="@drawable/tab_left_icon_setting"
         app:titleColor="@color/color_white"

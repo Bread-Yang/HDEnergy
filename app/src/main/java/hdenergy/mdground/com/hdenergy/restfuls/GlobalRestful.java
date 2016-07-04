@@ -57,7 +57,7 @@ public class GlobalRestful extends BaseRestful {
     // 修改密码
     public void ChangeUserPassword(String userPhone, String password, Callback<ResponseData> callback) {
         JsonObject obj = new JsonObject();
-        obj.addProperty("UserPhone ", userPhone);
+        obj.addProperty("UserPhone", userPhone);
         obj.addProperty("Password", password);
 
         asynchronousPost("ChangeUserPassword", obj, callback);

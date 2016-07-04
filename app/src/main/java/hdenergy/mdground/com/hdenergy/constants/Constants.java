@@ -29,8 +29,6 @@ public final class Constants {
     // 第一次打开APP
     public static final String KEY_IS_FIRST_LAUNCH = "key_is_first_launch";
 
-    public static final String KEY_IS_EXIT_LOGIN="key_is_exit_login";
-
     public static final String KEY_BOILERR_NAME ="key_is_boiler_name";
 
     // application
