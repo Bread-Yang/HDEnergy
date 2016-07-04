@@ -22,7 +22,7 @@ public class Project {
     private int ProjectStatus;  // 停炉//正常//维修状态
     private String Remark;      // //停炉//维修//原因
     private int RemouldFee;     // 财务费用
-    public int SteamPrice;      // 蒸汽单价
+    private int SteamPrice;      // 蒸汽单价
     private int ThermalPrice;   // 热力单价
     private int WaterPrice;     // 水单价
     private int WorkingFee;     // 运行费用

@@ -29,7 +29,7 @@ public abstract class ToolbarActivity<T extends ViewDataBinding> extends AppComp
         setSupportActionBar(mToolbar);
 
         // 左边返回键
-        mToolbar.setNavigationIcon(R.drawable.btn_return_public);
+        mToolbar.setNavigationIcon(R.drawable.back);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

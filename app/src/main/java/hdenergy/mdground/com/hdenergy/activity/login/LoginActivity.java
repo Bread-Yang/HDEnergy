@@ -40,17 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Intent intent = getIntent();
-        mIsFromExit = intent.getStringExtra(Constants.KEY_IS_EXIT_LOGIN);
-        if (intent != null) {
-            if (mIsFromExit == null) {
-                if (MDGroundApplication.mInstance.getLoginUser() != null) {
-                    Intent intent1 = new Intent(this, HomeActivity.class);
-                    startActivity(intent1);
-                    finish();
-                }
-            }
-        }
         init();
     }
 

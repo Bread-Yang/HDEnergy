@@ -2,6 +2,7 @@ package hdenergy.mdground.com.hdenergy.application;
 
 import android.app.Application;
 
+import cn.smssdk.SMSSDK;
 import hdenergy.mdground.com.hdenergy.constants.Constants;
 import hdenergy.mdground.com.hdenergy.models.UserInfo;
 import hdenergy.mdground.com.hdenergy.utils.FileUtils;
@@ -20,6 +21,8 @@ public class MDGroundApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+
+        SMSSDK.initSDK(this, Constants.SMS_APP_KEY, Constants.SMS_APP_SECRECT);
 
 //        initExceptionHandler();
     }

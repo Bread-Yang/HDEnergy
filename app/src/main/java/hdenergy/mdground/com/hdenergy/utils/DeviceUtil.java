@@ -85,6 +85,6 @@ public class DeviceUtil {
     }
 
     public static void logoutUser() {
-        FileUtils.setObject(Constants.KEY_ALREADY_LOGIN_USER_INFO, null); // 清空之前的user,保留登录账号
+        FileUtils.setObject(Constants.KEY_SAVE_LOGIN_USER_INFO, null); // 清空之前的user,保留登录账号
     }
 }
