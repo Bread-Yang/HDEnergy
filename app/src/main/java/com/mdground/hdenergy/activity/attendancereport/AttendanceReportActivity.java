@@ -110,7 +110,29 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
                 }
             }
         });
+    }
 
+    @Override
+    public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
+        switch (mClickResID) {
+            case R.id.rltStartTime:
+                if (millseconds > mEndTime) {
+                    ViewUtils.toast(R.string.stat_work_time_must_before_end_time);
+                    return;
+                }
+                mStartTime = millseconds;
+                mDataBinding.tvStartTime.setText(DateUtils.getYearMonthDayHourMinuteWithDash(new Date(millseconds)));
+                break;
+            case R.id.rltEndTime:
+                if (millseconds < mStartTime) {
+                    ViewUtils.toast(R.string.end_work_time_must_after_start_time);
+                    return;
+                }
+                mEndTime = millseconds;
+                mDataBinding.tvEndTime.setText(DateUtils.getYearMonthDayHourMinuteWithDash(new Date(millseconds)));
+                break;
+        }
+        calculateManHours();
     }
 
     private void initTimePickerDialog() {
@@ -142,29 +164,6 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
     // 计算工时
     private void calculateManHours() {
         mDataBinding.tvManHours.setText(DateUtils.toHour(mEndTime - mStartTime));
-    }
-
-    @Override
-    public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
-        switch (mClickResID) {
-            case R.id.rltStartTime:
-                if (millseconds > mEndTime) {
-                    ViewUtils.toast(R.string.stat_work_time_must_before_end_time);
-                    return;
-                }
-                mStartTime = millseconds;
-                mDataBinding.tvStartTime.setText(DateUtils.getYearMonthDayHourMinuteWithDash(new Date(millseconds)));
-                break;
-            case R.id.rltEndTime:
-                if (millseconds < mStartTime) {
-                    ViewUtils.toast(R.string.end_work_time_must_after_start_time);
-                    return;
-                }
-                mEndTime = millseconds;
-                mDataBinding.tvEndTime.setText(DateUtils.getYearMonthDayHourMinuteWithDash(new Date(millseconds)));
-                break;
-        }
-        calculateManHours();
     }
 
     //region ACTION

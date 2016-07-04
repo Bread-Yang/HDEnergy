@@ -9,16 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.gson.reflect.TypeToken;
-
-import java.util.ArrayList;
-
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
+import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityProjectStartStopBinding;
 import com.mdground.hdenergy.databinding.ItemProjectStartStopBinding;
+import com.mdground.hdenergy.enumobject.ProjectStatus;
 import com.mdground.hdenergy.models.Project;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
+
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,6 +49,11 @@ public class ProjectStartStopActivity extends ToolbarActivity<ActivityProjectSta
         mAdapter = new ProjectStartStopAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getProjectListRequest();
     }
 
@@ -63,6 +70,7 @@ public class ProjectStartStopActivity extends ToolbarActivity<ActivityProjectSta
                 ArrayList<Project> projectArrayList = response.body().getContent(new TypeToken<ArrayList<Project>>() {
                 });
 
+                mProjectArrayList.clear();
                 mProjectArrayList.addAll(projectArrayList);
                 mAdapter.notifyDataSetChanged();
             }
@@ -87,11 +95,27 @@ public class ProjectStartStopActivity extends ToolbarActivity<ActivityProjectSta
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
+            final Project project = mProjectArrayList.get(position);
+            holder.viewDataBinding.setProject(project);
+
+            ProjectStatus projectStatus = ProjectStatus.fromValue(project.getProjectStatus());
+            switch (projectStatus) {
+                case Normal:
+                    holder.viewDataBinding.viewStatus.setBackgroundColor(getResources().getColor(R.color.color_31C967));
+                    break;
+                case UnderRepair:
+                    holder.viewDataBinding.viewStatus.setBackgroundColor(getResources().getColor(R.color.color_ffcc00));
+                    break;
+                case Stoped:
+                    holder.viewDataBinding.viewStatus.setBackgroundColor(getResources().getColor(R.color.color_9793fe));
+                    break;
+            }
 
             holder.viewDataBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(ProjectStartStopActivity.this, ProjectEditActivity.class);
+                    intent.putExtra(Constants.KEY_PROJECT, project);
                     startActivity(intent);
                 }
             });

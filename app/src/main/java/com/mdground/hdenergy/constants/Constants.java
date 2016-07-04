@@ -37,6 +37,6 @@ public final class Constants {
     public static final String KEY_SAVE_LOGIN_USER_INFO = "key_save_login_user_info";
     public static final String KEY_ALREADY_LOGIN_USER_INFO = "key_already_login_user_info";
     public static final String KEY_LAST_LOGIN_ACCOUNT="key_last_login_account";
-
+    public static final String KEY_PROJECT = "key_project";
 
 }

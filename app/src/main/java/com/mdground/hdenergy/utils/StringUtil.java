@@ -2,10 +2,11 @@ package com.mdground.hdenergy.utils;
 
 import android.text.TextUtils;
 
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.mdground.hdenergy.R;
+import com.mdground.hdenergy.application.MDGroundApplication;
 
 /**
  * Created by yoghourt on 5/6/16.
@@ -76,4 +77,13 @@ public class StringUtil {
             return gson.fromJson(jsonString, clazz);
         }
     }
+
+    public static String getProjectStatus(int projectStatus) {
+        String[] projectStatusStrings = MDGroundApplication.mInstance.getResources().getStringArray(R.array.project_status);
+        if (projectStatus < projectStatusStrings.length) {
+            return projectStatusStrings[projectStatus];
+        }
+        return "";
+    }
+
 }

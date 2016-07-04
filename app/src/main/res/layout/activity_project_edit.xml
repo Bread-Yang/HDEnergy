@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.mdground.hdenergy.utils.StringUtil"/>
+
+        <variable
+            name="project"
+            type="com.mdground.hdenergy.models.Project" />
+    </data>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,8 +34,9 @@
                 <TextView
                     style="@style/NormalTextStyle"
                     android:layout_marginTop="@dimen/margin_8"
-                    android:text="永新"
-                    android:textSize="@dimen/text_size_16" />
+                    android:text="@{project.projectName}"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="永新" />
             </LinearLayout>
 
 
@@ -50,9 +59,10 @@
                     <TextView
                         android:id="@+id/tvProjectStatus"
                         style="@style/NormalTextStyle"
+                        android:text="@{StringUtil.getProjectStatus(project.projectStatus)}"
                         android:layout_marginTop="@dimen/margin_8"
-                        android:text="维修"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_16"
+                        tools:text="维修" />
                 </LinearLayout>
 
                 <TextView style="@style/WithArrowIconTextStyle" />
@@ -80,8 +90,9 @@
                         android:id="@+id/tvStartTime"
                         style="@style/NormalTextStyle"
                         android:layout_marginTop="@dimen/margin_8"
-                        android:text="2016/1/1 12:00:00"
-                        android:textSize="@dimen/text_size_16" />
+                        android:text="@{project.beginTime}"
+                        android:textSize="@dimen/text_size_16"
+                        tools:text="2016/1/1 12:00:00" />
                 </LinearLayout>
 
                 <TextView style="@style/WithArrowIconTextStyle" />
@@ -109,8 +120,9 @@
                         android:id="@+id/tvEndTime"
                         style="@style/NormalTextStyle"
                         android:layout_marginTop="@dimen/margin_8"
-                        android:text="2016/1/1 12:00:00"
-                        android:textSize="@dimen/text_size_16" />
+                        android:text="@{project.endTime}"
+                        android:textSize="@dimen/text_size_16"
+                        tools:text="2016/1/1 12:00:00" />
                 </LinearLayout>
 
                 <TextView style="@style/WithArrowIconTextStyle" />
@@ -133,10 +145,12 @@
                         android:text="@string/reason_with_colon" />
 
                     <EditText
+                        android:id="@+id/etRemark"
                         style="@style/EditTextStyle"
                         android:layout_marginTop="@dimen/margin_8"
-                        android:text="太累了"
-                        android:textSize="@dimen/text_size_16" />
+                        android:text="@{project.remark}"
+                        android:textSize="@dimen/text_size_16"
+                        tools:text="太累了" />
                 </LinearLayout>
 
                 <TextView style="@style/WithArrowIconTextStyle" />
@@ -148,7 +162,7 @@
                 android:id="@+id/btnNextStep"
                 style="@style/NormalButtonStyle"
                 android:layout_marginTop="@dimen/margin_48"
-                android:onClick="nextStepAction"
+                android:onClick="submitAction"
                 android:text="@string/submit"
                 android:textSize="@dimen/text_size_16" />
         </LinearLayout>

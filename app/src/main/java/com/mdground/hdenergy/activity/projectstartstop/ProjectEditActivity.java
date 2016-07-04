@@ -1,32 +1,48 @@
 package com.mdground.hdenergy.activity.projectstartstop;
 
-import android.app.DatePickerDialog;
 import android.view.View;
-import android.widget.DatePicker;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-
+import com.jzxiang.pickerview.TimePickerDialog;
+import com.jzxiang.pickerview.data.Type;
+import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
+import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityProjectEditBinding;
+import com.mdground.hdenergy.enumobject.ProjectStatus;
+import com.mdground.hdenergy.models.Project;
+import com.mdground.hdenergy.restfuls.GlobalRestful;
+import com.mdground.hdenergy.restfuls.bean.ResponseData;
+import com.mdground.hdenergy.utils.DateUtils;
+import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+
 import kankan.wheel.widget.OnWheelScrollListener;
 import kankan.wheel.widget.WheelView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by yoghourt on 6/28/16.
  */
 
 public class ProjectEditActivity extends ToolbarActivity<ActivityProjectEditBinding>
-        implements DatePickerDialog.OnDateSetListener {
+        implements OnDateSetListener {
 
-    private DatePickerDialog mDatePickerDialog;
+    private TimePickerDialog mTimePickerDialog;
 
     private BaoPickerDialog mBaoPickerDialog;
 
+    private Project mProject;
+
     private ArrayList<String> mProjectStatusArrayList = new ArrayList<>();
+
+    private long mStartTime, mEndTime;
 
     private int mClickResID;
 
@@ -37,11 +53,15 @@ public class ProjectEditActivity extends ToolbarActivity<ActivityProjectEditBind
 
     @Override
     protected void initData() {
+        mProject = getIntent().getParcelableExtra(Constants.KEY_PROJECT);
+        mDataBinding.setProject(mProject);
+
         String[] projectStatusStrings = getResources().getStringArray(R.array.project_status);
         Collections.addAll(mProjectStatusArrayList, projectStatusStrings);
 
         mBaoPickerDialog = new BaoPickerDialog(this);
         mBaoPickerDialog.bindWheelViewData(mProjectStatusArrayList);
+        initTimePickerDialog();
     }
 
     @Override
@@ -56,22 +76,54 @@ public class ProjectEditActivity extends ToolbarActivity<ActivityProjectEditBind
             public void onScrollingFinished(WheelView wheel) {
                 int currentPosition = wheel.getCurrentItem();
 
+                mProject.setProjectStatus(currentPosition);
                 mDataBinding.tvProjectStatus.setText(mProjectStatusArrayList.get(currentPosition));
             }
         });
     }
 
     @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+    public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
         switch (mClickResID) {
             case R.id.rltStartTime:
-                mDataBinding.tvStartTime.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                if (millseconds > mEndTime && mEndTime != 0) {
+                    ViewUtils.toast(R.string.stat_work_time_must_before_end_time);
+                    return;
+                }
+                mStartTime = millseconds;
+                mDataBinding.tvStartTime.setText(DateUtils.getYearMonthDayHourMinuteSecondWithDash(new Date(millseconds)));
                 break;
             case R.id.rltEndTime:
-                mDataBinding.tvEndTime.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                if (millseconds < mStartTime) {
+                    ViewUtils.toast(R.string.end_work_time_must_after_start_time);
+                    return;
+                }
+                mEndTime = millseconds;
+                mDataBinding.tvEndTime.setText(DateUtils.getYearMonthDayHourMinuteSecondWithDash(new Date(millseconds)));
                 break;
         }
     }
+
+    private void initTimePickerDialog() {
+        mTimePickerDialog = new TimePickerDialog.Builder()
+                .setCallBack(this)
+                .setCancelStringId(getString(R.string.cancel))
+                .setSureStringId(getString(R.string.confirm))
+                .setTitleStringId(getString(R.string.choose_time))
+                .setYearText(getString(R.string.year))
+                .setMonthText(getString(R.string.month))
+                .setDayText(getString(R.string.day))
+                .setHourText(getString(R.string.hour))
+                .setMinuteText(getString(R.string.minute))
+                .setCyclic(false)
+                .setThemeColor(getResources().getColor(R.color.timepicker_dialog_bg))
+                .setType(Type.ALL)
+                .setWheelItemTextNormalColor(getResources().getColor(R.color.timetimepicker_default_text_color))
+                .setWheelItemTextSelectorColor(getResources().getColor(R.color.timepicker_toolbar_bg))
+                .setWheelItemTextSize(12)
+                .build();
+    }
+
 
     //region ACTION
     public void selectProjectStatusAction(View view) {
@@ -80,12 +132,30 @@ public class ProjectEditActivity extends ToolbarActivity<ActivityProjectEditBind
 
     public void SelectDateAction(View view) {
         mClickResID = view.getId();
-        if (mDatePickerDialog == null) {
-            Calendar calendar = Calendar.getInstance();
-            mDatePickerDialog = new DatePickerDialog(this, this, calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        }
-        mDatePickerDialog.show();
+
+        mTimePickerDialog.show(getSupportFragmentManager(), String.valueOf(mClickResID));
     }
+
+    public void submitAction(View view) {
+        ProjectStatus projectStatus = ProjectStatus.fromValue(mProject.getProjectStatus());
+        String startTime = mDataBinding.tvStartTime.getText().toString();
+        String endTime = mDataBinding.tvEndTime.getText().toString();
+        String remark = mDataBinding.etRemark.getText().toString();
+        ViewUtils.loading(this);
+        GlobalRestful.getInstance().UpdateProject(mProject.getProjectID(), projectStatus,
+                startTime, endTime, remark, new Callback<ResponseData>() {
+                    @Override
+                    public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                        ViewUtils.dismiss();
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseData> call, Throwable t) {
+
+                    }
+                });
+    }
+
     //endregion
 }
