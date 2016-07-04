@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 
 import hdenergy.mdground.com.hdenergy.R;
@@ -15,6 +17,11 @@ import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
 import hdenergy.mdground.com.hdenergy.databinding.ActivityProjectStartStopBinding;
 import hdenergy.mdground.com.hdenergy.databinding.ItemProjectStartStopBinding;
 import hdenergy.mdground.com.hdenergy.models.Project;
+import hdenergy.mdground.com.hdenergy.restfuls.GlobalRestful;
+import hdenergy.mdground.com.hdenergy.restfuls.bean.ResponseData;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by yoghourt on 6/28/16.
@@ -33,22 +40,40 @@ public class ProjectStartStopActivity extends ToolbarActivity<ActivityProjectSta
 
     @Override
     protected void initData() {
-        mProjectArrayList.add(new Project());
-        mProjectArrayList.add(new Project());
-        mProjectArrayList.add(new Project());
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new ProjectStartStopAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
+
+        getProjectListRequest();
     }
 
     @Override
     protected void setListener() {
 
     }
+
+    //region SERVER
+    private void getProjectListRequest() {
+        GlobalRestful.getInstance().GetProjectList(new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                ArrayList<Project> projectArrayList = response.body().getContent(new TypeToken<ArrayList<Project>>() {
+                });
+
+                mProjectArrayList.addAll(projectArrayList);
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
+    }
+    //endregion
 
     //region ADAPTER
     class ProjectStartStopAdapter extends RecyclerView.Adapter<ProjectStartStopAdapter.ViewHolder> {

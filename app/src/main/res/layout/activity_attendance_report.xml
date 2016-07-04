@@ -155,7 +155,9 @@
 
             </RelativeLayout>
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -184,7 +186,9 @@
 
             </RelativeLayout>
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -214,7 +218,9 @@
 
             </RelativeLayout>
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -227,7 +233,9 @@
 
             </RelativeLayout>
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -240,7 +248,9 @@
 
             </RelativeLayout>
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1">
 
                 <TextView
                     style="@style/DimTextStyle"
