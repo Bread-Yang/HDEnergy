@@ -195,6 +195,11 @@ public class DateUtils {
         return simpleDataFormat.format(date);
     }
 
+    public static String getYearMonthDayHourMinuteSecondWithDash(Date date) {
+        SimpleDateFormat simpleDataFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+        return simpleDataFormat.format(date);
+    }
+
     public static String getYearMonthWithChinese(Date date) {
         SimpleDateFormat simpleDataFormat = new SimpleDateFormat("yyyy年MM月", Locale.CHINA);
         return simpleDataFormat.format(date);

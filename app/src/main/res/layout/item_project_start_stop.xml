@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        
+
+        <import type="com.mdground.hdenergy.utils.DateUtils" />
+
         <variable
-            name="position"
-            type="Integer" />
+            name="project"
+            type="com.mdground.hdenergy.models.Project" />
     </data>
 
     <LinearLayout
@@ -38,8 +40,9 @@
                 <TextView
                     style="@style/NormalTextStyle"
                     android:layout_marginLeft="@dimen/margin_16"
-                    android:text="火炉维修"
-                    android:textSize="@dimen/text_size_16" />
+                    android:text="@{project.remark}"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="新工程" />
             </LinearLayout>
 
             <LinearLayout
@@ -51,14 +54,16 @@
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:text="2016/12/28 12:00"
-                    android:textSize="@dimen/text_size_12" />
+                    android:text="@{project.beginTime}"
+                    android:textSize="@dimen/text_size_12"
+                    tools:text="2016/12/28 12:00" />
 
                 <TextView
                     style="@style/DimTextStyle"
                     android:layout_marginTop="@dimen/margin_8"
-                    android:text="2016/12/28 12:00"
-                    android:textSize="@dimen/text_size_12" />
+                    android:text="@{project.endTime}"
+                    android:textSize="@dimen/text_size_12"
+                    tools:text="2016/12/28 12:00" />
 
             </LinearLayout>
 
@@ -67,8 +72,9 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="永新"
-                android:textSize="@dimen/text_size_18" />
+                android:text="@{project.projectName}"
+                android:textSize="@dimen/text_size_18"
+                tools:text="永新" />
 
         </LinearLayout>
 
