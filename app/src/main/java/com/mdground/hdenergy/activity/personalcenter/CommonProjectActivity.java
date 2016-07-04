@@ -6,13 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import java.util.ArrayList;
+
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
+import com.mdground.hdenergy.application.MDGroundApplication;
 import com.mdground.hdenergy.databinding.ActivityCommonProjectBinding;
 import com.mdground.hdenergy.databinding.ItemContactsBinding;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.AddProjectDialog;
+
+import java.util.ArrayList;
 
 /**
  * Created by PC on 2016-06-30.
@@ -25,6 +28,16 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
     @Override
     protected int getContentLayout() {
         return R.layout.activity_common_project;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(MDGroundApplication.mInstance.getLoginUser().getUserRole()==0){
+            mDataBinding.lltAdd.setVisibility(View.GONE);
+        }
+
+
     }
 
     @Override
@@ -53,7 +66,7 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
     //region ACTION
     @Override
     public void clickCancel() {
-        if(mDialog==null){
+        if(mDialog!=null){
             mDialog.dismiss();
         }
     }

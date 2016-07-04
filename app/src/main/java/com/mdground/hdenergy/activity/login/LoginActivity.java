@@ -54,6 +54,15 @@ public class LoginActivity extends AppCompatActivity {
         DeviceUtil.setDeviceId(userInfo.getDeviceID());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+       String  userName= (String) FileUtils.getObject(Constants.KEY_LAST_LOGIN_ACCOUNT);
+        if(userName!=null){
+            etAccount.setText(userName);
+        }
+    }
+
     //region ACTION
     public void forgetPasswordAction(View view) {
         Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
@@ -90,13 +99,14 @@ public class LoginActivity extends AppCompatActivity {
                     if (cbAutoLogin.isChecked()) {
                         saveUserAndToMainActivity(userInfo);
                     }
-
+                     FileUtils.setObject(Constants.KEY_LAST_LOGIN_ACCOUNT,userInfo.getUserPhone());
                     MDGroundApplication.mInstance.setLoginUserInfo(userInfo);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
                     ViewUtils.toast(response.body().getMessage());
+                    FileUtils.setObject(Constants.KEY_LAST_LOGIN_ACCOUNT,null);
                 }
             }
 

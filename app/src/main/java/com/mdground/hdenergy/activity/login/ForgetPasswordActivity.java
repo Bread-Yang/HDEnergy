@@ -1,19 +1,14 @@
 package com.mdground.hdenergy.activity.login;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import com.socks.library.KLog;
-
-import org.json.JSONObject;
-
-import cn.smssdk.EventHandler;
-import cn.smssdk.OnSendMessageHandler;
-import cn.smssdk.SMSSDK;
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
+import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityForgetPasswordBinding;
 import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
@@ -21,6 +16,13 @@ import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.MD5Util;
 import com.mdground.hdenergy.utils.StringUtil;
 import com.mdground.hdenergy.utils.ViewUtils;
+import com.socks.library.KLog;
+
+import org.json.JSONObject;
+
+import cn.smssdk.EventHandler;
+import cn.smssdk.OnSendMessageHandler;
+import cn.smssdk.SMSSDK;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,6 +76,14 @@ public class ForgetPasswordActivity extends ToolbarActivity<ActivityForgetPasswo
 
     @Override
     protected void initData() {
+        Intent intent=getIntent();
+        if(intent!=null){
+            String title=intent.getStringExtra(Constants.KEY_RESET_PASSWORD);
+            if(!"".equals(title)){
+                setTitle(getString(R.string.reset_password_title));
+            }
+
+        }
         SMSSDK.registerEventHandler(mEventHandler);
     }
 
