@@ -607,13 +607,17 @@ public class DateUtils {
      * @param specificDate
      * @return
      */
-    public static Date previousDate(Date specificDate) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(specificDate);
+    public static Date previousDate(Date specificDate, int hour) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(specificDate);
 
-        c.add(Calendar.DAY_OF_MONTH, -1);
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
-        return c.getTime();
+        return calendar.getTime();
     }
 
     /**
@@ -662,5 +666,17 @@ public class DateUtils {
         DateTime expireTime = getDateByServerDateString(expireTimeDateString);
         DateTime todayTime = new DateTime();
         return todayTime.isBefore(expireTime);
+    }
+
+    public static String toHour(long time) {
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+
+        long minutes = time / minutesInMilli;
+        long hours = minutes / 60;
+        long minnutesRemaining = minutes % 60;
+        return hours + "." + minnutesRemaining;
     }
 }

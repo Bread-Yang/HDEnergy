@@ -78,7 +78,7 @@ public class ProjectEditActivity extends ToolbarActivity<ActivityProjectEditBind
         mBaoPickerDialog.show();
     }
 
-    public void SelectDataAction(View view) {
+    public void SelectDateAction(View view) {
         mClickResID = view.getId();
         if (mDatePickerDialog == null) {
             Calendar calendar = Calendar.getInstance();

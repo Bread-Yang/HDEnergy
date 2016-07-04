@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,13 +16,16 @@
                 style="@style/SingleTitleLayoutStyle"
                 android:text="@string/basic_information" />
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:onClick="selectDepartmentAction">
 
                 <TextView
                     style="@style/DimTextStyle"
                     android:text="@string/department_with_colon" />
 
                 <TextView
+                    android:id="@+id/tvDepartment"
                     style="@style/WithArrowIconTextStyle"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
@@ -33,30 +36,33 @@
                 android:id="@+id/rltData"
                 style="@style/WhiteFixHeightLayoutStyle"
                 android:layout_marginTop="@dimen/margin_1"
-                android:onClick="SelectDataAction">
+                android:onClick="selectProjectAction">
 
                 <TextView
                     style="@style/DimTextStyle"
                     android:text="@string/project_with_colon" />
 
                 <TextView
+                    android:id="@+id/tvProject"
                     style="@style/WithArrowIconTextStyle"
                     android:textSize="@dimen/text_size_16"
-                    tools:text="2016-04-11" />
+                    tools:text="永新" />
             </RelativeLayout>
 
             <RelativeLayout
                 style="@style/WhiteFixHeightLayoutStyle"
-                android:layout_marginTop="@dimen/margin_1">
+                android:layout_marginTop="@dimen/margin_1"
+                android:onClick="selectUserInfoAction">
 
                 <TextView
                     style="@style/DimTextStyle"
                     android:text="@string/name_with_colon" />
 
                 <TextView
+                    android:id="@+id/tvName"
                     style="@style/WithArrowIconTextStyle"
                     android:textSize="@dimen/text_size_16"
-                    tools:text="蒸汽" />
+                    tools:text="Eason Chan" />
 
             </RelativeLayout>
 
@@ -64,13 +70,16 @@
                 style="@style/SingleTitleLayoutStyle"
                 android:text="@string/man_hours_check" />
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:onClick="selectAttendanceStatusAction">
 
                 <TextView
                     style="@style/DimTextStyle"
                     android:text="@string/working_status_with_colon" />
 
                 <TextView
+                    android:id="@+id/tvAttendanceStatus"
                     style="@style/WithArrowIconTextStyle"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
@@ -78,14 +87,17 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rltStartTime"
                 style="@style/WhiteFixHeightLayoutStyle"
-                android:layout_marginTop="@dimen/margin_1">
+                android:layout_marginTop="@dimen/margin_1"
+                android:onClick="SelectDateAction">
 
                 <TextView
                     style="@style/DimTextStyle"
                     android:text="@string/start_work_time" />
 
                 <TextView
+                    android:id="@+id/tvStartTime"
                     style="@style/WithArrowIconTextStyle"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
@@ -93,14 +105,17 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rltEndTime"
                 style="@style/WhiteFixHeightLayoutStyle"
-                android:layout_marginTop="@dimen/margin_1">
+                android:layout_marginTop="@dimen/margin_1"
+                android:onClick="SelectDateAction">
 
                 <TextView
                     style="@style/DimTextStyle"
                     android:text="@string/end_work_time" />
 
                 <TextView
+                    android:id="@+id/tvEndTime"
                     style="@style/WithArrowIconTextStyle"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
@@ -116,9 +131,11 @@
                     android:text="@string/man_hours" />
 
                 <TextView
+                    android:id="@+id/tvManHours"
                     style="@style/WithArrowIconTextStyle"
+                    android:textColor="@color/color_f03232"
                     android:textSize="@dimen/text_size_16"
-                    tools:text="用新" />
+                    tools:text="8.5" />
 
             </RelativeLayout>
 
@@ -132,10 +149,9 @@
                     style="@style/DimTextStyle"
                     android:text="@string/overtime_duration" />
 
-                <TextView
-                    style="@style/WithArrowIconTextStyle"
-                    android:textSize="@dimen/text_size_16"
-                    tools:text="用新" />
+                <EditText
+                    android:id="@+id/etOverTimeHour"
+                    style="@style/WithArrowEdittextStyle" />
 
             </RelativeLayout>
 
@@ -145,10 +161,9 @@
                     style="@style/DimTextStyle"
                     android:text="@string/overtime_reason" />
 
-                <TextView
-                    style="@style/WithArrowIconTextStyle"
-                    android:textSize="@dimen/text_size_16"
-                    tools:text="用新" />
+                <EditText
+                    android:id="@+id/etOverTimeReason"
+                    style="@style/WithArrowEdittextStyle" />
 
             </RelativeLayout>
 
@@ -264,7 +279,7 @@
                     style="@style/WithArrowIconTextStyle"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
- 
+
             </RelativeLayout>
 
             <Button

@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 
+import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -19,11 +21,19 @@ import hdenergy.mdground.com.hdenergy.R;
 import hdenergy.mdground.com.hdenergy.activity.base.ToolbarActivity;
 import hdenergy.mdground.com.hdenergy.databinding.ActivityDataReportBinding;
 import hdenergy.mdground.com.hdenergy.databinding.ItemBoilerBinding;
+import hdenergy.mdground.com.hdenergy.models.Project;
+import hdenergy.mdground.com.hdenergy.models.ProjectWork;
 import hdenergy.mdground.com.hdenergy.models.ProjectWorkFurnace;
+import hdenergy.mdground.com.hdenergy.restfuls.GlobalRestful;
+import hdenergy.mdground.com.hdenergy.restfuls.bean.ResponseData;
 import hdenergy.mdground.com.hdenergy.utils.DateUtils;
+import hdenergy.mdground.com.hdenergy.utils.ViewUtils;
 import hdenergy.mdground.com.hdenergy.views.BaoPickerDialog;
 import kankan.wheel.widget.OnWheelScrollListener;
 import kankan.wheel.widget.WheelView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by yoghourt on 2016-06-27.
@@ -37,13 +47,15 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     private BaoPickerDialog mBaoPickerDialog;
 
-    private ArrayList<ProjectWorkFurnace> mBoilerArrayList = new ArrayList<>();
+    private ArrayList<Project> mProjectArrayList = new ArrayList<>();
 
-    private ArrayList<String> mProjectStringArrayList = new ArrayList<>();
+    private ArrayList<ProjectWorkFurnace> mBoilerArrayList = new ArrayList<>();
 
     private ArrayList<String> mSalesProductArrayList = new ArrayList<>();
 
     private int mWheelViewChooseResID;
+
+    private ProjectWork mProjectWork;
 
     @Override
     protected int getContentLayout() {
@@ -52,26 +64,8 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     @Override
     protected void initData() {
-        Date previousDate = DateUtils.previousDate(new Date());
+        Date previousDate = DateUtils.previousDate(new Date(), 0);
         mDataBinding.tvData.setText(DateUtils.getYearMonthDayWithDash(previousDate));
-
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
-        mBoilerArrayList.add(new ProjectWorkFurnace());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -84,14 +78,12 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
         // 项目数据
         mBaoPickerDialog = new BaoPickerDialog(this);
-        mProjectStringArrayList = new ArrayList<>();
-        mProjectStringArrayList.add("项目1");
-        mProjectStringArrayList.add("项目2");
-        mProjectStringArrayList.add("项目3");
 
         // 销售产品数据
         String[] salesProductStrings = getResources().getStringArray(R.array.sale_product_type);
         Collections.addAll(mSalesProductArrayList, salesProductStrings);
+
+        getProjectListRequest();
 
     }
 
@@ -109,7 +101,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
                 switch (mWheelViewChooseResID) {
                     case R.id.tvProject:
-                        mDataBinding.tvProject.setText(mProjectStringArrayList.get(currentPosition));
+                        mDataBinding.tvProject.setText(mProjectArrayList.get(currentPosition).getProjectName());
                         break;
                     case R.id.tvSaleProduct:
                         mDataBinding.tvSaleProduct.setText(mSalesProductArrayList.get(currentPosition));
@@ -127,7 +119,11 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
     //region  ACTION
     public void selectProjectAction(View view) {
         mWheelViewChooseResID = R.id.tvProject;
-        mBaoPickerDialog.bindWheelViewData(mProjectStringArrayList);
+        ArrayList<String> projectStringArrayList = new ArrayList<>();
+        for (Project project : mProjectArrayList) {
+            projectStringArrayList.add(project.getProjectName());
+        }
+        mBaoPickerDialog.bindWheelViewData(projectStringArrayList);
         mBaoPickerDialog.show();
     }
 
@@ -137,7 +133,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         mBaoPickerDialog.show();
     }
 
-    public void SelectDataAction(View view) {
+    public void SelectDateAction(View view) {
         if (mDatePickerDialog == null) {
             Calendar calendar = Calendar.getInstance();
             mDatePickerDialog = new DatePickerDialog(this, this, calendar.get(Calendar.YEAR),
@@ -146,8 +142,41 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         mDatePickerDialog.show();
     }
 
-    public void nextStepAction(View view) {
+    public void submitAction(View view) {
+        saveProjectWorkRequest();
+    }
+    //endregion
 
+    //region SERVER
+    private void getProjectListRequest() {
+        ViewUtils.loading(this);
+        GlobalRestful.getInstance().GetProjectList(new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                ViewUtils.dismiss();
+                mProjectArrayList = response.body().getContent(new TypeToken<ArrayList<Project>>() {
+                });
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void saveProjectWorkRequest() {
+        GlobalRestful.getInstance().SaveProjectWork(mProjectWork, new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
     }
     //endregion
 

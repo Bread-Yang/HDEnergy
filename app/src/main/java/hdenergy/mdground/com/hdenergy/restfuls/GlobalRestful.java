@@ -5,7 +5,10 @@ import com.google.gson.JsonObject;
 
 import hdenergy.mdground.com.hdenergy.application.MDGroundApplication;
 import hdenergy.mdground.com.hdenergy.constants.Constants;
+import hdenergy.mdground.com.hdenergy.enumobject.ProjectStatus;
 import hdenergy.mdground.com.hdenergy.enumobject.restfuls.BusinessType;
+import hdenergy.mdground.com.hdenergy.models.ProjectWork;
+import hdenergy.mdground.com.hdenergy.models.UserAttendance;
 import hdenergy.mdground.com.hdenergy.restfuls.bean.Device;
 import hdenergy.mdground.com.hdenergy.restfuls.bean.ResponseData;
 import hdenergy.mdground.com.hdenergy.utils.DeviceUtil;
@@ -77,8 +80,59 @@ public class GlobalRestful extends BaseRestful {
         asynchronousPost("GetProjectList", null, callback);
     }
 
+    // 项目起停炉编辑保存
+    public void UpdateProject(int projectID , ProjectStatus projectStatus,
+                              String beginTime, String endTime,
+                              String Remark, Callback<ResponseData> callback) {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("ProjectID", projectID);
+        obj.addProperty("ProjectStatus", projectStatus.value());
+        obj.addProperty("BeginTime", beginTime);
+        obj.addProperty("EndTime", endTime);
+        obj.addProperty("Remark", Remark);
+
+        asynchronousPost("UpdateProject", obj, callback);
+    }
+
     // 获取公告列表
     public void GetBulletinList(Callback<ResponseData> callback) {
         asynchronousPost("GetBulletinList", null, callback);
+    }
+
+    // 提交数据汇报
+    public void SaveProjectWork(ProjectWork projectWork, Callback<ResponseData> callback) {
+        JsonObject obj = new JsonObject();
+        obj.add("ProjectWork", new Gson().toJsonTree(projectWork));
+
+        asynchronousPost("SaveProjectWork", obj, callback);
+    }
+
+    // 考勤汇报保存
+    public void SaveUserAttendance(UserAttendance userAttendance, Callback<ResponseData> callback) {
+        JsonObject obj = new JsonObject();
+        obj.add("UserAttendance", new Gson().toJsonTree(userAttendance));
+
+        asynchronousPost("SaveUserAttendance", obj, callback);
+    }
+
+    // 根据日期获取所有用户考勤数据
+    public void GetUserAttendanceByDate(String workDate , Callback<ResponseData> callback) {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("WorkDate", workDate);
+
+        asynchronousPost("GetUserAttendanceByDate", obj, callback);
+    }
+
+    // 获取部门列表
+    public void GetDepartmentList(Callback<ResponseData> callback) {
+        asynchronousPost("GetDepartmentList", null, callback);
+    }
+
+    // 根据部门获取用户列表
+    public void GetUserListByDepartment(String department, Callback<ResponseData> callback) {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("Department", department);
+
+        asynchronousPost("GetUserListByDepartment", obj, callback);
     }
 }

@@ -64,7 +64,7 @@
                 style="@style/WhiteFixHeightLayoutStyle"
                 android:layout_height="@dimen/size_70"
                 android:layout_marginTop="@dimen/margin_1"
-                android:onClick="SelectDataAction">
+                android:onClick="SelectDateAction">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -93,7 +93,7 @@
                 style="@style/WhiteFixHeightLayoutStyle"
                 android:layout_height="@dimen/size_70"
                 android:layout_marginTop="@dimen/margin_1"
-                android:onClick="SelectDataAction">
+                android:onClick="SelectDateAction">
 
                 <LinearLayout
                     android:layout_width="wrap_content"

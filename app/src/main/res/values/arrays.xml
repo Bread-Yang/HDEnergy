@@ -12,4 +12,14 @@
         <item>热力</item>
     </string-array>
 
+    <string-array name="attendance_status_array">
+        <item>正常</item>
+        <item>出差</item>
+        <item>请假</item>
+        <item>工伤</item>
+        <item>派遣</item>
+        <item>换休</item>
+        <item>未提交</item>
+    </string-array>
+
 </resources>

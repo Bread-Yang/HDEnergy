@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="hdenergy.mdground.com.hdenergy">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
 
     <application
         android:name=".application.MDGroundApplication"
@@ -18,9 +18,9 @@
             android:name=".activity.welcome.StartingActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -30,93 +30,93 @@
         <activity
             android:name=".activity.login.LoginActivity"
             android:label="@string/login"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.homepage.HomeActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.login.ForgetPasswordActivity"
             android:label="@string/forget_password"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.bulletin.BulletinListActivity"
             android:label="@string/bulletin_list"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.datareport.DataReportActivity"
             android:label="@string/data_report"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.datareport.BoilerEditOneActivity"
             android:label="@string/data_report"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.datareport.BoilerEditTwoActivity"
             android:label="@string/data_report"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.attendancereport.AttendanceReportActivity"
             android:label="@string/attendance_report"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.projectstartstop.ProjectStartStopActivity"
             android:label="@string/project_start_stop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.projectstartstop.ProjectEditActivity"
             android:label="@string/edit"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.advice.ReasonableAdviceActivity"
             android:label="@string/reasonable_advice"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.personalcenter.BasicInformationActivity"
             android:label="@string/people_infomation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.datastatics.HistoryDataStaticsActivity"
             android:label="@string/hostorical_data_statistic"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.attendancestatics.HistoryAttendanceStaticsActivity"
             android:label="@string/hostorical_attendance_statics"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.attendancestatics.EmployeeAttendanceStaticsActivity"
             android:label="@string/employee_attendance_statics"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.attendancestatics.EmployeeAttendanceDetailActivity"
             android:label="@string/employee_attendance_detail"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.datastatics.HistoryDataDetailsActivity"
             android:label="@string/yongxing"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.personalcenter.SettingActivity"
             android:label="@string/setting"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.personalcenter.FeedBackActivity"
             android:label="@string/feedback"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.datastatics.HistoryDataListActivity"
             android:label="@string/data_list"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.personalcenter.CommonContactsActivity"
             android:label="@string/common_contact"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.personalcenter.CommonProjectActivity"
-        android:label="@string/common_project"
-        android:screenOrientation="portrait"/>
+            android:label="@string/common_project"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.datastatics.HistoryBoilerDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
