@@ -140,61 +140,61 @@ public class GlobalRestful extends BaseRestful {
         asynchronousPost("GetUserListByDepartment", obj, callback);
     }
 
-    //分页获取历史数据统计
-    public void GetProjectWorkList(int PageIndex, Callback<ResponseData> callback) {
-        JsonObject obj = new JsonObject();
-        obj.addProperty("PageIndex", PageIndex);
-        asynchronousPost("GetProjectWorkList", obj, callback);
-    }
+    //获取所有联系人
+    public void GetAllUserList(Callback<ResponseData> callback) {
 
-   //获取所有联系人
-    public void GetAllUserList(Callback<ResponseData> callback){
-
-        asynchronousPost("GetAllUserList",null,callback);
+        asynchronousPost("GetAllUserList", null, callback);
 
     }
 
     //获取常用联系人
-    public void GetUserContactList(Callback<ResponseData> callback){
-        asynchronousPost("GetUserContactList",null,callback);
+    public void GetUserContactList(Callback<ResponseData> callback) {
+        asynchronousPost("GetUserContactList", null, callback);
     }
 
     //保存常用联系人
-    public void SaveUserContactList(List<UserContacts> userContactsList,Callback<ResponseData> callback){
-        JsonObject obj=new JsonObject();
-        obj.add("UserContactsList",new Gson().toJsonTree(userContactsList));
+    public void SaveUserContactList(List<UserContacts> userContactsList, Callback<ResponseData> callback) {
+        JsonObject obj = new JsonObject();
+        obj.add("UserContactsList", new Gson().toJsonTree(userContactsList));
 
-        asynchronousPost("SaveUserContactList",obj,callback);
+        asynchronousPost("SaveUserContactList", obj, callback);
 
     }
 
     //获取常用项目的接口
-    public void GetUserProjectList(Callback<ResponseData> callback){
-        asynchronousPost("GetUserProjectList",null,callback);
+    public void GetUserProjectList(Callback<ResponseData> callback) {
+        asynchronousPost("GetUserProjectList", null, callback);
     }
 
     //保存项目
-    public void SaveProject(Project project,Callback<ResponseData> callback){
-        JsonObject obj=new JsonObject();
-       obj.add("Project",new Gson().toJsonTree(project));
-        asynchronousPost("SaveProject",obj,callback);
+    public void SaveProject(Project project, Callback<ResponseData> callback) {
+        JsonObject obj = new JsonObject();
+        obj.add("Project", new Gson().toJsonTree(project));
+        asynchronousPost("SaveProject", obj, callback);
     }
 
     //保存常用项目
-    public void SaveUserProjectList(List<UserProject> userProjectList,Callback<ResponseData> callback){
-        JsonObject obj=new JsonObject();
-        obj.add("UserProjectList",new Gson().toJsonTree(userProjectList));
-        asynchronousPost("SaveUserProjectList",obj,callback);
+    public void SaveUserProjectList(List<UserProject> userProjectList, Callback<ResponseData> callback) {
+        JsonObject obj = new JsonObject();
+        obj.add("UserProjectList", new Gson().toJsonTree(userProjectList));
+        asynchronousPost("SaveUserProjectList", obj, callback);
     }
 
     // 获取工作类别,请求工作类别ParentID传0，请求类别下的内容，将类别的CategoryID传入ParentID
-    public void GetProjectCategoryList(int parentID , Callback<ResponseData> callback) {
+    public void GetProjectCategoryList(int parentID, Callback<ResponseData> callback) {
         JsonObject obj = new JsonObject();
-        obj.addProperty("ParentID", parentID );
+        obj.addProperty("ParentID", parentID);
         asynchronousPost("GetProjectCategoryList", obj, callback);
     }
 
-    // 分页获取历史数据统计
+    //获取项目统计信息列表
+    public void GetProjectSummeryList(Callback<ResponseData> callback) {
+
+        asynchronousPost("GetProjectSummeryList", null, callback);
+    }
+
+
+    //分页获取历史数据统计
     public void GetProjectWorkList(int PageIndex, Callback<ResponseData> callback) {
         JsonObject obj = new JsonObject();
         obj.addProperty("PageIndex", PageIndex);

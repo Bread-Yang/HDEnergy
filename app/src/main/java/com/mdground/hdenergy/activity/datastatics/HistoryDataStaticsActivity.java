@@ -14,10 +14,8 @@ import com.mdground.hdenergy.activity.base.ToolbarActivity;
 import com.mdground.hdenergy.application.MDGroundApplication;
 import com.mdground.hdenergy.databinding.ActivityHistoryDatastaticsBinding;
 import com.mdground.hdenergy.databinding.ItemHistoryDatastaticsBinding;
-import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
-import com.mdground.hdenergy.utils.ViewUtils;
 
 import java.util.ArrayList;
 
@@ -32,7 +30,7 @@ import retrofit2.Response;
 public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryDatastaticsBinding>{
    private HistoryDateAdapter mAdapter;
     private ArrayList<String> mArrayList=new ArrayList<>();
-    private int  userRole;
+    private int  authorityLevel;
     private LinearLayout.LayoutParams layoutParams;
     @Override
     protected int getContentLayout() {
@@ -42,13 +40,13 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
     @Override
     protected void initData() {
         getDateList();
-       // GetProjectWorkListRequest(0);
+        GetProjectSummeryListRequest();
         mAdapter=new HistoryDateAdapter();
         layoutParams=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(HistoryDataStaticsActivity.this);
         mDataBinding.recyclerView.setLayoutManager(linearLayoutManager);
         mDataBinding.recyclerView.setAdapter(mAdapter);
-        userRole= MDGroundApplication.mInstance.getLoginUser().getUserRole();
+        authorityLevel= MDGroundApplication.mInstance.getLoginUser().getAuthorityLevel();
     }
 
     @Override
@@ -56,14 +54,13 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
 
     }
 
- //region SERVER
-    public void GetProjectWorkListRequest(int PageIndex){
-        GlobalRestful.getInstance().GetProjectWorkList(PageIndex, new Callback<ResponseData>() {
+    //region SERVER
+
+    public void GetProjectSummeryListRequest(){
+        GlobalRestful.getInstance().GetProjectSummeryList(new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
-                if(ResponseCode.isSuccess(response.body())){
-                    ViewUtils.dismiss();
-                }
+
             }
 
             @Override
@@ -72,6 +69,7 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
             }
         });
     }
+
     //endregion
 
     //region METHOD
@@ -106,7 +104,7 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            if(userRole<2){
+            if(authorityLevel<3){
                 holder.itemHistoryDatastaticsBinding.lltProfit.setVisibility(View.GONE);
                 layoutParams.setMargins(0,0,0,0);
                 holder.itemHistoryDatastaticsBinding.tvQue.setLayoutParams(layoutParams);
@@ -128,7 +126,6 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
         }
 
         public class MyViewHolder extends RecyclerView.ViewHolder{
-            //           public ItemHistoryDatastaticsBinding itemHistoryDatastaticsBinding;
             public  ItemHistoryDatastaticsBinding itemHistoryDatastaticsBinding;
             public MyViewHolder(final View itemView) {
                 super(itemView);

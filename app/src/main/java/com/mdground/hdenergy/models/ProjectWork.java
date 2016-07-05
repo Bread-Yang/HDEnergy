@@ -19,6 +19,33 @@ public class ProjectWork {
     private int UserID;
     private String UserName;
     private int WorkID;
+    private String DayElectricityCost;  //电耗（电单耗）---新增
+    private String DayWaterCost;  // 水耗（水单耗）
+    private String DayFuelCost;   // 单耗（燃料单耗）
+
+    public String getDayElectricityCost() {
+        return DayElectricityCost;
+    }
+
+    public void setDayElectricityCost(String dayElectricityCost) {
+        DayElectricityCost = dayElectricityCost;
+    }
+
+    public String getDayWaterCost() {
+        return DayWaterCost;
+    }
+
+    public void setDayWaterCost(String dayWaterCost) {
+        DayWaterCost = dayWaterCost;
+    }
+
+    public String getDayFuelCost() {
+        return DayFuelCost;
+    }
+
+    public void setDayFuelCost(String dayFuelCost) {
+        DayFuelCost = dayFuelCost;
+    }
 
     public String getCreatedTime() {
         return CreatedTime;
