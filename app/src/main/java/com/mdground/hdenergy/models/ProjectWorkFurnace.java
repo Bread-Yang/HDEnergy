@@ -1,12 +1,15 @@
 package com.mdground.hdenergy.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * 锅炉汇报实体
  * Created by yoghourt on 7/3/16.
  */
-public class ProjectWorkFurnace {
+public class ProjectWorkFurnace implements Parcelable{
 
     private int FurnaceID;      // 锅炉标识
     private int WorkFurnaceID;  // PrimaryKey，标识
@@ -25,6 +28,40 @@ public class ProjectWorkFurnace {
     private String CreatedTime;
     private List<ProjectWorkFlowrate> ProjectWorkFlowrateList; // 流量列表
     private List<ProjectWorkFuel> ProjectWorkFuelList;  // 燃料列表
+
+    public ProjectWorkFurnace() {
+
+    }
+
+    protected ProjectWorkFurnace(Parcel in) {
+        FurnaceID = in.readInt();
+        WorkFurnaceID = in.readInt();
+        WorkID = in.readInt();
+        FurnaceName = in.readString();
+        ProjectID = in.readInt();
+        WorkingHour = in.readInt();
+        Electricity1 = in.readInt();
+        Electricity2 = in.readInt();
+        Electricity3 = in.readInt();
+        ElectricitySingleCost = in.readInt();
+        Water1 = in.readInt();
+        Water2 = in.readInt();
+        Water3 = in.readInt();
+        WaterSingleCost = in.readInt();
+        CreatedTime = in.readString();
+    }
+
+    public static final Creator<ProjectWorkFurnace> CREATOR = new Creator<ProjectWorkFurnace>() {
+        @Override
+        public ProjectWorkFurnace createFromParcel(Parcel in) {
+            return new ProjectWorkFurnace(in);
+        }
+
+        @Override
+        public ProjectWorkFurnace[] newArray(int size) {
+            return new ProjectWorkFurnace[size];
+        }
+    };
 
     public int getFurnaceID() {
         return FurnaceID;
@@ -160,6 +197,30 @@ public class ProjectWorkFurnace {
 
     public void setProjectWorkFuelList(List<ProjectWorkFuel> projectWorkFuelList) {
         ProjectWorkFuelList = projectWorkFuelList;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(FurnaceID);
+        dest.writeInt(WorkFurnaceID);
+        dest.writeInt(WorkID);
+        dest.writeString(FurnaceName);
+        dest.writeInt(ProjectID);
+        dest.writeInt(WorkingHour);
+        dest.writeInt(Electricity1);
+        dest.writeInt(Electricity2);
+        dest.writeInt(Electricity3);
+        dest.writeInt(ElectricitySingleCost);
+        dest.writeInt(Water1);
+        dest.writeInt(Water2);
+        dest.writeInt(Water3);
+        dest.writeInt(WaterSingleCost);
+        dest.writeString(CreatedTime);
     }
 }
 

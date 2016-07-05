@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -41,10 +42,10 @@
                 android:text="@{@string/initial_flow_index(position)}"
                 tools:text="@string/initial_flow_index" />
 
-            <EditText
+            <com.mdground.hdenergy.views.EdittextWithUnitIcon
+                android:id="@+id/etuiInitialFlow"
                 style="@style/WithArrowEdittextStyle"
-                android:textSize="@dimen/text_size_16"
-                tools:text="12345吨" />
+                app:unitResId="@string/ton" />
 
         </RelativeLayout>
 
@@ -58,10 +59,10 @@
                 android:text="@{@string/close_flow_index(position)}"
                 tools:text="@string/close_flow_index" />
 
-            <EditText
+            <com.mdground.hdenergy.views.EdittextWithUnitIcon
+                android:id="@+id/etuiCloseFlow"
                 style="@style/WithArrowEdittextStyle"
-                android:textSize="@dimen/text_size_16"
-                tools:text="1256" />
+                app:unitResId="@string/ton" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -87,10 +88,10 @@
                 style="@style/DimTextStyle"
                 android:text="@string/flow_adjustment" />
 
-            <EditText
+            <com.mdground.hdenergy.views.EdittextWithUnitIcon
+                android:id="@+id/etuiAdjustFlow"
                 style="@style/WithArrowEdittextStyle"
-                android:textSize="@dimen/text_size_16"
-                tools:text="25631" />
+                app:unitResId="@string/ton" />
 
         </RelativeLayout>
 
@@ -103,6 +104,7 @@
                 android:text="@string/adjustment_description" />
 
             <EditText
+                android:id="@+id/etAjustDescription"
                 style="@style/WithArrowEdittextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="25631" />

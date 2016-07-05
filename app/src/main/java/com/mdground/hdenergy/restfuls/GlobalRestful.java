@@ -187,12 +187,18 @@ public class GlobalRestful extends BaseRestful {
         asynchronousPost("GetProjectCategoryList", obj, callback);
     }
 
+    // 获取项目锅炉列表
+    public void GetProjectFurnaceList(int projectID, Callback<ResponseData> callback) {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("ProjectID", projectID);
+        asynchronousPost("GetProjectFurnaceList", obj, callback);
+    }
+
     //获取项目统计信息列表
     public void GetProjectSummeryList(Callback<ResponseData> callback) {
 
         asynchronousPost("GetProjectSummeryList", null, callback);
     }
-
 
     //分页获取历史数据统计
     public void GetProjectWorkList(int ProjectID,int PageIndex, Callback<ResponseData> callback) {
@@ -201,6 +207,4 @@ public class GlobalRestful extends BaseRestful {
         obj.addProperty("PageIndex", PageIndex);
         asynchronousPost("GetProjectWorkList", obj, callback);
     }
-
-
 }

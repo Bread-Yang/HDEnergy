@@ -20,6 +20,8 @@ public class EdittextWithUnitIcon extends LinearLayout {
 
     private EditText etInput;
 
+    private ImageView ivIcon;
+
     public EdittextWithUnitIcon(Context context) {
         super(context);
     }
@@ -50,7 +52,7 @@ public class EdittextWithUnitIcon extends LinearLayout {
             tvUnit.setText(unitResId);
         }
 
-        ImageView ivIcon = (ImageView) inflateLayout.findViewById(R.id.ivIcon);
+        ivIcon = (ImageView) inflateLayout.findViewById(R.id.ivIcon);
         int iconResId = typedArray.getResourceId(R.styleable.EdittextWithUnitIcon_iconResId, 0);
         if (iconResId != 0) {
             ivIcon.setImageResource(iconResId);
@@ -63,5 +65,13 @@ public class EdittextWithUnitIcon extends LinearLayout {
 
     public void setText(String text) {
         etInput.setText(text);
+    }
+
+    public EditText getEtInput() {
+        return etInput;
+    }
+
+    public ImageView getIvIcon() {
+        return ivIcon;
     }
 }
