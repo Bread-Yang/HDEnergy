@@ -79,7 +79,7 @@ public class ForgetPasswordActivity extends ToolbarActivity<ActivityForgetPasswo
         Intent intent=getIntent();
         if(intent!=null){
             String title=intent.getStringExtra(Constants.KEY_RESET_PASSWORD);
-            if(!"".equals(title)){
+            if(Constants.KEY_RESET_PASSWORD.equals(title)){
                 setTitle(getString(R.string.reset_password_title));
             }
 

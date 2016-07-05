@@ -195,8 +195,9 @@ public class GlobalRestful extends BaseRestful {
 
 
     //分页获取历史数据统计
-    public void GetProjectWorkList(int PageIndex, Callback<ResponseData> callback) {
+    public void GetProjectWorkList(int ProjectID,int PageIndex, Callback<ResponseData> callback) {
         JsonObject obj = new JsonObject();
+        obj.add("ProjectID",new Gson().toJsonTree(ProjectID));
         obj.addProperty("PageIndex", PageIndex);
         asynchronousPost("GetProjectWorkList", obj, callback);
     }

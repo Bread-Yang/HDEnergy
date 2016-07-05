@@ -8,12 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
 import com.mdground.hdenergy.databinding.ActivityHistoryDatastaticsBinding;
 import com.mdground.hdenergy.databinding.ItemHistoryDatastaticsBinding;
+import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
+import com.mdground.hdenergy.restfuls.GlobalRestful;
+import com.mdground.hdenergy.restfuls.bean.ResponseData;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by PC on 2016-06-29.
@@ -52,6 +59,33 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
 
     }
 
+    //region SERVER
+    public void GetProjectWorkList(int ProjectID,int PageIndex){
+        GlobalRestful.getInstance().GetProjectWorkList(ProjectID, PageIndex, new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+
+                if(ResponseCode.isSuccess(response.body())){
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
+    }
+    //endregion
+
+    //region METHOD
+    public void getDateList(){
+        mArrayList.add(getString(R.string.yongxing));
+        mArrayList.add(getString(R.string.app_name));
+    }
+
+
+    //endregion
 
     //region ADAPTER
     public class HistoryDateAdapter extends RecyclerView.Adapter<HistoryDateAdapter.MyViewHolder>{
@@ -99,12 +133,5 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
     }
     //endregion
 
-    //region METHOD
-    public void getDateList(){
-        mArrayList.add(getString(R.string.yongxing));
-        mArrayList.add(getString(R.string.app_name));
-    }
 
-
-    //endregion
 }

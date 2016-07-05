@@ -194,6 +194,13 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
     @Override
     public void clickUpdate(String projectName) {
         if (!"".equals(projectName)) {
+            for(int i=0;i<mAllProjectList.size();i++){
+                if(mAllProjectList.get(i).getProjectName().equals(projectName)){
+                    ViewUtils.toast("项目已经存在");
+                    return ;
+                }
+
+            }
             Project project = new Project();
             project.setProjectName(projectName);
             Date date = new Date(System.currentTimeMillis());
@@ -248,6 +255,7 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
                                 mUserProjectList.remove(i);
                             }
                         }
+
                         SaveUserProjectListRequest(mUserProjectList);
                     }
                 }
