@@ -24,7 +24,7 @@
                    android:textColor="@color/color_404040"
                    />
             <CheckBox
-                android:id="@+id/ivSelector"
+                android:id="@+id/cbSelector"
                 android:layout_gravity="right|center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

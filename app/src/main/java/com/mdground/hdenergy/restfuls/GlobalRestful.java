@@ -2,16 +2,20 @@ package com.mdground.hdenergy.restfuls;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
 import com.mdground.hdenergy.application.MDGroundApplication;
 import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.enumobject.ProjectStatus;
 import com.mdground.hdenergy.enumobject.restfuls.BusinessType;
+import com.mdground.hdenergy.models.Project;
 import com.mdground.hdenergy.models.ProjectWork;
 import com.mdground.hdenergy.models.UserAttendance;
+import com.mdground.hdenergy.models.UserContacts;
+import com.mdground.hdenergy.models.UserProject;
 import com.mdground.hdenergy.restfuls.bean.Device;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.DeviceUtil;
+
+import java.util.List;
 
 import retrofit2.Callback;
 
@@ -141,6 +145,46 @@ public class GlobalRestful extends BaseRestful {
         JsonObject obj = new JsonObject();
         obj.addProperty("PageIndex", PageIndex);
         asynchronousPost("GetProjectWorkList", obj, callback);
+    }
+
+   //获取所有联系人
+    public void GetAllUserList(Callback<ResponseData> callback){
+
+        asynchronousPost("GetAllUserList",null,callback);
+
+    }
+
+    //获取常用联系人
+    public void GetUserContactList(Callback<ResponseData> callback){
+        asynchronousPost("GetUserContactList",null,callback);
+    }
+
+    //保存常用联系人
+    public void SaveUserContactList(List<UserContacts> userContactsList,Callback<ResponseData> callback){
+        JsonObject obj=new JsonObject();
+        obj.add("UserContactsList",new Gson().toJsonTree(userContactsList));
+
+        asynchronousPost("SaveUserContactList",obj,callback);
+
+    }
+
+    //获取常用项目的接口
+    public void GetUserProjectList(Callback<ResponseData> callback){
+        asynchronousPost("GetUserProjectList",null,callback);
+    }
+
+    //保存项目
+    public void SaveProject(Project project,Callback<ResponseData> callback){
+        JsonObject obj=new JsonObject();
+       obj.add("Project",new Gson().toJsonTree(project));
+        asynchronousPost("SaveProject",obj,callback);
+    }
+
+    //保存常用项目
+    public void SaveUserProjectList(List<UserProject> userProjectList,Callback<ResponseData> callback){
+        JsonObject obj=new JsonObject();
+        obj.add("UserProjectList",new Gson().toJsonTree(userProjectList));
+        asynchronousPost("SaveUserProjectList",obj,callback);
     }
 
 }
