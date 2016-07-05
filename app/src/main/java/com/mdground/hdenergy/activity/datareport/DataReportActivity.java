@@ -14,6 +14,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
 import com.mdground.hdenergy.application.MDGroundApplication;
+import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityDataReportBinding;
 import com.mdground.hdenergy.databinding.ItemBoilerBinding;
 import com.mdground.hdenergy.models.Project;
@@ -25,6 +26,7 @@ import com.mdground.hdenergy.utils.DateUtils;
 import com.mdground.hdenergy.utils.StringUtil;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
+import com.mdground.hdenergy.views.itemdecoration.NormalItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,7 +53,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     private ArrayList<Project> mProjectArrayList = new ArrayList<>();
 
-    private ArrayList<ProjectWorkFurnace> mBoilerArrayList = new ArrayList<>();
+    private ArrayList<ProjectWorkFurnace> mProjectWorkFurnaceArrayList = new ArrayList<>();
 
     private ArrayList<String> mSalesProductArrayList = new ArrayList<>();
 
@@ -70,6 +72,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(layoutManager);
+        mDataBinding.recyclerView.addItemDecoration(new NormalItemDecoration(ViewUtils.dp2px(1)));
         mDataBinding.recyclerView.setNestedScrollingEnabled(false);
         mDataBinding.recyclerView.setFocusable(false);
 
@@ -103,7 +106,10 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                 switch (mWheelViewChooseResID) {
                     case R.id.tvProject:
                         mSelectProjectIndex = currentPosition;
-                        mDataBinding.tvProject.setText(mProjectArrayList.get(currentPosition).getProjectName());
+
+                        Project project = mProjectArrayList.get(currentPosition);
+                        mDataBinding.tvProject.setText(project.getProjectName());
+                        getProjectFurnaceList(project.getProjectID());
                         break;
                     case R.id.tvSaleProduct:
                         mDataBinding.tvSaleProduct.setText(mSalesProductArrayList.get(currentPosition));
@@ -195,9 +201,34 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         GlobalRestful.getInstance().GetProjectList(new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
-                ViewUtils.dismiss();
                 mProjectArrayList = response.body().getContent(new TypeToken<ArrayList<Project>>() {
                 });
+
+                if (mProjectArrayList.size() > 0) {
+                    getProjectFurnaceList(mProjectArrayList.get(0).getProjectID());
+                    mDataBinding.tvProject.setText(mProjectArrayList.get(0).getProjectName());
+                } else {
+                    ViewUtils.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void getProjectFurnaceList(int projectID) {
+        ViewUtils.loading(this);
+        GlobalRestful.getInstance().GetProjectFurnaceList(projectID, new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                ViewUtils.dismiss();
+                mProjectWorkFurnaceArrayList = response.body().getContent(new TypeToken<ArrayList<ProjectWorkFurnace>>() {
+                });
+
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -234,12 +265,15 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-            holder.viewDataBinding.setBoiler(mBoilerArrayList.get(position));
+            final ProjectWorkFurnace projectWorkFurnace = mProjectWorkFurnaceArrayList.get(position);
+
+            holder.viewDataBinding.setBoiler(projectWorkFurnace);
 
             holder.viewDataBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(DataReportActivity.this, BoilerEditOneActivity.class);
+                    intent.putExtra(Constants.KEY_PROJECT_WORK_FURNACE, projectWorkFurnace);
                     startActivity(intent);
                 }
             });
@@ -247,7 +281,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
         @Override
         public int getItemCount() {
-            return mBoilerArrayList.size();
+            return mProjectWorkFurnaceArrayList.size();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {

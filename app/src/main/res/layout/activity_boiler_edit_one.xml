@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/lltRoot"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
             <TextView
                 style="@style/SingleTitleLayoutStyle"
                 android:text="@string/blow_in_duration" />
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:onClick="selectBlowInDurationAction">
 
                 <TextView
                     style="@style/DimTextStyle"
                     android:text="@string/blow_in_duration_with_colon" />
 
                 <TextView
+                    android:id="@+id/tvHours"
                     style="@style/WithArrowIconTextStyle"
                     android:hint="@string/please_choose_duration"
+                    android:text="1"
                     android:textSize="@dimen/text_size_16" />
 
             </RelativeLayout>
@@ -32,6 +40,193 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <RelativeLayout style="@style/TitleLayoutStyle">
+
+                    <TextView
+                        style="@style/TitleTextStyle"
+                        android:text="@string/electric_quantity" />
+
+                    <ImageView
+                        android:id="@+id/ivAddOrDeleteElectricQuantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/add" />
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+                    <TextView
+                        style="@style/DimTextStyle"
+                        android:text="@string/electric_quantity_with_colon" />
+
+                    <com.mdground.hdenergy.views.EdittextWithUnitIcon
+                        android:id="@+id/etuiElectricQuantityOne"
+                        style="@style/WithArrowEdittextStyle"
+                        android:layout_alignParentRight="false"
+                        android:layout_marginRight="-2dp"
+                        android:layout_toLeftOf="@+id/ivDeleteElectricOne"
+                        app:unitResId="@string/electric_unit" />
+
+                    <ImageView
+                        android:id="@+id/ivDeleteElectricOne"
+                        style="@style/DeleteImageViewStyle"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rltElectricQuantityTwo"
+                    style="@style/WhiteFixHeightLayoutStyle"
+                    android:layout_marginTop="@dimen/margin_1">
+
+                    <TextView
+                        style="@style/DimTextStyle"
+                        android:text="@string/electric_quantity_two_with_colon" />
+
+                    <com.mdground.hdenergy.views.EdittextWithUnitIcon
+                        android:id="@+id/etuiElectricQuantityTwo"
+                        style="@style/WithArrowEdittextStyle"
+                        app:iconResId="@drawable/icon_delete2"
+                        app:unitResId="@string/electric_unit" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rltElectricQuantityThree"
+                    style="@style/WhiteFixHeightLayoutStyle"
+                    android:layout_marginTop="@dimen/margin_1">
+
+                    <TextView
+                        style="@style/DimTextStyle"
+                        android:text="@string/electric_quantity_three_with_colon" />
+
+                    <com.mdground.hdenergy.views.EdittextWithUnitIcon
+                        android:id="@+id/etuiElectricQuantityThree"
+                        style="@style/WithArrowEdittextStyle"
+                        app:iconResId="@drawable/icon_delete2"
+                        app:unitResId="@string/electric_unit" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/WhiteFixHeightLayoutStyle"
+                    android:layout_marginTop="@dimen/margin_1">
+
+                    <TextView
+                        style="@style/DimTextStyle"
+                        android:text="@string/electric_unit_consumption" />
+
+                    <TextView
+                        android:id="@+id/tvElectircUnitConsumption"
+                        style="@style/AlignWithRightArrowTextStyle"
+                        tools:text="25631" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <RelativeLayout style="@style/TitleLayoutStyle">
+
+                    <TextView
+                        style="@style/TitleTextStyle"
+                        android:text="@string/water_quantity" />
+
+                    <ImageView
+                        android:id="@+id/ivAddOrDeleteWaterQuantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/add" />
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+                    <TextView
+                        style="@style/DimTextStyle"
+                        android:text="@string/water_quantity_with_colon" />
+
+                    <com.mdground.hdenergy.views.EdittextWithUnitIcon
+                        android:id="@+id/etuiWaterQuantityOne"
+                        style="@style/WithArrowEdittextStyle"
+                        android:layout_alignParentRight="false"
+                        android:layout_marginRight="-2dp"
+                        android:layout_toLeftOf="@+id/ivDeleteWaterOne"
+                        app:unitResId="@string/electric_unit" />
+
+                    <ImageView
+                        android:id="@+id/ivDeleteWaterOne"
+                        style="@style/DeleteImageViewStyle"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rltWaterQuantityTwo"
+                    style="@style/WhiteFixHeightLayoutStyle"
+                    android:layout_marginTop="@dimen/margin_1">
+
+                    <TextView
+                        style="@style/DimTextStyle"
+                        android:text="@string/water_quantity_two_with_colon" />
+
+                    <com.mdground.hdenergy.views.EdittextWithUnitIcon
+                        android:id="@+id/etuiWaterQuantityTwo"
+                        style="@style/WithArrowEdittextStyle"
+                        app:iconResId="@drawable/icon_delete2"
+                        app:unitResId="@string/electric_unit" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rltWaterQuantityThree"
+                    style="@style/WhiteFixHeightLayoutStyle"
+                    android:layout_marginTop="@dimen/margin_1">
+
+                    <TextView
+                        style="@style/DimTextStyle"
+                        android:text="@string/water_quantity_three_with_colon" />
+
+                    <com.mdground.hdenergy.views.EdittextWithUnitIcon
+                        android:id="@+id/etuiWaterQuantityThree"
+                        style="@style/WithArrowEdittextStyle"
+                        app:iconResId="@drawable/icon_delete2"
+                        app:unitResId="@string/electric_unit" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/WhiteFixHeightLayoutStyle"
+                    android:layout_marginTop="@dimen/margin_1">
+
+                    <TextView
+                        style="@style/DimTextStyle"
+                        android:text="@string/water_unit_consumption" />
+
+                    <TextView
+                        android:id="@+id/tvWaterUnitConsumption"
+                        style="@style/AlignWithRightArrowTextStyle"
+                        android:textSize="@dimen/text_size_16"
+                        tools:text="25631" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/btnNextStep"

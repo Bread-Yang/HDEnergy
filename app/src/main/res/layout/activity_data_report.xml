@@ -97,7 +97,6 @@
                     style="@style/WithArrowEdittextStyle"
                     app:unitResId="@string/yuan" />
 
-
             </RelativeLayout>
 
             <RelativeLayout

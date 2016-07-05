@@ -149,4 +149,11 @@ public class GlobalRestful extends BaseRestful {
         obj.addProperty("ParentID", parentID );
         asynchronousPost("GetProjectCategoryList", obj, callback);
     }
+
+    // 获取项目锅炉列表
+    public void GetProjectFurnaceList(int projectID  , Callback<ResponseData> callback) {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("ProjectID", projectID  );
+        asynchronousPost("GetProjectFurnaceList", obj, callback);
+    }
 }
