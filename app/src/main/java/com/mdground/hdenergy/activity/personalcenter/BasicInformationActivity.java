@@ -7,6 +7,7 @@ import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
 import com.mdground.hdenergy.activity.login.ForgetPasswordActivity;
 import com.mdground.hdenergy.application.MDGroundApplication;
+import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityBasicInformationBinding;
 import com.mdground.hdenergy.models.UserInfo;
 
@@ -45,6 +46,7 @@ public class BasicInformationActivity extends ToolbarActivity<ActivityBasicInfor
     }
     public void toRestPassword(View view){
         Intent intent=new Intent(BasicInformationActivity.this, ForgetPasswordActivity.class);
+        intent.putExtra(Constants.KEY_RESET_PASSWORD,Constants.KEY_RESET_PASSWORD);
         startActivity(intent);
     }
     //endregion

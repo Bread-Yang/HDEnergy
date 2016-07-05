@@ -7,20 +7,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
+import com.mdground.hdenergy.application.MDGroundApplication;
 import com.mdground.hdenergy.databinding.ActivityCommonContactBinding;
 import com.mdground.hdenergy.databinding.ItemContactsBinding;
+import com.mdground.hdenergy.views.AddProjectDialog;
+
+import java.util.ArrayList;
 
 /**
  * Created by PC on 2016-06-30.
  */
 
-public class CommonContactsActivity extends ToolbarActivity<ActivityCommonContactBinding> {
+public class CommonContactsActivity extends ToolbarActivity<ActivityCommonContactBinding> implements AddProjectDialog.OnClickUpdateListener{
     private ArrayList<String> mArrayList=new ArrayList<>();
     private ContactsAdataper mAdapter;
+    private AddProjectDialog mDialog;
     @Override
     protected int getContentLayout() {
         return R.layout.activity_common_contact;
@@ -29,6 +32,7 @@ public class CommonContactsActivity extends ToolbarActivity<ActivityCommonContac
     @Override
     protected void initData() {
         getContactsList();
+        mDialog=new AddProjectDialog(this);
         mAdapter=new ContactsAdataper();
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -36,18 +40,38 @@ public class CommonContactsActivity extends ToolbarActivity<ActivityCommonContac
         mDataBinding.recyclerView.setAdapter(mAdapter);
         mDataBinding.tvContactsAmount.setText(getString(R.string.left_bracket)+mArrayList.size()+getString(R.string.right_bracket));
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (MDGroundApplication.mInstance.getLoginUser().getUserRole() == 0) {
+            mDataBinding.lltAdd.setVisibility(View.GONE);
+        }
+    }
     @Override
     protected void setListener() {
 
     }
-
+    public void showAddDialog(View view){
+        mDialog.show();
+    }
     public void getContactsList(){
 //        for(int i=0;i<5;i++){
             mArrayList.add(getString(R.string.yongxing));
             mArrayList.add(getString(R.string.app_name));
 //        }
 //        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void clickCancel() {
+        if(mDialog!=null){
+            mDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void clickUpdate(String project) {
+
     }
 
     //region ADAPTER

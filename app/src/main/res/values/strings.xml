@@ -49,6 +49,7 @@
     <string name="after_second_acquire_again">%d秒后重新获取</string>
     <string name="input_corrent_password">密码的字符数应该是6-16位</string>
     <string name="change_password_success">修改密码成功</string>
+    <string name="reset_password_title">修改密码</string>
 
     <!-- 公告 -->
     <string name="bulletin_list">公告列表</string>

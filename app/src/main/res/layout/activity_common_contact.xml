@@ -32,6 +32,22 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             ></android.support.v7.widget.RecyclerView>
+        <LinearLayout
+            android:id="@+id/lltAdd"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_12"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:onClick="showAddDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/add_button"
+
+                />
+        </LinearLayout>
     </LinearLayout>
     </layout>
