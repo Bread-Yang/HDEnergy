@@ -130,7 +130,7 @@ public class ProjectEditActivity extends ToolbarActivity<ActivityProjectEditBind
         mBaoPickerDialog.show();
     }
 
-    public void SelectDateAction(View view) {
+    public void selectDateAction(View view) {
         mClickResID = view.getId();
 
         mTimePickerDialog.show(getSupportFragmentManager(), String.valueOf(mClickResID));
@@ -140,7 +140,7 @@ public class ProjectEditActivity extends ToolbarActivity<ActivityProjectEditBind
         ProjectStatus projectStatus = ProjectStatus.fromValue(mProject.getProjectStatus());
         String startTime = mDataBinding.tvStartTime.getText().toString();
         String endTime = mDataBinding.tvEndTime.getText().toString();
-        String remark = mDataBinding.etRemark.getText().toString();
+        String remark = mDataBinding.etRemark.getText().toString().trim();
         ViewUtils.loading(this);
         GlobalRestful.getInstance().UpdateProject(mProject.getProjectID(), projectStatus,
                 startTime, endTime, remark, new Callback<ResponseData>() {

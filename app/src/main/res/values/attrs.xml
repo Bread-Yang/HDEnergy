@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!--主页侧滑的属性-->
     <attr name="titleText" format="string"></attr>
     <attr name="titleSize" format="dimension"></attr>
@@ -29,6 +30,11 @@
         <attr name="titleColor"></attr>
         <attr name="rightMragin"></attr>
         <attr name="Src"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="EdittextWithUnitIcon">
+        <attr name="unitResId" format="reference"/>
+        <attr name="iconResId" format="reference"/>
     </declare-styleable>
 
 </resources>

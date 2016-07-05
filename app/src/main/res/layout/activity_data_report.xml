@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
@@ -17,6 +18,7 @@
                 android:layout_height="0dp"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
+
                 <requestFocus />
             </View>
 
@@ -43,14 +45,14 @@
                 android:id="@+id/rltData"
                 style="@style/WhiteFixHeightLayoutStyle"
                 android:layout_marginTop="@dimen/margin_1"
-                android:onClick="SelectDateAction">
+                android:onClick="selectDateAction">
 
                 <TextView
                     style="@style/DimTextStyle"
                     android:text="@string/data_with_colon" />
 
                 <TextView
-                    android:id="@+id/tvData"
+                    android:id="@+id/tvDate"
                     style="@style/WithArrowIconTextStyle"
                     tools:text="2016-04-11" />
             </RelativeLayout>
@@ -90,9 +92,11 @@
                     style="@style/DimTextStyle"
                     android:text="@string/project_expense_with_colon" />
 
-                <EditText
-                    android:id="@+id/etProjectExpense"
-                    style="@style/WithArrowEdittextStyle" />
+                <com.mdground.hdenergy.views.EdittextWithUnitIcon
+                    android:id="@+id/etuiProjectExpense"
+                    style="@style/WithArrowEdittextStyle"
+                    app:unitResId="@string/yuan" />
+
 
             </RelativeLayout>
 

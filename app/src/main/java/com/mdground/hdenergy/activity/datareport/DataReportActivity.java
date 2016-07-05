@@ -11,14 +11,9 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 
 import com.google.gson.reflect.TypeToken;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
+import com.mdground.hdenergy.application.MDGroundApplication;
 import com.mdground.hdenergy.databinding.ActivityDataReportBinding;
 import com.mdground.hdenergy.databinding.ItemBoilerBinding;
 import com.mdground.hdenergy.models.Project;
@@ -27,8 +22,15 @@ import com.mdground.hdenergy.models.ProjectWorkFurnace;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.DateUtils;
+import com.mdground.hdenergy.utils.StringUtil;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+
 import kankan.wheel.widget.OnWheelScrollListener;
 import kankan.wheel.widget.WheelView;
 import retrofit2.Call;
@@ -53,9 +55,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     private ArrayList<String> mSalesProductArrayList = new ArrayList<>();
 
-    private int mWheelViewChooseResID;
-
-    private ProjectWork mProjectWork;
+    private int mWheelViewChooseResID, mSelectProjectIndex;
 
     @Override
     protected int getContentLayout() {
@@ -65,7 +65,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
     @Override
     protected void initData() {
         Date previousDate = DateUtils.previousDate(new Date(), 0);
-        mDataBinding.tvData.setText(DateUtils.getYearMonthDayWithDash(previousDate));
+        mDataBinding.tvDate.setText(DateUtils.getYearMonthDayWithDash(previousDate));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -82,6 +82,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         // 销售产品数据
         String[] salesProductStrings = getResources().getStringArray(R.array.sale_product_type);
         Collections.addAll(mSalesProductArrayList, salesProductStrings);
+        mDataBinding.tvSaleProduct.setText(salesProductStrings[0]);
 
         getProjectListRequest();
 
@@ -101,6 +102,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
                 switch (mWheelViewChooseResID) {
                     case R.id.tvProject:
+                        mSelectProjectIndex = currentPosition;
                         mDataBinding.tvProject.setText(mProjectArrayList.get(currentPosition).getProjectName());
                         break;
                     case R.id.tvSaleProduct:
@@ -113,7 +115,12 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        mDataBinding.tvData.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        cal.set(Calendar.MONTH, monthOfYear);
+        cal.set(Calendar.YEAR, year);
+
+        mDataBinding.tvDate.setText(DateUtils.getYearMonthDayWithDash(cal.getTime()));
     }
 
     //region  ACTION
@@ -133,7 +140,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         mBaoPickerDialog.show();
     }
 
-    public void SelectDateAction(View view) {
+    public void selectDateAction(View view) {
         if (mDatePickerDialog == null) {
             Calendar calendar = Calendar.getInstance();
             mDatePickerDialog = new DatePickerDialog(this, this, calendar.get(Calendar.YEAR),
@@ -143,7 +150,42 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
     }
 
     public void submitAction(View view) {
-        saveProjectWorkRequest();
+        ProjectWork projectWork = new ProjectWork();
+
+        projectWork.setUserID(MDGroundApplication.mInstance.getLoginUser().getUserID());
+        projectWork.setUserName(MDGroundApplication.mInstance.getLoginUser().getUserName());
+
+        // 项目
+        Project project = mProjectArrayList.get(mSelectProjectIndex);
+        projectWork.setProjectID(project.getProjectID());
+        projectWork.setProjectName(project.getProjectName());
+
+        // 日期
+        String date = mDataBinding.tvDate.getText().toString() + " 00:00:00";
+        projectWork.setCreatedTime(date);
+
+        //销售产品
+        String saleProduct = mDataBinding.tvSaleProduct.getText().toString();
+        projectWork.setSaleType(saleProduct);
+
+        // 锅炉
+
+        // 项目费用
+        String projectExpenseString = mDataBinding.etuiProjectExpense.getText();
+        if (!StringUtil.isEmpty(projectExpenseString)) {
+            int projectExpense = Integer.parseInt(projectExpenseString) * 100;
+            projectWork.setDailyExpense(projectExpense);
+        }
+
+        // 费用明细
+        String feeDetail = mDataBinding.etProjectDetail.getText().toString();
+        projectWork.setExpenseDetail(feeDetail);
+
+        // 其他问题
+        String otherProblem = mDataBinding.etOtherProblem.getText().toString();
+        projectWork.setRemark(otherProblem);
+
+        saveProjectWorkRequest(projectWork);
     }
     //endregion
 
@@ -165,8 +207,8 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         });
     }
 
-    private void saveProjectWorkRequest() {
-        GlobalRestful.getInstance().SaveProjectWork(mProjectWork, new Callback<ResponseData>() {
+    private void saveProjectWorkRequest(ProjectWork projectWork) {
+        GlobalRestful.getInstance().SaveProjectWork(projectWork, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 finish();
