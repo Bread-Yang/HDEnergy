@@ -33,7 +33,7 @@
                 android:id="@+id/rltData"
                 style="@style/WhiteFixHeightLayoutStyle"
                 android:layout_marginTop="@dimen/margin_1"
-                android:onClick="SelectDateAction">
+                android:onClick="selectDateAction">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -229,7 +229,7 @@
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:text="@string/accommodation" />
+                    android:text="@string/accommodation_fee" />
 
                 <TextView
                     style="@style/AlignRightTextStyle"

@@ -3,7 +3,7 @@ package com.mdground.hdenergy.models;
 import java.util.List;
 
 /**
- * ProjectWork
+ * 数据汇报实体
  * Created by yoghourt on 7/3/16.
  */
 public class ProjectWork {
@@ -13,8 +13,8 @@ public class ProjectWork {
     private String ExpenseDetail; // 费用明细
     private int ProjectID;      // 项目标识
     private String ProjectName; // 项目名称
-    private List<ProjectWorkFurnace> ProjectWorkFurnaceList;    // 费用明细
-    private String Remark;      // 费用明细
+    private List<ProjectWorkFurnace> ProjectWorkFurnaceList;    // 锅炉列表
+    private String Remark;      // 其他问题
     private String SaleType;    // 项目名称
     private int UserID;
     private String UserName;

@@ -20,6 +20,10 @@
     <string name="submit">提交</string>
     <string name="please_input">请输入</string>
     <string name="already_input">已输入</string>
+    <string name="yuan">元</string>
+    <string name="ton">吨</string>
+    <string name="can_not_empty">输入不能为空</string>
+    <string name="submit_success">提交成功</string>
 
     <!-- 引导页 -->
     <string name="guide_page">引导页</string>
@@ -122,7 +126,7 @@
     <string name="business_trip_location">出差地点:</string>
     <string name="transportation_fare">交通费:</string>
     <string name="transportation_time_consuming">交通耗时:</string>
-    <string name="accommodation">住宿费:</string>
+    <string name="accommodation_fee">住宿费:</string>
     <string name="rate">打分</string>
     <string name="rate_with_colon">打分:</string>
 

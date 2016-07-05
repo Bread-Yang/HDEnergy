@@ -6,22 +6,25 @@ import com.google.gson.reflect.TypeToken;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
 import com.mdground.hdenergy.databinding.ActivityAttendanceReportBinding;
 import com.mdground.hdenergy.models.Department;
 import com.mdground.hdenergy.models.Project;
+import com.mdground.hdenergy.models.ProjectCategory;
+import com.mdground.hdenergy.models.UserAttendance;
 import com.mdground.hdenergy.models.UserInfo;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.DateUtils;
+import com.mdground.hdenergy.utils.StringUtil;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+
 import kankan.wheel.widget.OnWheelScrollListener;
 import kankan.wheel.widget.WheelView;
 import retrofit2.Call;
@@ -46,11 +49,14 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
     private ArrayList<String> mAttendanceStatusArrayList = new ArrayList<>();
 
+    private ArrayList<ProjectCategory> mProjectCategoryArrayList = new ArrayList<>();
+
+    private ArrayList<ProjectCategory> mProjectContentArrayList = new ArrayList<>();
+
     private long mStartTime, mEndTime;
 
-    private int mClickResID;
-
-    private int mWheelViewChooseResID;
+    private int mSelectDepartment, mSelectProjectIndex, mSelectUserInfoIndex, mSelectAttendanceStatus, mSelectCategoryIndex,
+            mSelectContentIndex, mClickResID, mWheelViewChooseResID;
 
     @Override
     protected int getContentLayout() {
@@ -60,6 +66,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
     @Override
     protected void initData() {
         getDepartmentListRequest();
+        getProjectCategoryListRequest(0);
 
         initTimePickerDialog();
         mBaoPickerDialog = new BaoPickerDialog(this);
@@ -96,16 +103,35 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
                 switch (mWheelViewChooseResID) {
                     case R.id.tvDepartment:
+                        mSelectDepartment = currentPosition;
+                        hideRateLayout(currentPosition != 1); // 当部门为工程部门时，不显示打分栏
                         mDataBinding.tvDepartment.setText(mDepartmentArrayList.get(currentPosition).getDepartmentName());
+
+                        mSelectUserInfoIndex = 0;
+                        getUserListByDepartmentRequest();
                         break;
                     case R.id.tvProject:
+                        mSelectProjectIndex = currentPosition;
                         mDataBinding.tvProject.setText(mProjectArrayList.get(currentPosition).getProjectName());
                         break;
                     case R.id.tvName:
+                        mSelectUserInfoIndex = currentPosition;
                         mDataBinding.tvName.setText(mUserInfoArrayList.get(currentPosition).getUserName());
                         break;
                     case R.id.tvAttendanceStatus:
+                        mSelectAttendanceStatus = currentPosition;
                         mDataBinding.tvAttendanceStatus.setText(mAttendanceStatusArrayList.get(currentPosition));
+                        break;
+                    case R.id.tvCategory:
+                        mSelectCategoryIndex = currentPosition;
+                        mDataBinding.tvCategory.setText(mProjectCategoryArrayList.get(currentPosition).getCategoryName());
+
+                        mSelectContentIndex = 0;
+                        getProjectCategoryListRequest(mProjectCategoryArrayList.get(currentPosition).getCategoryID());
+                        break;
+                    case R.id.tvContent:
+                        mSelectContentIndex = currentPosition;
+                        mDataBinding.tvContent.setText(mProjectContentArrayList.get(currentPosition).getCategoryName());
                         break;
                 }
             }
@@ -174,6 +200,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
             departmentStringArrayList.add(department.getDepartmentName());
         }
         mBaoPickerDialog.bindWheelViewData(departmentStringArrayList);
+        mBaoPickerDialog.setCurrentItem(mSelectDepartment);
         mBaoPickerDialog.show();
     }
 
@@ -184,6 +211,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
             projectStringArrayList.add(project.getProjectName());
         }
         mBaoPickerDialog.bindWheelViewData(projectStringArrayList);
+        mBaoPickerDialog.setCurrentItem(mSelectProjectIndex);
         mBaoPickerDialog.show();
     }
 
@@ -194,23 +222,132 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
             userNameStringArrayList.add(userInfo.getUserName());
         }
         mBaoPickerDialog.bindWheelViewData(userNameStringArrayList);
+        mBaoPickerDialog.setCurrentItem(mSelectUserInfoIndex);
         mBaoPickerDialog.show();
     }
 
     public void selectAttendanceStatusAction(View view) {
         mWheelViewChooseResID = R.id.tvAttendanceStatus;
         mBaoPickerDialog.bindWheelViewData(mAttendanceStatusArrayList);
+        mBaoPickerDialog.setCurrentItem(mSelectAttendanceStatus);
         mBaoPickerDialog.show();
     }
 
-    public void SelectDateAction(View view) {
+    public void selectDateAction(View view) {
         mClickResID = view.getId();
 
         mTimePickerDialog.show(getSupportFragmentManager(), String.valueOf(mClickResID));
     }
 
-    public void nextStepAction(View view) {
+    public void selectCategoryAction(View view) {
+        mWheelViewChooseResID = R.id.tvCategory;
+        ArrayList<String> categoryStringArrayList = new ArrayList<>();
+        for (ProjectCategory projectCategory : mProjectCategoryArrayList) {
+            categoryStringArrayList.add(projectCategory.getCategoryName());
+        }
+        mBaoPickerDialog.bindWheelViewData(categoryStringArrayList);
+        mBaoPickerDialog.setCurrentItem(mSelectCategoryIndex);
+        mBaoPickerDialog.show();
+    }
 
+    public void selectContentAction(View view) {
+        mWheelViewChooseResID = R.id.tvContent;
+        ArrayList<String> contentStringArrayList = new ArrayList<>();
+        for (ProjectCategory projectContent : mProjectContentArrayList) {
+            contentStringArrayList.add(projectContent.getCategoryName());
+        }
+        mBaoPickerDialog.bindWheelViewData(contentStringArrayList);
+        mBaoPickerDialog.setCurrentItem(mSelectContentIndex);
+        mBaoPickerDialog.show();
+    }
+
+    public void submitAction(View view) {
+        UserAttendance userAttendance = new UserAttendance();
+
+        // 部门
+        String department = mDataBinding.tvDepartment.getText().toString();
+        userAttendance.setDepartment(department);
+
+        // 项目
+        Project project = mProjectArrayList.get(mSelectProjectIndex);
+        userAttendance.setProjectID(project.getProjectID());
+
+        // 姓名
+        if (mUserInfoArrayList.size() > 0) {
+            UserInfo userinfo = mUserInfoArrayList.get(mSelectUserInfoIndex);
+            userAttendance.setUserID(userinfo.getUserID());
+            userAttendance.setUserName(userinfo.getUserName());
+        }
+
+        // 上班状态
+        userAttendance.setStatus(mSelectAttendanceStatus);
+
+        // 上班时间
+        String startWorkTime = mDataBinding.tvStartTime.getText().toString() + ":00";
+        userAttendance.setBeginTime(startWorkTime);
+
+        // 下班时间
+        String endWorkTime = mDataBinding.tvEndTime.getText().toString() + ":00";
+        userAttendance.setEndTime(endWorkTime);
+
+        // 加班时间
+        String overTimeString = mDataBinding.etOverTimeHour.getText().toString();
+        if (!StringUtil.isEmpty(overTimeString)) {
+            int overTime = Integer.parseInt(overTimeString);
+            userAttendance.setOverTime(overTime);
+        }
+
+        // 加班事由
+        String overTimeReason = mDataBinding.etOverTimeReason.getText().toString();
+        userAttendance.setOverTimeReason(overTimeReason);
+
+        // 类别
+        ProjectCategory projectCategory = mProjectCategoryArrayList.get(mSelectCategoryIndex);
+        userAttendance.setCategoryID1(projectCategory.getCategoryID());
+        userAttendance.setCategoryName1(projectCategory.getCategoryName());
+
+        // 工作内容
+        ProjectCategory projectContent = mProjectContentArrayList.get(mSelectContentIndex);
+        userAttendance.setCategoryID2(projectContent.getCategoryID());
+        userAttendance.setCategoryName2(projectContent.getCategoryName());
+
+        // 出差地点
+        String businessTripLocation = mDataBinding.etBusinessTripLocation.getText().toString();
+        userAttendance.setBusinessAddress(businessTripLocation);
+
+        // 交通费
+        String transporatationFareString = mDataBinding.etuiTransportationFare.getText();
+        if (!StringUtil.isEmpty(transporatationFareString)) {
+            int transporatationFare = Integer.parseInt(transporatationFareString) * 100;
+            userAttendance.setTransportation(transporatationFare);
+        }
+
+        // 交通耗时
+        String transportationTimeConsumingString = mDataBinding.etuiTransportationTimeconsuming.getText();
+        if (!StringUtil.isEmpty(transportationTimeConsumingString)) {
+            int transportationTimeConsuming = Integer.parseInt(transportationTimeConsumingString);
+            userAttendance.setTrafficTime(transportationTimeConsuming);
+        }
+
+        // 住宿费
+        String accommodationFeeString = mDataBinding.etuiAccommodationFee.getText();
+        if (!StringUtil.isEmpty(accommodationFeeString)) {
+            int accommodationFee = Integer.parseInt(accommodationFeeString) * 100;
+            userAttendance.setAccommodationFee(accommodationFee);
+        }
+
+        // 其他问题
+        String otherProblem = mDataBinding.etOtherProblem.getText().toString();
+        userAttendance.setRemark(otherProblem);
+
+        // 打分
+        String scoreString = mDataBinding.etScore.getText().toString();
+        if (!StringUtil.isEmpty(scoreString)) {
+            int score = Integer.parseInt(scoreString);
+            userAttendance.setScore(score);
+        }
+
+        saveUserAttendanceRequest(userAttendance);
     }
     //endregion
 
@@ -220,7 +357,6 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
         GlobalRestful.getInstance().GetDepartmentList(new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
-                ViewUtils.dismiss();
                 mDepartmentArrayList = response.body().getContent(new TypeToken<ArrayList<Department>>() {
                 });
                 mDataBinding.tvDepartment.setText(mDepartmentArrayList.get(0).getDepartmentName());
@@ -264,7 +400,58 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
                 mUserInfoArrayList = response.body().getContent(new TypeToken<ArrayList<UserInfo>>() {
                 });
-                mDataBinding.tvName.setText(mUserInfoArrayList.get(0).getUserName());
+
+                if (mUserInfoArrayList.size() > 0) {
+                    mDataBinding.tvName.setText(mUserInfoArrayList.get(0).getUserName());
+                } else {
+                    mDataBinding.tvName.setText("");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void getProjectCategoryListRequest(final int parentID) {
+        GlobalRestful.getInstance().GetProjectCategoryList(parentID, new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                if (parentID == 0) {
+                    mProjectCategoryArrayList = response.body().getContent(new TypeToken<ArrayList<ProjectCategory>>() {
+                    });
+
+                    if (mProjectCategoryArrayList.size() > 0) {
+                        ProjectCategory firstCategory = mProjectCategoryArrayList.get(0);
+                        mDataBinding.tvCategory.setText(firstCategory.getCategoryName());
+                        getProjectCategoryListRequest(mProjectCategoryArrayList.get(0).getCategoryID());
+                    }
+                } else {
+                    mProjectContentArrayList = response.body().getContent(new TypeToken<ArrayList<ProjectCategory>>() {
+                    });
+                    if (mProjectContentArrayList.size() > 0) {
+                        ProjectCategory firstContent = mProjectContentArrayList.get(0);
+                        mDataBinding.tvContent.setText(firstContent.getCategoryName());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void saveUserAttendanceRequest(UserAttendance userAttendance) {
+        ViewUtils.loading(this);
+        GlobalRestful.getInstance().SaveUserAttendance(userAttendance, new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                ViewUtils.dismiss();
+                finish();
             }
 
             @Override

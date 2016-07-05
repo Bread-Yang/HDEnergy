@@ -9,11 +9,12 @@ import android.view.LayoutInflater;
 import android.view.Window;
 import android.view.WindowManager;
 
-import java.util.List;
-
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.adapter.wheelview.BaoWheelAdapter;
 import com.mdground.hdenergy.databinding.DialogBaoPickerBinding;
+
+import java.util.List;
+
 import kankan.wheel.widget.OnWheelScrollListener;
 
 /**
@@ -75,6 +76,10 @@ public class BaoPickerDialog extends Dialog {
             mDataBinding.wheelView.setCurrentItem(0);
             mDataBinding.wheelView.setViewAdapter(new BaoWheelAdapter(mContext, mStringList));
         }
+    }
+
+    public void setCurrentItem(int index) {
+        mDataBinding.wheelView.setCurrentItem(index);
     }
 
     public OnWheelScrollListener getOnWheelScrollListener() {

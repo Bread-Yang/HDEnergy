@@ -40,7 +40,7 @@
                 android:id="@+id/rltData"
                 style="@style/WhiteFixHeightLayoutStyle"
                 android:layout_marginTop="@dimen/margin_1"
-                android:onClick="SelectDateAction">
+                android:onClick="selectDateAction">
 
                 <TextView
                     style="@style/DimTextStyle"

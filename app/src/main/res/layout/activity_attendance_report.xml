@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
@@ -81,8 +82,8 @@
                 <TextView
                     android:id="@+id/tvAttendanceStatus"
                     style="@style/WithArrowIconTextStyle"
-                    android:textSize="@dimen/text_size_16"
-                    tools:text="用新" />
+                    android:text="@string/normal"
+                    android:textSize="@dimen/text_size_16" />
 
             </RelativeLayout>
 
@@ -90,7 +91,7 @@
                 android:id="@+id/rltStartTime"
                 style="@style/WhiteFixHeightLayoutStyle"
                 android:layout_marginTop="@dimen/margin_1"
-                android:onClick="SelectDateAction">
+                android:onClick="selectDateAction">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -108,7 +109,7 @@
                 android:id="@+id/rltEndTime"
                 style="@style/WhiteFixHeightLayoutStyle"
                 android:layout_marginTop="@dimen/margin_1"
-                android:onClick="SelectDateAction">
+                android:onClick="selectDateAction">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -151,7 +152,8 @@
 
                 <EditText
                     android:id="@+id/etOverTimeHour"
-                    style="@style/WithArrowEdittextStyle" />
+                    style="@style/WithArrowEdittextStyle"
+                    android:inputType="number" />
 
             </RelativeLayout>
 
@@ -173,13 +175,17 @@
                 style="@style/SingleTitleLayoutStyle"
                 android:text="@string/category" />
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                android:id="@+id/rltCategory"
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:onClick="selectCategoryAction">
 
                 <TextView
                     style="@style/DimTextStyle"
                     android:text="@string/category_with_colon" />
 
                 <TextView
+                    android:id="@+id/tvCategory"
                     style="@style/WithArrowIconTextStyle"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
@@ -187,14 +193,17 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rltContent"
                 style="@style/WhiteFixHeightLayoutStyle"
-                android:layout_marginTop="@dimen/margin_1">
+                android:layout_marginTop="@dimen/margin_1"
+                android:onClick="selectContentAction">
 
                 <TextView
                     style="@style/DimTextStyle"
                     android:text="@string/work_detail_with_colon" />
 
                 <TextView
+                    android:id="@+id/tvContent"
                     style="@style/WithArrowIconTextStyle"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
@@ -211,11 +220,9 @@
                     style="@style/DimTextStyle"
                     android:text="@string/business_trip_location" />
 
-                <TextView
-                    style="@style/WithArrowIconTextStyle"
-                    android:textSize="@dimen/text_size_16"
-                    tools:text="用新" />
-
+                <EditText
+                    android:id="@+id/etBusinessTripLocation"
+                    style="@style/WithArrowEdittextStyle" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -226,10 +233,10 @@
                     style="@style/DimTextStyle"
                     android:text="@string/transportation_fare" />
 
-                <TextView
-                    style="@style/WithArrowIconTextStyle"
-                    android:textSize="@dimen/text_size_16"
-                    tools:text="用新" />
+                <com.mdground.hdenergy.views.EdittextWithUnitIcon
+                    android:id="@+id/etuiTransportationFare"
+                    style="@style/WithArrowEdittextStyle"
+                    app:unitResId="@string/yuan" />
 
             </RelativeLayout>
 
@@ -241,10 +248,10 @@
                     style="@style/DimTextStyle"
                     android:text="@string/transportation_time_consuming" />
 
-                <TextView
-                    style="@style/WithArrowIconTextStyle"
-                    android:textSize="@dimen/text_size_16"
-                    tools:text="用新" />
+                <com.mdground.hdenergy.views.EdittextWithUnitIcon
+                    android:id="@+id/etuiTransportationTimeconsuming"
+                    style="@style/WithArrowEdittextStyle"
+                    app:unitResId="@string/minute" />
 
             </RelativeLayout>
 
@@ -254,12 +261,12 @@
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:text="@string/accommodation" />
+                    android:text="@string/accommodation_fee" />
 
-                <TextView
-                    style="@style/WithArrowIconTextStyle"
-                    android:textSize="@dimen/text_size_16"
-                    tools:text="用新" />
+                <com.mdground.hdenergy.views.EdittextWithUnitIcon
+                    android:id="@+id/etuiAccommodationFee"
+                    style="@style/WithArrowEdittextStyle"
+                    app:unitResId="@string/yuan" />
 
             </RelativeLayout>
 
@@ -285,10 +292,10 @@
                     style="@style/DimTextStyle"
                     android:text="@string/rate_with_colon" />
 
-                <TextView
-                    style="@style/WithArrowIconTextStyle"
-                    android:textSize="@dimen/text_size_16"
-                    tools:text="用新" />
+                <EditText
+                    android:id="@+id/etScore"
+                    style="@style/WithArrowEdittextStyle"
+                    android:inputType="number" />
 
             </RelativeLayout>
 
@@ -296,7 +303,7 @@
                 android:id="@+id/btnNextStep"
                 style="@style/NormalButtonStyle"
                 android:layout_marginTop="@dimen/margin_48"
-                android:onClick="nextStepAction"
+                android:onClick="submitAction"
                 android:text="@string/submit"
                 android:textSize="@dimen/text_size_16" />
         </LinearLayout>

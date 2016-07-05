@@ -6,26 +6,35 @@ package com.mdground.hdenergy.models;
 
 public class UserAttendance {
 
+    private int AccommodationFee;   // 住宿费
     private int AutoID;
-    private int UserID;
-    private String UserName;
-    private int ProjectID;
-    private int Status;         // 上班状态
     private String BeginTime;   // 上班时间
+    private String BusinessAddress; // 出差地点
+    private int CategoryID1;    // 类别标识
+    private int CategoryID2;    // 子类别标识
+    private String CategoryName1; // 类别名称
+    private String CategoryName2; // 子类别名称
+    private String CreatedTime;
+    private String Department;
     private String EndTime;     // 下班时间
     private int OverTime;       // 加班时间
     private String OverTimeReason; // 加班事由
-    private int CategoryID1;    // 类别标识
-    private String CategoryName1; // 类别名称
-    private int CategoryID2;    // 子类别标识
-    private String CategoryName2; // 子类别名称
-    private String BusinessAddress; // 出差地点
-    private int Transportation; // 交通费（分）
-    private int TrafficTime;    // 交通耗时（分钟）
-    private int AccommodationFee;   // 住宿费
+    private int ProjectID;
     private String Remark;      // 其它问题
     private int Score;          // 打分
-    private String CreatedTime;
+    private int Status;         // 上班状态
+    private int TrafficTime;    // 交通耗时（分钟）
+    private int Transportation; // 交通费（分）
+    private int UserID;
+    private String UserName;
+
+    public int getAccommodationFee() {
+        return AccommodationFee;
+    }
+
+    public void setAccommodationFee(int accommodationFee) {
+        AccommodationFee = accommodationFee;
+    }
 
     public int getAutoID() {
         return AutoID;
@@ -35,44 +44,68 @@ public class UserAttendance {
         AutoID = autoID;
     }
 
-    public int getUserID() {
-        return UserID;
-    }
-
-    public void setUserID(int userID) {
-        UserID = userID;
-    }
-
-    public String getUserName() {
-        return UserName;
-    }
-
-    public void setUserName(String userName) {
-        UserName = userName;
-    }
-
-    public int getProjectID() {
-        return ProjectID;
-    }
-
-    public void setProjectID(int projectID) {
-        ProjectID = projectID;
-    }
-
-    public int getStatus() {
-        return Status;
-    }
-
-    public void setStatus(int status) {
-        Status = status;
-    }
-
     public String getBeginTime() {
         return BeginTime;
     }
 
     public void setBeginTime(String beginTime) {
         BeginTime = beginTime;
+    }
+
+    public String getBusinessAddress() {
+        return BusinessAddress;
+    }
+
+    public void setBusinessAddress(String businessAddress) {
+        BusinessAddress = businessAddress;
+    }
+
+    public int getCategoryID1() {
+        return CategoryID1;
+    }
+
+    public void setCategoryID1(int categoryID1) {
+        CategoryID1 = categoryID1;
+    }
+
+    public int getCategoryID2() {
+        return CategoryID2;
+    }
+
+    public void setCategoryID2(int categoryID2) {
+        CategoryID2 = categoryID2;
+    }
+
+    public String getCategoryName1() {
+        return CategoryName1;
+    }
+
+    public void setCategoryName1(String categoryName1) {
+        CategoryName1 = categoryName1;
+    }
+
+    public String getCategoryName2() {
+        return CategoryName2;
+    }
+
+    public void setCategoryName2(String categoryName2) {
+        CategoryName2 = categoryName2;
+    }
+
+    public String getCreatedTime() {
+        return CreatedTime;
+    }
+
+    public void setCreatedTime(String createdTime) {
+        CreatedTime = createdTime;
+    }
+
+    public String getDepartment() {
+        return Department;
+    }
+
+    public void setDepartment(String department) {
+        Department = department;
     }
 
     public String getEndTime() {
@@ -99,68 +132,12 @@ public class UserAttendance {
         OverTimeReason = overTimeReason;
     }
 
-    public int getCategoryID1() {
-        return CategoryID1;
+    public int getProjectID() {
+        return ProjectID;
     }
 
-    public void setCategoryID1(int categoryID1) {
-        CategoryID1 = categoryID1;
-    }
-
-    public String getCategoryName1() {
-        return CategoryName1;
-    }
-
-    public void setCategoryName1(String categoryName1) {
-        CategoryName1 = categoryName1;
-    }
-
-    public int getCategoryID2() {
-        return CategoryID2;
-    }
-
-    public void setCategoryID2(int categoryID2) {
-        CategoryID2 = categoryID2;
-    }
-
-    public String getCategoryName2() {
-        return CategoryName2;
-    }
-
-    public void setCategoryName2(String categoryName2) {
-        CategoryName2 = categoryName2;
-    }
-
-    public String getBusinessAddress() {
-        return BusinessAddress;
-    }
-
-    public void setBusinessAddress(String businessAddress) {
-        BusinessAddress = businessAddress;
-    }
-
-    public int getTransportation() {
-        return Transportation;
-    }
-
-    public void setTransportation(int transportation) {
-        Transportation = transportation;
-    }
-
-    public int getTrafficTime() {
-        return TrafficTime;
-    }
-
-    public void setTrafficTime(int trafficTime) {
-        TrafficTime = trafficTime;
-    }
-
-    public int getAccommodationFee() {
-        return AccommodationFee;
-    }
-
-    public void setAccommodationFee(int accommodationFee) {
-        AccommodationFee = accommodationFee;
+    public void setProjectID(int projectID) {
+        ProjectID = projectID;
     }
 
     public String getRemark() {
@@ -179,11 +156,43 @@ public class UserAttendance {
         Score = score;
     }
 
-    public String getCreatedTime() {
-        return CreatedTime;
+    public int getStatus() {
+        return Status;
     }
 
-    public void setCreatedTime(String createdTime) {
-        CreatedTime = createdTime;
+    public void setStatus(int status) {
+        Status = status;
+    }
+
+    public int getTrafficTime() {
+        return TrafficTime;
+    }
+
+    public void setTrafficTime(int trafficTime) {
+        TrafficTime = trafficTime;
+    }
+
+    public int getTransportation() {
+        return Transportation;
+    }
+
+    public void setTransportation(int transportation) {
+        Transportation = transportation;
+    }
+
+    public int getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(int userID) {
+        UserID = userID;
+    }
+
+    public String getUserName() {
+        return UserName;
+    }
+
+    public void setUserName(String userName) {
+        UserName = userName;
     }
 }
