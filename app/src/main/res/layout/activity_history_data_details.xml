@@ -110,7 +110,7 @@
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:text="@string/project_details_with_colon" />
+                    android:text="@string/expense_details_with_colon" />
 
                 <TextView
                     android:id="@+id/etProjectDetail"

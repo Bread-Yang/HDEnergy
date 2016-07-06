@@ -16,6 +16,7 @@ public class UserAttendance {
     private String CategoryName2; // 子类别名称
     private String CreatedTime;
     private String Department;
+    private int DepartmentID;
     private String EndTime;     // 下班时间
     private int OverTime;       // 加班时间
     private String OverTimeReason; // 加班事由
@@ -108,6 +109,14 @@ public class UserAttendance {
 
     public void setDepartment(String department) {
         Department = department;
+    }
+
+    public int getDepartmentID() {
+        return DepartmentID;
+    }
+
+    public void setDepartmentID(int departmentID) {
+        DepartmentID = departmentID;
     }
 
     public String getEndTime() {

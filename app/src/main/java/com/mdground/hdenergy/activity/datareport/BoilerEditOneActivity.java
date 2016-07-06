@@ -1,7 +1,5 @@
 package com.mdground.hdenergy.activity.datareport;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -40,7 +37,11 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
     private ProjectWorkFurnace mProjectWorkFurnace;
 
-    private ArrayList<ProjectWorkFlowrate> mFlowArrayList = new ArrayList<>();
+    private ArrayList<ProjectWorkFlowrate> mProjectWorkFlowrateArrayList = new ArrayList<>();
+
+    private boolean mIsHeatProduct; // 销售产品是否是"热力"
+
+    private int mSelectHourIndex;
 
     @Override
     protected int getContentLayout() {
@@ -51,9 +52,15 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
     protected void initData() {
         initPickerDialog();
 
+        mIsHeatProduct = getIntent().getBooleanExtra(Constants.KEY_IS_HEAT_SALE_PRODUCT, false);
+        if (mIsHeatProduct) {
+            // 若销售产品为热力，则水量整个layout是没有的
+            mDataBinding.lltWater.setVisibility(View.GONE);
+        }
+
         mProjectWorkFurnace = getIntent().getParcelableExtra(Constants.KEY_PROJECT_WORK_FURNACE);
 
-        mFlowArrayList.add(createFlowrate());
+        mProjectWorkFlowrateArrayList.add(createFlowrate());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -75,14 +82,15 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
             @Override
             public void onScrollingFinished(WheelView wheel) {
-                int currentPosition = wheel.getCurrentItem();
+                mSelectHourIndex = wheel.getCurrentItem();
 
-                int hours = currentPosition + 1;
+                int hours = mSelectHourIndex + 1;
 
-                mDataBinding.tvHours.setText(String.valueOf(hours));
+                mDataBinding.tvHours.setText(getString(R.string.with_hour_unit, hours));
             }
         });
 
+        // 电量增加
         mDataBinding.ivAddOrDeleteElectricQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,20 +104,63 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             }
         });
 
+        // 电量1
+        mDataBinding.etuiElectricQuantityOne.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    int electricity1 = StringUtil.convertStringToInt(((EditText) view).getText().toString());
+                    mProjectWorkFurnace.setElectricity1(electricity1);
+                    calculateElectricityUnitConsumption();
+                }
+            }
+        });
+
+        // 电量2
+        mDataBinding.etuiElectricQuantityTwo.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    int electricity2 = StringUtil.convertStringToInt(((EditText) view).getText().toString());
+                    mProjectWorkFurnace.setElectricity2(electricity2);
+                    calculateElectricityUnitConsumption();
+                }
+            }
+        });
+
+        // 电量3
+        mDataBinding.etuiElectricQuantityThree.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    int electricity3 = StringUtil.convertStringToInt(((EditText) view).getText().toString());
+                    mProjectWorkFurnace.setElectricity3(electricity3);
+                    calculateElectricityUnitConsumption();
+                }
+            }
+        });
+
+        // 电量2删除
         mDataBinding.etuiElectricQuantityTwo.getIvIcon().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDataBinding.rltElectricQuantityTwo.setVisibility(View.GONE);
+                mDataBinding.etuiElectricQuantityTwo.setText(String.valueOf(0));
+                mProjectWorkFurnace.setElectricity2(0);
             }
         });
 
+        // 电量3删除
         mDataBinding.etuiElectricQuantityThree.getIvIcon().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDataBinding.rltElectricQuantityThree.setVisibility(View.GONE);
+                mDataBinding.etuiElectricQuantityThree.setText(String.valueOf(0));
+                mProjectWorkFurnace.setElectricity3(0);
             }
         });
 
+        // 水量增加
         mDataBinding.ivAddOrDeleteWaterQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,19 +174,69 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             }
         });
 
+        // 水量1
+        mDataBinding.etuiWaterQuantityOne.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    int water1 = StringUtil.convertStringToInt(((EditText) view).getText().toString());
+                    mProjectWorkFurnace.setWater1(water1);
+                    calculateWaterUnitConsumption();
+                }
+            }
+        });
+
+        // 水量2
+        mDataBinding.etuiWaterQuantityTwo.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    int water2 = StringUtil.convertStringToInt(((EditText) view).getText().toString());
+                    mProjectWorkFurnace.setWater2(water2);
+                    calculateWaterUnitConsumption();
+                }
+            }
+        });
+
+        // 水量3
+        mDataBinding.etuiWaterQuantityThree.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    int water3 = StringUtil.convertStringToInt(((EditText) view).getText().toString());
+                    mProjectWorkFurnace.setWater3(water3);
+                    calculateWaterUnitConsumption();
+                }
+            }
+        });
+
+        // 水量2删除
         mDataBinding.etuiWaterQuantityTwo.getIvIcon().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDataBinding.rltWaterQuantityTwo.setVisibility(View.GONE);
+                mDataBinding.etuiWaterQuantityTwo.setText(String.valueOf(0));
+                mProjectWorkFurnace.setWater2(0);
             }
         });
 
+        // 水量3删除
         mDataBinding.etuiWaterQuantityThree.getIvIcon().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDataBinding.rltWaterQuantityThree.setVisibility(View.GONE);
+                mDataBinding.etuiWaterQuantityThree.setText(String.valueOf(0));
+                mProjectWorkFurnace.setWater3(0);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            setResult(RESULT_OK, data);
+            finish();
+        }
     }
 
     private void initPickerDialog() {
@@ -154,26 +255,64 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         return projectWorkFlowrate;
     }
 
-    public static void hideSoftKeyboard(Activity activity, View view) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+    private int caculateFlow(int beginFlow, int endFlow) {
+        int resultFlow = 0;
+
+        resultFlow = endFlow - beginFlow;
+        if (mIsHeatProduct) {   // 当销售产品选择热力时，流量位置 =（截止流量 - 起始流量）* 23.8845 / 60，单位用吨
+            resultFlow = (int) (resultFlow * 23.8845 / 60);
+        }
+        return resultFlow;
+    }
+
+    // 计算电单耗, 电单耗 = 电量总和 / 流量
+    private void calculateElectricityUnitConsumption() {
+        // 电量总和
+        int electricityAmount = mProjectWorkFurnace.getElectricity1()
+                + mProjectWorkFurnace.getElectricity2() + mProjectWorkFurnace.getElectricity3();
+
+        int flowAmount = calculateFlowAmount();
+        if (flowAmount != 0) {
+            int electircityUnitConsumption = electricityAmount / flowAmount;
+            mDataBinding.tvElectircUnitConsumption.setText(String.valueOf(electircityUnitConsumption));
+        }
+    }
+
+    // 计算水单耗, 若销售产品为热力，则没有该选项，水单耗等于水量总和 / 流量
+    private void calculateWaterUnitConsumption() {
+        // 水量总和
+        int waterAmount = mProjectWorkFurnace.getWater1()
+                + mProjectWorkFurnace.getWater2() + mProjectWorkFurnace.getWater3();
+
+        int flowAmount = calculateFlowAmount();
+        if (flowAmount != 0) {
+            int waterUnitConsumption = waterAmount / flowAmount;
+            mDataBinding.tvWaterUnitConsumption.setText(String.valueOf(waterUnitConsumption));
+        }
+    }
+
+    // 流量总和
+    private int calculateFlowAmount() {
+        int flowAmount = 0;
+        for (ProjectWorkFlowrate projectWorkFlowrate : mProjectWorkFlowrateArrayList) {
+            flowAmount = caculateFlow(projectWorkFlowrate.getBeginFlow(), projectWorkFlowrate.getEndFlow())
+                    + projectWorkFlowrate.getAdjustFlow();
+        }
+        return flowAmount;
+    }
+
+    private void refreshUnitConsumption() {
+        calculateElectricityUnitConsumption();
+        calculateWaterUnitConsumption();
     }
 
     private boolean isHeader(int positon) {
         if (positon == 0) {
             return true;
-        } else if (positon == mFlowArrayList.size() || positon == (mFlowArrayList.size() + 1)) {
+        } else if (positon == mProjectWorkFlowrateArrayList.size() || positon == (mProjectWorkFlowrateArrayList.size() + 1)) {
             return true;
         }
         return false;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            setResult(RESULT_OK, data);
-            finish();
-        }
     }
 
     //region  ACTION
@@ -182,72 +321,58 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
     }
 
     public void nextStepAction(View view) {
+        for (ProjectWorkFlowrate projectWorkFlowrate : mProjectWorkFlowrateArrayList) {
+            if (projectWorkFlowrate.getBeginFlow() == 0 || projectWorkFlowrate.getEndFlow() == 0) {
+                ViewUtils.toast(R.string.fill_flow_info);
+                return;
+            }
+        }
+
+        if (mProjectWorkFurnace.getElectricity1() == 0) {
+            ViewUtils.toast(R.string.fill_electric_info);
+            return;
+        }
+
+        if (mDataBinding.rltElectricQuantityTwo.getVisibility() == View.VISIBLE) {
+            if (mProjectWorkFurnace.getElectricity2() == 0) {
+                ViewUtils.toast(R.string.fill_electric_info);
+                return;
+            }
+        }
+
+        if (mDataBinding.rltElectricQuantityThree.getVisibility() == View.VISIBLE) {
+            if (mProjectWorkFurnace.getElectricity3() == 0) {
+                ViewUtils.toast(R.string.fill_electric_info);
+                return;
+            }
+        }
+
+        if (mProjectWorkFurnace.getWater1() == 0) {
+            ViewUtils.toast(R.string.fill_water_info);
+            return;
+        }
+
+        if (mDataBinding.rltWaterQuantityTwo.getVisibility() == View.VISIBLE) {
+            if (mProjectWorkFurnace.getWater2() == 0) {
+                ViewUtils.toast(R.string.fill_water_info);
+                return;
+            }
+        }
+
+        if (mDataBinding.rltWaterQuantityThree.getVisibility() == View.VISIBLE) {
+            if (mProjectWorkFurnace.getWater3() == 0) {
+                ViewUtils.toast(R.string.fill_water_info);
+                return;
+            }
+        }
+
         // 开炉时长
-        String hours = mDataBinding.tvHours.getText().toString();
-        mProjectWorkFurnace.setWorkingHour(Integer.parseInt(hours));
+        mProjectWorkFurnace.setWorkingHour(mSelectHourIndex + 1);
 
-        // 电量1
-        {
-            int electricity1 = 0;
-            String electricity1String = mDataBinding.etuiElectricQuantityOne.getText();
-            if (!StringUtil.isEmpty(electricity1String)) {
-                electricity1 = Integer.parseInt(electricity1String);
-            }
-            mProjectWorkFurnace.setElectricity1(electricity1);
-        }
-
-        // 电量2
-        {
-            int electricity2 = 0;
-            String electricity2String = mDataBinding.etuiElectricQuantityTwo.getText();
-            if (!StringUtil.isEmpty(electricity2String)) {
-                electricity2 = Integer.parseInt(electricity2String);
-            }
-            mProjectWorkFurnace.setElectricity2(electricity2);
-        }
-
-        // 电量3
-        {
-            int electricity3 = 0;
-            String electricity3String = mDataBinding.etuiElectricQuantityThree.getText();
-            if (!StringUtil.isEmpty(electricity3String)) {
-                electricity3 = Integer.parseInt(electricity3String);
-            }
-            mProjectWorkFurnace.setElectricity3(electricity3);
-        }
-
-        // 水量1
-        {
-            int water1 = 0;
-            String water1String = mDataBinding.etuiWaterQuantityOne.getText();
-            if (!StringUtil.isEmpty(water1String)) {
-                water1 = Integer.parseInt(water1String);
-            }
-            mProjectWorkFurnace.setWater1(water1);
-        }
-
-        // 水量2
-        {
-            int water2 = 0;
-            String water2String = mDataBinding.etuiWaterQuantityTwo.getText();
-            if (!StringUtil.isEmpty(water2String)) {
-                water2 = Integer.parseInt(water2String);
-            }
-            mProjectWorkFurnace.setWater2(water2);
-        }
-
-        // 水量3
-        {
-            int water3 = 0;
-            String water3String = mDataBinding.etuiWaterQuantityThree.getText();
-            if (!StringUtil.isEmpty(water3String)) {
-                water3 = Integer.parseInt(water3String);
-            }
-            mProjectWorkFurnace.setWater3(water3);
-        }
+        // 电量1,2,3,水量1,2,3已经在setListener()中赋值了
 
         // 流量列表
-        mProjectWorkFurnace.setProjectWorkFlowrateList(mFlowArrayList);
+        mProjectWorkFurnace.setProjectWorkFlowrateList(mProjectWorkFlowrateArrayList);
 
         Intent intent = new Intent(this, BoilerEditTwoActivity.class);
         intent.putExtra(Constants.KEY_PROJECT_WORK_FURNACE, mProjectWorkFurnace);
@@ -268,19 +393,26 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-            final ProjectWorkFlowrate projectWorkFlowrate = mFlowArrayList.get(position);
+            final ProjectWorkFlowrate projectWorkFlowrate = mProjectWorkFlowrateArrayList.get(position);
 
             final ItemBoilerFlowBinding itemBoilerFlowBinding = ((ItemBoilerFlowBinding) holder.viewDataBinding);
             itemBoilerFlowBinding.setFlow(projectWorkFlowrate);
             itemBoilerFlowBinding.setPosition(position + 1);
 
-            itemBoilerFlowBinding.etuiInitialFlow.getEtInput().setText(String.valueOf(projectWorkFlowrate.getBeginFlow()));
-            itemBoilerFlowBinding.etuiCloseFlow.getEtInput().setText(String.valueOf(projectWorkFlowrate.getEndFlow()));
-            itemBoilerFlowBinding.etuiAdjustFlow.getEtInput().setText(String.valueOf(projectWorkFlowrate.getAdjustFlow()));
+            if (projectWorkFlowrate.getBeginFlow() != 0) {
+                itemBoilerFlowBinding.etuiInitialFlow.getEtInput().setText(String.valueOf(projectWorkFlowrate.getBeginFlow()));
+            }
+
+            if (projectWorkFlowrate.getEndFlow() != 0) {
+                itemBoilerFlowBinding.etuiCloseFlow.getEtInput().setText(String.valueOf(projectWorkFlowrate.getEndFlow()));
+            }
+
+            if (projectWorkFlowrate.getAdjustFlow() != 0) {
+                itemBoilerFlowBinding.etuiAdjustFlow.getEtInput().setText(String.valueOf(projectWorkFlowrate.getAdjustFlow()));
+            }
+
             itemBoilerFlowBinding.etAjustDescription.setText(projectWorkFlowrate.getDescription());
 
-            ViewUtils.setEditTextWithMinusAndPlusSignal(itemBoilerFlowBinding.etuiInitialFlow.getEtInput());
-            ViewUtils.setEditTextWithMinusAndPlusSignal(itemBoilerFlowBinding.etuiCloseFlow.getEtInput());
             ViewUtils.setEditTextWithMinusAndPlusSignal(itemBoilerFlowBinding.etuiAdjustFlow.getEtInput());
 
             ImageView ivAddOrDelete = itemBoilerFlowBinding.ivAddOrDelete;
@@ -290,7 +422,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                 ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mFlowArrayList.add(createFlowrate());
+                        mProjectWorkFlowrateArrayList.add(createFlowrate());
                         mAdapter.notifyDataSetChanged();
                     }
                 });
@@ -300,7 +432,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                 ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mFlowArrayList.remove(position);
+                        mProjectWorkFlowrateArrayList.remove(position);
                         mAdapter.notifyDataSetChanged();
                     }
                 });
@@ -311,10 +443,18 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (!hasFocus) {
                         String initialFlowString = ((EditText) v).getText().toString();
-                        projectWorkFlowrate.setBeginFlow(StringUtil.convertStringToInt(initialFlowString));
+                        int startFlow = StringUtil.convertStringToInt(initialFlowString);
+                        projectWorkFlowrate.setBeginFlow(startFlow);
 
-                        int resultFlow = projectWorkFlowrate.getEndFlow() - projectWorkFlowrate.getBeginFlow();
+                        if (startFlow > projectWorkFlowrate.getEndFlow()) {
+                            projectWorkFlowrate.setEndFlow(startFlow);
+                            itemBoilerFlowBinding.etuiCloseFlow.setText(String.valueOf(startFlow));
+                        }
+
+                        int resultFlow = caculateFlow(projectWorkFlowrate.getBeginFlow(), projectWorkFlowrate.getEndFlow());
                         itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
+
+                        refreshUnitConsumption();
                     }
                 }
             });
@@ -324,10 +464,21 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (!hasFocus) {
                         String closeFlowString = ((EditText) v).getText().toString();
+                        int closeFlow = StringUtil.convertStringToInt(closeFlowString);
+                        int startFlow = projectWorkFlowrate.getBeginFlow();
+
+                        if (closeFlow < startFlow) {
+                            closeFlow = startFlow;
+                            itemBoilerFlowBinding.etuiCloseFlow.setText(String.valueOf(startFlow));
+                            ViewUtils.toast(R.string.close_flow_must_bigger_than_initial_flow);
+                            return;
+                        }
                         projectWorkFlowrate.setEndFlow(StringUtil.convertStringToInt(closeFlowString));
 
-                        int resultFlow = projectWorkFlowrate.getEndFlow() - projectWorkFlowrate.getBeginFlow();
+                        int resultFlow = caculateFlow(projectWorkFlowrate.getBeginFlow(), projectWorkFlowrate.getEndFlow());
                         itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
+
+                        refreshUnitConsumption();
                     }
                 }
             });
@@ -338,6 +489,8 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                     if (!hasFocus) {
                         String adjustFlowString = ((EditText) v).getText().toString();
                         projectWorkFlowrate.setAdjustFlow(StringUtil.convertStringToInt(adjustFlowString));
+
+                        refreshUnitConsumption();
                     }
                 }
             });
@@ -345,14 +498,16 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             itemBoilerFlowBinding.etAjustDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
-                    projectWorkFlowrate.setDescription(((EditText) v).getText().toString());
+                    if (!hasFocus) {
+                        projectWorkFlowrate.setDescription(((EditText) v).getText().toString());
+                    }
                 }
             });
         }
 
         @Override
         public int getItemCount() {
-            return mFlowArrayList.size();
+            return mProjectWorkFlowrateArrayList.size();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {

@@ -65,11 +65,12 @@
     <string name="boiler">锅炉</string>
     <string name="boiler_index">锅炉%s</string>
     <string name="expense">费用</string>
-    <string name="project_expense_with_colon">项目费用:</string>
-    <string name="project_details_with_colon">项目明细:</string>
+    <string name="project_expense_with_colon">项目日费用:</string>
+    <string name="expense_details_with_colon">费用明细:</string>
     <string name="other_problem">其他问题</string>
     <string name="input_other_problem">可输入其他问题</string>
     <string name="next_step">下一步</string>
+    <string name="with_hour_unit">%dh</string>
 
     <!-- 锅炉编辑1 -->
     <string name="blow_in_duration">开炉时长</string>
@@ -79,6 +80,7 @@
     <string name="flow_index">流量%d:</string>
     <string name="initial_flow_index">起始流量%d:</string>
     <string name="close_flow_index">截止流量%d:</string>
+    <string name="close_flow_must_bigger_than_initial_flow">截止流量必须大于起始流量</string>
     <string name="flow_adjustment">流量调整</string>
     <string name="adjustment_description">调整说明</string>
     <string name="electric_quantity">电量</string>
@@ -92,6 +94,9 @@
     <string name="water_quantity_three_with_colon">水量3:</string>
     <string name="water_unit_consumption">水单耗</string>
     <string name="water_unit_consumption_with_colon">水单耗</string>
+    <string name="fill_flow_info">请填写流量信息</string>
+    <string name="fill_electric_info">请填写电量信息</string>
+    <string name="fill_water_info">请填写水量信息</string>
 
     <!-- 锅炉编辑2 -->
     <string name="fuel">燃料</string>
