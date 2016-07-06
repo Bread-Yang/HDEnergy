@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -29,7 +29,9 @@
                 android:src="@drawable/add" />
         </RelativeLayout>
 
-        <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+        <RelativeLayout
+            android:id="@+id/rltFuelType"
+            style="@style/WhiteFixHeightLayoutStyle">
 
             <TextView
                 style="@style/DimTextStyle"
@@ -52,14 +54,10 @@
                 android:text="@string/last_period_stock_with_colon" />
 
             <EditText
-                android:id="@+id/etProjectExpense"
-                style="@style/WithArrowEdittextStyle" />
+                android:id="@+id/etLastPeriodStock"
+                style="@style/WithArrowEdittextStyle"
+                android:inputType="number" />
         </RelativeLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <RelativeLayout
             style="@style/WhiteFixHeightLayoutStyle"
@@ -69,7 +67,10 @@
                 style="@style/DimTextStyle"
                 android:text="@string/current_period_stock_with_colon" />
 
-            <EditText style="@style/WithArrowEdittextStyle" />
+            <EditText
+                android:id="@+id/etCurrentPeriodStock"
+                style="@style/WithArrowEdittextStyle"
+                android:inputType="number" />
 
         </RelativeLayout>
 
@@ -102,5 +103,10 @@
                 tools:text="25631" />
 
         </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </layout>

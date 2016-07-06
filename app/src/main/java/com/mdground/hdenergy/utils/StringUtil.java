@@ -86,4 +86,11 @@ public class StringUtil {
         return "";
     }
 
+    public static int convertStringToInt(String convertString) {
+        int returnInt = 0;
+        if (!StringUtil.isEmpty(convertString)) {
+            returnInt = Integer.parseInt(convertString);
+        }
+        return returnInt;
+    }
 }

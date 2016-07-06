@@ -1,12 +1,15 @@
 package com.mdground.hdenergy.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * 汇报燃料实体
  * Created by yoghourt on 7/3/16.
  */
-public class ProjectWorkFuel {
+public class ProjectWorkFuel implements Parcelable{
 
     private int AdjustInventory;    // 燃料调整
     private String CreatedTime;
@@ -17,6 +20,34 @@ public class ProjectWorkFuel {
     private List<ProjectFuelWarehouse> ProjectFuelWarehouseList; // 进料量列表
     private int WorkFuelID;
     private int WorkFurnaceID;
+
+    public ProjectWorkFuel() {
+
+    }
+
+    protected ProjectWorkFuel(Parcel in) {
+        AdjustInventory = in.readInt();
+        CreatedTime = in.readString();
+        CurrentInventory = in.readInt();
+        FuelID = in.readInt();
+        FuelName = in.readString();
+        PreviousInventory = in.readInt();
+        ProjectFuelWarehouseList = in.createTypedArrayList(ProjectFuelWarehouse.CREATOR);
+        WorkFuelID = in.readInt();
+        WorkFurnaceID = in.readInt();
+    }
+
+    public static final Creator<ProjectWorkFuel> CREATOR = new Creator<ProjectWorkFuel>() {
+        @Override
+        public ProjectWorkFuel createFromParcel(Parcel in) {
+            return new ProjectWorkFuel(in);
+        }
+
+        @Override
+        public ProjectWorkFuel[] newArray(int size) {
+            return new ProjectWorkFuel[size];
+        }
+    };
 
     public int getAdjustInventory() {
         return AdjustInventory;
@@ -88,5 +119,23 @@ public class ProjectWorkFuel {
 
     public void setWorkFurnaceID(int workFurnaceID) {
         WorkFurnaceID = workFurnaceID;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(AdjustInventory);
+        parcel.writeString(CreatedTime);
+        parcel.writeInt(CurrentInventory);
+        parcel.writeInt(FuelID);
+        parcel.writeString(FuelName);
+        parcel.writeInt(PreviousInventory);
+        parcel.writeTypedList(ProjectFuelWarehouseList);
+        parcel.writeInt(WorkFuelID);
+        parcel.writeInt(WorkFurnaceID);
     }
 }

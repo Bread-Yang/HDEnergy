@@ -20,8 +20,8 @@
                 android:id="@+id/btnNextStep"
                 style="@style/NormalButtonStyle"
                 android:layout_marginTop="@dimen/margin_36"
-                android:onClick="nextStepAction"
-                android:text="@string/next_step"
+                android:onClick="submitAction"
+                android:text="@string/submit"
                 android:textSize="@dimen/text_size_16" />
         </LinearLayout>
     </ScrollView>

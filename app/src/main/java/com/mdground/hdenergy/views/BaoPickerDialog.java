@@ -79,7 +79,10 @@ public class BaoPickerDialog extends Dialog {
     }
 
     public void setCurrentItem(int index) {
-        mDataBinding.wheelView.setCurrentItem(index);
+        if (mDataBinding != null) {
+            mDataBinding.wheelView.setCurrentItem(index);
+
+        }
     }
 
     public OnWheelScrollListener getOnWheelScrollListener() {

@@ -49,6 +49,34 @@ public class ProjectWorkFurnace implements Parcelable{
         Water3 = in.readInt();
         WaterSingleCost = in.readInt();
         CreatedTime = in.readString();
+        ProjectWorkFlowrateList = in.createTypedArrayList(ProjectWorkFlowrate.CREATOR);
+        ProjectWorkFuelList = in.createTypedArrayList(ProjectWorkFuel.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(FurnaceID);
+        dest.writeInt(WorkFurnaceID);
+        dest.writeInt(WorkID);
+        dest.writeString(FurnaceName);
+        dest.writeInt(ProjectID);
+        dest.writeInt(WorkingHour);
+        dest.writeInt(Electricity1);
+        dest.writeInt(Electricity2);
+        dest.writeInt(Electricity3);
+        dest.writeInt(ElectricitySingleCost);
+        dest.writeInt(Water1);
+        dest.writeInt(Water2);
+        dest.writeInt(Water3);
+        dest.writeInt(WaterSingleCost);
+        dest.writeString(CreatedTime);
+        dest.writeTypedList(ProjectWorkFlowrateList);
+        dest.writeTypedList(ProjectWorkFuelList);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<ProjectWorkFurnace> CREATOR = new Creator<ProjectWorkFurnace>() {
@@ -197,30 +225,6 @@ public class ProjectWorkFurnace implements Parcelable{
 
     public void setProjectWorkFuelList(List<ProjectWorkFuel> projectWorkFuelList) {
         ProjectWorkFuelList = projectWorkFuelList;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(FurnaceID);
-        dest.writeInt(WorkFurnaceID);
-        dest.writeInt(WorkID);
-        dest.writeString(FurnaceName);
-        dest.writeInt(ProjectID);
-        dest.writeInt(WorkingHour);
-        dest.writeInt(Electricity1);
-        dest.writeInt(Electricity2);
-        dest.writeInt(Electricity3);
-        dest.writeInt(ElectricitySingleCost);
-        dest.writeInt(Water1);
-        dest.writeInt(Water2);
-        dest.writeInt(Water3);
-        dest.writeInt(WaterSingleCost);
-        dest.writeString(CreatedTime);
     }
 }
 

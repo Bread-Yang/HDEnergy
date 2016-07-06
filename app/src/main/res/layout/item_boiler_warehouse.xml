@@ -5,7 +5,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -47,7 +47,8 @@
                 style="@style/DimTextStyle"
                 android:text="@string/license_plate" />
 
-            <EditText style="@style/WithArrowEdittextStyle" />
+            <EditText style="@style/WithArrowEdittextStyle"
+                android:id="@+id/etLicensePlate"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -59,7 +60,7 @@
                 android:text="@string/delivery_capacity" />
 
             <com.mdground.hdenergy.views.EdittextWithUnitIcon
-                android:id="@+id/etuiTransportationFare"
+                android:id="@+id/etuiDeliveryCapacity"
                 style="@style/WithArrowEdittextStyle"
                 app:unitResId="@string/ton" />
 

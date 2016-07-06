@@ -129,6 +129,25 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         mDataBinding.tvDate.setText(DateUtils.getYearMonthDayWithDash(cal.getTime()));
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (data != null) {
+                ProjectWorkFurnace projectWorkFurnace = data.getParcelableExtra(Constants.KEY_PROJECT_WORK_FURNACE);
+
+                for (int i = 0; i < mProjectWorkFurnaceArrayList.size(); i++) {
+                    ProjectWorkFurnace originalFurnace = mProjectWorkFurnaceArrayList.get(i);
+
+                    if (originalFurnace.getFurnaceID() == projectWorkFurnace.getFurnaceID()) {
+                        mProjectWorkFurnaceArrayList.set(i, projectWorkFurnace);
+                        break;
+                    }
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
     //region  ACTION
     public void selectProjectAction(View view) {
         mWheelViewChooseResID = R.id.tvProject;
@@ -175,6 +194,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         projectWork.setSaleType(saleProduct);
 
         // 锅炉
+        projectWork.setProjectWorkFurnaceList(mProjectWorkFurnaceArrayList);
 
         // 项目费用
         String projectExpenseString = mDataBinding.etuiProjectExpense.getText();
@@ -197,7 +217,6 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     //region SERVER
     private void getProjectListRequest() {
-        ViewUtils.loading(this);
         GlobalRestful.getInstance().GetProjectList(new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
@@ -207,8 +226,6 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                 if (mProjectArrayList.size() > 0) {
                     getProjectFurnaceList(mProjectArrayList.get(0).getProjectID());
                     mDataBinding.tvProject.setText(mProjectArrayList.get(0).getProjectName());
-                } else {
-                    ViewUtils.dismiss();
                 }
             }
 
@@ -219,7 +236,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         });
     }
 
-    private void getProjectFurnaceList(int projectID) {
+    private void getProjectFurnaceList(final int projectID) {
         ViewUtils.loading(this);
         GlobalRestful.getInstance().GetProjectFurnaceList(projectID, new Callback<ResponseData>() {
             @Override
@@ -227,6 +244,10 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                 ViewUtils.dismiss();
                 mProjectWorkFurnaceArrayList = response.body().getContent(new TypeToken<ArrayList<ProjectWorkFurnace>>() {
                 });
+
+                for (ProjectWorkFurnace projectWorkFurnace : mProjectWorkFurnaceArrayList) {
+                    projectWorkFurnace.setProjectID(projectID);
+                }
 
                 mAdapter.notifyDataSetChanged();
             }
@@ -242,6 +263,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         GlobalRestful.getInstance().SaveProjectWork(projectWork, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                ViewUtils.toast(R.string.submit_success);
                 finish();
             }
 
@@ -269,12 +291,18 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
             holder.viewDataBinding.setBoiler(projectWorkFurnace);
 
+            if (projectWorkFurnace.getProjectWorkFlowrateList() != null) {
+                holder.viewDataBinding.tvInputStatus.setText(R.string.already_input);
+            } else {
+                holder.viewDataBinding.tvInputStatus.setText(R.string.please_input);
+            }
+
             holder.viewDataBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(DataReportActivity.this, BoilerEditOneActivity.class);
                     intent.putExtra(Constants.KEY_PROJECT_WORK_FURNACE, projectWorkFurnace);
-                    startActivity(intent);
+                    startActivityForResult(intent, 0);
                 }
             });
         }

@@ -12,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.InputType;
+import android.text.method.DigitsKeyListener;
 import android.util.DisplayMetrics;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -183,5 +184,9 @@ public class ViewUtils {
         drawable.draw(canvas);
 
         return bitmap;
+    }
+
+    public static void setEditTextWithMinusAndPlusSignal(EditText editText) {
+        editText.setKeyListener(DigitsKeyListener.getInstance("0123456789+-"));
     }
 }

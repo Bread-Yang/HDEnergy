@@ -1,29 +1,38 @@
 package com.mdground.hdenergy.activity.datareport;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
+import android.widget.EditText;
 
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
+import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityBoilerEditTwoBinding;
 import com.mdground.hdenergy.databinding.ItemBoilerFuelBinding;
+import com.mdground.hdenergy.databinding.ItemBoilerWarehouseBinding;
 import com.mdground.hdenergy.models.ProjectFuelWarehouse;
 import com.mdground.hdenergy.models.ProjectWorkFuel;
+import com.mdground.hdenergy.models.ProjectWorkFurnace;
+import com.mdground.hdenergy.utils.StringUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by yoghourt on 2016-06-27.
  */
 public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwoBinding> {
 
-    private EditTwoAdapter mAdapter;
+    private FuelAdapter mAdapter;
 
-    private ArrayList<ProjectWorkFuel> mFuelArrayList = new ArrayList<>();
+    private ProjectWorkFurnace mProjectWorkFurnace;
+
+    private ArrayList<ProjectWorkFuel> mProjectWorkFuelArrayList = new ArrayList<>();
 
     @Override
     protected int getContentLayout() {
@@ -32,19 +41,17 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
     @Override
     protected void initData() {
-        ProjectWorkFuel fuel = new ProjectWorkFuel();
-        ProjectFuelWarehouse fuelWarehouse = new ProjectFuelWarehouse();
-        ArrayList<ProjectFuelWarehouse> feedstockArrayList = new ArrayList<>();
-        feedstockArrayList.add(fuelWarehouse);
-        fuel.setProjectFuelWarehouseList(feedstockArrayList);
+        mProjectWorkFurnace = getIntent().getParcelableExtra(Constants.KEY_PROJECT_WORK_FURNACE);
 
-        mFuelArrayList.add(fuel);
+        createProjectWorkFuel();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(layoutManager);
+        mDataBinding.recyclerView.setNestedScrollingEnabled(false);
+        mDataBinding.recyclerView.setFocusable(false);
 
-        mAdapter = new EditTwoAdapter();
+        mAdapter = new FuelAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
     }
 
@@ -53,14 +60,31 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
     }
 
-    //region  ACTION
-    public void nextStepAction(View view) {
+    private void createProjectWorkFuel() {
+        ProjectWorkFuel projectWorkFuel = new ProjectWorkFuel();
+        projectWorkFuel.setWorkFurnaceID(mProjectWorkFurnace.getFurnaceID());
 
+        ArrayList<ProjectFuelWarehouse> projectFuelWarehouseArrayList = new ArrayList<>();
+        ProjectFuelWarehouse projectFuelWarehouse = new ProjectFuelWarehouse();
+        projectFuelWarehouseArrayList.add(projectFuelWarehouse);
+
+        projectWorkFuel.setProjectFuelWarehouseList(projectFuelWarehouseArrayList);
+
+        mProjectWorkFuelArrayList.add(projectWorkFuel);
+    }
+
+    //region  ACTION
+    public void submitAction(View view) {
+        mProjectWorkFurnace.setProjectWorkFuelList(mProjectWorkFuelArrayList);
+        Intent intent = new Intent();
+        intent.putExtra(Constants.KEY_PROJECT_WORK_FURNACE, mProjectWorkFurnace);
+        setResult(RESULT_OK, intent);
+        finish();
     }
     //endregion
 
     //region ADAPTER
-    class EditTwoAdapter extends RecyclerView.Adapter<EditTwoAdapter.ViewHolder> {
+    class FuelAdapter extends RecyclerView.Adapter<FuelAdapter.ViewHolder> {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -71,7 +95,16 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-            holder.viewDataBinding.setFuel(mFuelArrayList.get(position));
+            final ProjectWorkFuel projectWorkFuel = mProjectWorkFuelArrayList.get(position);
+            holder.viewDataBinding.setFuel(projectWorkFuel);
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(BoilerEditTwoActivity.this);
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            holder.viewDataBinding.recyclerView.setLayoutManager(layoutManager);
+            holder.viewDataBinding.recyclerView.setNestedScrollingEnabled(false);
+
+            WarehouseAdapter warehouseAdapter = new WarehouseAdapter(projectWorkFuel.getProjectFuelWarehouseList());
+            holder.viewDataBinding.recyclerView.setAdapter(warehouseAdapter);
 
             if (position == 0) {
                 holder.viewDataBinding.ivAddOrDelete.setImageResource(R.drawable.add);
@@ -79,7 +112,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                 holder.viewDataBinding.ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mFuelArrayList.add(new ProjectWorkFuel());
+                        createProjectWorkFuel();
 
                         mAdapter.notifyDataSetChanged();
                     }
@@ -90,22 +123,121 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                 holder.viewDataBinding.ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mFuelArrayList.remove(position);
+                        mProjectWorkFuelArrayList.remove(position);
 
                         mAdapter.notifyDataSetChanged();
                     }
                 });
             }
+
+            holder.viewDataBinding.etLastPeriodStock.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean hasFocus) {
+                    if (!hasFocus) {
+                        String stringToConvert = ((EditText) view).getText().toString();
+                        projectWorkFuel.setPreviousInventory(StringUtil.convertStringToInt(stringToConvert));
+                    }
+                }
+            });
+
+            holder.viewDataBinding.etCurrentPeriodStock.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean hasFocus) {
+                    if (!hasFocus) {
+                        String stringToConvert = ((EditText) view).getText().toString();
+                        projectWorkFuel.setCurrentInventory(StringUtil.convertStringToInt(stringToConvert));
+                    }
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
-            return mFuelArrayList.size();
+            return mProjectWorkFuelArrayList.size();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
             public ItemBoilerFuelBinding viewDataBinding;
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+                viewDataBinding = DataBindingUtil.bind(itemView);
+            }
+        }
+    }
+
+    class WarehouseAdapter extends RecyclerView.Adapter<WarehouseAdapter.ViewHolder> {
+
+        List<ProjectFuelWarehouse> projectFuelWarehouseArrayList = new ArrayList<>();
+
+        public WarehouseAdapter(List<ProjectFuelWarehouse> projectFuelWarehouseArrayList) {
+            this.projectFuelWarehouseArrayList = projectFuelWarehouseArrayList;
+        }
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_boiler_warehouse, parent, false);
+            return new ViewHolder(itemView);
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, final int position) {
+            final ProjectFuelWarehouse projectFuelWarehouse = projectFuelWarehouseArrayList.get(position);
+
+            if (position == 0) {
+                holder.viewDataBinding.ivAddOrDelete.setImageResource(R.drawable.add);
+
+                holder.viewDataBinding.ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        projectFuelWarehouseArrayList.add(new ProjectFuelWarehouse());
+
+                        notifyDataSetChanged();
+                    }
+                });
+            } else {
+                holder.viewDataBinding.ivAddOrDelete.setImageResource(R.drawable.delete);
+
+                holder.viewDataBinding.ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        projectFuelWarehouseArrayList.remove(position);
+
+                        notifyDataSetChanged();
+                    }
+                });
+            }
+
+            holder.viewDataBinding.etLicensePlate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean hasFocus) {
+                    if (!hasFocus) {
+                        projectFuelWarehouse.setPlateNumber(((EditText) view).getText().toString());
+                    }
+                }
+            });
+
+            holder.viewDataBinding.etuiDeliveryCapacity.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean hasFocus) {
+                    if (!hasFocus) {
+                        String stringToConvert = ((EditText) view).getText().toString();
+                        projectFuelWarehouse.setAmount(StringUtil.convertStringToInt(stringToConvert));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return projectFuelWarehouseArrayList.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+
+            public ItemBoilerWarehouseBinding viewDataBinding;
 
             public ViewHolder(View itemView) {
                 super(itemView);

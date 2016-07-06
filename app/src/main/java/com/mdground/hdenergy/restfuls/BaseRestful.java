@@ -5,11 +5,6 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.socks.library.KLog;
-
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.application.MDGroundApplication;
 import com.mdground.hdenergy.enumobject.restfuls.BusinessType;
@@ -25,6 +20,11 @@ import com.mdground.hdenergy.utils.DeviceUtil;
 import com.mdground.hdenergy.utils.EncryptUtil;
 import com.mdground.hdenergy.utils.ToolNetwork;
 import com.mdground.hdenergy.utils.ViewUtils;
+import com.socks.library.KLog;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -251,6 +251,7 @@ public abstract class BaseRestful {
                 if (response.body().getCode() == ResponseCode.InvalidToken.getValue()) { // 请求token失效,重新登录
                     DeviceUtil.logoutUser();
                 } else if (response.body().getCode() == ResponseCode.SystemError.getValue()) {
+                    KLog.e("请求超时!!!");
                     ViewUtils.toast(R.string.request_fail);  // 请求超时
                     ViewUtils.dismiss();
                 } else {

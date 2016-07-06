@@ -150,7 +150,6 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
     private ProjectWorkFlowrate createFlowrate() {
         ProjectWorkFlowrate projectWorkFlowrate = new ProjectWorkFlowrate();
         projectWorkFlowrate.setWorkFurnaceID(mProjectWorkFurnace.getWorkFurnaceID());
-        mFlowArrayList.add(projectWorkFlowrate);
         return projectWorkFlowrate;
     }
 
@@ -166,6 +165,14 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            setResult(RESULT_OK, data);
+            finish();
+        }
     }
 
     //region  ACTION
@@ -245,7 +252,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
         Intent intent = new Intent(this, BoilerEditTwoActivity.class);
         intent.putExtra(Constants.KEY_PROJECT_WORK_FURNACE, mProjectWorkFurnace);
-        startActivity(intent);
+        startActivityForResult(intent, 0);
     }
     //endregion
 
@@ -300,12 +307,8 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (!hasFocus) {
-                        int initialFlow = 0;
                         String initialFlowString = ((EditText) v).getText().toString();
-                        if (!StringUtil.isEmpty(initialFlowString)) {
-                            initialFlow = Integer.parseInt(initialFlowString);
-                        }
-                        projectWorkFlowrate.setBeginFlow(initialFlow);
+                        projectWorkFlowrate.setBeginFlow(StringUtil.convertStringToInt(initialFlowString));
                     }
                 }
             });
@@ -314,12 +317,8 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (!hasFocus) {
-                        int closeFlow = 0;
                         String closeFlowString = ((EditText) v).getText().toString();
-                        if (!StringUtil.isEmpty(closeFlowString)) {
-                            closeFlow = Integer.parseInt(closeFlowString);
-                        }
-                        projectWorkFlowrate.setEndFlow(closeFlow);
+                        projectWorkFlowrate.setEndFlow(StringUtil.convertStringToInt(closeFlowString));
                     }
                 }
             });
@@ -328,12 +327,8 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (!hasFocus) {
-                        int adjustFlow = 0;
                         String adjustFlowString = ((EditText) v).getText().toString();
-                        if (!StringUtil.isEmpty(adjustFlowString)) {
-                            adjustFlow = Integer.parseInt(adjustFlowString);
-                        }
-                        projectWorkFlowrate.setAdjustFlow(adjustFlow);
+                        projectWorkFlowrate.setAdjustFlow(StringUtil.convertStringToInt(adjustFlowString));
                     }
                 }
             });

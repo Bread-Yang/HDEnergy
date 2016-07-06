@@ -18,6 +18,7 @@ import com.mdground.hdenergy.enumobject.ProjectStatus;
 import com.mdground.hdenergy.models.Project;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
+import com.mdground.hdenergy.utils.ViewUtils;
 
 import java.util.ArrayList;
 
@@ -48,7 +49,6 @@ public class ProjectStartStopActivity extends ToolbarActivity<ActivityProjectSta
 
         mAdapter = new ProjectStartStopAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
-
     }
 
     @Override
@@ -64,9 +64,11 @@ public class ProjectStartStopActivity extends ToolbarActivity<ActivityProjectSta
 
     //region SERVER
     private void getProjectListRequest() {
+        ViewUtils.loading(this);
         GlobalRestful.getInstance().GetProjectList(new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                ViewUtils.dismiss();
                 ArrayList<Project> projectArrayList = response.body().getContent(new TypeToken<ArrayList<Project>>() {
                 });
 

@@ -21,6 +21,8 @@ public class UserAttendance {
     private String OverTimeReason; // 加班事由
     private int ProjectID;
     private String Remark;      // 其它问题
+    private int ReportUserID;   // 汇报人UserID
+    private int ReportUserName; // 汇报人UserID
     private int Score;          // 打分
     private int Status;         // 上班状态
     private int TrafficTime;    // 交通耗时（分钟）
@@ -194,5 +196,21 @@ public class UserAttendance {
 
     public void setUserName(String userName) {
         UserName = userName;
+    }
+
+    public int getReportUserID() {
+        return ReportUserID;
+    }
+
+    public void setReportUserID(int reportUserID) {
+        ReportUserID = reportUserID;
+    }
+
+    public int getReportUserName() {
+        return ReportUserName;
+    }
+
+    public void setReportUserName(int reportUserName) {
+        ReportUserName = reportUserName;
     }
 }

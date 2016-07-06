@@ -22,6 +22,7 @@
             tools:text="@string/boiler_index" />
 
         <TextView
+            android:id="@+id/tvInputStatus"
             style="@style/WithArrowIconTextStyle"
             android:hint="@string/please_input"
             android:textSize="@dimen/text_size_16" />
