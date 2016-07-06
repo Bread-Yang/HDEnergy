@@ -3,7 +3,6 @@ package com.mdground.hdenergy.activity.datareport;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Parcel;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -40,6 +39,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.mdground.hdenergy.R.id.tvSaleProduct;
+
 /**
  * Created by yoghourt on 2016-06-27.
  */
@@ -59,6 +60,8 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
     private ArrayList<String> mSalesProductArrayList = new ArrayList<>();
 
     private int mWheelViewChooseResID, mSelectProjectIndex;
+
+    private boolean mIsHeatProduct; // 销售产品是否是"热力"
 
     @Override
     protected int getContentLayout() {
@@ -88,7 +91,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         Collections.addAll(mSalesProductArrayList, salesProductStrings);
         mDataBinding.tvSaleProduct.setText(salesProductStrings[0]);
 
-        getProjectListRequest();
+        getUserProjectListRequest();
 
     }
 
@@ -112,7 +115,8 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                         mDataBinding.tvProject.setText(project.getProjectName());
                         getProjectFurnaceList(project.getProjectID());
                         break;
-                    case R.id.tvSaleProduct:
+                    case tvSaleProduct:
+                        mIsHeatProduct = (currentPosition == 1);
                         mDataBinding.tvSaleProduct.setText(mSalesProductArrayList.get(currentPosition));
                         break;
                 }
@@ -161,7 +165,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
     }
 
     public void selectSaleProductAction(View view) {
-        mWheelViewChooseResID = R.id.tvSaleProduct;
+        mWheelViewChooseResID = tvSaleProduct;
         mBaoPickerDialog.bindWheelViewData(mSalesProductArrayList);
         mBaoPickerDialog.show();
     }
@@ -217,8 +221,8 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
     //endregion
 
     //region SERVER
-    private void getProjectListRequest() {
-        GlobalRestful.getInstance().GetProjectList(new Callback<ResponseData>() {
+    private void getUserProjectListRequest() {
+        GlobalRestful.getInstance().GetUserProjectList(new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 mProjectArrayList = response.body().getContent(new TypeToken<ArrayList<Project>>() {
@@ -303,6 +307,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                 public void onClick(View v) {
                     Intent intent = new Intent(DataReportActivity.this, BoilerEditOneActivity.class);
                     intent.putExtra(Constants.KEY_PROJECT_WORK_FURNACE, projectWorkFurnace);
+                    intent.putExtra(Constants.KEY_IS_HEAT_SALE_PRODUCT, mIsHeatProduct);
                     startActivityForResult(intent, 0);
                 }
             });

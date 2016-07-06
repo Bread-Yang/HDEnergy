@@ -38,6 +38,7 @@ public final class Constants {
     public static final String KEY_ALREADY_LOGIN_USER_INFO = "key_already_login_user_info";
     public static final String KEY_LAST_LOGIN_ACCOUNT="key_last_login_account";
     public static final String KEY_PROJECT = "key_project";
+    public static final String KEY_IS_HEAT_SALE_PRODUCT = "key_is_heat_sale_product"; // 销售产品是热力
     public static final String KEY_PROJECT_WORK_FURNACE = "key_project_work_furnace";
 
     public static final String KEY_HISTORY_DATE_NAME="key_history_date_name";

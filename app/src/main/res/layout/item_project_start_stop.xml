@@ -54,14 +54,14 @@
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:text="@{project.beginTime}"
+                    android:text='@{project.projectStatus == 0 ? "" : project.beginTime}'
                     android:textSize="@dimen/text_size_12"
                     tools:text="2016/12/28 12:00" />
 
                 <TextView
                     style="@style/DimTextStyle"
                     android:layout_marginTop="@dimen/margin_8"
-                    android:text="@{project.endTime}"
+                    android:text='@{project.projectStatus == 0 ? "" : project.endTime}'
                     android:textSize="@dimen/text_size_12"
                     tools:text="2016/12/28 12:00" />
 
@@ -71,6 +71,7 @@
                 style="@style/NormalTextStyle"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
+                android:paddingLeft="@dimen/margin_20"
                 android:gravity="center"
                 android:text="@{project.projectName}"
                 android:textSize="@dimen/text_size_18"

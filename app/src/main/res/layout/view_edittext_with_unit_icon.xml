@@ -10,7 +10,8 @@
     <EditText
         android:id="@+id/etInput"
         style="@style/EditTextStyle"
-        android:gravity="right"
+        android:layout_height="@dimen/size_30"
+        android:gravity="right|center_vertical"
         android:inputType="number"
         tools:text="1256" />
 
