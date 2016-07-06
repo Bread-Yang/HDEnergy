@@ -83,7 +83,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
         int postion = mDataBinding.recyclerView.getChildAdapterPosition(view);
         Intent intent = new Intent(this, HistoryDataDetailsActivity.class);
         Bundle bundle=new Bundle();
-        bundle.putSerializable(Constants.KEY_HISTORY_DATA_PROJECT,mProjectWorkList.get(postion));
+        bundle.putParcelable(Constants.KEY_HISTORY_DATA_PROJECT,mProjectWorkList.get(postion));
         intent.putExtras(bundle);
         startActivity(intent);
 

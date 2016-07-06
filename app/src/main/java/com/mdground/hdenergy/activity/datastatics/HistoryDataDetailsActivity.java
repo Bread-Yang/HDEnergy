@@ -44,7 +44,10 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         mProjectWork = (ProjectWork) bundle.get(Constants.KEY_HISTORY_DATA_PROJECT);
-        mProjectWorkFurnaceList = (ArrayList<ProjectWorkFurnace>) mProjectWork.getProjectWorkFurnaceList();
+        ArrayList<ProjectWorkFurnace> FurnaceList = (ArrayList<ProjectWorkFurnace>) mProjectWork.getProjectWorkFurnaceList();
+         if(FurnaceList!=null){
+             mProjectWorkFurnaceList=FurnaceList;
+         }
         setTitle(mProjectWork.getProjectName());
         mAuthorityLevel = MDGroundApplication.mInstance.getLoginUser().getAuthorityLevel();
         if (mAuthorityLevel != 1) {
