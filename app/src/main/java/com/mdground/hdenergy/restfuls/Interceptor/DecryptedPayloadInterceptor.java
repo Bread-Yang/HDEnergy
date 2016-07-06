@@ -1,14 +1,14 @@
 package com.mdground.hdenergy.restfuls.Interceptor;
 
 import com.google.gson.GsonBuilder;
+import com.mdground.hdenergy.restfuls.bean.ResponseData;
+import com.mdground.hdenergy.utils.EncryptUtil;
 import com.socks.library.KLog;
 
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
-import com.mdground.hdenergy.restfuls.bean.ResponseData;
-import com.mdground.hdenergy.utils.EncryptUtil;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -43,6 +43,7 @@ public class DecryptedPayloadInterceptor implements Interceptor {
             // Request customization: add request headers
             Request.Builder requestBuilder = originalRequest.newBuilder()
                     .method(originalRequest.method(), newBody);
+
 
             Request newRequest = requestBuilder.build();
 

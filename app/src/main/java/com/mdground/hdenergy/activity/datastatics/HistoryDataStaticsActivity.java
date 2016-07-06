@@ -54,7 +54,7 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
 
     }
 
-    //region SERVER
+    //region SERVERN
 
     public void GetProjectSummeryListRequest(){
         GlobalRestful.getInstance().GetProjectSummeryList(new Callback<ResponseData>() {
