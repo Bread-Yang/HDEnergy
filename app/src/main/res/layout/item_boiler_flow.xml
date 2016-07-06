@@ -75,6 +75,7 @@
                 tools:text="@string/flow_index" />
 
             <TextView
+                android:id="@+id/tvResultFlow"
                 style="@style/AlignWithRightArrowTextStyle"
                 tools:text="25631" />
 

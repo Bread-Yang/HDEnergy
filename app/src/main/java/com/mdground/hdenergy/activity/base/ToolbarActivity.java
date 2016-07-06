@@ -8,14 +8,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.mdground.hdenergy.R;
+import com.mdground.hdenergy.views.listener.OnInputLayoutChangeListener;
 
 import static com.mdground.hdenergy.R.id.toolbar;
 
 public abstract class ToolbarActivity<T extends ViewDataBinding> extends AppCompatActivity {
 
     protected Toolbar mToolbar;
+    protected LinearLayout lltRoot;
     protected TextView tvTitle, tvRight;
     protected T mDataBinding;
 
@@ -24,6 +28,8 @@ public abstract class ToolbarActivity<T extends ViewDataBinding> extends AppComp
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_toolbar);
+
+        lltRoot = (LinearLayout) findViewById(R.id.lltRoot);
 
         mToolbar = (Toolbar) findViewById(toolbar);
         setSupportActionBar(mToolbar);
@@ -60,9 +66,20 @@ public abstract class ToolbarActivity<T extends ViewDataBinding> extends AppComp
             viewStubContent.setLayoutResource(getContentLayout());
             viewStubContent.inflate();
         }
+        setOnInputLayoutChangeListener();
 
         initData();
         setListener();
+    }
+
+    private void setOnInputLayoutChangeListener() {
+        getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(new OnInputLayoutChangeListener(getWindow().getDecorView()) {
+
+            @Override
+            public void onLayoutChange(boolean isKeyboardHide, int intputTop, int windowHeight) {
+                lltRoot.requestFocus();  // 隐藏键盘的时候, 去除所有EditText的focus
+            }
+        });
     }
 
     protected abstract int getContentLayout();

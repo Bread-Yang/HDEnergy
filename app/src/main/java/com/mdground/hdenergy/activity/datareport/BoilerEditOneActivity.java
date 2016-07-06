@@ -21,6 +21,7 @@ import com.mdground.hdenergy.databinding.ItemBoilerFlowBinding;
 import com.mdground.hdenergy.models.ProjectWorkFlowrate;
 import com.mdground.hdenergy.models.ProjectWorkFurnace;
 import com.mdground.hdenergy.utils.StringUtil;
+import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
 
 import java.util.ArrayList;
@@ -181,8 +182,6 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
     }
 
     public void nextStepAction(View view) {
-        mDataBinding.lltRoot.requestFocus();
-
         // 开炉时长
         String hours = mDataBinding.tvHours.getText().toString();
         mProjectWorkFurnace.setWorkingHour(Integer.parseInt(hours));
@@ -280,6 +279,10 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             itemBoilerFlowBinding.etuiAdjustFlow.getEtInput().setText(String.valueOf(projectWorkFlowrate.getAdjustFlow()));
             itemBoilerFlowBinding.etAjustDescription.setText(projectWorkFlowrate.getDescription());
 
+            ViewUtils.setEditTextWithMinusAndPlusSignal(itemBoilerFlowBinding.etuiInitialFlow.getEtInput());
+            ViewUtils.setEditTextWithMinusAndPlusSignal(itemBoilerFlowBinding.etuiCloseFlow.getEtInput());
+            ViewUtils.setEditTextWithMinusAndPlusSignal(itemBoilerFlowBinding.etuiAdjustFlow.getEtInput());
+
             ImageView ivAddOrDelete = itemBoilerFlowBinding.ivAddOrDelete;
             if (isHeader(position)) {
                 ivAddOrDelete.setImageResource(R.drawable.add);
@@ -309,6 +312,9 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                     if (!hasFocus) {
                         String initialFlowString = ((EditText) v).getText().toString();
                         projectWorkFlowrate.setBeginFlow(StringUtil.convertStringToInt(initialFlowString));
+
+                        int resultFlow = projectWorkFlowrate.getEndFlow() - projectWorkFlowrate.getBeginFlow();
+                        itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
                     }
                 }
             });
@@ -319,6 +325,9 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                     if (!hasFocus) {
                         String closeFlowString = ((EditText) v).getText().toString();
                         projectWorkFlowrate.setEndFlow(StringUtil.convertStringToInt(closeFlowString));
+
+                        int resultFlow = projectWorkFlowrate.getEndFlow() - projectWorkFlowrate.getBeginFlow();
+                        itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
                     }
                 }
             });
