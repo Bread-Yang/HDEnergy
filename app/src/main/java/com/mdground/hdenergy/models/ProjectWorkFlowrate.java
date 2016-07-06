@@ -1,10 +1,12 @@
 package com.mdground.hdenergy.models;
 
+import java.io.Serializable;
+
 /**
  * 汇报流量实体
  * Created by yoghourt on 7/3/16.
  */
-public class ProjectWorkFlowrate {
+public class ProjectWorkFlowrate implements Serializable {
 
     private int AdjustFlow;     // 流量调整
     private int BeginFlow;      // 起始流量

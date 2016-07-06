@@ -18,20 +18,19 @@
 
             <RelativeLayout
                 style="@style/WhiteFixHeightLayoutStyle"
-                android:onClick="selectProjectAction">
+                >
 
                 <TextView
                     style="@style/DimTextStyle"
                     android:text="@string/report_people" />
 
                 <TextView
-                    android:id="@+id/tvProject"
+                    android:id="@+id/tvReportName"
                     style="@style/NormalTextStyle"
                      android:layout_alignParentRight="true"
                     android:gravity="center_vertical|right"
                     android:textSize="@dimen/margin_16"
                     android:layout_centerVertical="true"
-                    android:text="用新"
                     tools:text="用新" />
 
             </RelativeLayout>
@@ -40,7 +39,7 @@
                 android:id="@+id/rltData"
                 style="@style/WhiteFixHeightLayoutStyle"
                 android:layout_marginTop="@dimen/margin_1"
-                android:onClick="selectDateAction">
+                >
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -51,7 +50,6 @@
                     style="@style/NormalTextStyle"
                     android:gravity="center_vertical|right"
                     android:textSize="@dimen/margin_16"
-                    android:text="2016-04-11"
                     tools:text="2016-04-11"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
@@ -61,7 +59,7 @@
             <RelativeLayout
                 style="@style/WhiteFixHeightLayoutStyle"
                 android:layout_marginTop="@dimen/margin_1"
-                android:onClick="selectSaleProductAction">
+                >
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -74,7 +72,6 @@
                     android:gravity="center_vertical|right"
                     android:textSize="@dimen/margin_16"
                     android:layout_centerVertical="true"
-                    android:text="蒸汽"
                     tools:text="蒸汽" />
 
             </RelativeLayout>
@@ -120,7 +117,6 @@
                     style="@style/AlignRightNoPaddingTextStyle"
                     tools:text="@string/maintain_cost"
                     android:layout_centerVertical="true"
-                    android:text="@string/maintain_cost"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
 
@@ -134,7 +130,6 @@
                 android:id="@+id/etOtherProblem"
                 style="@style/LargeTextViewLayoutStyle"
                 android:textColor="@color/color_404040"
-                android:text="@string/yongxing"
                 tools:text="@string/adjustment_explain" />
 
 
