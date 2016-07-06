@@ -3,14 +3,12 @@ package com.mdground.hdenergy.activity.datastatics;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
@@ -19,13 +17,18 @@ import com.mdground.hdenergy.databinding.ActivityBoilerDetailBinding;
 import com.mdground.hdenergy.databinding.ItemHistoryBoilerElectricBinding;
 import com.mdground.hdenergy.databinding.ItemHistoryBoilerFlowBinding;
 import com.mdground.hdenergy.databinding.ItemHistoryBoilerFuelBinding;
-import com.mdground.hdenergy.databinding.ItemHistoryBoilerProjectBinding;
 import com.mdground.hdenergy.databinding.ItemHistoryBoilerStockBinding;
 import com.mdground.hdenergy.databinding.ItemHistoryBoilerWaterBinding;
-import com.mdground.hdenergy.models.Project;
 import com.mdground.hdenergy.models.ProjectFuelWarehouse;
 import com.mdground.hdenergy.models.ProjectWorkFlowrate;
 import com.mdground.hdenergy.models.ProjectWorkFuel;
+import com.mdground.hdenergy.models.ProjectWorkFurnace;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by PC on 2016-07-03.
@@ -33,8 +36,7 @@ import com.mdground.hdenergy.models.ProjectWorkFuel;
 
 public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerDetailBinding> {
     private BolierDetailAdapter mAdapter;
-
-    private ArrayList<Project> mProjectArraylist = new ArrayList<>();
+    private ProjectWorkFurnace mProjectWorkFurnace;
     private ArrayList<ProjectWorkFlowrate> mFlowArrayList = new ArrayList<>();
     private ArrayList<ProjectWorkFuel> mFuelArrayList = new ArrayList<>();
     private List<ProjectFuelWarehouse> mProjectFuelWarehouseList;
@@ -46,19 +48,42 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
 
     @Override
     protected void initData() {
-        Intent intent=getIntent();
-        String title=intent.getStringExtra(Constants.KEY_BOILERR_NAME);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        mProjectWorkFurnace = bundle.getParcelable(Constants.KEY_BOILERR_PROJECT);
+        String title = mProjectWorkFurnace.getFurnaceName();
+        String reportName = bundle.getString(Constants.KEY_HISTORY_DATE_NAME);
+        String saleType = bundle.getString(Constants.KEY_SALE_TYPE);
         setTitle(title);
-        mProjectArraylist.add(new Project());
-        mFlowArrayList.add(new ProjectWorkFlowrate());
+        mDataBinding.tvReportName.setText(reportName);
+        mDataBinding.tvSaleType.setText(saleType);
+        intiView();
+        ArrayList<ProjectWorkFlowrate> flowrates = (ArrayList<ProjectWorkFlowrate>) mProjectWorkFurnace.getProjectWorkFlowrateList();
+        if (flowrates != null) {
+            mFlowArrayList.clear();
+            mFlowArrayList.addAll(flowrates);
+        }
+
         mFuelArrayList.add(new ProjectWorkFuel());
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(layoutManager);
-
         mAdapter = new BolierDetailAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
 
+    }
+
+    private void intiView() {
+        mDataBinding.tvWorkingHour.setText(String.valueOf(mProjectWorkFurnace.getWorkingHour()));
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date ceateDate = format.parse(mProjectWorkFurnace.getCreatedTime());
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+            String formatDate = format1.format(ceateDate);
+            mDataBinding.tvDate.setText(formatDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -81,7 +106,6 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
         private final int FLOW_VIEW_TYPE = 0x11;
         private final int ELECTRICITY_VIEW_TYPE = 0x12;
         private final int WATER_VIEW_TYPE = 0x10;
-        private final int PROJECT_VIEW_TYPE = 0x9;
         private final int FUEL_VIEW_TYPE = 0x8;
         private final int FEEDSTROCK_VIEW_TYPE = 0x6;
 
@@ -89,12 +113,6 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView = null;
             switch (viewType) {
-
-                case PROJECT_VIEW_TYPE:
-
-                    itemView = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.item_history_boiler_project, parent, false);
-                    break;
                 case ELECTRICITY_VIEW_TYPE:
                     itemView = LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.item_history_boiler_electric, parent, false);
@@ -126,14 +144,13 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
             switch (getItemViewType(position)) {
-                case PROJECT_VIEW_TYPE:
-
-                    ItemHistoryBoilerProjectBinding itemHistoryBoilerProjectBinding = (ItemHistoryBoilerProjectBinding) holder.viewDataBinding;
-
-                    break;
-
                 case FLOW_VIEW_TYPE:
                     ItemHistoryBoilerFlowBinding itemHistoryBoilerFlowBinding = (ItemHistoryBoilerFlowBinding) holder.viewDataBinding;
+                    itemHistoryBoilerFlowBinding.tvBeginFlow.setText(String.valueOf(mFlowArrayList.get(position).getBeginFlow()));
+                    itemHistoryBoilerFlowBinding.tvEndFlow.setText(String.valueOf(mFlowArrayList.get(position).getEndFlow()));
+                     int flow=mFlowArrayList.get(position).getBeginFlow()-mFlowArrayList.get(position).getEndFlow();
+                    itemHistoryBoilerFlowBinding.tvFlow.setText(String.valueOf(flow));
+                //    itemHistoryBoilerFlowBinding.
                     break;
 
                 case ELECTRICITY_VIEW_TYPE:
@@ -158,20 +175,18 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
 
         @Override
         public int getItemCount() {
-            return mProjectArraylist.size() + mFlowArrayList.size() + 2 + mFuelArrayList.size();
+            return mFlowArrayList.size() + 2 + mFuelArrayList.size();
         }
 
         @Override
         public int getItemViewType(int position) {
-            int projectsLength = mProjectArraylist.size();
-            int flowLength = mProjectArraylist.size() + mFlowArrayList.size();
+//            int projectsLength = mProjectArraylist.size();
+            int flowLength = mFlowArrayList.size();
             int electricityLength = flowLength + 1;
             int waterLength = electricityLength + 1;
             int fuelLength = waterLength + mFuelArrayList.size();
 
-            if (position < projectsLength) {
-                return PROJECT_VIEW_TYPE;
-            } else if (position >= projectsLength && position < flowLength) {
+            if (position < flowLength) {
                 return FLOW_VIEW_TYPE;
             } else if (position >= flowLength && position < electricityLength) {
                 return ELECTRICITY_VIEW_TYPE;

@@ -29,7 +29,7 @@ public final class Constants {
     // 第一次打开APP
     public static final String KEY_IS_FIRST_LAUNCH = "key_is_first_launch";
 
-    public static final String KEY_BOILERR_NAME ="key_is_boiler_name";
+
 
     public static final String KEY_RESET_PASSWORD ="key_reset_name";
 
@@ -43,5 +43,7 @@ public final class Constants {
     public static final String KEY_HISTORY_DATE_NAME="key_history_date_name";
     public static final String KEY_HISTORY_DATE_PROJECT_ID="key_history_data_project_id";
     public static final String KEY_HISTORY_DATA_PROJECT="key_history_data_history";
+    public static final String KEY_BOILERR_PROJECT ="key_boiler_project";
+    public static final String KEY_SALE_TYPE="key_sale_type";
 
 }

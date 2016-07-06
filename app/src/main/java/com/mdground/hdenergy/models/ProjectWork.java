@@ -27,6 +27,36 @@ public class ProjectWork implements Parcelable {
     private String DayFuelCost;   // 单耗（燃料单耗）
     public int FuelCost;//标准燃料单耗
 
+    protected ProjectWork(Parcel in) {
+        CreatedTime = in.readString();
+        DailyExpense = in.readInt();
+        ExpenseDetail = in.readString();
+        ProjectID = in.readInt();
+        ProjectName = in.readString();
+        ProjectWorkFurnaceList = in.createTypedArrayList(ProjectWorkFurnace.CREATOR);
+        Remark = in.readString();
+        SaleType = in.readString();
+        UserID = in.readInt();
+        UserName = in.readString();
+        WorkID = in.readInt();
+        DayElectricityCost = in.readString();
+        DayWaterCost = in.readString();
+        DayFuelCost = in.readString();
+        FuelCost = in.readInt();
+    }
+
+    public static final Creator<ProjectWork> CREATOR = new Creator<ProjectWork>() {
+        @Override
+        public ProjectWork createFromParcel(Parcel in) {
+            return new ProjectWork(in);
+        }
+
+        @Override
+        public ProjectWork[] newArray(int size) {
+            return new ProjectWork[size];
+        }
+    };
+
     public int getFuelCost() {
         return FuelCost;
     }
@@ -151,32 +181,6 @@ public class ProjectWork implements Parcelable {
 
     }
 
-    protected ProjectWork(Parcel in) {
-        CreatedTime = in.readString();
-        DailyExpense = in.readInt();
-        ExpenseDetail = in.readString();
-        ProjectID = in.readInt();
-        ProjectName = in.readString();
-        Remark = in.readString();
-        SaleType = in.readString();
-        UserID = in.readInt();
-        UserName = in.readString();
-        WorkID = in.readInt();
-        DayElectricityCost = in.readString();
-        DayWaterCost = in.readString();
-        DayFuelCost = in.readString();
-        FuelCost = in.readInt();
-    }
-
-    public static final Parcelable.Creator<ProjectWork> CREATOR = new Parcelable.Creator<ProjectWork>() {
-        public ProjectWork createFromParcel(Parcel in) {
-            return new ProjectWork(in);
-        }
-
-        public ProjectWork[] newArray(int size) {
-            return new ProjectWork[size];
-        }
-    };
 
     @Override
     public int describeContents() {
@@ -187,10 +191,10 @@ public class ProjectWork implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(CreatedTime);
         dest.writeInt(DailyExpense);
-        dest.writeInt(WorkID);
         dest.writeString(ExpenseDetail);
         dest.writeInt(ProjectID);
         dest.writeString(ProjectName);
+        dest.writeTypedList(ProjectWorkFurnaceList);
         dest.writeString(Remark);
         dest.writeString(SaleType);
         dest.writeInt(UserID);
@@ -201,5 +205,4 @@ public class ProjectWork implements Parcelable {
         dest.writeString(DayFuelCost);
         dest.writeInt(FuelCost);
     }
-
 }

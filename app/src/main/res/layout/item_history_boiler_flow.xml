@@ -33,6 +33,7 @@
                 tools:text="@string/initial_flow_index"/>
 
             <TextView
+                android:id="@+id/tvBeginFlow"
                 style="@style/AlignRightNoPaddingTextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="12345吨"/>
@@ -50,6 +51,7 @@
                 tools:text="@string/close_flow_index"/>
 
             <TextView
+                android:id="@+id/tvEndFlow"
                 style="@style/AlignRightNoPaddingTextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="1256"/>
@@ -65,6 +67,7 @@
                 tools:text="@string/flow_index"/>
 
             <TextView
+                android:id="@+id/tvFlow"
                 style="@style/AlignRightNoPaddingTextStyle"
                 android:textColor="@color/color_E92C0A"
                 tools:text="25631"/>
@@ -80,6 +83,7 @@
                 android:text="@string/flow_adjustment"/>
 
             <TextView
+                android:id="@+id/AdjustFlow"
                 style="@style/AlignRightNoPaddingTextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="25631"/>
@@ -95,6 +99,7 @@
                 android:text="@string/adjustment_description"/>
 
             <TextView
+                android:id="@+id/tvDescription"
                 style="@style/AlignRightNoPaddingTextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="25631"/>

@@ -20,6 +20,7 @@ import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.models.ProjectWork;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
+import com.mdground.hdenergy.utils.ViewUtils;
 import com.socks.library.KLog;
 
 import java.util.ArrayList;
@@ -83,10 +84,11 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
     //region SERVERN
 
     public void GetProjectSummeryListRequest(int pageIndex) {
-
+        ViewUtils.loading(this);
         GlobalRestful.getInstance().GetProjectSummeryList(pageIndex, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                ViewUtils.dismiss();
                 if (ResponseCode.isSuccess(response.body())) {
                     ArrayList<ProjectWork> projects = response.body().getContent(new TypeToken<ArrayList<ProjectWork>>() {
                     });

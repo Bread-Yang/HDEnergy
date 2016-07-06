@@ -15,7 +15,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okio.Buffer;
-
 /**
  * Created by yoghourt on 5/5/16.
  */

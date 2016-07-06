@@ -43,11 +43,11 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        mProjectWork = (ProjectWork) bundle.get(Constants.KEY_HISTORY_DATA_PROJECT);
+        mProjectWork = (ProjectWork) bundle.getParcelable(Constants.KEY_HISTORY_DATA_PROJECT);
         ArrayList<ProjectWorkFurnace> FurnaceList = (ArrayList<ProjectWorkFurnace>) mProjectWork.getProjectWorkFurnaceList();
-         if(FurnaceList!=null){
-             mProjectWorkFurnaceList=FurnaceList;
-         }
+        if (FurnaceList != null) {
+            mProjectWorkFurnaceList = FurnaceList;
+        }
         setTitle(mProjectWork.getProjectName());
         mAuthorityLevel = MDGroundApplication.mInstance.getLoginUser().getAuthorityLevel();
         if (mAuthorityLevel != 1) {
@@ -104,7 +104,11 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(HistoryDataDetailsActivity.this, HistoryBoilerDetailActivity.class);
-                    intent.putExtra(Constants.KEY_BOILERR_NAME, mProjectWorkFurnaceList.get(position).getFurnaceName());
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.KEY_HISTORY_DATE_NAME,mProjectWork.getUserName());
+                    bundle.putString(Constants.KEY_SALE_TYPE,mProjectWork.getSaleType());
+                    bundle.putParcelable(Constants.KEY_BOILERR_PROJECT, mProjectWorkFurnaceList.get(position));
+                    intent.putExtras(bundle);
                     startActivity(intent);
                 }
             });
