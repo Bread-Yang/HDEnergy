@@ -40,4 +40,8 @@ public final class Constants {
     public static final String KEY_PROJECT = "key_project";
     public static final String KEY_PROJECT_WORK_FURNACE = "key_project_work_furnace";
 
+    public static final String KEY_HISTORY_DATE_NAME="key_history_date_name";
+    public static final String KEY_HISTORY_DATE_PROJECT_ID="key_history_data_project_id";
+    public static final String KEY_HISTORY_DATA_PROJECT="key_history_data_history";
+
 }

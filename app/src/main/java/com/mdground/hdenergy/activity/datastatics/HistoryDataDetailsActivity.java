@@ -8,14 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
 import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityHistoryDataDetailsBinding;
 import com.mdground.hdenergy.databinding.ItemCheckBoilerBinding;
 import com.mdground.hdenergy.models.ProjectWorkFurnace;
+
+import java.util.ArrayList;
 
 /**
  * Created by PC on 2016-06-28.
@@ -46,7 +46,6 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(linearLayoutManager);
         mDataBinding.recyclerView.setAdapter(mAdapter);
-
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.mdground.hdenergy.activity.datastatics;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,13 +14,13 @@ import com.google.gson.reflect.TypeToken;
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
 import com.mdground.hdenergy.application.MDGroundApplication;
+import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityHistoryDatastaticsBinding;
 import com.mdground.hdenergy.databinding.ItemHistoryDatastaticsBinding;
 import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.models.ProjectWork;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
-import com.socks.library.KLog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
     private ArrayList<String> mArrayList = new ArrayList<>();
     private int mPageIndex = 0;
     private int authorityLevel;
-    int ProjectID = 1;
+    int mProjectID;
     private List<ProjectWork> mProjectWorkList = new ArrayList<>();
     private LinearLayoutManager mLinearLayoutManager;
     private boolean mIsLoadeMore = false;
@@ -53,18 +54,19 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
     @Override
     protected void onResume() {
         super.onResume();
-        GetProjectWorkList(ProjectID, mPageIndex);
+
     }
 
     @Override
     protected void initData() {
         Intent intent = getIntent();
-        String title = intent.getStringExtra("name");
+        String title = intent.getStringExtra(Constants.KEY_HISTORY_DATE_NAME);
+        mProjectID=intent.getIntExtra(Constants.KEY_HISTORY_DATE_PROJECT_ID,0);
         getDateList();
         setTitle(title);
+        GetProjectWorkList(mProjectID, mPageIndex);
         authorityLevel = MDGroundApplication.mInstance.getLoginUser().getAuthorityLevel();
         layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        KLog.e("33333" + mProjectWorkList.size());
         mAdapter = new HistoryDateListAdapter();
         mLinearLayoutManager = new LinearLayoutManager(HistoryDataListActivity.this);
         mDataBinding.recyclerView.setLayoutManager(mLinearLayoutManager);
@@ -80,6 +82,9 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
     public void correspondingDetails(View view) {
         int postion = mDataBinding.recyclerView.getChildAdapterPosition(view);
         Intent intent = new Intent(this, HistoryDataDetailsActivity.class);
+        Bundle bundle=new Bundle();
+        bundle.putSerializable(Constants.KEY_HISTORY_DATA_PROJECT,mProjectWorkList.get(postion));
+        intent.putExtras(bundle);
         startActivity(intent);
 
     }
@@ -99,7 +104,6 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
                             mProjectWorkList.add(projectWork);
                         }
                     }
-                    KLog.e("mProjectWorkList" + mProjectWorkList.size());
                     if (tempList != null) {
                         if (tempList.size() < 20) {
                             mIsLoadeMore = false;
@@ -110,7 +114,6 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
                     } else {
                         mIsLoadeMore = false;
                     }
-                    KLog.e("33333" + mProjectWorkList.size());
                     mAdapter.notifyDataSetChanged();
 
                 }
@@ -162,13 +165,13 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
             }
             //  holder.itemHistoryDatastaticsBinding.tvTitles.setText(mProjectWorkList.get(position).getCreatedTime());
             //holder.itemHistoryDatastaticsBinding.tvTitles.setText();字段还没出来
+            holder.itemHistoryDatastaticsBinding.tvStandardUnit.setText(String.valueOf(mProjectWorkList.get(position).getFuelCost()));
             holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(mProjectWorkList.get(position).getDayFuelCost());
             holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(mProjectWorkList.get(position).getDayElectricityCost());
             holder.itemHistoryDatastaticsBinding.tvWaterUnitConsumption.setText(mProjectWorkList.get(position).getDayWaterCost());
             if (MDGroundApplication.mInstance.getLoginUser().getAuthorityLevel() != 3) {
                 holder.itemHistoryDatastaticsBinding.tvProfit.setVisibility(View.GONE);
             } else {
-               // holder.itemHistoryDatastaticsBinding.tvProfit.setText(mProjectWorkList.get(position).getDailyExpense());
             }
         }
 
