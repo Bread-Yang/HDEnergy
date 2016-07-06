@@ -1,12 +1,13 @@
 package com.mdground.hdenergy.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 数据汇报实体
  * Created by yoghourt on 7/3/16.
  */
-public class ProjectWork {
+public class ProjectWork implements Serializable {
 
     private String CreatedTime;
     private int DailyExpense;   // 项目日常费用
@@ -22,6 +23,15 @@ public class ProjectWork {
     private String DayElectricityCost;  //电耗（电单耗）---新增
     private String DayWaterCost;  // 水耗（水单耗）
     private String DayFuelCost;   // 单耗（燃料单耗）
+    public int FuelCost;//标准燃料单耗
+
+    public int getFuelCost() {
+        return FuelCost;
+    }
+
+    public void setFuelCost(int fuelCost) {
+        FuelCost = fuelCost;
+    }
 
     public String getDayElectricityCost() {
         return DayElectricityCost;
