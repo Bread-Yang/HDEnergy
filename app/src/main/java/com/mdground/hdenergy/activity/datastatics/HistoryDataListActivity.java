@@ -62,7 +62,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
         Intent intent = getIntent();
         String title = intent.getStringExtra(Constants.KEY_HISTORY_DATE_NAME);
         mProjectID=intent.getIntExtra(Constants.KEY_HISTORY_DATE_PROJECT_ID,0);
-        getDateList();
+          getDateList();
         setTitle(title);
         GetProjectWorkList(mProjectID, mPageIndex);
         authorityLevel = MDGroundApplication.mInstance.getLoginUser().getAuthorityLevel();
@@ -83,7 +83,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
         int postion = mDataBinding.recyclerView.getChildAdapterPosition(view);
         Intent intent = new Intent(this, HistoryDataDetailsActivity.class);
         Bundle bundle=new Bundle();
-        bundle.putSerializable(Constants.KEY_HISTORY_DATA_PROJECT,mProjectWorkList.get(postion));
+        bundle.putParcelable(Constants.KEY_HISTORY_DATA_PROJECT,mProjectWorkList.get(postion));
         intent.putExtras(bundle);
         startActivity(intent);
 
@@ -129,6 +129,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
     //endregion
 
     //region METHOD
+    //先别删还要用来调下来刷新
     public void getDateList() {
         mArrayList.add(getString(R.string.yongxing));
         mArrayList.add(getString(R.string.app_name));
@@ -183,8 +184,6 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
             public ItemHistoryDatastaticsBinding itemHistoryDatastaticsBinding;
-            //  public ItemHistoryDatastaticsBinding itemHistoryDatastaticsBinding;
-
             public MyViewHolder(final View itemView) {
                 super(itemView);
                 itemHistoryDatastaticsBinding = DataBindingUtil.bind(itemView);

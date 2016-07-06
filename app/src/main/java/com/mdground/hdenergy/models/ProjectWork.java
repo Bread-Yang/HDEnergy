@@ -1,13 +1,15 @@
 package com.mdground.hdenergy.models;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * 数据汇报实体
  * Created by yoghourt on 7/3/16.
  */
-public class ProjectWork implements Serializable {
+public class ProjectWork implements Parcelable {
 
     private String CreatedTime;
     private int DailyExpense;   // 项目日常费用
@@ -144,4 +146,60 @@ public class ProjectWork implements Serializable {
     public void setWorkID(int workID) {
         WorkID = workID;
     }
+
+    public ProjectWork() {
+
+    }
+
+    protected ProjectWork(Parcel in) {
+        CreatedTime = in.readString();
+        DailyExpense = in.readInt();
+        ExpenseDetail = in.readString();
+        ProjectID = in.readInt();
+        ProjectName = in.readString();
+        Remark = in.readString();
+        SaleType = in.readString();
+        UserID = in.readInt();
+        UserName = in.readString();
+        WorkID = in.readInt();
+        DayElectricityCost = in.readString();
+        DayWaterCost = in.readString();
+        DayFuelCost = in.readString();
+        FuelCost = in.readInt();
+    }
+
+    public static final Parcelable.Creator<ProjectWork> CREATOR = new Parcelable.Creator<ProjectWork>() {
+        public ProjectWork createFromParcel(Parcel in) {
+            return new ProjectWork(in);
+        }
+
+        public ProjectWork[] newArray(int size) {
+            return new ProjectWork[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(CreatedTime);
+        dest.writeInt(DailyExpense);
+        dest.writeInt(WorkID);
+        dest.writeString(ExpenseDetail);
+        dest.writeInt(ProjectID);
+        dest.writeString(ProjectName);
+        dest.writeString(Remark);
+        dest.writeString(SaleType);
+        dest.writeInt(UserID);
+        dest.writeString(UserName);
+        dest.writeInt(WorkID);
+        dest.writeString(DayElectricityCost);
+        dest.writeString(DayWaterCost);
+        dest.writeString(DayFuelCost);
+        dest.writeInt(FuelCost);
+    }
+
 }

@@ -1,7 +1,10 @@
 package com.mdground.hdenergy.models;
 
 import android.os.Parcel;
+
+import android.os.Parcel;
 import android.os.Parcelable;
+
 
 /**
  * 汇报流量实体

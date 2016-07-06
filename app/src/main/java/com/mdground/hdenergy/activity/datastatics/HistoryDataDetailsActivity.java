@@ -2,6 +2,7 @@ package com.mdground.hdenergy.activity.datastatics;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,21 +11,27 @@ import android.view.ViewGroup;
 
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
+import com.mdground.hdenergy.application.MDGroundApplication;
 import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityHistoryDataDetailsBinding;
 import com.mdground.hdenergy.databinding.ItemCheckBoilerBinding;
+import com.mdground.hdenergy.models.ProjectWork;
 import com.mdground.hdenergy.models.ProjectWorkFurnace;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by PC on 2016-06-28.
  */
 
 public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryDataDetailsBinding> {
-
-    private ArrayList<ProjectWorkFurnace> mProjectWorkFurnaceArrayList = new ArrayList<>();
     private DataDetailsAdapter mAdapter;
+    private ProjectWork mProjectWork;
+    private int mAuthorityLevel;
+    private ArrayList<ProjectWorkFurnace> mProjectWorkFurnaceList = new ArrayList<>();
 
     @Override
     protected int getContentLayout() {
@@ -33,20 +40,47 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
 
     @Override
     protected void initData() {
-        tvRight.setVisibility(View.VISIBLE);
-        tvRight.setText(getString(R.string.edit));
-        ProjectWorkFurnace boiler1 = new ProjectWorkFurnace();
-        boiler1.setFurnaceName("锅炉A");
-        ProjectWorkFurnace boiler2 = new ProjectWorkFurnace();
-        boiler2.setFurnaceName("锅炉B");
-        mProjectWorkFurnaceArrayList.add(boiler1);
-        mProjectWorkFurnaceArrayList.add(boiler2);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        mProjectWork = (ProjectWork) bundle.get(Constants.KEY_HISTORY_DATA_PROJECT);
+        ArrayList<ProjectWorkFurnace> FurnaceList = (ArrayList<ProjectWorkFurnace>) mProjectWork.getProjectWorkFurnaceList();
+         if(FurnaceList!=null){
+             mProjectWorkFurnaceList=FurnaceList;
+         }
+        setTitle(mProjectWork.getProjectName());
+        mAuthorityLevel = MDGroundApplication.mInstance.getLoginUser().getAuthorityLevel();
+        if (mAuthorityLevel != 1) {
+            tvRight.setVisibility(View.VISIBLE);
+            tvRight.setText(getString(R.string.edit));
+        }
+        initView();
         mAdapter = new DataDetailsAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(linearLayoutManager);
         mDataBinding.recyclerView.setAdapter(mAdapter);
     }
+
+    //初始化界面
+    private void initView() {
+        mDataBinding.tvReportName.setText(mProjectWork.getUserName());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date ceateDate = format.parse(mProjectWork.getCreatedTime());
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+            String formatDate = format1.format(ceateDate);
+            mDataBinding.tvData.setText(formatDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        mDataBinding.tvSaleProduct.setText(mProjectWork.getSaleType());
+        mDataBinding.etProjectDetail.setText(mProjectWork.getExpenseDetail());
+        mDataBinding.etProjectExpense.setText(String.valueOf(mProjectWork.getDailyExpense()));
+        mDataBinding.etOtherProblem.setText(mProjectWork.getRemark());
+
+    }
+
 
     @Override
     protected void setListener() {
@@ -65,12 +99,12 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
 
         @Override
         public void onBindViewHolder(DataDetailsAdapter.ViewHolder holder, final int position) {
-            holder.itemCheckBoilerBinding.tvBoiler.setText(mProjectWorkFurnaceArrayList.get(position).getFurnaceName());
+            holder.itemCheckBoilerBinding.tvBoiler.setText(mProjectWorkFurnaceList.get(position).getFurnaceName());
             holder.itemCheckBoilerBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(HistoryDataDetailsActivity.this, HistoryBoilerDetailActivity.class);
-                    intent.putExtra(Constants.KEY_BOILERR_NAME,mProjectWorkFurnaceArrayList.get(position).getFurnaceName());
+                    intent.putExtra(Constants.KEY_BOILERR_NAME, mProjectWorkFurnaceList.get(position).getFurnaceName());
                     startActivity(intent);
                 }
             });
@@ -78,7 +112,7 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
 
         @Override
         public int getItemCount() {
-            return mProjectWorkFurnaceArrayList.size();
+            return mProjectWorkFurnaceList.size();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {

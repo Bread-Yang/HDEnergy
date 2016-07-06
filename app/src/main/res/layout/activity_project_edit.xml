@@ -3,7 +3,8 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.mdground.hdenergy.utils.StringUtil"/>
+
+        <import type="com.mdground.hdenergy.utils.StringUtil" />
 
         <variable
             name="project"
@@ -59,8 +60,8 @@
                     <TextView
                         android:id="@+id/tvProjectStatus"
                         style="@style/NormalTextStyle"
-                        android:text="@{StringUtil.getProjectStatus(project.projectStatus)}"
                         android:layout_marginTop="@dimen/margin_8"
+                        android:text="@{StringUtil.getProjectStatus(project.projectStatus)}"
                         android:textSize="@dimen/text_size_16"
                         tools:text="维修" />
                 </LinearLayout>
@@ -135,7 +136,7 @@
                 android:layout_marginTop="@dimen/margin_1">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:orientation="vertical">
@@ -147,6 +148,8 @@
                     <EditText
                         android:id="@+id/etRemark"
                         style="@style/EditTextStyle"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/margin_8"
                         android:text="@{project.remark}"
                         android:textSize="@dimen/text_size_16"
