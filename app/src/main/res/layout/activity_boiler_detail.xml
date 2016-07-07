@@ -7,98 +7,304 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/lltContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
                 android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <RelativeLayout style="@style/TitleLayoutStyle">
+
+                        <TextView
+                            style="@style/TitleTextStyle"
+                            android:text="@string/project_status" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+                        <TextView
+                            style="@style/DimTextStyle"
+                            android:text="@string/report_people"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/tvReportName"
+                            style="@style/AlignRightNoPaddingTextStyle"
+                            android:textSize="@dimen/text_size_16"
+                            tools:text="12345吨" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rltData"
+                        style="@style/WhiteFixHeightLayoutStyle"
+                        android:layout_marginTop="@dimen/margin_1">
+
+                        <TextView
+                            style="@style/DimTextStyle"
+                            android:text="@string/data_with_colon" />
+
+                        <TextView
+                            android:id="@+id/tvDate"
+                            style="@style/AlignRightNoPaddingTextStyle"
+                            android:textSize="@dimen/text_size_16"
+                            tools:text="1256" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        style="@style/WhiteFixHeightLayoutStyle"
+                        android:layout_marginTop="@dimen/margin_1">
+
+                        <TextView
+                            style="@style/DimTextStyle"
+                            android:text="@string/open_boiler_time" />
+
+                        <TextView
+                            android:id="@+id/tvWorkingHour"
+                            style="@style/AlignRightNoPaddingTextStyle"
+                            tools:text="25631" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        style="@style/WhiteFixHeightLayoutStyle"
+                        android:layout_marginTop="@dimen/margin_1">
+
+                        <TextView
+                            style="@style/DimTextStyle"
+                            android:text="@string/sale_product_with_colon" />
+
+                        <TextView
+                            android:id="@+id/tvSaleType"
+                            style="@style/AlignRightNoPaddingTextStyle"
+                            android:textSize="@dimen/text_size_16"
+                            tools:text="25631" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <RelativeLayout style="@style/TitleLayoutStyle">
+
+                        <TextView
+                            style="@style/TitleTextStyle"
+                            android:text="@string/electric_quantity" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+                        <TextView
+                            style="@style/DimTextStyle"
+                            android:text="@string/electric_quantity_one_with_colon" />
+
+                        <TextView
+                            android:id="@+id/tvElectirc1"
+                            style="@style/AlignRightNoPaddingTextStyle"
+                            android:layout_toLeftOf="@+id/ivDeleteOne"
+                            android:gravity="right"
+                            tools:text="12345kw/h" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rltElectricQuantityTwo"
+                        style="@style/WhiteFixHeightLayoutStyle"
+                        android:layout_marginTop="@dimen/margin_1">
+
+                        <TextView
+                            style="@style/DimTextStyle"
+                            android:text="@string/electric_quantity_two_with_colon" />
+
+                        <TextView
+                            android:id="@+id/tvElectricity2"
+                            style="@style/AlignRightNoPaddingTextStyle"
+                            android:gravity="right"
+                            tools:text="1256" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rltElectricQuantityThree"
+                        style="@style/WhiteFixHeightLayoutStyle"
+                        android:layout_marginTop="@dimen/margin_1">
+
+                        <TextView
+                            style="@style/DimTextStyle"
+                            android:text="@string/electric_quantity_three_with_colon" />
+
+                        <TextView
+                            android:id="@+id/tvElectricity3"
+                            style="@style/AlignRightNoPaddingTextStyle"
+                            android:gravity="right"
+                            tools:text="1256" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        style="@style/WhiteFixHeightLayoutStyle"
+                        android:layout_marginTop="@dimen/margin_1">
+
+                        <TextView
+                            style="@style/DimTextStyle"
+                            android:text="@string/electric_unit_consumption" />
+
+                        <TextView
+                            android:id="@+id/tvElectricitySingleCost"
+                            style="@style/AlignRightNoPaddingTextStyle"
+                            android:gravity="right"
+                            android:textColor="@color/color_E92C0A"
+                            tools:text="1256" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <RelativeLayout style="@style/TitleLayoutStyle">
+
+                        <TextView
+                            style="@style/TitleTextStyle"
+                            android:text="@string/water_quantity" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+
+                        <TextView
+                            style="@style/DimTextStyle"
+                            android:text="@string/water_quantity_with_colon" />
+
+                        <TextView
+                            android:id="@+id/tvWater1"
+                            style="@style/AlignRightNoPaddingTextStyle"
+                            android:layout_toLeftOf="@+id/ivDeleteOne"
+                            android:gravity="right"
+                            tools:text="12345kw/h" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        style="@style/WhiteFixHeightLayoutStyle"
+                        android:layout_marginTop="@dimen/margin_1">
+
+                        <TextView
+                            style="@style/DimTextStyle"
+                            android:text="@string/water_quantity_two_with_colon" />
+
+                        <TextView
+                            android:id="@+id/tvWater2"
+                            style="@style/AlignRightNoPaddingTextStyle"
+                            android:gravity="right"
+                            tools:text="1256" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        style="@style/WhiteFixHeightLayoutStyle"
+                        android:layout_marginTop="@dimen/margin_1">
+
+                        <TextView
+                            style="@style/DimTextStyle"
+                            android:text="@string/water_quantity_three_with_colon" />
+
+                        <TextView
+                            android:id="@+id/tvWater3"
+                            style="@style/AlignRightNoPaddingTextStyle"
+                            android:gravity="right"
+                            tools:text="1256" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        style="@style/WhiteFixHeightLayoutStyle"
+                        android:layout_marginTop="@dimen/margin_1">
+
+                        <TextView
+                            style="@style/DimTextStyle"
+                            android:text="@string/water_unit_consumption_with_colon" />
+
+                        <TextView
+                            android:id="@+id/tvWaterSingleCost"
+                            style="@style/AlignRightNoPaddingTextStyle"
+                            android:textColor="@color/color_E92C0A"
+                            tools:text="25631" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="250dp">
 
                 <RelativeLayout style="@style/TitleLayoutStyle">
 
                     <TextView
                         style="@style/TitleTextStyle"
-                        android:text="@string/project_status" />
-
-
-                </RelativeLayout>
-
-                <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
-
-                    <TextView
-                        style="@style/DimTextStyle"
-                        android:text="@string/report_people"
-
-                        />
-
-                    <TextView
-                        android:id="@+id/tvReportName"
-                        style="@style/AlignRightNoPaddingTextStyle"
-                        android:textSize="@dimen/text_size_16"
-                        tools:text="12345吨" />
+                        android:text="@string/other_problem" />
 
                 </RelativeLayout>
+                <TextView
+                    android:id="@+id/etOtherProblem"
+                    android:paddingTop="@dimen/margin_12"
+                    android:paddingLeft="@dimen/margin_12"
+                    android:background="@color/color_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                     android:textSize="@dimen/text_size_16"
+                    android:lineSpacingExtra="@dimen/margin_4"
 
-                <RelativeLayout
-                    android:id="@+id/rltData"
-                    style="@style/WhiteFixHeightLayoutStyle"
-                    android:layout_marginTop="@dimen/margin_1">
-
-                    <TextView
-                        style="@style/DimTextStyle"
-                        android:text="@string/data_with_colon"
-                        />
-
-                    <TextView
-                        android:id="@+id/tvDate"
-                        style="@style/AlignRightNoPaddingTextStyle"
-                        android:textSize="@dimen/text_size_16"
-                        tools:text="1256" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    style="@style/WhiteFixHeightLayoutStyle"
-                    android:layout_marginTop="@dimen/margin_1">
-
-                    <TextView
-                        style="@style/DimTextStyle"
-                        android:text="@string/open_boiler_time"
-                        />
-
-                    <TextView
-                        android:id="@+id/tvWorkingHour"
-                        style="@style/AlignRightNoPaddingTextStyle"
-                        tools:text="25631" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    style="@style/WhiteFixHeightLayoutStyle"
-                    android:layout_marginTop="@dimen/margin_1">
-
-                    <TextView
-                        style="@style/DimTextStyle"
-                        android:text="@string/sale_product_with_colon" />
-
-                    <TextView
-                        android:id="@+id/tvSaleType"
-                        style="@style/AlignRightNoPaddingTextStyle"
-                        android:textSize="@dimen/text_size_16"
-                        tools:text="25631" />
-
-                </RelativeLayout>
-
-
+                    />
 
             </LinearLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+
+
 
         </LinearLayout>
+
+
+
+
     </ScrollView>
 </layout>

@@ -108,12 +108,11 @@
             android:name=".activity.personalcenter.CommonProjectActivity"
             android:label="@string/common_project"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.datastatics.HistoryBoilerDetailActivity"
-            android:screenOrientation="portrait" />
         <activity android:name=".activity.homepage.MainActivity" />
 
       <activity android:name=".activity.attendancestatics.HistoryAttendanceStaticsActivity"/>
+
+        <activity android:name=".activity.datastatics.HistoryBoilerDetailActivity"/>
 
     </application>
 

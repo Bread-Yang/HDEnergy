@@ -83,7 +83,7 @@
                 android:text="@string/flow_adjustment"/>
 
             <TextView
-                android:id="@+id/AdjustFlow"
+                android:id="@+id/tvAdjustFlow"
                 style="@style/AlignRightNoPaddingTextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="25631"/>

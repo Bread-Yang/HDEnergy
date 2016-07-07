@@ -23,6 +23,7 @@
     <string name="yuan">元</string>
     <string name="ton">吨</string>
     <string name="how_many_ton">%d吨</string>
+    <string name="zen_ton">/蒸吨</string>
     <string name="electric_unit">kw/h</string>
     <string name="can_not_empty">输入不能为空</string>
     <string name="submit_success">提交成功</string>
@@ -85,10 +86,12 @@
     <string name="adjustment_description">调整说明</string>
     <string name="electric_quantity">电量</string>
     <string name="electric_quantity_with_colon">电量:</string>
+    <string name="electric_quantity_one_with_colon">电量1:</string>
     <string name="electric_quantity_two_with_colon">电量2:</string>
     <string name="electric_quantity_three_with_colon">电量3:</string>
     <string name="electric_unit_consumption">电单耗</string>
     <string name="water_quantity">水量</string>
+    <string name="heating_power">热力</string>
     <string name="water_quantity_with_colon">水量:</string>
     <string name="water_quantity_two_with_colon">水量2:</string>
     <string name="water_quantity_three_with_colon">水量3:</string>
@@ -199,6 +202,7 @@
     <string name="project_amount">项目数</string>
     <string name="maintain_cost">维修费用</string>
     <string name="please_check">请查看</string>
+    <string name="_kg">kg</string>
 
     <!-- 历史考勤统计 -->
     <string name="hostorical_attendance_statics">历史考勤统计</string>

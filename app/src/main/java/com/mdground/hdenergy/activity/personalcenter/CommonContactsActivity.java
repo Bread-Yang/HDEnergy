@@ -170,7 +170,7 @@ public class CommonContactsActivity extends ToolbarActivity<ActivityCommonContac
 
         @Override
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
-            holder.itemContactsBinding.tvContacts.setText(mAllUserContactsList.get(position).getUserPhone());
+            holder.itemContactsBinding.tvContacts.setText(mAllUserContactsList.get(position).getUserName());
             holder.itemContactsBinding.cbSelector.setChecked(false);
             for (int j = 0; j < mCommonUserContactsList.size(); j++) {
                 if (mCommonUserContactsList.get(j).getContactUserId()==mAllUserContactsList.get(position).getUserID()) {

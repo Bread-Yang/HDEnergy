@@ -15,7 +15,7 @@ import cn.aigestudio.datepicker.cons.DPMode;
 import cn.aigestudio.datepicker.views.DatePicker;
 
 /**
- * Created by wistbean on 2016/7/6.
+ * Created by computer on 2016/7/6.
  */
 public class MyTopView extends LinearLayout {
 

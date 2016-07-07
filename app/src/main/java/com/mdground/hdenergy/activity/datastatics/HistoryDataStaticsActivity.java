@@ -129,17 +129,6 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
         for (String str : lists) {
             mArrayList.add(str);
         }
-        //  mArrayList.addAll(lists);
-//        if (lists != null) {
-//            if (lists.size() < 20) {
-//                mIsLoadeMore = false;
-//            } else {
-//                mIsLoadeMore = true;
-//                // mPageIndex++;
-//            }
-//        } else {
-//            mIsLoadeMore = false;
-//        }
 
     }
 

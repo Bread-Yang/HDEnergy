@@ -7,6 +7,11 @@
         <variable
             name="position"
             type="Integer" />
+
+        <variable
+            name="warehouse"
+            type="com.mdground.hdenergy.models.ProjectFuelWarehouse"/>
+
     </data>
 
     <LinearLayout
@@ -19,7 +24,8 @@
 
             <TextView
                 style="@style/TitleTextStyle"
-                android:text="@string/electric_quantity" />
+                android:text="@string/feedstock_amount" />
+
 
         </RelativeLayout>
 
@@ -27,54 +33,34 @@
 
             <TextView
                 style="@style/DimTextStyle"
-                android:text="@{@string/initial_flow_index(position)}"
-                tools:text="@string/electric_quantity_with_colon" />
+                android:text="@string/supplier"
+
+                 />
 
             <TextView
-                android:id="@+id/etElectircQuantity"
+                android:id="@+id/tvSupplier"
                 style="@style/AlignRightNoPaddingTextStyle"
-                android:layout_toLeftOf="@+id/ivDeleteOne"
-                android:gravity="right"
-                tools:text="12345kw/h" />
-
+                android:textSize="@dimen/text_size_16"
+                android:text="@{warehouse.supplier}"
+                tools:text="12345吨" />
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/rltElectricQuantityTwo"
+            android:id="@+id/rltData"
             style="@style/WhiteFixHeightLayoutStyle"
             android:layout_marginTop="@dimen/margin_1">
 
             <TextView
                 style="@style/DimTextStyle"
-                android:text="@string/electric_quantity_two_with_colon" />
+                android:text="@string/license_plate"
+                />
 
             <TextView
-                android:id="@+id/etElectircQuantityTwo"
                 style="@style/AlignRightNoPaddingTextStyle"
-                android:gravity="right"
+                android:textSize="@dimen/text_size_16"
+                android:text="@{warehouse.plateNumber}"
                 tools:text="1256" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rltElectricQuantityThree"
-            style="@style/WhiteFixHeightLayoutStyle"
-            android:layout_marginTop="@dimen/margin_1">
-
-            <TextView
-                style="@style/DimTextStyle"
-                android:text="@string/electric_quantity_three_with_colon" />
-
-            <TextView
-                android:id="@+id/etElectircQuantityThree"
-                style="@style/AlignRightNoPaddingTextStyle"
-                android:gravity="right"
-                tools:text="1256" />
-
-
-
         </RelativeLayout>
 
         <RelativeLayout
@@ -83,15 +69,19 @@
 
             <TextView
                 style="@style/DimTextStyle"
-                android:text="@string/electric_unit_consumption" />
+                android:text="@string/delivery_capacity"
+                />
 
             <TextView
-                android:id="@+id/tvElectircUnitConsumption"
                 style="@style/AlignRightNoPaddingTextStyle"
-                android:textColor="@color/color_E92C0A"
+                android:text="@{@string/how_many_ton(warehouse.amount)}"
                 tools:text="25631" />
 
         </RelativeLayout>
+
+
+
+
 
     </LinearLayout>
 </layout>

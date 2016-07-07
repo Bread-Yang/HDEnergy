@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.attendancestatics.HistoryAttendanceStaticsActivity;
 import com.mdground.hdenergy.activity.datastatics.HistoryDataStaticsActivity;
 import com.mdground.hdenergy.activity.personalcenter.BasicInformationActivity;
 import com.mdground.hdenergy.activity.personalcenter.SettingActivity;
+import com.mdground.hdenergy.application.MDGroundApplication;
 import com.mdground.hdenergy.views.CustomImageButton;
 
 
@@ -22,13 +24,16 @@ import com.mdground.hdenergy.views.CustomImageButton;
 public class LeftMenuFragment extends Fragment implements View.OnClickListener {
 
     private CustomImageButton cibBasicInformation, cibHistoryDate, cibHistoryAttendanceStatics, cibSetting;
-
+    private TextView tvUserName;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_left_menu, container, false);
         cibBasicInformation = (CustomImageButton) view.findViewById(R.id.cibBasicInformation);
         cibHistoryDate = (CustomImageButton) view.findViewById(R.id.cibHistoryDate);
         cibHistoryAttendanceStatics = (CustomImageButton) view.findViewById(R.id.cibHistoryAttendanceStatics);
+        tvUserName= (TextView) view.findViewById(R.id.tvUserName);
+        String UserName=MDGroundApplication.mInstance.getLoginUser().getUserName();
+        tvUserName.setText(UserName);
         cibSetting = (CustomImageButton) view.findViewById(R.id.cibSetting);
         cibSetting.setOnClickListener(this);
         cibHistoryDate.setOnClickListener(this);

@@ -2,7 +2,6 @@ package com.mdground.hdenergy.activity.datastatics;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,21 +13,17 @@ import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
 import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityBoilerDetailBinding;
-import com.mdground.hdenergy.databinding.ItemHistoryBoilerElectricBinding;
 import com.mdground.hdenergy.databinding.ItemHistoryBoilerFlowBinding;
-import com.mdground.hdenergy.databinding.ItemHistoryBoilerFuelBinding;
-import com.mdground.hdenergy.databinding.ItemHistoryBoilerStockBinding;
-import com.mdground.hdenergy.databinding.ItemHistoryBoilerWaterBinding;
-import com.mdground.hdenergy.models.ProjectFuelWarehouse;
 import com.mdground.hdenergy.models.ProjectWorkFlowrate;
 import com.mdground.hdenergy.models.ProjectWorkFuel;
 import com.mdground.hdenergy.models.ProjectWorkFurnace;
+import com.mdground.hdenergy.views.WorkFuelListView;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by PC on 2016-07-03.
@@ -39,7 +34,9 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
     private ProjectWorkFurnace mProjectWorkFurnace;
     private ArrayList<ProjectWorkFlowrate> mFlowArrayList = new ArrayList<>();
     private ArrayList<ProjectWorkFuel> mFuelArrayList = new ArrayList<>();
-    private List<ProjectFuelWarehouse> mProjectFuelWarehouseList;
+    private double mFlowAmount;
+    private String mSaleType;
+//    private List<ProjectFuelWarehouse> mProjectFuelWarehouseList;
 
     @Override
     protected int getContentLayout() {
@@ -53,24 +50,43 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
         mProjectWorkFurnace = bundle.getParcelable(Constants.KEY_BOILERR_PROJECT);
         String title = mProjectWorkFurnace.getFurnaceName();
         String reportName = bundle.getString(Constants.KEY_HISTORY_DATE_NAME);
-        String saleType = bundle.getString(Constants.KEY_SALE_TYPE);
+        mSaleType = bundle.getString(Constants.KEY_SALE_TYPE);
         setTitle(title);
         mDataBinding.tvReportName.setText(reportName);
-        mDataBinding.tvSaleType.setText(saleType);
+        mDataBinding.tvSaleType.setText(mSaleType);
         intiView();
+        ArrayList<ProjectWorkFuel> fuels = (ArrayList<ProjectWorkFuel>) mProjectWorkFurnace.getProjectWorkFuelList();
+        if (fuels != null) {
+            mFuelArrayList.clear();
+            mFuelArrayList.addAll(fuels);
+        }
         ArrayList<ProjectWorkFlowrate> flowrates = (ArrayList<ProjectWorkFlowrate>) mProjectWorkFurnace.getProjectWorkFlowrateList();
         if (flowrates != null) {
             mFlowArrayList.clear();
             mFlowArrayList.addAll(flowrates);
         }
+        if (mFlowArrayList != null) {
+            for (int i = 0; i < mFlowArrayList.size(); i++) {
+                double flow;
+                if (mSaleType.equals(getString(R.string.heating_power))) {
+                    flow = (mFlowArrayList.get(i).getEndFlow() - mFlowArrayList.get(i).getBeginFlow()) * 23.8845 / 60;
+                } else {
+                    flow = (mFlowArrayList.get(i).getEndFlow() - mFlowArrayList.get(i).getBeginFlow()) * 23.8845 / 60;
+                }
 
-        mFuelArrayList.add(new ProjectWorkFuel());
+                mFlowAmount = flow + mFlowAmount;
+            }
+        }
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(layoutManager);
         mAdapter = new BolierDetailAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
-
+        for (int i = 0; i < mFuelArrayList.size(); i++) {
+            ProjectWorkFuel projectWorkFuel = mFuelArrayList.get(i);
+            WorkFuelListView myTopView = new WorkFuelListView(this, projectWorkFuel, mFlowAmount);
+            mDataBinding.lltContent.addView(myTopView);
+        }
     }
 
     private void intiView() {
@@ -84,6 +100,16 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        mDataBinding.tvElectirc1.setText(mProjectWorkFurnace.getElectricity1() + getString(R.string.electric_unit));
+        mDataBinding.tvElectricity2.setText(mProjectWorkFurnace.getElectricity2() + getString(R.string.electric_unit));
+        mDataBinding.tvElectricity3.setText(mProjectWorkFurnace.getElectricity3() + getString(R.string.electric_unit));
+        mDataBinding.tvElectricitySingleCost.setText(mProjectWorkFurnace.getElectricitySingleCost() + getString(R.string.electric_unit) + getString(R.string.zen_ton));
+        mDataBinding.tvWater1.setText(mProjectWorkFurnace.getWater1() + getString(R.string.ton));
+        mDataBinding.tvWater2.setText(mProjectWorkFurnace.getWater2() + getString(R.string.ton));
+        mDataBinding.tvWater3.setText(mProjectWorkFurnace.getWater3() + getString(R.string.ton));
+        mDataBinding.tvWaterSingleCost.setText(mProjectWorkFurnace.getWaterSingleCost() + getString(R.string.ton) + getString(R.string.zen_ton));
+
+
     }
 
     @Override
@@ -103,104 +129,42 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
     //region ADAPTER
     public class BolierDetailAdapter extends RecyclerView.Adapter<BolierDetailAdapter.MyViewHolder> {
 
-        private final int FLOW_VIEW_TYPE = 0x11;
-        private final int ELECTRICITY_VIEW_TYPE = 0x12;
-        private final int WATER_VIEW_TYPE = 0x10;
-        private final int FUEL_VIEW_TYPE = 0x8;
-        private final int FEEDSTROCK_VIEW_TYPE = 0x6;
-
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = null;
-            switch (viewType) {
-                case ELECTRICITY_VIEW_TYPE:
-                    itemView = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.item_history_boiler_electric, parent, false);
-                    break;
-                case FLOW_VIEW_TYPE:
-                    itemView = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.item_history_boiler_flow, parent, false);
-                    break;
 
-                case WATER_VIEW_TYPE:
-                    itemView = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.item_history_boiler_water, parent, false);
-                    break;
-                case FUEL_VIEW_TYPE:
-                    itemView = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.item_history_boiler_fuel, parent, false);
-
-                    break;
-                case FEEDSTROCK_VIEW_TYPE:
-                    itemView = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.item_history_boiler_stock, parent, false);
-                    break;
-
-            }
-            MyViewHolder holder = new MyViewHolder(itemView);
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_history_boiler_flow, parent, false);
+            MyViewHolder holder = new MyViewHolder(view);
             return holder;
         }
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            switch (getItemViewType(position)) {
-                case FLOW_VIEW_TYPE:
-                    ItemHistoryBoilerFlowBinding itemHistoryBoilerFlowBinding = (ItemHistoryBoilerFlowBinding) holder.viewDataBinding;
-                    itemHistoryBoilerFlowBinding.tvBeginFlow.setText(String.valueOf(mFlowArrayList.get(position).getBeginFlow()));
-                    itemHistoryBoilerFlowBinding.tvEndFlow.setText(String.valueOf(mFlowArrayList.get(position).getEndFlow()));
-                     int flow=mFlowArrayList.get(position).getBeginFlow()-mFlowArrayList.get(position).getEndFlow();
-                    itemHistoryBoilerFlowBinding.tvFlow.setText(String.valueOf(flow));
-                //    itemHistoryBoilerFlowBinding.
-                    break;
-
-                case ELECTRICITY_VIEW_TYPE:
-                    ItemHistoryBoilerElectricBinding itemHistoryBoilerElectricBinding = (ItemHistoryBoilerElectricBinding) holder.viewDataBinding;
-                    break;
-
-                case WATER_VIEW_TYPE:
-                    ItemHistoryBoilerWaterBinding itemHistoryBoilerWaterBinding = (ItemHistoryBoilerWaterBinding) holder.viewDataBinding;
-
-                    break;
-                case FUEL_VIEW_TYPE:
-                    ItemHistoryBoilerFuelBinding itemHistoryBoilerFuelBinding = (ItemHistoryBoilerFuelBinding) holder.viewDataBinding;
-
-                    break;
-                case FEEDSTROCK_VIEW_TYPE:
-                    ItemHistoryBoilerStockBinding itemHistoryBoilerStockBinding = (ItemHistoryBoilerStockBinding) holder.viewDataBinding;
-
-                    break;
+            holder.viewDataBinding.setPosition(position + 1);
+            holder.viewDataBinding.tvBeginFlow.setText(String.valueOf(mFlowArrayList.get(position).getBeginFlow()));
+            holder.viewDataBinding.tvEndFlow.setText(String.valueOf(mFlowArrayList.get(position).getEndFlow()));
+            double flow;
+            if (mSaleType.equals(getString(R.string.heating_power))) {
+                flow = (mFlowArrayList.get(position).getEndFlow() - mFlowArrayList.get(position).getBeginFlow()) * 23.8845 / 60;
+            } else {
+                flow = (mFlowArrayList.get(position).getEndFlow() - mFlowArrayList.get(position).getBeginFlow());
             }
-
+            DecimalFormat df = new DecimalFormat("#####0.00");
+            //   mFlowAmount= (int) (flow+mFlowAmount);
+            String s = df.format(flow);
+            holder.viewDataBinding.tvFlow.setText(s + getString(R.string.ton));
+            holder.viewDataBinding.tvAdjustFlow.setText(String.valueOf(mFlowArrayList.get(position).getAdjustFlow()) + getString(R.string.ton));
+            holder.viewDataBinding.tvDescription.setText(String.valueOf(mFlowArrayList.get(position).getDescription()));
         }
 
         @Override
         public int getItemCount() {
-            return mFlowArrayList.size() + 2 + mFuelArrayList.size();
+            return mFlowArrayList.size();
         }
 
-        @Override
-        public int getItemViewType(int position) {
-//            int projectsLength = mProjectArraylist.size();
-            int flowLength = mFlowArrayList.size();
-            int electricityLength = flowLength + 1;
-            int waterLength = electricityLength + 1;
-            int fuelLength = waterLength + mFuelArrayList.size();
-
-            if (position < flowLength) {
-                return FLOW_VIEW_TYPE;
-            } else if (position >= flowLength && position < electricityLength) {
-                return ELECTRICITY_VIEW_TYPE;
-            } else if (position >= electricityLength && position < waterLength) {
-                return WATER_VIEW_TYPE;
-            } else if (position >= waterLength && position < fuelLength) {
-                return FUEL_VIEW_TYPE;
-            } else {
-                return FEEDSTROCK_VIEW_TYPE;
-            }
-        }
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
-            ViewDataBinding viewDataBinding;
+            ItemHistoryBoilerFlowBinding viewDataBinding;
 
             public MyViewHolder(View itemView) {
                 super(itemView);

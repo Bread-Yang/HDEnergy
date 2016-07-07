@@ -121,17 +121,24 @@
                     android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
+            <RelativeLayout style="@style/TitleLayoutStyle">
 
-            <TextView
-                style="@style/SingleTitleLayoutStyle"
-                android:text="@string/other_problem" />
+                <TextView
+                    style="@style/TitleTextStyle"
+                    android:text="@string/other_problem" />
 
+            </RelativeLayout>
             <TextView
                 android:id="@+id/etOtherProblem"
-                style="@style/LargeTextViewLayoutStyle"
-                android:textColor="@color/color_404040"
-                tools:text="@string/adjustment_explain" />
+                android:paddingTop="@dimen/margin_12"
+                android:paddingLeft="@dimen/margin_12"
+                android:background="@color/color_white"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:textSize="@dimen/text_size_16"
+                android:lineSpacingExtra="@dimen/margin_4"
 
+                />
 
         </LinearLayout>
     </ScrollView>

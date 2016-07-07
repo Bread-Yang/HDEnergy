@@ -96,6 +96,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
 
                 if (ResponseCode.isSuccess(response.body())) {
+                    String ss=response.body().getContent();
                     ArrayList<ProjectWork> tempList = response.body().getContent(new TypeToken<ArrayList<ProjectWork>>() {
                     });
 
