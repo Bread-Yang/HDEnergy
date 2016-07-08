@@ -151,6 +151,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
+
             if (authorityLevel!=3) {
                 holder.itemHistoryDatastaticsBinding.lltProfit.setVisibility(View.GONE);
                 layoutParams.setMargins(0, 0, 0, 0);
@@ -165,8 +166,10 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            //  holder.itemHistoryDatastaticsBinding.tvTitles.setText(mProjectWorkList.get(position).getCreatedTime());
-            //holder.itemHistoryDatastaticsBinding.tvTitles.setText();字段还没出来
+
+            if(Integer.valueOf(mProjectWorkList.get(position).getDayFuelCost())>mProjectWorkList.get(position).getFuelCost()) {
+                holder.itemHistoryDatastaticsBinding.ivWarning.setImageResource(R.drawable.icon_warning);
+            }
             holder.itemHistoryDatastaticsBinding.tvStandardUnit.setText(String.valueOf(mProjectWorkList.get(position).getFuelCost()));
             holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(mProjectWorkList.get(position).getDayFuelCost());
             holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(mProjectWorkList.get(position).getDayElectricityCost());

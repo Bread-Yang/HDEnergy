@@ -20,6 +20,9 @@ public class ProjectWorkFuel implements Parcelable{
     private List<ProjectFuelWarehouse> ProjectFuelWarehouseList; // 进料量列表
     private int WorkFuelID;
     private int WorkFurnaceID;
+    private String AdjustReason;
+
+
 
     public ProjectWorkFuel() {
 
@@ -35,6 +38,7 @@ public class ProjectWorkFuel implements Parcelable{
         ProjectFuelWarehouseList = in.createTypedArrayList(ProjectFuelWarehouse.CREATOR);
         WorkFuelID = in.readInt();
         WorkFurnaceID = in.readInt();
+        AdjustReason=in.readString();
     }
 
     public static final Creator<ProjectWorkFuel> CREATOR = new Creator<ProjectWorkFuel>() {
@@ -49,6 +53,13 @@ public class ProjectWorkFuel implements Parcelable{
         }
     };
 
+    public String getAdjustReason() {
+        return AdjustReason;
+    }
+
+    public void setAdjustReason(String adjustReason) {
+        AdjustReason = adjustReason;
+    }
     public int getAdjustInventory() {
         return AdjustInventory;
     }
@@ -137,5 +148,6 @@ public class ProjectWorkFuel implements Parcelable{
         parcel.writeTypedList(ProjectFuelWarehouseList);
         parcel.writeInt(WorkFuelID);
         parcel.writeInt(WorkFurnaceID);
+        parcel.writeString(AdjustReason);
     }
 }

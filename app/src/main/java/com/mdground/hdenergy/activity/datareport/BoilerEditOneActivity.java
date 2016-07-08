@@ -21,6 +21,7 @@ import com.mdground.hdenergy.utils.StringUtil;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import kankan.wheel.widget.OnWheelScrollListener;
@@ -60,13 +61,22 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
         mProjectWorkFurnace = getIntent().getParcelableExtra(Constants.KEY_PROJECT_WORK_FURNACE);
 
-        mProjectWorkFlowrateArrayList.add(createFlowrate());
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mDataBinding.recyclerView.setLayoutManager(layoutManager);
-        mDataBinding.recyclerView.setNestedScrollingEnabled(false);
-        mDataBinding.recyclerView.setFocusable(false);
+          ArrayList<ProjectWorkFlowrate> projectWorkFlowrateList= (ArrayList<ProjectWorkFlowrate>) mProjectWorkFurnace.getProjectWorkFlowrateList();
+           if(projectWorkFlowrateList!=null){
+               mProjectWorkFlowrateArrayList.clear();
+               mProjectWorkFlowrateArrayList.addAll(projectWorkFlowrateList);
+               //锅炉增加一个流量
+               if(mProjectWorkFlowrateArrayList.size()==0){
+                    mProjectWorkFlowrateArrayList.add(createFlowrate());
+               }
+           }else {
+               mProjectWorkFlowrateArrayList.add(createFlowrate());
+           }
+         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+         mDataBinding.recyclerView.setLayoutManager(layoutManager);
+         mDataBinding.recyclerView.setNestedScrollingEnabled(false);
+         mDataBinding.recyclerView.setFocusable(false);
 
         mAdapter = new EditOneAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
@@ -393,8 +403,8 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-            final ProjectWorkFlowrate projectWorkFlowrate = mProjectWorkFlowrateArrayList.get(position);
 
+            final ProjectWorkFlowrate projectWorkFlowrate = mProjectWorkFlowrateArrayList.get(position);
             final ItemBoilerFlowBinding itemBoilerFlowBinding = ((ItemBoilerFlowBinding) holder.viewDataBinding);
             itemBoilerFlowBinding.setFlow(projectWorkFlowrate);
             itemBoilerFlowBinding.setPosition(position + 1);
@@ -410,6 +420,18 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             if (projectWorkFlowrate.getAdjustFlow() != 0) {
                 itemBoilerFlowBinding.etuiAdjustFlow.getEtInput().setText(String.valueOf(projectWorkFlowrate.getAdjustFlow()));
             }
+
+            double flow;
+            if (mIsHeatProduct) {
+                flow = (projectWorkFlowrate.getEndFlow() - projectWorkFlowrate.getBeginFlow()) * 23.8845 / 60;
+            } else {
+                flow = (projectWorkFlowrate.getEndFlow() - projectWorkFlowrate.getBeginFlow());
+            }
+            DecimalFormat df = new DecimalFormat("#####0.00");
+            //   mFlowAmount= (int) (flow+mFlowAmount);
+
+            String s = df.format(flow);
+            itemBoilerFlowBinding.tvResultFlow.setText(s + getString(R.string.ton));
 
             itemBoilerFlowBinding.etAjustDescription.setText(projectWorkFlowrate.getDescription());
 

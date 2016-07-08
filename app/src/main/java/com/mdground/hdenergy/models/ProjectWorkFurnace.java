@@ -28,6 +28,9 @@ public class ProjectWorkFurnace implements Parcelable{
     private String CreatedTime;
     private List<ProjectWorkFlowrate> ProjectWorkFlowrateList; // 流量列表
     private List<ProjectWorkFuel> ProjectWorkFuelList;  // 燃料列表
+    private String Description;
+
+
 
     public ProjectWorkFurnace() {
 
@@ -52,6 +55,7 @@ public class ProjectWorkFurnace implements Parcelable{
         CreatedTime = in.readString();
         ProjectWorkFlowrateList = in.createTypedArrayList(ProjectWorkFlowrate.CREATOR);
         ProjectWorkFuelList = in.createTypedArrayList(ProjectWorkFuel.CREATOR);
+        Description=in.readString();
     }
 
     public static final Creator<ProjectWorkFurnace> CREATOR = new Creator<ProjectWorkFurnace>() {
@@ -201,6 +205,13 @@ public class ProjectWorkFurnace implements Parcelable{
     public void setProjectWorkFuelList(List<ProjectWorkFuel> projectWorkFuelList) {
         ProjectWorkFuelList = projectWorkFuelList;
     }
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
 
     @Override
     public int describeContents() {
@@ -226,6 +237,7 @@ public class ProjectWorkFurnace implements Parcelable{
         parcel.writeString(CreatedTime);
         parcel.writeTypedList(ProjectWorkFlowrateList);
         parcel.writeTypedList(ProjectWorkFuelList);
+        parcel.writeString(Description);
     }
 }
 

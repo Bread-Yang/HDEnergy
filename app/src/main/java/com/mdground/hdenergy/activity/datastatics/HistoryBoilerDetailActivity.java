@@ -54,6 +54,12 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
         setTitle(title);
         mDataBinding.tvReportName.setText(reportName);
         mDataBinding.tvSaleType.setText(mSaleType);
+
+        //为热力时，水量布局消失
+        if (mSaleType.equals(getString(R.string.heating_power))) {
+            mDataBinding.lltWater.setVisibility(View.GONE);
+        }
+
         intiView();
         ArrayList<ProjectWorkFuel> fuels = (ArrayList<ProjectWorkFuel>) mProjectWorkFurnace.getProjectWorkFuelList();
         if (fuels != null) {
@@ -108,7 +114,7 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
         mDataBinding.tvWater2.setText(mProjectWorkFurnace.getWater2() + getString(R.string.ton));
         mDataBinding.tvWater3.setText(mProjectWorkFurnace.getWater3() + getString(R.string.ton));
         mDataBinding.tvWaterSingleCost.setText(mProjectWorkFurnace.getWaterSingleCost() + getString(R.string.ton) + getString(R.string.zen_ton));
-
+        mDataBinding.tvOtherProblem.setText(mProjectWorkFurnace.getDescription());
 
     }
 

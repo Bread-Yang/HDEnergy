@@ -75,12 +75,12 @@ public class WorkFuelListView extends LinearLayout {
         tvPreviousInventory.setText(String.valueOf(previousInventory) + context.getString(R.string.ton));
         tvCurrentInventory.setText(String.valueOf(currentInventory) + context.getString(R.string.ton));
         tvFuelCost.setText(String.valueOf(fuelCost) + context.getString(R.string._kg) + context.getString(R.string.zen_ton));
-         if(adjustInventory>0){
-             tvAdjustInventory.setText("+"+String.valueOf(adjustInventory) + R.string.ton);
-         }else {
-             tvAdjustInventory.setText(String.valueOf(adjustInventory) + R.string.ton);
-         }
-        tvAdjustInventoryExplian.setText("。。。");
+        if (adjustInventory > 0) {
+            tvAdjustInventory.setText("+" + String.valueOf(adjustInventory) + R.string.ton);
+        } else {
+            tvAdjustInventory.setText(String.valueOf(adjustInventory) + R.string.ton);
+        }
+        tvAdjustInventoryExplian.setText(mProjectWorkFuel.getAdjustReason());
         tvFuelUnitConsume.setText(fuelUntiCosts + context.getString(R.string._kg) + context.getString(R.string.zen_ton));
     }
 
@@ -111,6 +111,7 @@ public class WorkFuelListView extends LinearLayout {
 //            holder.itemHistoryBoilerWarehouseBinding.tvSupplier.setText(mProjectFuelWareHouseList.get(position).getSupplier());
             ProjectFuelWarehouse projectFuelWarehouse = mProjectFuelWareHouseList.get(position);
             holder.itemHistoryBoilerWarehouseBinding.setWarehouse(projectFuelWarehouse);
+            holder.itemHistoryBoilerWarehouseBinding.tvPosition.setText(String.valueOf(position+1) + context.getString(R.string.conlon));
         }
 
         @Override

@@ -161,6 +161,9 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
+            if(Integer.valueOf(mProjectList.get(position).getDayFuelCost())>mProjectList.get(position).getFuelCost()){
+                 holder.itemHistoryDatastaticsBinding.ivWarning.setImageResource(R.drawable.icon_warning);
+            }
             if (authorityLevel < 3) {
                 holder.itemHistoryDatastaticsBinding.lltProfit.setVisibility(View.GONE);
                 layoutParams.setMargins(0, 0, 0, 0);

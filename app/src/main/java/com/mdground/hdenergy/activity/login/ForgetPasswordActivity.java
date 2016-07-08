@@ -57,7 +57,8 @@ public class ForgetPasswordActivity extends ToolbarActivity<ActivityForgetPasswo
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                ViewUtils.toast(des);
+//                                ViewUtils.toast(des);
+                                ViewUtils.toast(getString(R.string.error_auth_code));
                             }
                         });
                         return;

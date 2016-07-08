@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.adapter.DateAdapter;
@@ -139,7 +138,7 @@ public class HistoryAttendanceStaticsActivity extends Activity {
         myTopView.setOnDataSelectListner(new DatePicker.OnDatePickedListener() {
             @Override
             public void onDatePicked(String date) {
-                Toast.makeText(HistoryAttendanceStaticsActivity.this, "select..." + date, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(HistoryAttendanceStaticsActivity.this, "select..." + date, Toast.LENGTH_SHORT).show();
                 String[] split = date.split("-");
                 year = Integer.parseInt(split[0]);
                 month = Integer.parseInt(split[1]);

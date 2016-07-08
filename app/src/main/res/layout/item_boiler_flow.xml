@@ -76,7 +76,7 @@
 
             <TextView
                 android:id="@+id/tvResultFlow"
-                style="@style/AlignWithRightArrowTextStyle"
+                style="@style/AlignRightNoPaddingTextStyle"
                 tools:text="25631" />
 
         </RelativeLayout>

@@ -3,6 +3,7 @@ package com.mdground.hdenergy.activity.datareport;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,10 +29,13 @@ import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
 import com.mdground.hdenergy.views.itemdecoration.NormalItemDecoration;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import kankan.wheel.widget.OnWheelScrollListener;
 import kankan.wheel.widget.WheelView;
@@ -63,6 +67,10 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     private boolean mIsHeatProduct; // 销售产品是否是"热力"
 
+    private ProjectWork mProjectWork;
+
+    private boolean mIsNewProjectWork = true;
+
     @Override
     protected int getContentLayout() {
         return R.layout.activity_data_report;
@@ -70,8 +78,24 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     @Override
     protected void initData() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle bundle = intent.getExtras();
+            if (bundle != null) {
+                mProjectWork = bundle.getParcelable(Constants.KEY_PROJECT);
+                if (mProjectWork != null) {
+                    mIsNewProjectWork = false;
+                    List<ProjectWorkFurnace> furnaceList = (ArrayList<ProjectWorkFurnace>) mProjectWork.getProjectWorkFurnaceList();
+                    if (furnaceList != null) {
+                        mProjectWorkFurnaceArrayList.clear();
+                        mProjectWorkFurnaceArrayList.addAll(furnaceList);
+                    }
+                }
+            }
+        }
+
         Date previousDate = DateUtils.previousDate(new Date(), 0);
-        mDataBinding.tvDate.setText(DateUtils.getYearMonthDayWithDash(previousDate));
+
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -89,9 +113,26 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         // 销售产品数据
         String[] salesProductStrings = getResources().getStringArray(R.array.sale_product_type);
         Collections.addAll(mSalesProductArrayList, salesProductStrings);
-        mDataBinding.tvSaleProduct.setText(salesProductStrings[0]);
 
         getUserProjectListRequest();
+        if (mIsNewProjectWork) {
+            mDataBinding.tvDate.setText(DateUtils.getYearMonthDayWithDash(previousDate));
+            mDataBinding.tvSaleProduct.setText(salesProductStrings[0]);
+        } else {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                Date ceateDate = format.parse(mProjectWork.getCreatedTime());
+                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+                String formatDate = format1.format(ceateDate);
+                mDataBinding.tvDate.setText(formatDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            mDataBinding.tvSaleProduct.setText(mProjectWork.getSaleType());
+            mDataBinding.etuiProjectExpense.setText(String.valueOf(mProjectWork.getDailyExpense()));
+            mDataBinding.etProjectDetail.setText(mProjectWork.getExpenseDetail());
+            mDataBinding.etOtherProblem.setText(mProjectWork.getRemark());
+        }
 
     }
 
@@ -105,17 +146,28 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
             @Override
             public void onScrollingFinished(WheelView wheel) {
+
                 int currentPosition = wheel.getCurrentItem();
 
                 switch (mWheelViewChooseResID) {
-                    case R.id.tvProject:
-                        mSelectProjectIndex = currentPosition;
 
-                        Project project = mProjectArrayList.get(currentPosition);
-                        mDataBinding.tvProject.setText(project.getProjectName());
-                        getProjectFurnaceList(project.getProjectID());
+                    case R.id.tvProject:
+
+                        if (mIsNewProjectWork) {
+
+                            mSelectProjectIndex = currentPosition;
+                            Project project = mProjectArrayList.get(currentPosition);
+                            mDataBinding.tvProject.setText(project.getProjectName());
+                            getProjectFurnaceList(project.getProjectID());
+
+                        } else {
+                            Project project = mProjectArrayList.get(currentPosition);
+                            mDataBinding.tvProject.setText(project.getProjectName());
+                        }
+
                         break;
                     case tvSaleProduct:
+
                         mIsHeatProduct = (currentPosition == 1);
                         mDataBinding.tvSaleProduct.setText(mSalesProductArrayList.get(currentPosition));
                         break;
@@ -180,43 +232,75 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
     }
 
     public void submitAction(View view) {
-        ProjectWork projectWork = new ProjectWork();
-
-        projectWork.setUserID(MDGroundApplication.mInstance.getLoginUser().getUserID());
-        projectWork.setUserName(MDGroundApplication.mInstance.getLoginUser().getUserName());
-
-        // 项目
-        Project project = mProjectArrayList.get(mSelectProjectIndex);
-        projectWork.setProjectID(project.getProjectID());
-        projectWork.setProjectName(project.getProjectName());
 
         // 日期
         String date = mDataBinding.tvDate.getText().toString() + " 00:00:00";
-        projectWork.setCreatedTime(date);
 
         //销售产品
         String saleProduct = mDataBinding.tvSaleProduct.getText().toString();
-        projectWork.setSaleType(saleProduct);
-
-        // 锅炉
-        projectWork.setProjectWorkFurnaceList(mProjectWorkFurnaceArrayList);
 
         // 项目费用
         String projectExpenseString = mDataBinding.etuiProjectExpense.getText();
+        int projectExpense = 0;
         if (!StringUtil.isEmpty(projectExpenseString)) {
-            int projectExpense = Integer.parseInt(projectExpenseString) * 100;
-            projectWork.setDailyExpense(projectExpense);
+            projectExpense = Integer.parseInt(projectExpenseString) * 100;
+
+        } else {
+            ViewUtils.toast(getString(R.string.fill_cost_info));
+            return;
         }
+        //项目名称
+
+        String projectName = mDataBinding.tvProject.getText().toString();
 
         // 费用明细
         String feeDetail = mDataBinding.etProjectDetail.getText().toString();
-        projectWork.setExpenseDetail(feeDetail);
 
         // 其他问题
         String otherProblem = mDataBinding.etOtherProblem.getText().toString();
-        projectWork.setRemark(otherProblem);
 
-        saveProjectWorkRequest(projectWork);
+
+        if (mIsNewProjectWork) {
+            ProjectWork projectWork = new ProjectWork();
+            projectWork.setUserID(MDGroundApplication.mInstance.getLoginUser().getUserID());
+            projectWork.setUserName(MDGroundApplication.mInstance.getLoginUser().getUserName());
+            // 项目
+            Project project = mProjectArrayList.get(mSelectProjectIndex);
+            projectWork.setProjectID(project.getProjectID());
+            projectWork.setProjectName(projectName);
+            projectWork.setCreatedTime(date);
+            projectWork.setSaleType(saleProduct);
+            // 锅炉
+            if (mProjectWorkFurnaceArrayList.size() <= 0) {
+                ViewUtils.toast(getString(R.string.params_not_full_prompt));
+                return;
+            }
+            projectWork.setProjectWorkFurnaceList(mProjectWorkFurnaceArrayList);
+
+            projectWork.setDailyExpense(projectExpense);
+            projectWork.setExpenseDetail(feeDetail);
+            projectWork.setRemark(otherProblem);
+            saveProjectWorkRequest(projectWork);
+        } else {
+
+            mProjectWork.setProjectName(projectName);
+            mProjectWork.setCreatedTime(date);
+            mProjectWork.setSaleType(saleProduct);
+
+            if (mProjectWorkFurnaceArrayList.size() <= 0) {
+                ViewUtils.toast(getString(R.string.params_not_full_prompt));
+                return;
+            }
+
+
+            mProjectWork.setProjectWorkFurnaceList(mProjectWorkFurnaceArrayList);
+            mProjectWork.setDailyExpense(projectExpense);
+            mProjectWork.setExpenseDetail(feeDetail);
+            mProjectWork.setRemark(otherProblem);
+            saveProjectWorkRequest(mProjectWork);
+        }
+
+
     }
     //endregion
 
@@ -229,8 +313,14 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                 });
 
                 if (mProjectArrayList.size() > 0) {
-                    getProjectFurnaceList(mProjectArrayList.get(0).getProjectID());
-                    mDataBinding.tvProject.setText(mProjectArrayList.get(0).getProjectName());
+
+                    if (mIsNewProjectWork) {
+                        getProjectFurnaceList(mProjectArrayList.get(0).getProjectID());
+                        mDataBinding.tvProject.setText(mProjectArrayList.get(0).getProjectName());
+                    } else {
+                        mDataBinding.tvProject.setText(mProjectWork.getProjectName());
+                    }
+
                 }
             }
 
@@ -292,10 +382,10 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
+
             final ProjectWorkFurnace projectWorkFurnace = mProjectWorkFurnaceArrayList.get(position);
 
             holder.viewDataBinding.setBoiler(projectWorkFurnace);
-
             if (projectWorkFurnace.getProjectWorkFlowrateList() != null) {
                 holder.viewDataBinding.tvInputStatus.setText(R.string.already_input);
             } else {

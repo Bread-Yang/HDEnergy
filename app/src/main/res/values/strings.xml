@@ -36,6 +36,7 @@
     <string name="login">登录</string>
     <string name="password">密码</string>
     <string name="auth_code">验证码</string>
+    <string name="error_auth_code">验证码错误</string>
     <string name="reset_password">重设密码</string>
     <string name="please_input_account">请输入账号</string>
     <string name="input_password">请输入密码</string>
@@ -72,6 +73,7 @@
     <string name="input_other_problem">可输入其他问题</string>
     <string name="next_step">下一步</string>
     <string name="with_hour_unit">%dh</string>
+    <string name="params_not_full_prompt">项目参数不完整，不能提交</string>
 
     <!-- 锅炉编辑1 -->
     <string name="blow_in_duration">开炉时长</string>
@@ -100,6 +102,7 @@
     <string name="fill_flow_info">请填写流量信息</string>
     <string name="fill_electric_info">请填写电量信息</string>
     <string name="fill_water_info">请填写水量信息</string>
+    <string name="fill_cost_info">请填写费用信息</string>
 
     <!-- 锅炉编辑2 -->
     <string name="fuel">燃料</string>
@@ -109,6 +112,7 @@
     <string name="feedstock_amount">进料量:</string>
     <string name="supplier">供应商:</string>
     <string name="license_plate">车牌号:</string>
+    <string name="conlon">:</string>
     <string name="delivery_capacity">送货量:</string>
     <string name="current_period_stock_with_colon">本期库存:</string>
     <string name="fuel_consumption_with_colon">燃料耗量:</string>

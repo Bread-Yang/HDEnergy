@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
+import com.mdground.hdenergy.activity.datareport.DataReportActivity;
 import com.mdground.hdenergy.application.MDGroundApplication;
 import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityHistoryDataDetailsBinding;
@@ -18,6 +19,7 @@ import com.mdground.hdenergy.databinding.ItemCheckBoilerBinding;
 import com.mdground.hdenergy.models.ProjectWork;
 import com.mdground.hdenergy.models.ProjectWorkFurnace;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,6 +55,8 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
         if (mAuthorityLevel != 1) {
             tvRight.setVisibility(View.VISIBLE);
             tvRight.setText(getString(R.string.edit));
+        } else {
+            tvRight.setVisibility(View.GONE);
         }
         initView();
         mAdapter = new DataDetailsAdapter();
@@ -74,9 +78,12 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        float dailyExpense = (float) mProjectWork.getDailyExpense() / 100;
+        DecimalFormat format2 = new DecimalFormat("0.00");
+        String expense = format2.format(dailyExpense);
         mDataBinding.tvSaleProduct.setText(mProjectWork.getSaleType());
         mDataBinding.etProjectDetail.setText(mProjectWork.getExpenseDetail());
-        mDataBinding.etProjectExpense.setText(String.valueOf(mProjectWork.getDailyExpense()));
+        mDataBinding.etProjectExpense.setText(expense);
         mDataBinding.etOtherProblem.setText(mProjectWork.getRemark());
 
     }
@@ -84,7 +91,16 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
 
     @Override
     protected void setListener() {
-
+        tvRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HistoryDataDetailsActivity.this, DataReportActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.KEY_PROJECT, mProjectWork);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     //region ADAPTER
@@ -105,8 +121,8 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
                 public void onClick(View v) {
                     Intent intent = new Intent(HistoryDataDetailsActivity.this, HistoryBoilerDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString(Constants.KEY_HISTORY_DATE_NAME,mProjectWork.getUserName());
-                    bundle.putString(Constants.KEY_SALE_TYPE,mProjectWork.getSaleType());
+                    bundle.putString(Constants.KEY_HISTORY_DATE_NAME, mProjectWork.getUserName());
+                    bundle.putString(Constants.KEY_SALE_TYPE, mProjectWork.getSaleType());
                     bundle.putParcelable(Constants.KEY_BOILERR_PROJECT, mProjectWorkFurnaceList.get(position));
                     intent.putExtras(bundle);
                     startActivity(intent);

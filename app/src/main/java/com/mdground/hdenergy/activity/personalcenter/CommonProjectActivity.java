@@ -41,6 +41,7 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
     private ArrayList<UserProject> mUserProjectList = new ArrayList<>();
     private CommonProjectAdapter mAdapter;
     private AddProjectDialog mDialog;
+    private int mUserID;
 
     @Override
     protected int getContentLayout() {
@@ -57,6 +58,8 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
 
     @Override
     protected void initData() {
+        mUserID=MDGroundApplication.mInstance.getLoginUser().getUserID();
+        KLog.e("userID"+mUserID);
         GetProjectListRequest();
         mDialog = new AddProjectDialog(this);
         mAdapter = new CommonProjectAdapter();
@@ -130,10 +133,18 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 if (ResponseCode.isSuccess(response.body())) {
+                    KLog.e("---->"+response.body().getContent());
                     mUserProjectList.clear();
-                    ArrayList<UserProject> userProjects = response.body().getContent(new TypeToken<ArrayList<UserProject>>() {
+                    ArrayList<Project> Projects = response.body().getContent(new TypeToken<ArrayList<Project>>() {
                     });
-                    mUserProjectList.addAll(userProjects);
+                    ArrayList<UserProject> userProjectList=new ArrayList<UserProject>();
+                    for(Project project:Projects){
+                        UserProject userProject1=new UserProject();
+                        userProject1.setUserID(mUserID);
+                        userProject1.setProjectID(project.getProjectID());
+                        userProjectList.add(userProject1);
+                    }
+                    mUserProjectList.addAll(userProjectList);
                     sortAllProject(mUserProjectList);
                 }
             }
@@ -166,11 +177,15 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
         });
     }
 
-    public void SaveUserProjectListRequest(List<UserProject> userProjects) {
+    public void SaveUserProjectListRequest(final List<UserProject> userProjects) {
+        for(int i=0;i<userProjects.size();i++){
+            KLog.e("----"+userProjects.get(i).getUserID());
+        }
         GlobalRestful.getInstance().SaveUserProjectList(userProjects, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 if (ResponseCode.isSuccess(response.body())) {
+
                     GetProjectListRequest();
                 }
             }
@@ -242,9 +257,9 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
                 @Override
                 public void onClick(View v) {
                     UserProject userProject = new UserProject();
-                    userProject.setUserID(MDGroundApplication.mInstance.getLoginUser().getUserID());
+                    userProject.setUserID(mUserID);
                     userProject.setProjectID(mAllProjectList.get(position).getProjectID());
-
+                    KLog.e("加进去的UseID"+mUserID);
                     if (holder.itemContactsBinding.cbSelector.isChecked()) {
                         mUserProjectList.add(userProject);
                         SaveUserProjectListRequest(mUserProjectList);
