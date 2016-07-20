@@ -65,7 +65,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
           getDateList();
         setTitle(title);
         GetProjectWorkList(mProjectID, mPageIndex);
-        authorityLevel = MDGroundApplication.mInstance.getLoginUser().getAuthorityLevel();
+        authorityLevel = MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel();
         layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mAdapter = new HistoryDateListAdapter();
         mLinearLayoutManager = new LinearLayoutManager(HistoryDataListActivity.this);
@@ -174,7 +174,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
             holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(mProjectWorkList.get(position).getDayFuelCost());
             holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(mProjectWorkList.get(position).getDayElectricityCost());
             holder.itemHistoryDatastaticsBinding.tvWaterUnitConsumption.setText(mProjectWorkList.get(position).getDayWaterCost());
-            if (MDGroundApplication.mInstance.getLoginUser().getAuthorityLevel() != 3) {
+            if (MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel() != 3) {
                 holder.itemHistoryDatastaticsBinding.tvProfit.setVisibility(View.GONE);
             } else {
             }

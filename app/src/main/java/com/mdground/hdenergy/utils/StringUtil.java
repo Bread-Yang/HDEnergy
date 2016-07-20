@@ -79,7 +79,7 @@ public class StringUtil {
     }
 
     public static String getProjectStatus(int projectStatus) {
-        String[] projectStatusStrings = MDGroundApplication.mInstance.getResources().getStringArray(R.array.project_status);
+        String[] projectStatusStrings = MDGroundApplication.sInstance.getResources().getStringArray(R.array.project_status);
         if (projectStatus < projectStatusStrings.length) {
             return projectStatusStrings[projectStatus];
         }

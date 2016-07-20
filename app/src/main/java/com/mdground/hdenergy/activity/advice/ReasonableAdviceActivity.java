@@ -48,7 +48,7 @@ public class ReasonableAdviceActivity extends ToolbarActivity<ActivityReasonable
 
     //region SERVER
     public void saveUserSuggestionRequest(String suggestion) {
-        String userPhone = MDGroundApplication.mInstance.getLoginUser().getUserPhone();
+        String userPhone = MDGroundApplication.sInstance.getLoginUser().getUserPhone();
         GlobalRestful.getInstance().SaveUserSuggestion(suggestion,
                 new Callback<ResponseData>() {
                     @Override

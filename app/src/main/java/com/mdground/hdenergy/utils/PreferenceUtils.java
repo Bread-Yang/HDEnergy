@@ -16,7 +16,7 @@ import com.mdground.hdenergy.constants.Constants;
 public class PreferenceUtils {
 
 	public static SharedPreferences getSharedPreferences() {
-		return MDGroundApplication.mInstance.getSharedPreferences(Constants.PREFERENCE, Context.MODE_PRIVATE); //私有数据
+		return MDGroundApplication.sInstance.getSharedPreferences(Constants.PREFERENCE, Context.MODE_PRIVATE); //私有数据
 	}
 
 	public static String getPrefString(String key, final String defaultValue) {

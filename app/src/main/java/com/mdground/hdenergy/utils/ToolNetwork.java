@@ -34,7 +34,7 @@ public class ToolNetwork {
 	public final static String NETWORK_WIFI = "WIFI";
 	public final static String TAG = "ToolNetwork";
 	private static NetworkInfo networkInfo = null;
-	private Context mContext = MDGroundApplication.mInstance;
+	private Context mContext = MDGroundApplication.sInstance;
 
 	private ToolNetwork() {
 	}

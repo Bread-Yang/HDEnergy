@@ -233,37 +233,51 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     public void submitAction(View view) {
 
+        //项目名称
+        String projectName = mDataBinding.tvProject.getText().toString();
+        if (StringUtil.isEmpty(projectName)) {
+            ViewUtils.toast(R.string.fill_project_info);
+            return;
+        }
+
         // 日期
         String date = mDataBinding.tvDate.getText().toString() + " 00:00:00";
 
-        //销售产品
+        // 销售产品
         String saleProduct = mDataBinding.tvSaleProduct.getText().toString();
+
+        // 锅炉
+        for (ProjectWorkFurnace item : mProjectWorkFurnaceArrayList) {
+            if (item.getProjectWorkFlowrateList() == null) {
+                ViewUtils.toast(R.string.fill_boiler_info);
+                return;
+            }
+        }
 
         // 项目费用
         String projectExpenseString = mDataBinding.etuiProjectExpense.getText();
         int projectExpense = 0;
         if (!StringUtil.isEmpty(projectExpenseString)) {
             projectExpense = Integer.parseInt(projectExpenseString) * 100;
-
         } else {
             ViewUtils.toast(getString(R.string.fill_cost_info));
             return;
         }
-        //项目名称
-
-        String projectName = mDataBinding.tvProject.getText().toString();
 
         // 费用明细
         String feeDetail = mDataBinding.etProjectDetail.getText().toString();
+        if (StringUtil.isEmpty(feeDetail)) {
+            ViewUtils.toast(getString(R.string.fill_cost_info));
+            return;
+        }
 
         // 其他问题
         String otherProblem = mDataBinding.etOtherProblem.getText().toString();
 
-
         if (mIsNewProjectWork) {
             ProjectWork projectWork = new ProjectWork();
-            projectWork.setUserID(MDGroundApplication.mInstance.getLoginUser().getUserID());
-            projectWork.setUserName(MDGroundApplication.mInstance.getLoginUser().getUserName());
+            projectWork.setUserID(MDGroundApplication.sInstance.getLoginUser().getUserID());
+            projectWork.setUserName(MDGroundApplication.sInstance.getLoginUser().getUserName());
             // 项目
             Project project = mProjectArrayList.get(mSelectProjectIndex);
             projectWork.setProjectID(project.getProjectID());
@@ -292,15 +306,12 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                 return;
             }
 
-
             mProjectWork.setProjectWorkFurnaceList(mProjectWorkFurnaceArrayList);
             mProjectWork.setDailyExpense(projectExpense);
             mProjectWork.setExpenseDetail(feeDetail);
             mProjectWork.setRemark(otherProblem);
             saveProjectWorkRequest(mProjectWork);
         }
-
-
     }
     //endregion
 

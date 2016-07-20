@@ -14,6 +14,7 @@ import com.mdground.hdenergy.models.Project;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.DateUtils;
+import com.mdground.hdenergy.utils.StringUtil;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
 
@@ -56,6 +57,8 @@ public class ProjectEditActivity extends ToolbarActivity<ActivityProjectEditBind
         mProject = getIntent().getParcelableExtra(Constants.KEY_PROJECT);
         mDataBinding.setProject(mProject);
 
+        hideTimeLayoutDependStatus(ProjectStatus.fromValue(mProject.getProjectStatus()));
+
         String[] projectStatusStrings = getResources().getStringArray(R.array.project_status);
         Collections.addAll(mProjectStatusArrayList, projectStatusStrings);
 
@@ -78,6 +81,8 @@ public class ProjectEditActivity extends ToolbarActivity<ActivityProjectEditBind
 
                 mProject.setProjectStatus(currentPosition);
                 mDataBinding.tvProjectStatus.setText(mProjectStatusArrayList.get(currentPosition));
+
+                hideTimeLayoutDependStatus(ProjectStatus.fromValue(mProject.getProjectStatus()));
             }
         });
     }
@@ -124,10 +129,20 @@ public class ProjectEditActivity extends ToolbarActivity<ActivityProjectEditBind
                 .build();
     }
 
+    private void hideTimeLayoutDependStatus(ProjectStatus projectStatus) {
+        if (projectStatus == ProjectStatus.Normal) {
+            mDataBinding.rltStartTime.setVisibility(View.GONE);
+            mDataBinding.rltEndTime.setVisibility(View.GONE);
+        } else {
+            mDataBinding.rltStartTime.setVisibility(View.VISIBLE);
+            mDataBinding.rltEndTime.setVisibility(View.VISIBLE);
+        }
+    }
 
     //region ACTION
     public void selectProjectStatusAction(View view) {
         mBaoPickerDialog.show();
+        mBaoPickerDialog.setCurrentItem(mProject.getProjectStatus());
     }
 
     public void selectDateAction(View view) {
@@ -138,8 +153,24 @@ public class ProjectEditActivity extends ToolbarActivity<ActivityProjectEditBind
 
     public void submitAction(View view) {
         ProjectStatus projectStatus = ProjectStatus.fromValue(mProject.getProjectStatus());
-        String startTime = mDataBinding.tvStartTime.getText().toString();
-        String endTime = mDataBinding.tvEndTime.getText().toString();
+
+        String startTime = null;
+        String endTime = null;
+
+        if (projectStatus != ProjectStatus.Normal) {
+            startTime = mDataBinding.tvStartTime.getText().toString();
+            if (StringUtil.isEmpty(startTime)) {
+                ViewUtils.toast(R.string.fill_start_time);
+                return;
+            }
+
+            endTime = mDataBinding.tvEndTime.getText().toString();
+            if (StringUtil.isEmpty(startTime)) {
+                ViewUtils.toast(R.string.fill_end_time);
+                return;
+            }
+        }
+
         String remark = mDataBinding.etRemark.getText().toString().trim();
         ViewUtils.loading(this);
         GlobalRestful.getInstance().UpdateProject(mProject.getProjectID(), projectStatus,

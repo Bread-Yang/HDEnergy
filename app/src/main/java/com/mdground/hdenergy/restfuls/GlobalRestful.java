@@ -50,7 +50,7 @@ public class GlobalRestful extends BaseRestful {
 
     // 用户登录
     public void LoginUser(String userPhone, String pwd, Callback<ResponseData> callback) {
-        Device device = DeviceUtil.getDeviceInfo(MDGroundApplication.mInstance);
+        Device device = DeviceUtil.getDeviceInfo(MDGroundApplication.sInstance);
         device.setDeviceToken("abc");   // 信鸽的token, XGPushConfig.getToken(this);
         device.setDeviceID(DeviceUtil.getDeviceId());
 
@@ -192,6 +192,13 @@ public class GlobalRestful extends BaseRestful {
         JsonObject obj = new JsonObject();
         obj.addProperty("ProjectID", projectID);
         asynchronousPost("GetProjectFurnaceList", obj, callback);
+    }
+
+    // 获取项目燃料列表
+    public void GetProjectFuelList(int projectID, Callback<ResponseData> callback) {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("ProjectID", projectID);
+        asynchronousPost("GetProjectFuelList", obj, callback);
     }
 
     //获取项目统计信息列表

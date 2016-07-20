@@ -57,7 +57,7 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
         mLinearLayoutManager = new LinearLayoutManager(HistoryDataStaticsActivity.this);
         mDataBinding.recyclerView.setLayoutManager(mLinearLayoutManager);
         mDataBinding.recyclerView.setAdapter(mAdapter);
-        authorityLevel = MDGroundApplication.mInstance.getLoginUser().getAuthorityLevel();
+        authorityLevel = MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel();
     }
 
     @Override

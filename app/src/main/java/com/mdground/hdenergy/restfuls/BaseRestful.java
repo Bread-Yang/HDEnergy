@@ -74,7 +74,7 @@ public abstract class BaseRestful {
     }
 
     protected BaseRestful() {
-        mContext = MDGroundApplication.mInstance;
+        mContext = MDGroundApplication.sInstance;
 
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(getHost())
@@ -119,7 +119,7 @@ public abstract class BaseRestful {
         String serviceToken = "";
         requestData.setDeviceID(DeviceUtil.getDeviceId());
 
-        UserInfo userInfo = MDGroundApplication.mInstance.getLoginUser();
+        UserInfo userInfo = MDGroundApplication.sInstance.getLoginUser();
         if (userInfo != null) {
             serviceToken = userInfo.getServiceToken();
             requestData.setUserID(userInfo.getUserID());
@@ -144,7 +144,7 @@ public abstract class BaseRestful {
         String serviceToken = "";
         requestDataForLogOnly.setDeviceID(DeviceUtil.getDeviceId());
 
-        UserInfo userInfo = MDGroundApplication.mInstance.getLoginUser();
+        UserInfo userInfo = MDGroundApplication.sInstance.getLoginUser();
         if (userInfo != null) {
             serviceToken = userInfo.getServiceToken();
             requestDataForLogOnly.setUserID(userInfo.getUserID());

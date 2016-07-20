@@ -23,13 +23,11 @@ public final class Constants {
     //照片储存文件夹
     public static final String PHOTO_FILE = "/baoprint";
     // 短信接口参数
-    public static final String SMS_APP_KEY = "fdd3cf873a60";
-    public static final String SMS_APP_SECRECT = "bb31da16613ce49ba8cb815ccf5afe7d";
+    public static final String SMS_APP_KEY = "14ade3e2c0770";
+    public static final String SMS_APP_SECRECT = "237cefc5da8e640ebc755f10b7ed13a5";
 
     // 第一次打开APP
     public static final String KEY_IS_FIRST_LAUNCH = "key_is_first_launch";
-
-
 
     public static final String KEY_RESET_PASSWORD ="key_reset_name";
 

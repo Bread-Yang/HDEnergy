@@ -51,7 +51,7 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
             mProjectWorkFurnaceList = FurnaceList;
         }
         setTitle(mProjectWork.getProjectName());
-        mAuthorityLevel = MDGroundApplication.mInstance.getLoginUser().getAuthorityLevel();
+        mAuthorityLevel = MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel();
         if (mAuthorityLevel != 1) {
             tvRight.setVisibility(View.VISIBLE);
             tvRight.setText(getString(R.string.edit));

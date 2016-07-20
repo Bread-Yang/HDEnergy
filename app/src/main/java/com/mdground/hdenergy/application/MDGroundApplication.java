@@ -2,10 +2,11 @@ package com.mdground.hdenergy.application;
 
 import android.app.Application;
 
-import cn.smssdk.SMSSDK;
 import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.models.UserInfo;
 import com.mdground.hdenergy.utils.FileUtils;
+
+import cn.smssdk.SMSSDK;
 
 /**
  * Created by yoghourt on 5/6/16.
@@ -15,12 +16,12 @@ public class MDGroundApplication extends Application {
     /**
      * 对外提供整个应用生命周期的Context
      **/
-    public static MDGroundApplication mInstance;
+    public static MDGroundApplication sInstance;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mInstance = this;
+        sInstance = this;
 
         SMSSDK.initSDK(this, Constants.SMS_APP_KEY, Constants.SMS_APP_SECRECT);
 

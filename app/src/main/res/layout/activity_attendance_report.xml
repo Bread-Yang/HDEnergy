@@ -133,10 +133,18 @@
 
                 <TextView
                     android:id="@+id/tvManHours"
-                    style="@style/WithArrowIconTextStyle"
+                    style="@style/NormalTextStyle"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tvManHoursUnit"
                     android:textColor="@color/color_f03232"
                     android:textSize="@dimen/text_size_16"
                     tools:text="8.5" />
+
+                <TextView
+                    android:id="@+id/tvManHoursUnit"
+                    style="@style/WithArrowIconTextStyle"
+                    android:text="h"
+                    android:textSize="@dimen/text_size_16" />
 
             </RelativeLayout>
 
@@ -152,8 +160,16 @@
 
                 <EditText
                     android:id="@+id/etOverTimeHour"
-                    style="@style/WithArrowEdittextStyle"
+                    style="@style/EditTextStyle"
+                    android:layout_toLeftOf="@+id/tvOverTimeUnit"
+                    android:gravity="center_vertical|right"
                     android:inputType="number" />
+
+                <TextView
+                    android:id="@+id/tvOverTimeUnit"
+                    style="@style/WithArrowIconTextStyle"
+                    android:text="h"
+                    android:textSize="@dimen/text_size_16" />
 
             </RelativeLayout>
 
@@ -294,6 +310,7 @@
 
                 <EditText
                     android:id="@+id/etScore"
+                    android:hint="@string/last_day_fill"
                     style="@style/WithArrowEdittextStyle"
                     android:inputType="number" />
 

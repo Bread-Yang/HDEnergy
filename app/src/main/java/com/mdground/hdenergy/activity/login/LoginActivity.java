@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                         saveUserAndToMainActivity(userInfo);
                     }
                      FileUtils.setObject(Constants.KEY_LAST_LOGIN_ACCOUNT,userInfo.getUserPhone());
-                    MDGroundApplication.mInstance.setLoginUserInfo(userInfo);
+                    MDGroundApplication.sInstance.setLoginUserInfo(userInfo);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();

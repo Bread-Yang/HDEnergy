@@ -54,7 +54,7 @@ public class FeedBackActivity extends ToolbarActivity<ActivityFeedbackBinding> {
 
     //region SERVER
     public void SaveUserSuggestionRequest(String Suggestion) {
-        String UserPhone = MDGroundApplication.mInstance.getLoginUser().getUserPhone();
+        String UserPhone = MDGroundApplication.sInstance.getLoginUser().getUserPhone();
         GlobalRestful.getInstance().SaveUserSuggestion(Suggestion,
                 new Callback<ResponseData>() {
                     @Override

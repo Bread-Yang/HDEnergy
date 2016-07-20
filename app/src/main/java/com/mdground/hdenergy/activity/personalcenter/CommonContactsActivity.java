@@ -182,7 +182,7 @@ public class CommonContactsActivity extends ToolbarActivity<ActivityCommonContac
                 @Override
                 public void onClick(View v) {
                     UserContacts userContarcts = new UserContacts();
-                    userContarcts.setUserID(MDGroundApplication.mInstance.getLoginUser().getUserID());
+                    userContarcts.setUserID(MDGroundApplication.sInstance.getLoginUser().getUserID());
                     userContarcts.setContactUserId(mAllUserContactsList.get(position).getUserID());
 
                     if (holder.itemContactsBinding.cbSelector.isChecked()) {

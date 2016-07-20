@@ -43,9 +43,9 @@ public class StartingActivity extends AppCompatActivity {
                 if (isFirstLaunch) {
                     toGuideActivity();
                 } else {
-                    UserInfo saveUserInfo = MDGroundApplication.mInstance.getSaveUser();
+                    UserInfo saveUserInfo = MDGroundApplication.sInstance.getSaveUser();
                     if (saveUserInfo != null) {
-                        MDGroundApplication.mInstance.setLoginUserInfo(saveUserInfo);
+                        MDGroundApplication.sInstance.setLoginUserInfo(saveUserInfo);
                         NavUtils.toHomeActivity(StartingActivity.this);
                         finish();
                     } else {

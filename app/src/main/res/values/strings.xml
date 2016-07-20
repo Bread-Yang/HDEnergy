@@ -74,6 +74,8 @@
     <string name="next_step">下一步</string>
     <string name="with_hour_unit">%dh</string>
     <string name="params_not_full_prompt">项目参数不完整，不能提交</string>
+    <string name="fill_project_info">请填写项目情况</string>
+    <string name="fill_boiler_info">请填写锅炉信息</string>
 
     <!-- 锅炉编辑1 -->
     <string name="blow_in_duration">开炉时长</string>
@@ -144,6 +146,7 @@
     <string name="accommodation_fee">住宿费:</string>
     <string name="rate">打分</string>
     <string name="rate_with_colon">打分:</string>
+    <string name="last_day_fill">请每月的最后一个工作日填入</string>
 
     <!-- 项目启停 -->
     <string name="project_start_stop">项目启停</string>
@@ -154,7 +157,9 @@
     <!-- 项目编辑 -->
     <string name="status_with_colon">状态:</string>
     <string name="start_time_with_colon">开始时间:</string>
+    <string name="fill_start_time">请选择开始时间</string>
     <string name="end_time_with_colon">结束时间:</string>
+    <string name="fill_end_time">请选择结束时间</string>
     <string name="reason_with_colon">原因:</string>
 
     <!-- 合理化建议 -->

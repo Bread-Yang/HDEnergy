@@ -51,14 +51,14 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
     @Override
     protected void onResume() {
         super.onResume();
-        if (MDGroundApplication.mInstance.getLoginUser().getAuthorityLevel() == 1) {
+        if (MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel() == 1) {
             mDataBinding.lltAdd.setVisibility(View.GONE);
         }
     }
 
     @Override
     protected void initData() {
-        mUserID=MDGroundApplication.mInstance.getLoginUser().getUserID();
+        mUserID=MDGroundApplication.sInstance.getLoginUser().getUserID();
         KLog.e("userID"+mUserID);
         GetProjectListRequest();
         mDialog = new AddProjectDialog(this);

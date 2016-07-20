@@ -32,7 +32,7 @@ public class LeftMenuFragment extends Fragment implements View.OnClickListener {
         cibHistoryDate = (CustomImageButton) view.findViewById(R.id.cibHistoryDate);
         cibHistoryAttendanceStatics = (CustomImageButton) view.findViewById(R.id.cibHistoryAttendanceStatics);
         tvUserName= (TextView) view.findViewById(R.id.tvUserName);
-        String UserName=MDGroundApplication.mInstance.getLoginUser().getUserName();
+        String UserName=MDGroundApplication.sInstance.getLoginUser().getUserName();
         tvUserName.setText(UserName);
         cibSetting = (CustomImageButton) view.findViewById(R.id.cibSetting);
         cibSetting.setOnClickListener(this);

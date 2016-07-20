@@ -21,7 +21,7 @@ public class BasicInformationActivity extends ToolbarActivity<ActivityBasicInfor
 
     @Override
     protected void initData() {
-     mUserInfo= MDGroundApplication.mInstance.getLoginUser();
+     mUserInfo= MDGroundApplication.sInstance.getLoginUser();
         String userName=mUserInfo.getUserName();
         String userPhone=mUserInfo.getUserPhone();
         String userDepartment=mUserInfo.getDepartment();

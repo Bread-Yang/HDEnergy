@@ -30,7 +30,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/rltFuelType"
+            android:id="@+id/rltFuelCategory"
             style="@style/WhiteFixHeightLayoutStyle">
 
             <TextView
@@ -39,7 +39,9 @@
 
             <TextView
                 style="@style/WithArrowIconTextStyle"
+                android:id="@+id/tvFuelCategory"
                 android:textSize="@dimen/text_size_16"
+                android:text="@{fuel.fuelName}"
                 tools:text="颗粒(8元)" />
 
         </RelativeLayout>
@@ -54,6 +56,7 @@
                 android:text="@string/last_period_stock_with_colon" />
 
             <EditText
+                android:text="@{String.valueOf(fuel.previousInventory)}"
                 android:id="@+id/etLastPeriodStock"
                 style="@style/WithArrowEdittextStyle"
                 android:inputType="number" />
