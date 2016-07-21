@@ -2,7 +2,7 @@ package com.mdground.hdenergy.restfuls.Interceptor;
 
 import com.google.gson.GsonBuilder;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
-import com.mdground.hdenergy.utils.EncryptUtil;
+import com.mdground.hdenergy.utils.EncryptUtils;
 import com.socks.library.KLog;
 
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class DecryptedPayloadInterceptor implements Interceptor {
 
 //            KLog.e("\n" + bodyContent.replaceAll("\\\\", ""));
             try {
-                bodyContent = EncryptUtil.encrypt(bodyContent);  // 加密
+                bodyContent = EncryptUtils.encrypt(bodyContent);  // 加密
                 bodyContent = URLEncoder.encode(bodyContent, "UTF-8");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -65,7 +65,7 @@ public class DecryptedPayloadInterceptor implements Interceptor {
         String responseContent = originalResponse.body().string();
         try {
             responseContent = URLDecoder.decode(responseContent, "UTF-8");
-            responseContent = EncryptUtil.decrypt(responseContent);  // 解密
+            responseContent = EncryptUtils.decrypt(responseContent);  // 解密
         } catch (Exception e) {
             e.printStackTrace();
         }

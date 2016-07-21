@@ -22,7 +22,7 @@ import com.mdground.hdenergy.models.ProjectWorkFuel;
 import com.mdground.hdenergy.models.ProjectWorkFurnace;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
-import com.mdground.hdenergy.utils.StringUtil;
+import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
 
@@ -46,11 +46,13 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
     private ProjectWorkFurnace mProjectWorkFurnace;
 
-    private ArrayList<ProjectWorkFuel> mProjectWorkFuelArrayList = new ArrayList<>();
+    private List<ProjectWorkFuel> mProjectWorkFuelArrayList;
 
     private ArrayList<FuelCategory> mFuelCategoryArrayList = new ArrayList<>();
 
-    private int mCurrentClickFuelPosition;
+    private int mClickResId;
+
+    private int mClickFuelPosition, mClickWareHousePosition;
 
     @Override
     protected int getContentLayout() {
@@ -78,14 +80,55 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
             public void onScrollingFinished(WheelView wheel) {
                 int currentPosition = wheel.getCurrentItem();
 
-                FuelCategory fuelCategory = mFuelCategoryArrayList.get(currentPosition);
+                ProjectWorkFuel projectWorkFuel = mProjectWorkFuelArrayList.get(mClickFuelPosition);
 
-                ProjectWorkFuel projectWorkFuel = mProjectWorkFuelArrayList.get(mCurrentClickFuelPosition);
-                projectWorkFuel.setFuelID(fuelCategory.getFuelID());
-                projectWorkFuel.setFuelName(fuelCategory.getFuelName());
-                projectWorkFuel.setPreviousInventory(fuelCategory.getInventory());
+                switch (mClickResId) {
+                    case R.id.rltFuelCategory: {
+                        FuelCategory fuelCategory = mFuelCategoryArrayList.get(currentPosition);
 
-                mDataBinding.recyclerView.getAdapter().notifyItemChanged(mCurrentClickFuelPosition);
+                        projectWorkFuel.setFuelID(fuelCategory.getFuelID());
+                        projectWorkFuel.setFuelName(fuelCategory.getFuelName());
+                        projectWorkFuel.setPreviousInventory(fuelCategory.getInventory());
+
+                        // 重新选择燃料种类后,该燃料下所有的进料量的供应商都重置
+                        for (ProjectFuelWarehouse projectFuelWarehouse : projectWorkFuel.getProjectFuelWarehouseList()) {
+                            projectFuelWarehouse.setFuelName(fuelCategory.getFuelName());
+                            projectFuelWarehouse.setSupplier("");
+                        }
+
+                        mDataBinding.recyclerView.getAdapter().notifyItemChanged(mClickFuelPosition);
+                        break;
+                    }
+                    case R.id.rltSupplier: {
+                        FuelCategory fuelCategory = null;
+                        for (FuelCategory item : mFuelCategoryArrayList) {
+                            if (item.getFuelID() == projectWorkFuel.getFuelID()) {
+                                fuelCategory = item;
+                                break;
+                            }
+                        }
+
+                        String[] suppliers = fuelCategory.getSuppliers().split(";");
+
+                        String selectSupplier = suppliers[currentPosition];
+
+                        // 一个供应商不能用于多个进料量
+                        for (int i = 0 ;i < projectWorkFuel.getProjectFuelWarehouseList().size(); i++) {
+                            ProjectFuelWarehouse item = projectWorkFuel.getProjectFuelWarehouseList().get(i);
+
+                            if (i != mClickWareHousePosition && item.getSupplier().equals(selectSupplier)) {
+                                ViewUtils.toast(R.string.not_same_supplier);
+                                return;
+                            }
+                        }
+
+                        ProjectFuelWarehouse projectFuelWarehouse = projectWorkFuel.getProjectFuelWarehouseList().get(mClickWareHousePosition);
+                        projectFuelWarehouse.setSupplier(suppliers[currentPosition]);
+
+                        mDataBinding.recyclerView.getAdapter().notifyItemChanged(mClickFuelPosition);
+                        break;
+                    }
+                }
             }
         });
     }
@@ -112,8 +155,35 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
         mProjectWorkFuelArrayList.add(projectWorkFuel);
     }
 
+    private ProjectFuelWarehouse createFuelWarehouse(int fuelPosition) {
+        ProjectWorkFuel projectWorkFuel = mProjectWorkFuelArrayList.get(fuelPosition);
+
+        ProjectFuelWarehouse projectFuelWarehouse = new ProjectFuelWarehouse();
+        projectFuelWarehouse.setFuelName(projectWorkFuel.getFuelName());
+        projectFuelWarehouse.setProjectID(projectFuelWarehouse.getProjectID());
+
+        return projectFuelWarehouse;
+    }
+
     //region  ACTION
     public void submitAction(View view) {
+        for (ProjectWorkFuel projectWorkFuel : mProjectWorkFuelArrayList) {
+            if (projectWorkFuel.getFuelID() == 0) {
+                ViewUtils.toast(R.string.fill_fuel_info);
+                return;
+            }
+
+            List<ProjectFuelWarehouse> projectFuelWarehouseArrayList = projectWorkFuel.getProjectFuelWarehouseList();
+
+            for (ProjectFuelWarehouse projectFuelWarehouse : projectFuelWarehouseArrayList) {
+                if (StringUtils.isEmpty(projectFuelWarehouse.getSupplier())
+                        || StringUtils.isEmpty(projectFuelWarehouse.getPlateNumber())) {
+                    ViewUtils.toast(R.string.fill_feedstock_info);
+                    return;
+                }
+            }
+        }
+
         mProjectWorkFurnace.setProjectWorkFuelList(mProjectWorkFuelArrayList);
         Intent intent = new Intent();
         intent.putExtra(Constants.KEY_PROJECT_WORK_FURNACE, mProjectWorkFurnace);
@@ -132,13 +202,11 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                 mFuelCategoryArrayList = response.body().getContent(new TypeToken<ArrayList<FuelCategory>>() {
                 });
 
-                ArrayList<String> fuelCategoryStringArrayList = new ArrayList<>();
-                for (FuelCategory item : mFuelCategoryArrayList) {
-                    fuelCategoryStringArrayList.add(item.getFuelName());
+                mProjectWorkFuelArrayList = mProjectWorkFurnace.getProjectWorkFuelList();
+                if (mProjectWorkFuelArrayList == null) {
+                    mProjectWorkFuelArrayList = new ArrayList<ProjectWorkFuel>();
+                    createProjectWorkFuel();
                 }
-                mBaoPickerDialog.bindWheelViewData(fuelCategoryStringArrayList);
-
-                createProjectWorkFuel();
 
                 LinearLayoutManager layoutManager = new LinearLayoutManager(BoilerEditTwoActivity.this);
                 layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -178,7 +246,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
             holder.viewDataBinding.recyclerView.setLayoutManager(layoutManager);
             holder.viewDataBinding.recyclerView.setNestedScrollingEnabled(false);
 
-            WarehouseAdapter warehouseAdapter = new WarehouseAdapter(projectWorkFuel.getProjectFuelWarehouseList());
+            WarehouseAdapter warehouseAdapter = new WarehouseAdapter(position, projectWorkFuel);
             holder.viewDataBinding.recyclerView.setAdapter(warehouseAdapter);
 
             if (position == 0) {
@@ -208,7 +276,14 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
             holder.viewDataBinding.rltFuelCategory.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mCurrentClickFuelPosition = position;
+                    mClickResId = R.id.rltFuelCategory;
+                    mClickFuelPosition = position;
+
+                    ArrayList<String> fuelCategoryStringArrayList = new ArrayList<>();
+                    for (FuelCategory item : mFuelCategoryArrayList) {
+                        fuelCategoryStringArrayList.add(item.getFuelName());
+                    }
+                    mBaoPickerDialog.bindWheelViewData(fuelCategoryStringArrayList);
 
                     String chooseFuelCategory = holder.viewDataBinding.tvFuelCategory.getText().toString();
                     for (int i = 0; i < mFuelCategoryArrayList.size(); i++) {
@@ -226,7 +301,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                 public void onFocusChange(View view, boolean hasFocus) {
                     if (!hasFocus) {
                         String stringToConvert = ((EditText) view).getText().toString();
-                        projectWorkFuel.setPreviousInventory(StringUtil.convertStringToInt(stringToConvert));
+                        projectWorkFuel.setPreviousInventory(StringUtils.convertStringToInt(stringToConvert));
                     }
                 }
             });
@@ -236,7 +311,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                 public void onFocusChange(View view, boolean hasFocus) {
                     if (!hasFocus) {
                         String stringToConvert = ((EditText) view).getText().toString();
-                        projectWorkFuel.setCurrentInventory(StringUtil.convertStringToInt(stringToConvert));
+                        projectWorkFuel.setCurrentInventory(StringUtils.convertStringToInt(stringToConvert));
                     }
                 }
             });
@@ -260,10 +335,15 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
     class WarehouseAdapter extends RecyclerView.Adapter<WarehouseAdapter.ViewHolder> {
 
-        List<ProjectFuelWarehouse> projectFuelWarehouseArrayList = new ArrayList<>();
 
-        public WarehouseAdapter(List<ProjectFuelWarehouse> projectFuelWarehouseArrayList) {
-            this.projectFuelWarehouseArrayList = projectFuelWarehouseArrayList;
+        ProjectWorkFuel projectWorkFuel;
+        List<ProjectFuelWarehouse> projectFuelWarehouseArrayList = new ArrayList<>();
+        int fuelPosition;
+
+        public WarehouseAdapter(int fuelPosition, ProjectWorkFuel projectWorkFuel) {
+            this.fuelPosition = fuelPosition;
+            this.projectWorkFuel = projectWorkFuel;
+            this.projectFuelWarehouseArrayList = projectWorkFuel.getProjectFuelWarehouseList();
         }
 
         @Override
@@ -274,8 +354,10 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, final int position) {
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
             final ProjectFuelWarehouse projectFuelWarehouse = projectFuelWarehouseArrayList.get(position);
+
+            holder.viewDataBinding.setProjectFuelWarehouse(projectFuelWarehouse);
 
             if (position == 0) {
                 holder.viewDataBinding.ivAddOrDelete.setImageResource(R.drawable.add);
@@ -283,7 +365,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                 holder.viewDataBinding.ivAddOrDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        projectFuelWarehouseArrayList.add(new ProjectFuelWarehouse());
+                        projectFuelWarehouseArrayList.add(createFuelWarehouse(fuelPosition));
 
                         notifyDataSetChanged();
                     }
@@ -301,6 +383,45 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                 });
             }
 
+            holder.viewDataBinding.rltSupplier.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mClickResId = R.id.rltSupplier;
+                    mClickFuelPosition = fuelPosition;
+                    mClickWareHousePosition = position;
+
+                    FuelCategory fuelCategory = null;
+                    for (FuelCategory item : mFuelCategoryArrayList) {
+                        if (item.getFuelID() == projectWorkFuel.getFuelID()) {
+                            fuelCategory = item;
+                            break;
+                        }
+                    }
+
+                    if (fuelCategory == null) {
+                        ViewUtils.toast(R.string.choose_fuel_category_first);
+                        return;
+                    }
+
+                    String[] suppliers = fuelCategory.getSuppliers().split(";");
+                    ArrayList<String> suppliersStringArrayList = new ArrayList<>();
+                    for (String item : suppliers) {
+                        suppliersStringArrayList.add(item);
+                    }
+
+                    mBaoPickerDialog.bindWheelViewData(suppliersStringArrayList);
+
+                    String chooseSupplier = holder.viewDataBinding.tvSupplier.getText().toString();
+                    for (int i = 0; i < suppliers.length; i++) {
+                        if (chooseSupplier.equals(suppliers[i])) {
+                            mBaoPickerDialog.setCurrentItem(i);
+                            break;
+                        }
+                    }
+                    mBaoPickerDialog.show();
+                }
+            });
+
             holder.viewDataBinding.etLicensePlate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean hasFocus) {
@@ -315,7 +436,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                 public void onFocusChange(View view, boolean hasFocus) {
                     if (!hasFocus) {
                         String stringToConvert = ((EditText) view).getText().toString();
-                        projectFuelWarehouse.setAmount(StringUtil.convertStringToInt(stringToConvert));
+                        projectFuelWarehouse.setAmount(StringUtils.convertStringToInt(stringToConvert));
                     }
                 }
             });

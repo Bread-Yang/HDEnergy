@@ -14,7 +14,7 @@ import com.mdground.hdenergy.models.Project;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.DateUtils;
-import com.mdground.hdenergy.utils.StringUtil;
+import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
 
@@ -159,13 +159,13 @@ public class ProjectEditActivity extends ToolbarActivity<ActivityProjectEditBind
 
         if (projectStatus != ProjectStatus.Normal) {
             startTime = mDataBinding.tvStartTime.getText().toString();
-            if (StringUtil.isEmpty(startTime)) {
+            if (StringUtils.isEmpty(startTime)) {
                 ViewUtils.toast(R.string.fill_start_time);
                 return;
             }
 
             endTime = mDataBinding.tvEndTime.getText().toString();
-            if (StringUtil.isEmpty(startTime)) {
+            if (StringUtils.isEmpty(startTime)) {
                 ViewUtils.toast(R.string.fill_end_time);
                 return;
             }

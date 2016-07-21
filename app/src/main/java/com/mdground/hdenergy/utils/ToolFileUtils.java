@@ -31,9 +31,9 @@ import java.util.Map;
  * @author 曾繁添
  * @version 1.0
  */
-public class ToolFile {
+public class ToolFileUtils {
 
-	private static final String TAG = ToolFile.class.getSimpleName();
+	private static final String TAG = ToolFileUtils.class.getSimpleName();
 
 	/**
 	 * 检查是否已挂载SD卡镜像（是否存在SD卡）

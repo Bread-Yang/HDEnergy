@@ -12,7 +12,7 @@ import java.util.List;
 public class ProjectWork implements Parcelable {
 
     private String CreatedTime;
-    private int DailyExpense;   // 项目日常费用
+    private float DailyExpense;   // 项目日常费用
     private String ExpenseDetail; // 费用明细
     private int ProjectID;      // 项目标识
     private String ProjectName; // 项目名称
@@ -29,7 +29,7 @@ public class ProjectWork implements Parcelable {
 
     protected ProjectWork(Parcel in) {
         CreatedTime = in.readString();
-        DailyExpense = in.readInt();
+        DailyExpense = in.readFloat();
         ExpenseDetail = in.readString();
         ProjectID = in.readInt();
         ProjectName = in.readString();
@@ -97,11 +97,11 @@ public class ProjectWork implements Parcelable {
         CreatedTime = createdTime;
     }
 
-    public int getDailyExpense() {
+    public float getDailyExpense() {
         return DailyExpense;
     }
 
-    public void setDailyExpense(int dailyExpense) {
+    public void setDailyExpense(float dailyExpense) {
         DailyExpense = dailyExpense;
     }
 
@@ -190,7 +190,7 @@ public class ProjectWork implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(CreatedTime);
-        dest.writeInt(DailyExpense);
+        dest.writeFloat(DailyExpense);
         dest.writeString(ExpenseDetail);
         dest.writeInt(ProjectID);
         dest.writeString(ProjectName);

@@ -22,8 +22,6 @@ public class ProjectWorkFuel implements Parcelable{
     private int WorkFurnaceID;
     private String AdjustReason;
 
-
-
     public ProjectWorkFuel() {
 
     }

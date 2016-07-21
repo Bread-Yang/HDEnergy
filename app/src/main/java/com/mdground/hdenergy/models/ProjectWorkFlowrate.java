@@ -1,8 +1,6 @@
 package com.mdground.hdenergy.models;
 
 import android.os.Parcel;
-
-import android.os.Parcel;
 import android.os.Parcelable;
 
 
@@ -12,11 +10,11 @@ import android.os.Parcelable;
  */
 public class ProjectWorkFlowrate implements Parcelable {
 
-    private int AdjustFlow;     // 流量调整
-    private int BeginFlow;      // 起始流量
+    private float AdjustFlow;     // 流量调整
+    private float BeginFlow;      // 起始流量
     private String CreatedTime;
     private String Description; // 调整说明
-    private int EndFlow;        // 截止流量
+    private float EndFlow;        // 截止流量
     private int FlowrateID;     // PrimaryKey
     private int WorkFurnaceID;  // WorkFurnaceID
 
@@ -25,22 +23,22 @@ public class ProjectWorkFlowrate implements Parcelable {
     }
 
     protected ProjectWorkFlowrate(Parcel in) {
-        AdjustFlow = in.readInt();
-        BeginFlow = in.readInt();
+        AdjustFlow = in.readFloat();
+        BeginFlow = in.readFloat();
         CreatedTime = in.readString();
         Description = in.readString();
-        EndFlow = in.readInt();
+        EndFlow = in.readFloat();
         FlowrateID = in.readInt();
         WorkFurnaceID = in.readInt();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(AdjustFlow);
-        dest.writeInt(BeginFlow);
+        dest.writeFloat(AdjustFlow);
+        dest.writeFloat(BeginFlow);
         dest.writeString(CreatedTime);
         dest.writeString(Description);
-        dest.writeInt(EndFlow);
+        dest.writeFloat(EndFlow);
         dest.writeInt(FlowrateID);
         dest.writeInt(WorkFurnaceID);
     }
@@ -62,19 +60,19 @@ public class ProjectWorkFlowrate implements Parcelable {
         }
     };
 
-    public int getAdjustFlow() {
+    public float getAdjustFlow() {
         return AdjustFlow;
     }
 
-    public void setAdjustFlow(int adjustFlow) {
+    public void setAdjustFlow(float adjustFlow) {
         AdjustFlow = adjustFlow;
     }
 
-    public int getBeginFlow() {
+    public float getBeginFlow() {
         return BeginFlow;
     }
 
-    public void setBeginFlow(int beginFlow) {
+    public void setBeginFlow(float beginFlow) {
         BeginFlow = beginFlow;
     }
 
@@ -94,11 +92,11 @@ public class ProjectWorkFlowrate implements Parcelable {
         Description = description;
     }
 
-    public int getEndFlow() {
+    public float getEndFlow() {
         return EndFlow;
     }
 
-    public void setEndFlow(int endFlow) {
+    public void setEndFlow(float endFlow) {
         EndFlow = endFlow;
     }
 

@@ -24,7 +24,7 @@ import com.mdground.hdenergy.models.ProjectWorkFurnace;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.DateUtils;
-import com.mdground.hdenergy.utils.StringUtil;
+import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
 import com.mdground.hdenergy.views.itemdecoration.NormalItemDecoration;
@@ -235,7 +235,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
         //项目名称
         String projectName = mDataBinding.tvProject.getText().toString();
-        if (StringUtil.isEmpty(projectName)) {
+        if (StringUtils.isEmpty(projectName)) {
             ViewUtils.toast(R.string.fill_project_info);
             return;
         }
@@ -257,8 +257,8 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         // 项目费用
         String projectExpenseString = mDataBinding.etuiProjectExpense.getText();
         int projectExpense = 0;
-        if (!StringUtil.isEmpty(projectExpenseString)) {
-            projectExpense = Integer.parseInt(projectExpenseString) * 100;
+        if (!StringUtils.isEmpty(projectExpenseString)) {
+            projectExpense = Integer.parseInt(projectExpenseString);
         } else {
             ViewUtils.toast(getString(R.string.fill_cost_info));
             return;
@@ -266,7 +266,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
         // 费用明细
         String feeDetail = mDataBinding.etProjectDetail.getText().toString();
-        if (StringUtil.isEmpty(feeDetail)) {
+        if (StringUtils.isEmpty(feeDetail)) {
             ViewUtils.toast(getString(R.string.fill_cost_info));
             return;
         }

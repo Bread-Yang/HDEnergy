@@ -25,9 +25,9 @@ import com.mdground.hdenergy.application.MDGroundApplication;
  */
 public class ViewUtils {
 
-    private static ProgressDialog progressDialog;
+    private static ProgressDialog sProgressDialog;
 
-    public static Uri imageUrl;
+    public static Uri sImageUrl;
 
     public static int screenWidth() {
         Context context = MDGroundApplication.sInstance;
@@ -87,7 +87,7 @@ public class ViewUtils {
         try {
             dismiss();
             String message = context.getString(R.string.loading);
-            progressDialog = ProgressDialog.show(context, null, message);
+            sProgressDialog = ProgressDialog.show(context, null, message);
         } catch (Throwable e) {
 
         }
@@ -95,8 +95,8 @@ public class ViewUtils {
 
     public static void dismiss() {
         try {
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
+            if (sProgressDialog != null && sProgressDialog.isShowing()) {
+                sProgressDialog.dismiss();
             }
         } catch (Throwable e) {
 

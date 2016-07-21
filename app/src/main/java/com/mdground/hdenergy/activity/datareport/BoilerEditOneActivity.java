@@ -17,7 +17,7 @@ import com.mdground.hdenergy.databinding.ActivityBoilerEditOneBinding;
 import com.mdground.hdenergy.databinding.ItemBoilerFlowBinding;
 import com.mdground.hdenergy.models.ProjectWorkFlowrate;
 import com.mdground.hdenergy.models.ProjectWorkFurnace;
-import com.mdground.hdenergy.utils.StringUtil;
+import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
 
@@ -119,7 +119,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
-                    int electricity1 = StringUtil.convertStringToInt(((EditText) view).getText().toString());
+                    float electricity1 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
                     mProjectWorkFurnace.setElectricity1(electricity1);
                     calculateElectricityUnitConsumption();
                 }
@@ -131,7 +131,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
-                    int electricity2 = StringUtil.convertStringToInt(((EditText) view).getText().toString());
+                    float electricity2 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
                     mProjectWorkFurnace.setElectricity2(electricity2);
                     calculateElectricityUnitConsumption();
                 }
@@ -143,7 +143,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
-                    int electricity3 = StringUtil.convertStringToInt(((EditText) view).getText().toString());
+                    float electricity3 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
                     mProjectWorkFurnace.setElectricity3(electricity3);
                     calculateElectricityUnitConsumption();
                 }
@@ -189,7 +189,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
-                    int water1 = StringUtil.convertStringToInt(((EditText) view).getText().toString());
+                    float water1 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
                     mProjectWorkFurnace.setWater1(water1);
                     calculateWaterUnitConsumption();
                 }
@@ -201,7 +201,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
-                    int water2 = StringUtil.convertStringToInt(((EditText) view).getText().toString());
+                    float water2 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
                     mProjectWorkFurnace.setWater2(water2);
                     calculateWaterUnitConsumption();
                 }
@@ -213,7 +213,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
-                    int water3 = StringUtil.convertStringToInt(((EditText) view).getText().toString());
+                    float water3 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
                     mProjectWorkFurnace.setWater3(water3);
                     calculateWaterUnitConsumption();
                 }
@@ -265,8 +265,8 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         return projectWorkFlowrate;
     }
 
-    private int caculateFlow(int beginFlow, int endFlow) {
-        int resultFlow = 0;
+    private float caculateFlow(float beginFlow, float endFlow) {
+        float resultFlow = 0;
 
         resultFlow = endFlow - beginFlow;
         if (mIsHeatProduct) {   // 当销售产品选择热力时，流量位置 =（截止流量 - 起始流量）* 23.8845 / 60，单位用吨
@@ -278,12 +278,12 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
     // 计算电单耗, 电单耗 = 电量总和 / 流量
     private void calculateElectricityUnitConsumption() {
         // 电量总和
-        int electricityAmount = mProjectWorkFurnace.getElectricity1()
+        float electricityAmount = mProjectWorkFurnace.getElectricity1()
                 + mProjectWorkFurnace.getElectricity2() + mProjectWorkFurnace.getElectricity3();
 
-        int flowAmount = calculateFlowAmount();
+        float flowAmount = calculateFlowAmount();
         if (flowAmount != 0) {
-            int electircityUnitConsumption = electricityAmount / flowAmount;
+            float electircityUnitConsumption = electricityAmount / flowAmount;
             mDataBinding.tvElectircUnitConsumption.setText(String.valueOf(electircityUnitConsumption));
         }
     }
@@ -291,19 +291,19 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
     // 计算水单耗, 若销售产品为热力，则没有该选项，水单耗等于水量总和 / 流量
     private void calculateWaterUnitConsumption() {
         // 水量总和
-        int waterAmount = mProjectWorkFurnace.getWater1()
+        float waterAmount = mProjectWorkFurnace.getWater1()
                 + mProjectWorkFurnace.getWater2() + mProjectWorkFurnace.getWater3();
 
-        int flowAmount = calculateFlowAmount();
+        float flowAmount = calculateFlowAmount();
         if (flowAmount != 0) {
-            int waterUnitConsumption = waterAmount / flowAmount;
+            float waterUnitConsumption = waterAmount / flowAmount;
             mDataBinding.tvWaterUnitConsumption.setText(String.valueOf(waterUnitConsumption));
         }
     }
 
     // 流量总和
-    private int calculateFlowAmount() {
-        int flowAmount = 0;
+    private float calculateFlowAmount() {
+        float flowAmount = 0;
         for (ProjectWorkFlowrate projectWorkFlowrate : mProjectWorkFlowrateArrayList) {
             flowAmount = caculateFlow(projectWorkFlowrate.getBeginFlow(), projectWorkFlowrate.getEndFlow())
                     + projectWorkFlowrate.getAdjustFlow();
@@ -465,7 +465,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (!hasFocus) {
                         String initialFlowString = ((EditText) v).getText().toString();
-                        int startFlow = StringUtil.convertStringToInt(initialFlowString);
+                        float startFlow = StringUtils.convertStringToFloat(initialFlowString);
                         projectWorkFlowrate.setBeginFlow(startFlow);
 
                         if (startFlow > projectWorkFlowrate.getEndFlow()) {
@@ -473,7 +473,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                             itemBoilerFlowBinding.etuiCloseFlow.setText(String.valueOf(startFlow));
                         }
 
-                        int resultFlow = caculateFlow(projectWorkFlowrate.getBeginFlow(), projectWorkFlowrate.getEndFlow());
+                        float resultFlow = caculateFlow(projectWorkFlowrate.getBeginFlow(), projectWorkFlowrate.getEndFlow());
                         itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
 
                         refreshUnitConsumption();
@@ -486,8 +486,8 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (!hasFocus) {
                         String closeFlowString = ((EditText) v).getText().toString();
-                        int closeFlow = StringUtil.convertStringToInt(closeFlowString);
-                        int startFlow = projectWorkFlowrate.getBeginFlow();
+                        float closeFlow = StringUtils.convertStringToFloat(closeFlowString);
+                        float startFlow = projectWorkFlowrate.getBeginFlow();
 
                         if (closeFlow < startFlow) {
                             closeFlow = startFlow;
@@ -495,9 +495,9 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                             ViewUtils.toast(R.string.close_flow_must_bigger_than_initial_flow);
                             return;
                         }
-                        projectWorkFlowrate.setEndFlow(StringUtil.convertStringToInt(closeFlowString));
+                        projectWorkFlowrate.setEndFlow(StringUtils.convertStringToFloat(closeFlowString));
 
-                        int resultFlow = caculateFlow(projectWorkFlowrate.getBeginFlow(), projectWorkFlowrate.getEndFlow());
+                        float resultFlow = caculateFlow(projectWorkFlowrate.getBeginFlow(), projectWorkFlowrate.getEndFlow());
                         itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
 
                         refreshUnitConsumption();
@@ -510,7 +510,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (!hasFocus) {
                         String adjustFlowString = ((EditText) v).getText().toString();
-                        projectWorkFlowrate.setAdjustFlow(StringUtil.convertStringToInt(adjustFlowString));
+                        projectWorkFlowrate.setAdjustFlow(StringUtils.convertStringToFloat(adjustFlowString));
 
                         refreshUnitConsumption();
                     }

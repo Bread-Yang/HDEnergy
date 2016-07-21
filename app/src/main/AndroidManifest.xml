@@ -36,6 +36,9 @@
             android:label="@string/forget_password"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.homepage.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.bulletin.BulletinListActivity"
             android:label="@string/bulletin_list"
             android:screenOrientation="portrait" />
@@ -108,11 +111,12 @@
             android:name=".activity.personalcenter.CommonProjectActivity"
             android:label="@string/common_project"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.homepage.MainActivity" />
-
-      <activity android:name=".activity.attendancestatics.HistoryAttendanceStaticsActivity"/>
-
-        <activity android:name=".activity.datastatics.HistoryBoilerDetailActivity"/>
+        <activity
+            android:name=".activity.attendancestatics.HistoryAttendanceStaticsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.datastatics.HistoryBoilerDetailActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

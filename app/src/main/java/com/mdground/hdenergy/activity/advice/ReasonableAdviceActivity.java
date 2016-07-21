@@ -9,7 +9,7 @@ import com.mdground.hdenergy.databinding.ActivityReasonableAdviceBinding;
 import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
-import com.mdground.hdenergy.utils.StringUtil;
+import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 
 import retrofit2.Call;
@@ -37,7 +37,7 @@ public class ReasonableAdviceActivity extends ToolbarActivity<ActivityReasonable
             @Override
             public void onClick(View v) {
                 String suggestion = mDataBinding.etSuggestion.getText().toString().trim();
-                if (StringUtil.isEmpty(suggestion)) {
+                if (StringUtils.isEmpty(suggestion)) {
                     ViewUtils.toast(R.string.can_not_empty);
                     return;
                 }

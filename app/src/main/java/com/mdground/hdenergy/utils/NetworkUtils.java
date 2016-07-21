@@ -27,23 +27,24 @@ import com.mdground.hdenergy.application.MDGroundApplication;
  * @author 曾繁添
  * @version 1.0
  */
-public class ToolNetwork {
+public class NetworkUtils {
 
 	public final static String NETWORK_CMNET = "CMNET";
 	public final static String NETWORK_CMWAP = "CMWAP";
 	public final static String NETWORK_WIFI = "WIFI";
 	public final static String TAG = "ToolNetwork";
-	private static NetworkInfo networkInfo = null;
+	
+	private static NetworkInfo sNetworkInfo = null;
 	private Context mContext = MDGroundApplication.sInstance;
 
-	private ToolNetwork() {
+	private NetworkUtils() {
 	}
 
-	public static ToolNetwork getInstance() {
+	public static NetworkUtils getInstance() {
 		return SingletonHolder.instance;
 	}
 
-	public ToolNetwork init(Context context) {
+	public NetworkUtils init(Context context) {
 		this.mContext = context;
 		return this;
 	}
@@ -58,8 +59,8 @@ public class ToolNetwork {
 		if (null == manager) {
 			return false;
 		}
-		networkInfo = manager.getActiveNetworkInfo();
-		if (null == networkInfo || !networkInfo.isAvailable()) {
+		sNetworkInfo = manager.getActiveNetworkInfo();
+		if (null == sNetworkInfo || !sNetworkInfo.isAvailable()) {
 			return false;
 		}
 		return true;
@@ -74,7 +75,7 @@ public class ToolNetwork {
 		if (!isAvailable()) {
 			return false;
 		}
-		if (!networkInfo.isConnected()) {
+		if (!sNetworkInfo.isConnected()) {
 			return false;
 		}
 		return true;
@@ -112,10 +113,10 @@ public class ToolNetwork {
 	 */
 	public String getNetworkType() {
 		if (isConnected()) {
-			int type = networkInfo.getType();
+			int type = sNetworkInfo.getType();
 			if (ConnectivityManager.TYPE_MOBILE == type) {
-				Log.i(TAG, "networkInfo.getExtraInfo()-->" + networkInfo.getExtraInfo());
-				if (NETWORK_CMWAP.equals(networkInfo.getExtraInfo().toLowerCase())) {
+				Log.i(TAG, "networkInfo.getExtraInfo()-->" + sNetworkInfo.getExtraInfo());
+				if (NETWORK_CMWAP.equals(sNetworkInfo.getExtraInfo().toLowerCase())) {
 					return NETWORK_CMWAP;
 				} else {
 					return NETWORK_CMNET;
@@ -206,6 +207,6 @@ public class ToolNetwork {
 
 	private static class SingletonHolder {
 
-		private static ToolNetwork instance = new ToolNetwork();
+		private static NetworkUtils instance = new NetworkUtils();
 	}
 }

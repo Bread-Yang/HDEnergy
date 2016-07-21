@@ -16,10 +16,10 @@ import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.models.UserInfo;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
-import com.mdground.hdenergy.utils.DeviceUtil;
+import com.mdground.hdenergy.utils.DeviceUtils;
 import com.mdground.hdenergy.utils.FileUtils;
-import com.mdground.hdenergy.utils.MD5Util;
-import com.mdground.hdenergy.utils.StringUtil;
+import com.mdground.hdenergy.utils.MD5Utils;
+import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void saveUserAndToMainActivity(UserInfo userInfo) {
         FileUtils.setObject(Constants.KEY_SAVE_LOGIN_USER_INFO, userInfo);
-        DeviceUtil.setDeviceId(userInfo.getDeviceID());
+        DeviceUtils.setDeviceId(userInfo.getDeviceID());
     }
 
     @Override
@@ -72,14 +72,14 @@ public class LoginActivity extends AppCompatActivity {
     public void loginAction(View view) {
         String phone = etAccount.getText().toString();
 
-        if (StringUtil.isEmpty(phone)) {
+        if (StringUtils.isEmpty(phone)) {
             ViewUtils.toast(getString(R.string.please_input_account));
             return;
         }
 
         String password = etPassword.getText().toString();
 
-        if (StringUtil.isEmpty(password)) {
+        if (StringUtils.isEmpty(password)) {
             ViewUtils.toast(getString(R.string.input_password));
             return;
         }
@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
 //            return;
 //        }
         ViewUtils.loading(this);
-        GlobalRestful.getInstance().LoginUser(phone, MD5Util.MD5(password), new Callback<ResponseData>() {
+        GlobalRestful.getInstance().LoginUser(phone, MD5Utils.MD5(password), new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 ViewUtils.dismiss();

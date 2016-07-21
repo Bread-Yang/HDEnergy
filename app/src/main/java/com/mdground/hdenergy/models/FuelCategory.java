@@ -10,6 +10,7 @@ public class FuelCategory {
     private String FuelName;
     private int Inventory;
     private int ProjectID;
+    private String Suppliers;
 
     public int getFuelID() {
         return FuelID;
@@ -41,5 +42,13 @@ public class FuelCategory {
 
     public void setProjectID(int projectID) {
         ProjectID = projectID;
+    }
+
+    public String getSuppliers() {
+        return Suppliers;
+    }
+
+    public void setSuppliers(String suppliers) {
+        Suppliers = suppliers;
     }
 }

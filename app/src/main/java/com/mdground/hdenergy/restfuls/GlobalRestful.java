@@ -13,7 +13,7 @@ import com.mdground.hdenergy.models.UserContacts;
 import com.mdground.hdenergy.models.UserProject;
 import com.mdground.hdenergy.restfuls.bean.Device;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
-import com.mdground.hdenergy.utils.DeviceUtil;
+import com.mdground.hdenergy.utils.DeviceUtils;
 
 import java.util.List;
 
@@ -50,9 +50,9 @@ public class GlobalRestful extends BaseRestful {
 
     // 用户登录
     public void LoginUser(String userPhone, String pwd, Callback<ResponseData> callback) {
-        Device device = DeviceUtil.getDeviceInfo(MDGroundApplication.sInstance);
+        Device device = DeviceUtils.getDeviceInfo(MDGroundApplication.sInstance);
         device.setDeviceToken("abc");   // 信鸽的token, XGPushConfig.getToken(this);
-        device.setDeviceID(DeviceUtil.getDeviceId());
+        device.setDeviceID(DeviceUtils.getDeviceId());
 
         JsonObject obj = new JsonObject();
         obj.addProperty("UserPhone", userPhone);
@@ -120,11 +120,20 @@ public class GlobalRestful extends BaseRestful {
     }
 
     // 根据日期获取所有用户考勤数据
-    public void GetUserAttendanceByDate(String workDate, Callback<ResponseData> callback) {
+    public void GetAllUserAttendanceByDate(String date, Callback<ResponseData> callback) {
         JsonObject obj = new JsonObject();
-        obj.addProperty("WorkDate", workDate);
+        obj.addProperty("Date", date);
 
-        asynchronousPost("GetUserAttendanceByDate", obj, callback);
+        asynchronousPost("GetAllUserAttendanceByDate", obj, callback);
+    }
+
+    // 根据月份获取指定用户的考勤数据接口, 传当月的任意一天过来
+    public void GetUserAttendanceListByMonth(int userId, String date, Callback<ResponseData> callback) {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("UserID", userId);
+        obj.addProperty("Date", date);
+
+        asynchronousPost("GetUserAttendanceListByMonth", obj, callback);
     }
 
     // 获取部门列表

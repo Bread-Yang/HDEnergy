@@ -13,7 +13,7 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 
-import com.mdground.hdenergy.utils.StringUtil;
+import com.mdground.hdenergy.utils.StringUtils;
 
 
 /**
@@ -115,7 +115,7 @@ public class ClearEditText extends EditText implements
         } else {
             setClearIconVisible(false);
             if (mMaxInputFee > 0) {
-                if (!StringUtil.isEmpty(getText().toString())) {
+                if (!StringUtils.isEmpty(getText().toString())) {
                     float inputFee = Float.valueOf(getText().toString());
                     if (inputFee > mMaxInputFee) {
                         setText(String.format("%.02f", mMaxInputFee));
@@ -190,11 +190,11 @@ public class ClearEditText extends EditText implements
         this.mMaxInputFee = mMaxInputFee;
     }
 
-    public int getInputTextToInteger() {  // 输入的总额 * 100,得到服务器要的数据
-        int inputFee = 0;
+    public float getInputTextToInteger() {  // 输入的总额 * 100,得到服务器要的数据
+        float inputFee = 0;
         String inputFeeString = getText().toString();
-        if (!StringUtil.isEmpty(inputFeeString)) {
-            inputFee = (int) (Float.valueOf(inputFeeString) * 100);
+        if (!StringUtils.isEmpty(inputFeeString)) {
+            inputFee = Float.valueOf(inputFeeString);
         }
         return inputFee;
     }

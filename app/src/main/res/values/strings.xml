@@ -22,7 +22,7 @@
     <string name="already_input">已输入</string>
     <string name="yuan">元</string>
     <string name="ton">吨</string>
-    <string name="how_many_ton">%d吨</string>
+    <string name="how_many_ton">%f吨</string>
     <string name="zen_ton">/蒸吨</string>
     <string name="electric_unit">kw/h</string>
     <string name="can_not_empty">输入不能为空</string>
@@ -121,6 +121,10 @@
     <string name="fuel_adjust_with_colon">燃料调整:</string>
     <string name="adjust_explain_with_colon">调整说明:</string>
     <string name="fuel_unit_consumption_with_colon">燃料单耗:</string>
+    <string name="choose_fuel_category_first">请先选择燃料种类</string>
+    <string name="fill_fuel_info">请填写燃料信息</string>
+    <string name="fill_feedstock_info">请填写进料量信息</string>
+    <string name="not_same_supplier">该供应商已被其他进料量使用</string>
 
     <!-- 考勤汇报 -->
     <string name="attendance_report">考勤汇报</string>
@@ -147,6 +151,9 @@
     <string name="rate">打分</string>
     <string name="rate_with_colon">打分:</string>
     <string name="last_day_fill">请每月的最后一个工作日填入</string>
+    <string name="fill_base_info">请填写基本信息</string>
+    <string name="fill_man_hours_check_info">请填写工时考勤信息</string>
+    <string name="fill_category_info">请填写类别信息</string>
 
     <!-- 项目启停 -->
     <string name="project_start_stop">项目启停</string>
@@ -215,6 +222,7 @@
 
     <!-- 历史考勤统计 -->
     <string name="hostorical_attendance_statics">历史考勤统计</string>
+    <string name="year_month">%1$d年%2$d月</string>
 
     <!-- 员工考勤统计 -->
     <string name="employee_attendance_statics">员工考勤统计</string>

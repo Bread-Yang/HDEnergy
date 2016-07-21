@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="userAttendance"
+            type="com.mdground.hdenergy.models.UserAttendance" />
+
+    </data>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,6 +32,7 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
+                    android:text="@{userAttendance.department}"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
 
@@ -32,8 +41,7 @@
             <RelativeLayout
                 android:id="@+id/rltData"
                 style="@style/WhiteFixHeightLayoutStyle"
-                android:layout_marginTop="@dimen/margin_1"
-                android:onClick="selectDateAction">
+                android:layout_marginTop="@dimen/margin_1">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -41,8 +49,9 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
+                    android:text="@{userAttendance.projectName}"
                     android:textSize="@dimen/text_size_16"
-                    tools:text="2016-04-11" />
+                    tools:text="达信" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -55,6 +64,7 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
+                    android:text="@{userAttendance.userName}"
                     android:textSize="@dimen/text_size_16"
                     tools:text="蒸汽" />
 
@@ -72,6 +82,7 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
+                    android:text="@{(@stringArray/attendance_status_array)[userAttendance.status]}"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
 
@@ -87,6 +98,7 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
+                    android:text="@{userAttendance.beginTime.substring(0, userAttendance.beginTime.length() - 3)}"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
 
@@ -102,6 +114,7 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
+                    android:text="@{userAttendance.endTime.substring(0, userAttendance.endTime.length() - 3)}"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
 
@@ -116,6 +129,7 @@
                     android:text="@string/man_hours" />
 
                 <TextView
+                    android:id="@+id/tvManHours"
                     style="@style/AlignRightTextStyle"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
@@ -134,12 +148,15 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
+                    android:text="@{@string/with_hour_unit(userAttendance.overTime)}"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
 
             </RelativeLayout>
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -147,6 +164,7 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
+                    android:text="@{userAttendance.overTimeReason}"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
 
@@ -164,12 +182,15 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
+                    android:text="@{userAttendance.categoryName1}"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
 
             </RelativeLayout>
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -177,6 +198,7 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
+                    android:text="@{userAttendance.categoryName2}"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
 
@@ -194,12 +216,15 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
+                    android:text="@{userAttendance.businessAddress}"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
 
             </RelativeLayout>
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -207,12 +232,15 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
+                    android:text="@{String.valueOf(userAttendance.transportation) + @string/yuan}"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
 
             </RelativeLayout>
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -220,12 +248,15 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
+                    android:text="@{String.valueOf(userAttendance.trafficTime) + @string/minute}"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
 
             </RelativeLayout>
 
-            <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+            <RelativeLayout
+                style="@style/WhiteFixHeightLayoutStyle"
+                android:layout_marginTop="@dimen/margin_1">
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -233,6 +264,7 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
+                    android:text="@{String.valueOf(userAttendance.accommodationFee) + @string/yuan}"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
 
@@ -242,10 +274,10 @@
                 style="@style/SingleTitleLayoutStyle"
                 android:text="@string/other_problem" />
 
-            <EditText
-                android:id="@+id/etOtherProblem"
+            <TextView
                 style="@style/LargeEdittextLayoutStyle"
-                android:hint="@string/input_other_problem" />
+                android:hint="@string/input_other_problem"
+                android:text="@{userAttendance.remark}" />
 
             <TextView
                 android:id="@+id/tvRateTitle"
@@ -262,6 +294,7 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
+                    android:text="@{String.valueOf(userAttendance.score)}"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
 

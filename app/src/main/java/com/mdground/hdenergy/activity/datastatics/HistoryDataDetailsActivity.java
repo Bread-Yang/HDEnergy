@@ -78,7 +78,7 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        float dailyExpense = (float) mProjectWork.getDailyExpense() / 100;
+        float dailyExpense = (float) mProjectWork.getDailyExpense();
         DecimalFormat format2 = new DecimalFormat("0.00");
         String expense = format2.format(dailyExpense);
         mDataBinding.tvSaleProduct.setText(mProjectWork.getSaleType());

@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="com.mdground.hdenergy.utils.StringUtil" />
+        <import type="com.mdground.hdenergy.utils.StringUtils" />
 
         <variable
             name="project"
@@ -61,7 +61,7 @@
                         android:id="@+id/tvProjectStatus"
                         style="@style/NormalTextStyle"
                         android:layout_marginTop="@dimen/margin_8"
-                        android:text="@{StringUtil.getProjectStatus(project.projectStatus)}"
+                        android:text="@{StringUtils.getProjectStatus(project.projectStatus)}"
                         android:textSize="@dimen/text_size_16"
                         tools:text="维修" />
                 </LinearLayout>

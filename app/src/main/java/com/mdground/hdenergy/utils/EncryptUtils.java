@@ -16,7 +16,8 @@ import javax.crypto.spec.IvParameterSpec;
 
 import com.mdground.hdenergy.restfuls.bean.RequestData;
 
-public class EncryptUtil {
+public class EncryptUtils {
+
 	public static final String KEY = "MD2O!50!";
 	
 	/**
@@ -90,6 +91,6 @@ public class EncryptUtil {
 		}
 		sb.append("@2O!5");
 
-		return MD5Util.MD5(sb.toString());
+		return MD5Utils.MD5(sb.toString());
 	}
 }

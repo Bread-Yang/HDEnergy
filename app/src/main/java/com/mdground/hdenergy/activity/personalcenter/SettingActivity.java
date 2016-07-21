@@ -7,7 +7,7 @@ import android.widget.Toast;
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
 import com.mdground.hdenergy.databinding.ActivitySettingBinding;
-import com.mdground.hdenergy.utils.DeviceUtil;
+import com.mdground.hdenergy.utils.DeviceUtils;
 import com.mdground.hdenergy.utils.NavUtils;
 import com.mdground.hdenergy.views.CheckUpdateDialog;
 
@@ -57,7 +57,7 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding>
     }
 
     public void onExitLogin(View view) {
-        DeviceUtil.logoutUser();
+        DeviceUtils.logoutUser();
         NavUtils.toLoginActivity(SettingActivity.this);
     }
 

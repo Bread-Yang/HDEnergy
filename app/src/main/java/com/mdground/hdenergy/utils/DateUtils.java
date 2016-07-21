@@ -4,11 +4,14 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import static com.mdground.hdenergy.R.id.date;
 
 /**
  * 日期工具类
@@ -17,14 +20,14 @@ import java.util.Locale;
  */
 public class DateUtils {
 
-    private static String mDatePattern = "yyyy-MM-dd HH:mm:ss";
-    static SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
-    static java.text.DecimalFormat mDecimalFormat = new java.text.DecimalFormat("00");
+    private static String sDatePattern = "yyyy-MM-dd HH:mm:ss";
+    private static SimpleDateFormat sSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+    private static DecimalFormat sDecimalFormat = new DecimalFormat("00");
 
     public static long getDateMILL(String dob) {
         Calendar calendar = Calendar.getInstance();
         try {
-            calendar.setTime(mSimpleDateFormat.parse(dob));
+            calendar.setTime(sSimpleDateFormat.parse(dob));
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -126,7 +129,7 @@ public class DateUtils {
     }
 
     public static DateTime getDateByServerDateString(String dateString) {
-        DateTimeFormatter formatter = DateTimeFormat.forPattern(mDatePattern);
+        DateTimeFormatter formatter = DateTimeFormat.forPattern(sDatePattern);
         DateTime dt = formatter.parseDateTime(dateString);
         return dt;
     }
@@ -135,7 +138,15 @@ public class DateUtils {
         if (date == null) {
             return "";
         }
-        return mSimpleDateFormat.format(date);
+        return sSimpleDateFormat.format(date);
+    }
+
+    public static String getServerDateStringByYearMonthDay(int year, int month, int day) {
+        DateTime dateTime = new DateTime()
+                .withYear(year)
+                .withMonthOfYear(month)
+                .withDayOfMonth(day);
+        return sSimpleDateFormat.format(dateTime.toDate());
     }
 
     /**
@@ -360,7 +371,7 @@ public class DateUtils {
             return null;
         }
         StringBuffer sb = new StringBuffer();
-        sb.append(mDecimalFormat.format(beginHour / 60) + ":" + mDecimalFormat.format(beginHour % 60));
+        sb.append(sDecimalFormat.format(beginHour / 60) + ":" + sDecimalFormat.format(beginHour % 60));
         return sb.toString();
     }
 
@@ -375,7 +386,7 @@ public class DateUtils {
         return hour;
     }
 
-    public static String getMounth(Date date) {
+    public static String getMonth(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("MM", Locale.CHINA);
         int nMounth = Integer.parseInt(sdf.format(date));
         String mounthStr = null;
@@ -555,6 +566,11 @@ public class DateUtils {
         return c.getTime();
     }
 
+    public static String previousMonth(String specificDate) {
+        DateTime dateTime = getDateByServerDateString(specificDate);
+        return getServerDateStringByDate(dateTime.minusMonths(1).toDate());
+    }
+
     /**
      * 某一日的下个月
      *
@@ -568,6 +584,11 @@ public class DateUtils {
         c.add(Calendar.MONTH, 1);
 
         return c.getTime();
+    }
+
+    public static String nextMonth(String specificDate) {
+        DateTime dateTime = getDateByServerDateString(specificDate);
+        return getServerDateStringByDate(dateTime.plusMonths(1).toDate());
     }
 
     /**
@@ -673,15 +694,21 @@ public class DateUtils {
         return todayTime.isBefore(expireTime);
     }
 
-    public static String toHour(long time) {
+    public static String toAMOrPM(String dateTimeString) {
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("h:mm a");
+        return fmt.print(getDateByServerDateString(dateTimeString));
+    }
+
+    // 计算工时
+    public static String toManHours(long time) {
         long secondsInMilli = 1000;
         long minutesInMilli = secondsInMilli * 60;
         long hoursInMilli = minutesInMilli * 60;
         long daysInMilli = hoursInMilli * 24;
 
         long minutes = time / minutesInMilli;
-        long hours = minutes / 60;
-        long minnutesRemaining = minutes % 60;
-        return hours + "." + minnutesRemaining;
+        int hours = (int) (minutes / 60);
+        float minutesRemaining = minutes % 60 / 60.0f;
+        return String.format("%.01f", hours + minutesRemaining);
     }
 }

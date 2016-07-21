@@ -13,8 +13,8 @@ import com.mdground.hdenergy.databinding.ActivityForgetPasswordBinding;
 import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
-import com.mdground.hdenergy.utils.MD5Util;
-import com.mdground.hdenergy.utils.StringUtil;
+import com.mdground.hdenergy.utils.MD5Utils;
+import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.socks.library.KLog;
 
@@ -96,7 +96,7 @@ public class ForgetPasswordActivity extends ToolbarActivity<ActivityForgetPasswo
     public void getCaptchaAction(View view) {
         String phone = mDataBinding.cetAccount.getText().toString();
 
-        if (StringUtil.isEmpty(phone)) {
+        if (StringUtils.isEmpty(phone)) {
             ViewUtils.toast(R.string.input_phone);
             return;
         }
@@ -140,7 +140,7 @@ public class ForgetPasswordActivity extends ToolbarActivity<ActivityForgetPasswo
     public void resetPasswordAction(View view) {
         String phone = mDataBinding.cetAccount.getText().toString();
 
-        if (StringUtil.isEmpty(phone)) {
+        if (StringUtils.isEmpty(phone)) {
             Toast.makeText(this, R.string.input_phone, Toast.LENGTH_SHORT).show();
             return;
 
@@ -151,13 +151,13 @@ public class ForgetPasswordActivity extends ToolbarActivity<ActivityForgetPasswo
         }
 
         String captcha = mDataBinding.cetCaptcha.getText().toString();
-        if (StringUtil.isEmpty(captcha)) {
+        if (StringUtils.isEmpty(captcha)) {
             Toast.makeText(this, R.string.input_captcha, Toast.LENGTH_SHORT).show();
             return;
         }
 
         String password = mDataBinding.cetPassword.getText().toString();
-        if (StringUtil.isEmpty(password)) {
+        if (StringUtils.isEmpty(password)) {
             Toast.makeText(this, R.string.input_password, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -178,7 +178,7 @@ public class ForgetPasswordActivity extends ToolbarActivity<ActivityForgetPasswo
         String password = mDataBinding.cetPassword.getText().toString();
 
         GlobalRestful.getInstance()
-                .ChangeUserPassword(phone, MD5Util.MD5(password), new Callback<ResponseData>() {
+                .ChangeUserPassword(phone, MD5Utils.MD5(password), new Callback<ResponseData>() {
                     @Override
                     public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                         if (response.body().getCode() == ResponseCode.Normal.getValue()) {

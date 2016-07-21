@@ -16,9 +16,9 @@ import com.mdground.hdenergy.restfuls.Interceptor.ProgressRequestBody;
 import com.mdground.hdenergy.restfuls.bean.RequestData;
 import com.mdground.hdenergy.restfuls.bean.RequestDataForLogOnly;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
-import com.mdground.hdenergy.utils.DeviceUtil;
-import com.mdground.hdenergy.utils.EncryptUtil;
-import com.mdground.hdenergy.utils.ToolNetwork;
+import com.mdground.hdenergy.utils.DeviceUtils;
+import com.mdground.hdenergy.utils.EncryptUtils;
+import com.mdground.hdenergy.utils.NetworkUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.socks.library.KLog;
 
@@ -65,7 +65,7 @@ public abstract class BaseRestful {
     }
 
     private int getPlatform() {
-        boolean isPad = DeviceUtil.isPad(mContext);
+        boolean isPad = DeviceUtils.isPad(mContext);
         if (isPad) {
             return PlatformType.ANDROID_PAD.value();
         } else {
@@ -110,14 +110,14 @@ public abstract class BaseRestful {
             requestData.setQueryData(queryData.toString());
         }
         requestData.setFunctionName(functionName);
-        requestData.setCulture(DeviceUtil.getLanguage(mContext));
+        requestData.setCulture(DeviceUtils.getLanguage(mContext));
 //        requestData.setBusinessCode(getBusinessType().getType());
         requestData.setBusinessCode(BusinessType.Global.getType()); // 全部用1
         requestData.setActionTimeSpan(System.currentTimeMillis() / 1000);
         requestData.setPlatform(getPlatform());
 
         String serviceToken = "";
-        requestData.setDeviceID(DeviceUtil.getDeviceId());
+        requestData.setDeviceID(DeviceUtils.getDeviceId());
 
         UserInfo userInfo = MDGroundApplication.sInstance.getLoginUser();
         if (userInfo != null) {
@@ -125,7 +125,7 @@ public abstract class BaseRestful {
             requestData.setUserID(userInfo.getUserID());
         }
         requestData.setServiceToken(serviceToken);
-        requestData.setSign(EncryptUtil.appSign(requestData));
+        requestData.setSign(EncryptUtils.appSign(requestData));
 
         return requestData;
     }
@@ -135,14 +135,14 @@ public abstract class BaseRestful {
 
         requestDataForLogOnly.setQueryData(queryData);
         requestDataForLogOnly.setFunctionName(functionName);
-        requestDataForLogOnly.setCulture(DeviceUtil.getLanguage(mContext));
+        requestDataForLogOnly.setCulture(DeviceUtils.getLanguage(mContext));
 //        requestData.setBusinessCode(getBusinessType().getType());
         requestDataForLogOnly.setBusinessCode(BusinessType.Global.getType()); // 全部用1
         requestDataForLogOnly.setActionTimeSpan(System.currentTimeMillis() / 1000);
         requestDataForLogOnly.setPlatform(getPlatform());
 
         String serviceToken = "";
-        requestDataForLogOnly.setDeviceID(DeviceUtil.getDeviceId());
+        requestDataForLogOnly.setDeviceID(DeviceUtils.getDeviceId());
 
         UserInfo userInfo = MDGroundApplication.sInstance.getLoginUser();
         if (userInfo != null) {
@@ -183,7 +183,7 @@ public abstract class BaseRestful {
                         + "\"Content\" : " + response.body().getContent() + "}" + "\n\n");
 
                 if (response.body().getCode() == ResponseCode.InvalidToken.getValue()) { // 请求token失效,重新登录
-                    DeviceUtil.logoutUser();
+                    DeviceUtils.logoutUser();
                 } else if (response.body().getCode() == ResponseCode.SystemError.getValue()) {
                     ViewUtils.toast(R.string.request_fail);  // 请求超时
                     ViewUtils.dismiss();
@@ -204,7 +204,7 @@ public abstract class BaseRestful {
             }
         };
 
-        if (ToolNetwork.getInstance().isConnected()) {
+        if (NetworkUtils.getInstance().isConnected()) {
             RequestBody requestBody = createRequestBody(functionName, queryData);
 
             Call<ResponseData> call = null;
@@ -249,7 +249,7 @@ public abstract class BaseRestful {
                         + "\"Message\" :" + response.body().getMessage() + ","
                         + "\"Content\" : " + response.body().getContent() + "}" + "\n\n");
                 if (response.body().getCode() == ResponseCode.InvalidToken.getValue()) { // 请求token失效,重新登录
-                    DeviceUtil.logoutUser();
+                    DeviceUtils.logoutUser();
                 } else if (response.body().getCode() == ResponseCode.SystemError.getValue()) {
                     KLog.e("请求超时!!!");
                     ViewUtils.toast(R.string.request_fail);  // 请求超时

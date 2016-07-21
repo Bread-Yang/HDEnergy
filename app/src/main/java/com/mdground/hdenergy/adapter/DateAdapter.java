@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.models.DateModel;
@@ -15,61 +14,84 @@ import com.mdground.hdenergy.models.DateModel;
 import java.util.List;
 
 
-/**
- * Created by wistbean on 2016/7/6.
- */
-public class DateAdapter extends RecyclerView.Adapter<DateAdapter.MyViewHolder>{
+public class DateAdapter extends RecyclerView.Adapter<DateAdapter.MyViewHolder> {
 
-    private Context context;
-    private List<DateModel> modelList;
+    private Context mContext;
+    private List<DateModel> mModelList;
+    public int publicHighlightPosition;
+    private OnDateClickListener onDateClickListener;
+
+    public interface OnDateClickListener {
+        void onDateClick(DateModel dateModel);
+    }
+
     public DateAdapter(Context context, List<DateModel> modelList) {
-
-        this.modelList = modelList;
-        this.context = context;
+        this.mModelList = modelList;
+        this.mContext = context;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(context).inflate(R.layout.item_dateview,parent,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_dateview, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        holder.tv_week.setText(modelList.get(position).getWeeknum());
-        holder.tv_day.setText(modelList.get(position).getDaynum());
-        holder.ll.setOnClickListener(new View.OnClickListener() {
+        final DateModel dateModel = mModelList.get(position);
+        holder.tvWeekday.setText(dateModel.getWeeknum());
+        holder.tvDay.setText(dateModel.getDaynum());
+
+        if (publicHighlightPosition == position) {
+            holder.lltRoot.setBackgroundColor(mContext.getResources().getColor(R.color.color_31C967));
+            holder.tvWeekday.setTextColor(mContext.getResources().getColor(R.color.color_white));
+            holder.tvDay.setTextColor(mContext.getResources().getColor(R.color.color_white));
+        } else {
+            holder.lltRoot.setBackgroundColor(mContext.getResources().getColor(R.color.color_white));
+            holder.tvWeekday.setTextColor(mContext.getResources().getColor(R.color.color_666666));
+            holder.tvDay.setTextColor(mContext.getResources().getColor(R.color.color_333333));
+        }
+
+        holder.lltRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "click" + position, Toast.LENGTH_SHORT).show();
+
+                int lastClickPosition = publicHighlightPosition;
+                publicHighlightPosition = position;
+                notifyItemChanged(lastClickPosition);
+                notifyItemChanged(publicHighlightPosition);
+
+                if (onDateClickListener != null) {
+                    onDateClickListener.onDateClick(dateModel);
+                }
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return modelList.size();
+        return mModelList.size();
     }
 
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
-    class MyViewHolder extends RecyclerView.ViewHolder
-    {
-
-        TextView tv_day,tv_week,tv_point;
-        LinearLayout ll;
+        TextView tvDay, tvWeekday;
+        LinearLayout lltRoot;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            tv_day = (TextView) itemView.findViewById(R.id.tv_daynum);
-            tv_week = (TextView) itemView.findViewById(R.id.tv_weeknum);
-            tv_point = (TextView) itemView.findViewById(R.id.point);
-            ll = (LinearLayout) itemView.findViewById(R.id.ll);
+            lltRoot = (LinearLayout) itemView.findViewById(R.id.lltRoot);
+            tvWeekday = (TextView) itemView.findViewById(R.id.tvWeekday);
+            tvDay = (TextView) itemView.findViewById(R.id.tvDay);
         }
     }
 
+    public OnDateClickListener getOnDateClickListener() {
+        return onDateClickListener;
+    }
 
-
-
+    public void setOnDateClickListener(OnDateClickListener onDateClickListener) {
+        this.onDateClickListener = onDateClickListener;
+    }
 }

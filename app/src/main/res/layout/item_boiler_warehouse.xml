@@ -3,6 +3,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="projectFuelWarehouse"
+            type="com.mdground.hdenergy.models.ProjectFuelWarehouse" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +31,9 @@
 
         </RelativeLayout>
 
-        <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+        <RelativeLayout
+            android:id="@+id/rltSupplier"
+            style="@style/WhiteFixHeightLayoutStyle">
 
             <TextView
                 style="@style/DimTextStyle"
@@ -34,6 +43,7 @@
                 android:id="@+id/tvSupplier"
                 style="@style/WithArrowIconTextStyle"
                 android:textSize="@dimen/text_size_16"
+                android:text="@{projectFuelWarehouse.supplier}"
                 tools:text="盛大" />
 
         </RelativeLayout>
@@ -47,8 +57,10 @@
                 style="@style/DimTextStyle"
                 android:text="@string/license_plate" />
 
-            <EditText style="@style/WithArrowEdittextStyle"
-                android:id="@+id/etLicensePlate"/>
+            <EditText
+                android:id="@+id/etLicensePlate"
+                android:text="@{projectFuelWarehouse.plateNumber}"
+                style="@style/WithArrowEdittextStyle" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -61,6 +73,7 @@
 
             <com.mdground.hdenergy.views.EdittextWithUnitIcon
                 android:id="@+id/etuiDeliveryCapacity"
+                android:text='@{projectFuelWarehouse.amount == 0 ? "" : String.valueOf(projectFuelWarehouse.amount)}'
                 style="@style/WithArrowEdittextStyle"
                 app:unitResId="@string/ton" />
 

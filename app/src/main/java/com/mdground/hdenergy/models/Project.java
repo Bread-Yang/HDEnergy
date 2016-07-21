@@ -22,25 +22,25 @@ public class Project implements Parcelable {
     };
 
     private String BeginTime;       // 维修（停炉）开始时间
-    private int BusinessFee;        // 业务费用
+    private float BusinessFee;        // 业务费用
     private String CreatedTime;     // 维修（停炉）开始时间
-    private int DepreciationCost;   // 项目折旧费用
-    private int ElectricPrice;  // 电单价
+    private float DepreciationCost;   // 项目折旧费用
+    private float ElectricPrice;  // 电单价
     private String EndTime;
-    private int FinanceFee;     // 财务费用
-    private int FuelCost;       // 标准燃料单耗
-    private int LaborCost;      // 人工费用
-    private int MaintainCost;   // 维修费用
-    private int ManageFee;      // 管理费用
+    private float FinanceFee;     // 财务费用
+    private float FuelCost;       // 标准燃料单耗
+    private float LaborCost;      // 人工费用
+    private float MaintainCost;   // 维修费用
+    private float ManageFee;      // 管理费用
     private int ProjectID;
     private String ProjectName;
     private int ProjectStatus;  // 停炉//正常//维修状态
     private String Remark;      // //停炉//维修//原因
-    private int RemouldFee;     // 财务费用
-    private int SteamPrice;      // 蒸汽单价
-    private int ThermalPrice;   // 热力单价
-    private int WaterPrice;     // 水单价
-    private int WorkingFee;     // 运行费用
+    private float RemouldFee;     // 财务费用
+    private float SteamPrice;      // 蒸汽单价
+    private float ThermalPrice;   // 热力单价
+    private float WaterPrice;     // 水单价
+    private float WorkingFee;     // 运行费用
 
     public Project() {
 
@@ -48,25 +48,25 @@ public class Project implements Parcelable {
 
     protected Project(Parcel in) {
         BeginTime = in.readString();
-        BusinessFee = in.readInt();
+        BusinessFee = in.readFloat();
         CreatedTime = in.readString();
-        DepreciationCost = in.readInt();
-        ElectricPrice = in.readInt();
+        DepreciationCost = in.readFloat();
+        ElectricPrice = in.readFloat();
         EndTime = in.readString();
-        FinanceFee = in.readInt();
-        FuelCost = in.readInt();
-        LaborCost = in.readInt();
-        MaintainCost = in.readInt();
-        ManageFee = in.readInt();
+        FinanceFee = in.readFloat();
+        FuelCost = in.readFloat();
+        LaborCost = in.readFloat();
+        MaintainCost = in.readFloat();
+        ManageFee = in.readFloat();
         ProjectID = in.readInt();
         ProjectName = in.readString();
         ProjectStatus = in.readInt();
         Remark = in.readString();
-        RemouldFee = in.readInt();
-        SteamPrice = in.readInt();
-        ThermalPrice = in.readInt();
-        WaterPrice = in.readInt();
-        WorkingFee = in.readInt();
+        RemouldFee = in.readFloat();
+        SteamPrice = in.readFloat();
+        ThermalPrice = in.readFloat();
+        WaterPrice = in.readFloat();
+        WorkingFee = in.readFloat();
     }
 
     @Override
@@ -77,25 +77,25 @@ public class Project implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(BeginTime);
-        dest.writeInt(BusinessFee);
+        dest.writeFloat(BusinessFee);
         dest.writeString(CreatedTime);
-        dest.writeInt(DepreciationCost);
-        dest.writeInt(ElectricPrice);
+        dest.writeFloat(DepreciationCost);
+        dest.writeFloat(ElectricPrice);
         dest.writeString(EndTime);
-        dest.writeInt(FinanceFee);
-        dest.writeInt(FuelCost);
-        dest.writeInt(LaborCost);
-        dest.writeInt(MaintainCost);
-        dest.writeInt(ManageFee);
+        dest.writeFloat(FinanceFee);
+        dest.writeFloat(FuelCost);
+        dest.writeFloat(LaborCost);
+        dest.writeFloat(MaintainCost);
+        dest.writeFloat(ManageFee);
         dest.writeInt(ProjectID);
         dest.writeString(ProjectName);
         dest.writeInt(ProjectStatus);
         dest.writeString(Remark);
-        dest.writeInt(RemouldFee);
-        dest.writeInt(SteamPrice);
-        dest.writeInt(ThermalPrice);
-        dest.writeInt(WaterPrice);
-        dest.writeInt(WorkingFee);
+        dest.writeFloat(RemouldFee);
+        dest.writeFloat(SteamPrice);
+        dest.writeFloat(ThermalPrice);
+        dest.writeFloat(WaterPrice);
+        dest.writeFloat(WorkingFee);
     }
 
 
@@ -107,11 +107,11 @@ public class Project implements Parcelable {
         BeginTime = beginTime;
     }
 
-    public int getBusinessFee() {
+    public float getBusinessFee() {
         return BusinessFee;
     }
 
-    public void setBusinessFee(int businessFee) {
+    public void setBusinessFee(float businessFee) {
         BusinessFee = businessFee;
     }
 
@@ -123,15 +123,15 @@ public class Project implements Parcelable {
         CreatedTime = createdTime;
     }
 
-    public int getDepreciationCost() {
+    public float getDepreciationCost() {
         return DepreciationCost;
     }
 
-    public void setDepreciationCost(int depreciationCost) {
+    public void setDepreciationCost(float depreciationCost) {
         DepreciationCost = depreciationCost;
     }
 
-    public int getElectricPrice() {
+    public float getElectricPrice() {
         return ElectricPrice;
     }
 
@@ -147,43 +147,43 @@ public class Project implements Parcelable {
         EndTime = endTime;
     }
 
-    public int getFinanceFee() {
+    public float getFinanceFee() {
         return FinanceFee;
     }
 
-    public void setFinanceFee(int financeFee) {
+    public void setFinanceFee(float financeFee) {
         FinanceFee = financeFee;
     }
 
-    public int getFuelCost() {
+    public float getFuelCost() {
         return FuelCost;
     }
 
-    public void setFuelCost(int fuelCost) {
+    public void setFuelCost(float fuelCost) {
         FuelCost = fuelCost;
     }
 
-    public int getLaborCost() {
+    public float getLaborCost() {
         return LaborCost;
     }
 
-    public void setLaborCost(int laborCost) {
+    public void setLaborCost(float laborCost) {
         LaborCost = laborCost;
     }
 
-    public int getMaintainCost() {
+    public float getMaintainCost() {
         return MaintainCost;
     }
 
-    public void setMaintainCost(int maintainCost) {
+    public void setMaintainCost(float maintainCost) {
         MaintainCost = maintainCost;
     }
 
-    public int getManageFee() {
+    public float getManageFee() {
         return ManageFee;
     }
 
-    public void setManageFee(int manageFee) {
+    public void setManageFee(float manageFee) {
         ManageFee = manageFee;
     }
 
@@ -219,39 +219,39 @@ public class Project implements Parcelable {
         Remark = remark;
     }
 
-    public int getRemouldFee() {
+    public float getRemouldFee() {
         return RemouldFee;
     }
 
-    public void setRemouldFee(int remouldFee) {
+    public void setRemouldFee(float remouldFee) {
         RemouldFee = remouldFee;
     }
 
-    public int getSteamPrice() {
+    public float getSteamPrice() {
         return SteamPrice;
     }
 
-    public void setSteamPrice(int steamPrice) {
+    public void setSteamPrice(float steamPrice) {
         SteamPrice = steamPrice;
     }
 
-    public int getThermalPrice() {
+    public float getThermalPrice() {
         return ThermalPrice;
     }
 
-    public void setThermalPrice(int thermalPrice) {
+    public void setThermalPrice(float thermalPrice) {
         ThermalPrice = thermalPrice;
     }
 
-    public int getWaterPrice() {
+    public float getWaterPrice() {
         return WaterPrice;
     }
 
-    public void setWaterPrice(int waterPrice) {
+    public void setWaterPrice(float waterPrice) {
         WaterPrice = waterPrice;
     }
 
-    public int getWorkingFee() {
+    public float getWorkingFee() {
         return WorkingFee;
     }
 

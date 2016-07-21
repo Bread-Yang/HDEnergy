@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,49 +11,40 @@
         <com.mdground.hdenergy.views.MyTopView
             android:id="@+id/mytopview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </com.mdground.hdenergy.views.MyTopView>
-
+            android:layout_height="wrap_content" />
 
         <android.support.v7.widget.RecyclerView
-            android:layout_below="@+id/mytopview"
             android:id="@+id/recyclerview"
-            android:background="@color/color_31C967"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mytopview"
+            android:background="@color/color_white" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_120"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_8"
-                android:src="@drawable/icon_more_left"
-                />
+                android:src="@drawable/icon_more_left" />
+
             <HorizontalScrollView
                 android:id="@+id/horizontalScrollView"
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/size_120">
+                android:layout_height="@dimen/size_120"
+                android:layout_weight="1">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal" >
-
-
-                </LinearLayout>
             </HorizontalScrollView>
-             <ImageView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:src="@drawable/icon_more_right"
-                 android:layout_marginRight="@dimen/margin_8"
-                 />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_8"
+                android:src="@drawable/icon_more_right" />
 
         </LinearLayout>
 

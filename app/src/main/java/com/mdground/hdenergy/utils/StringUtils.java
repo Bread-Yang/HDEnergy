@@ -11,7 +11,7 @@ import com.mdground.hdenergy.application.MDGroundApplication;
 /**
  * Created by yoghourt on 5/6/16.
  */
-public class StringUtil {
+public class StringUtils {
 
     public static boolean isEmpty(String string) {
         if (string == null || "".equals(string) || TextUtils.isEmpty(string) || "[]".equals(string) || "null".equals(string) || "[null]".equals(string)) {
@@ -21,15 +21,15 @@ public class StringUtil {
     }
 
     public static String toYuanWithInteger(int amount) {
-        return String.valueOf(amount / 100);
+        return String.valueOf(amount);
     }
 
     public static String toYuanWithoutUnit(float amount) {
-        return String.format("%.02f", amount / 100);
+        return String.format("%.02f", amount);
     }
 
     public static String toYuanWithUnit(float amount) {
-        return String.format("%.02f", amount / 100) + "元";
+        return String.format("%.02f", amount) + "元";
     }
 
 //    public static String getCompleteAddress(DeliveryAddress deliveryAddress) {
@@ -88,8 +88,16 @@ public class StringUtil {
 
     public static int convertStringToInt(String convertString) {
         int returnInt = 0;
-        if (!StringUtil.isEmpty(convertString)) {
+        if (!StringUtils.isEmpty(convertString)) {
             returnInt = Integer.parseInt(convertString);
+        }
+        return returnInt;
+    }
+
+    public static float convertStringToFloat(String convertString) {
+        float returnInt = 0;
+        if (!StringUtils.isEmpty(convertString)) {
+            returnInt = Float.parseFloat(convertString);
         }
         return returnInt;
     }

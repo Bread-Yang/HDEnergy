@@ -1,12 +1,15 @@
 package com.mdground.hdenergy.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by yoghourt on 7/3/16.
  */
 
-public class UserAttendance {
+public class UserAttendance implements Parcelable{
 
-    private int AccommodationFee;   // 住宿费
+    private float AccommodationFee;   // 住宿费
     private int AutoID;
     private String BeginTime;   // 上班时间
     private String BusinessAddress; // 出差地点
@@ -20,22 +23,69 @@ public class UserAttendance {
     private String EndTime;     // 下班时间
     private int OverTime;       // 加班时间
     private String OverTimeReason; // 加班事由
+    private int PhotoSID;
     private int ProjectID;
+    private String ProjectName;
     private String Remark;      // 其它问题
     private int ReportUserID;   // 汇报人UserID
-    private int ReportUserName; // 汇报人UserID
+    private String ReportUserName; // 汇报人UserID
     private int Score;          // 打分
     private int Status;         // 上班状态
     private int TrafficTime;    // 交通耗时（分钟）
-    private int Transportation; // 交通费（分）
+    private float Transportation; // 交通费（分）
     private int UserID;
     private String UserName;
 
-    public int getAccommodationFee() {
+    public UserAttendance() {
+
+    }
+
+    protected UserAttendance(Parcel in) {
+        AccommodationFee = in.readFloat();
+        AutoID = in.readInt();
+        BeginTime = in.readString();
+        BusinessAddress = in.readString();
+        CategoryID1 = in.readInt();
+        CategoryID2 = in.readInt();
+        CategoryName1 = in.readString();
+        CategoryName2 = in.readString();
+        CreatedTime = in.readString();
+        Department = in.readString();
+        DepartmentID = in.readInt();
+        EndTime = in.readString();
+        OverTime = in.readInt();
+        OverTimeReason = in.readString();
+        PhotoSID = in.readInt();
+        ProjectID = in.readInt();
+        ProjectName = in.readString();
+        Remark = in.readString();
+        ReportUserID = in.readInt();
+        ReportUserName = in.readString();
+        Score = in.readInt();
+        Status = in.readInt();
+        TrafficTime = in.readInt();
+        Transportation = in.readFloat();
+        UserID = in.readInt();
+        UserName = in.readString();
+    }
+
+    public static final Creator<UserAttendance> CREATOR = new Creator<UserAttendance>() {
+        @Override
+        public UserAttendance createFromParcel(Parcel in) {
+            return new UserAttendance(in);
+        }
+
+        @Override
+        public UserAttendance[] newArray(int size) {
+            return new UserAttendance[size];
+        }
+    };
+
+    public float getAccommodationFee() {
         return AccommodationFee;
     }
 
-    public void setAccommodationFee(int accommodationFee) {
+    public void setAccommodationFee(float accommodationFee) {
         AccommodationFee = accommodationFee;
     }
 
@@ -143,12 +193,28 @@ public class UserAttendance {
         OverTimeReason = overTimeReason;
     }
 
+    public int getPhotoSID() {
+        return PhotoSID;
+    }
+
+    public void setPhotoSID(int photoSID) {
+        PhotoSID = photoSID;
+    }
+
     public int getProjectID() {
         return ProjectID;
     }
 
     public void setProjectID(int projectID) {
         ProjectID = projectID;
+    }
+
+    public String getProjectName() {
+        return ProjectName;
+    }
+
+    public void setProjectName(String projectName) {
+        ProjectName = projectName;
     }
 
     public String getRemark() {
@@ -183,11 +249,11 @@ public class UserAttendance {
         TrafficTime = trafficTime;
     }
 
-    public int getTransportation() {
+    public float getTransportation() {
         return Transportation;
     }
 
-    public void setTransportation(int transportation) {
+    public void setTransportation(float transportation) {
         Transportation = transportation;
     }
 
@@ -215,11 +281,46 @@ public class UserAttendance {
         ReportUserID = reportUserID;
     }
 
-    public int getReportUserName() {
+    public String getReportUserName() {
         return ReportUserName;
     }
 
-    public void setReportUserName(int reportUserName) {
+    public void setReportUserName(String reportUserName) {
         ReportUserName = reportUserName;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeFloat(AccommodationFee);
+        parcel.writeInt(AutoID);
+        parcel.writeString(BeginTime);
+        parcel.writeString(BusinessAddress);
+        parcel.writeInt(CategoryID1);
+        parcel.writeInt(CategoryID2);
+        parcel.writeString(CategoryName1);
+        parcel.writeString(CategoryName2);
+        parcel.writeString(CreatedTime);
+        parcel.writeString(Department);
+        parcel.writeInt(DepartmentID);
+        parcel.writeString(EndTime);
+        parcel.writeInt(OverTime);
+        parcel.writeString(OverTimeReason);
+        parcel.writeInt(PhotoSID);
+        parcel.writeInt(ProjectID);
+        parcel.writeString(ProjectName);
+        parcel.writeString(Remark);
+        parcel.writeInt(ReportUserID);
+        parcel.writeString(ReportUserName);
+        parcel.writeInt(Score);
+        parcel.writeInt(Status);
+        parcel.writeInt(TrafficTime);
+        parcel.writeFloat(Transportation);
+        parcel.writeInt(UserID);
+        parcel.writeString(UserName);
     }
 }

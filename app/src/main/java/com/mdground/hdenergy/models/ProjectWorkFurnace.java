@@ -17,14 +17,14 @@ public class ProjectWorkFurnace implements Parcelable{
     private String FurnaceName; // 锅炉名称
     private int ProjectID;      // 项目名称
     private int WorkingHour;    // 开炉时长（以分作为单位）
-    private int Electricity1;   // 电量1
-    private int Electricity2;   // 电量2
-    private int Electricity3;   // 电量3
-    private int ElectricitySingleCost; // 电单耗
-    private int Water1;         // 水量1
-    private int Water2;         // 水量2
-    private int Water3;         // 水量3
-    private int WaterSingleCost;// 水单耗
+    private float Electricity1;   // 电量1
+    private float Electricity2;   // 电量2
+    private float Electricity3;   // 电量3
+    private float ElectricitySingleCost; // 电单耗
+    private float Water1;         // 水量1
+    private float Water2;         // 水量2
+    private float Water3;         // 水量3
+    private float WaterSingleCost;// 水单耗
     private String CreatedTime;
     private List<ProjectWorkFlowrate> ProjectWorkFlowrateList; // 流量列表
     private List<ProjectWorkFuel> ProjectWorkFuelList;  // 燃料列表
@@ -44,14 +44,14 @@ public class ProjectWorkFurnace implements Parcelable{
         FurnaceName = in.readString();
         ProjectID = in.readInt();
         WorkingHour = in.readInt();
-        Electricity1 = in.readInt();
-        Electricity2 = in.readInt();
-        Electricity3 = in.readInt();
+        Electricity1 = in.readFloat();
+        Electricity2 = in.readFloat();
+        Electricity3 = in.readFloat();
         ElectricitySingleCost = in.readInt();
-        Water1 = in.readInt();
-        Water2 = in.readInt();
-        Water3 = in.readInt();
-        WaterSingleCost = in.readInt();
+        Water1 = in.readFloat();
+        Water2 = in.readFloat();
+        Water3 = in.readFloat();
+        WaterSingleCost = in.readFloat();
         CreatedTime = in.readString();
         ProjectWorkFlowrateList = in.createTypedArrayList(ProjectWorkFlowrate.CREATOR);
         ProjectWorkFuelList = in.createTypedArrayList(ProjectWorkFuel.CREATOR);
@@ -118,31 +118,31 @@ public class ProjectWorkFurnace implements Parcelable{
         WorkingHour = workingHour;
     }
 
-    public int getElectricity1() {
+    public float getElectricity1() {
         return Electricity1;
     }
 
-    public void setElectricity1(int electricity1) {
+    public void setElectricity1(float electricity1) {
         Electricity1 = electricity1;
     }
 
-    public int getElectricity2() {
+    public float getElectricity2() {
         return Electricity2;
     }
 
-    public void setElectricity2(int electricity2) {
+    public void setElectricity2(float electricity2) {
         Electricity2 = electricity2;
     }
 
-    public int getElectricity3() {
+    public float getElectricity3() {
         return Electricity3;
     }
 
-    public void setElectricity3(int electricity3) {
+    public void setElectricity3(float electricity3) {
         Electricity3 = electricity3;
     }
 
-    public int getElectricitySingleCost() {
+    public float getElectricitySingleCost() {
         return ElectricitySingleCost;
     }
 
@@ -150,35 +150,35 @@ public class ProjectWorkFurnace implements Parcelable{
         ElectricitySingleCost = electricitySingleCost;
     }
 
-    public int getWater1() {
+    public float getWater1() {
         return Water1;
     }
 
-    public void setWater1(int water1) {
+    public void setWater1(float water1) {
         Water1 = water1;
     }
 
-    public int getWater2() {
+    public float getWater2() {
         return Water2;
     }
 
-    public void setWater2(int water2) {
+    public void setWater2(float water2) {
         Water2 = water2;
     }
 
-    public int getWater3() {
+    public float getWater3() {
         return Water3;
     }
 
-    public void setWater3(int water3) {
+    public void setWater3(float water3) {
         Water3 = water3;
     }
 
-    public int getWaterSingleCost() {
+    public float getWaterSingleCost() {
         return WaterSingleCost;
     }
 
-    public void setWaterSingleCost(int waterSingleCost) {
+    public void setWaterSingleCost(float waterSingleCost) {
         WaterSingleCost = waterSingleCost;
     }
 
@@ -226,14 +226,14 @@ public class ProjectWorkFurnace implements Parcelable{
         parcel.writeString(FurnaceName);
         parcel.writeInt(ProjectID);
         parcel.writeInt(WorkingHour);
-        parcel.writeInt(Electricity1);
-        parcel.writeInt(Electricity2);
-        parcel.writeInt(Electricity3);
-        parcel.writeInt(ElectricitySingleCost);
-        parcel.writeInt(Water1);
-        parcel.writeInt(Water2);
-        parcel.writeInt(Water3);
-        parcel.writeInt(WaterSingleCost);
+        parcel.writeFloat(Electricity1);
+        parcel.writeFloat(Electricity2);
+        parcel.writeFloat(Electricity3);
+        parcel.writeFloat(ElectricitySingleCost);
+        parcel.writeFloat(Water1);
+        parcel.writeFloat(Water2);
+        parcel.writeFloat(Water3);
+        parcel.writeFloat(WaterSingleCost);
         parcel.writeString(CreatedTime);
         parcel.writeTypedList(ProjectWorkFlowrateList);
         parcel.writeTypedList(ProjectWorkFuelList);

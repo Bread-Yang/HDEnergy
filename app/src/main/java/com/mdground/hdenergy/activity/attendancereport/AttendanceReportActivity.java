@@ -8,6 +8,8 @@ import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
+import com.mdground.hdenergy.application.MDGroundApplication;
+import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityAttendanceReportBinding;
 import com.mdground.hdenergy.models.Department;
 import com.mdground.hdenergy.models.Project;
@@ -17,7 +19,7 @@ import com.mdground.hdenergy.models.UserInfo;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.DateUtils;
-import com.mdground.hdenergy.utils.StringUtil;
+import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
 
@@ -40,6 +42,8 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
     private TimePickerDialog mTimePickerDialog;
 
     private BaoPickerDialog mBaoPickerDialog;
+
+    private UserAttendance mUserAttendance;
 
     private ArrayList<Department> mDepartmentArrayList = new ArrayList<>();
 
@@ -65,6 +69,14 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
     @Override
     protected void initData() {
+        mUserAttendance = getIntent().getParcelableExtra(Constants.KEY_USER_ATTENDANCE);
+
+        if (mUserAttendance == null) {
+            mUserAttendance = new UserAttendance();
+        } else {
+
+        }
+
         getDepartmentListRequest();
         getProjectCategoryListRequest(0);
 
@@ -189,7 +201,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
     // 计算工时
     private void calculateManHours() {
-        mDataBinding.tvManHours.setText(DateUtils.toHour(mEndTime - mStartTime));
+        mDataBinding.tvManHours.setText(DateUtils.toManHours(mEndTime - mStartTime));
     }
 
     //region ACTION
@@ -262,21 +274,32 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
     }
 
     public void submitAction(View view) {
-        UserAttendance userAttendance = new UserAttendance();
+        UserAttendance userAttendance = mUserAttendance;
+
+        userAttendance.setReportUserID(MDGroundApplication.sInstance.getLoginUser().getUserID());
+        userAttendance.setReportUserName(MDGroundApplication.sInstance.getLoginUser().getUserName());
 
         // 部门
         String department = mDataBinding.tvDepartment.getText().toString();
         userAttendance.setDepartment(department);
 
         // 项目
-        Project project = mProjectArrayList.get(mSelectProjectIndex);
-        userAttendance.setProjectID(project.getProjectID());
+        if (mProjectArrayList.size() > 0) {
+            Project project = mProjectArrayList.get(mSelectProjectIndex);
+            userAttendance.setProjectID(project.getProjectID());
+        }
 
         // 姓名
         if (mUserInfoArrayList.size() > 0) {
             UserInfo userinfo = mUserInfoArrayList.get(mSelectUserInfoIndex);
             userAttendance.setUserID(userinfo.getUserID());
             userAttendance.setUserName(userinfo.getUserName());
+        }
+
+        // 基本信息为必填项
+        if (StringUtils.isEmpty(department) || mProjectArrayList.size() == 0 || mUserInfoArrayList.size() == 0) {
+            ViewUtils.toast(R.string.fill_base_info);
+            return;
         }
 
         // 上班状态
@@ -292,7 +315,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
         // 加班时间
         String overTimeString = mDataBinding.etOverTimeHour.getText().toString();
-        if (!StringUtil.isEmpty(overTimeString)) {
+        if (!StringUtils.isEmpty(overTimeString)) {
             int overTime = Integer.parseInt(overTimeString);
             userAttendance.setOverTime(overTime);
         }
@@ -302,14 +325,23 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
         userAttendance.setOverTimeReason(overTimeReason);
 
         // 类别
-        ProjectCategory projectCategory = mProjectCategoryArrayList.get(mSelectCategoryIndex);
-        userAttendance.setCategoryID1(projectCategory.getCategoryID());
-        userAttendance.setCategoryName1(projectCategory.getCategoryName());
+        if (mProjectCategoryArrayList.size() > 0) {
+            ProjectCategory projectCategory = mProjectCategoryArrayList.get(mSelectCategoryIndex);
+            userAttendance.setCategoryID1(projectCategory.getCategoryID());
+            userAttendance.setCategoryName1(projectCategory.getCategoryName());
+        }
 
         // 工作内容
-        ProjectCategory projectContent = mProjectContentArrayList.get(mSelectContentIndex);
-        userAttendance.setCategoryID2(projectContent.getCategoryID());
-        userAttendance.setCategoryName2(projectContent.getCategoryName());
+        if (mProjectContentArrayList.size() > 0) {
+            ProjectCategory projectContent = mProjectContentArrayList.get(mSelectContentIndex);
+            userAttendance.setCategoryID2(projectContent.getCategoryID());
+            userAttendance.setCategoryName2(projectContent.getCategoryName());
+        }
+
+        if (mProjectCategoryArrayList.size() == 0 || mProjectContentArrayList.size() == 0) {
+            ViewUtils.toast(R.string.fill_category_info);
+            return;
+        }
 
         // 出差地点
         String businessTripLocation = mDataBinding.etBusinessTripLocation.getText().toString();
@@ -317,22 +349,22 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
         // 交通费
         String transporatationFareString = mDataBinding.etuiTransportationFare.getText();
-        if (!StringUtil.isEmpty(transporatationFareString)) {
-            int transporatationFare = Integer.parseInt(transporatationFareString) * 100;
+        if (!StringUtils.isEmpty(transporatationFareString)) {
+            int transporatationFare = Integer.parseInt(transporatationFareString);
             userAttendance.setTransportation(transporatationFare);
         }
 
         // 交通耗时
         String transportationTimeConsumingString = mDataBinding.etuiTransportationTimeconsuming.getText();
-        if (!StringUtil.isEmpty(transportationTimeConsumingString)) {
+        if (!StringUtils.isEmpty(transportationTimeConsumingString)) {
             int transportationTimeConsuming = Integer.parseInt(transportationTimeConsumingString);
             userAttendance.setTrafficTime(transportationTimeConsuming);
         }
 
         // 住宿费
         String accommodationFeeString = mDataBinding.etuiAccommodationFee.getText();
-        if (!StringUtil.isEmpty(accommodationFeeString)) {
-            int accommodationFee = Integer.parseInt(accommodationFeeString) * 100;
+        if (!StringUtils.isEmpty(accommodationFeeString)) {
+            int accommodationFee = Integer.parseInt(accommodationFeeString);
             userAttendance.setAccommodationFee(accommodationFee);
         }
 
@@ -342,7 +374,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
         // 打分
         String scoreString = mDataBinding.etScore.getText().toString();
-        if (!StringUtil.isEmpty(scoreString)) {
+        if (!StringUtils.isEmpty(scoreString)) {
             int score = Integer.parseInt(scoreString);
             userAttendance.setScore(score);
         }

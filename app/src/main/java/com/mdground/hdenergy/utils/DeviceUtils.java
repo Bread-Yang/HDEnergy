@@ -3,23 +3,22 @@ package com.mdground.hdenergy.utils;
 import android.content.Context;
 import android.content.res.Configuration;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Locale;
-
 import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.enumobject.restfuls.PlatformType;
 import com.mdground.hdenergy.restfuls.bean.Device;
 
-public class DeviceUtil {
+import java.io.File;
+import java.io.IOException;
+import java.util.Locale;
 
-    private static String filePath = Tools.getAppPath() + File.separator + "device";
-//	private static String filePath = Tools.getAppPath() + File.separator + "device_ua";
+public class DeviceUtils {
+
+    private static String sFilePath = Tools.getAppPath() + File.separator + "device";
 
     public static int getDeviceId() {
-        if (ToolFile.isExsit(filePath)) {
+        if (ToolFileUtils.isExsit(sFilePath)) {
             try {
-                String dataStr = ToolFile.readFileByLines(filePath);
+                String dataStr = ToolFileUtils.readFileByLines(sFilePath);
                 return Integer.parseInt(dataStr.trim());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -31,12 +30,12 @@ public class DeviceUtil {
 
     public static void setDeviceId(int deviceId) {
         try {
-            if (!ToolFile.isExsit(filePath)) {
-                File file = new File(filePath);
+            if (!ToolFileUtils.isExsit(sFilePath)) {
+                File file = new File(sFilePath);
                 file.createNewFile();
-                ToolFile.write(file, String.valueOf(deviceId), System.getProperty("file.encoding"));
+                ToolFileUtils.write(file, String.valueOf(deviceId), System.getProperty("file.encoding"));
             } else {
-                ToolFile.write(filePath, String.valueOf(deviceId).getBytes());
+                ToolFileUtils.write(sFilePath, String.valueOf(deviceId).getBytes());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,7 +54,7 @@ public class DeviceUtil {
 
     public static Device getDeviceInfo(Context context) {
         Device device = new Device();
-        boolean isPad = DeviceUtil.isPad(context);
+        boolean isPad = DeviceUtils.isPad(context);
         if (isPad) {
             device.setPlatform(PlatformType.ANDROID_PAD.value());
         } else {
@@ -76,7 +75,7 @@ public class DeviceUtil {
      * @return
      */
     public static int getPlatformType(Context context) {
-        boolean isPad = DeviceUtil.isPad(context);
+        boolean isPad = DeviceUtils.isPad(context);
         if (isPad) {
             return PlatformType.ANDROID_PAD.value();
         } else {
