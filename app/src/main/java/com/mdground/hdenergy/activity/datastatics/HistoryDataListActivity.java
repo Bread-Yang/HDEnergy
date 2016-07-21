@@ -61,8 +61,8 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
     protected void initData() {
         Intent intent = getIntent();
         String title = intent.getStringExtra(Constants.KEY_HISTORY_DATE_NAME);
-        mProjectID=intent.getIntExtra(Constants.KEY_HISTORY_DATE_PROJECT_ID,0);
-          getDateList();
+        mProjectID = intent.getIntExtra(Constants.KEY_HISTORY_DATE_PROJECT_ID, 0);
+        getDateList();
         setTitle(title);
         GetProjectWorkList(mProjectID, mPageIndex);
         authorityLevel = MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel();
@@ -82,8 +82,8 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
     public void correspondingDetails(View view) {
         int postion = mDataBinding.recyclerView.getChildAdapterPosition(view);
         Intent intent = new Intent(this, HistoryDataDetailsActivity.class);
-        Bundle bundle=new Bundle();
-        bundle.putParcelable(Constants.KEY_HISTORY_DATA_PROJECT,mProjectWorkList.get(postion));
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.KEY_HISTORY_DATA_PROJECT, mProjectWorkList.get(postion));
         intent.putExtras(bundle);
         startActivity(intent);
 
@@ -96,7 +96,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
 
                 if (ResponseCode.isSuccess(response.body())) {
-                    String ss=response.body().getContent();
+                    String ss = response.body().getContent();
                     ArrayList<ProjectWork> tempList = response.body().getContent(new TypeToken<ArrayList<ProjectWork>>() {
                     });
 
@@ -152,7 +152,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
 
-            if (authorityLevel!=3) {
+            if (authorityLevel != 3) {
                 holder.itemHistoryDatastaticsBinding.lltProfit.setVisibility(View.GONE);
                 layoutParams.setMargins(0, 0, 0, 0);
                 holder.itemHistoryDatastaticsBinding.tvQue.setLayoutParams(layoutParams);
@@ -167,13 +167,13 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
                 e.printStackTrace();
             }
 
-            if(Integer.valueOf(mProjectWorkList.get(position).getDayFuelCost())>mProjectWorkList.get(position).getFuelCost()) {
+            if (mProjectWorkList.get(position).getDayFuelCost() > mProjectWorkList.get(position).getFuelCost()) {
                 holder.itemHistoryDatastaticsBinding.ivWarning.setImageResource(R.drawable.icon_warning);
             }
             holder.itemHistoryDatastaticsBinding.tvStandardUnit.setText(String.valueOf(mProjectWorkList.get(position).getFuelCost()));
-            holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(mProjectWorkList.get(position).getDayFuelCost());
-            holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(mProjectWorkList.get(position).getDayElectricityCost());
-            holder.itemHistoryDatastaticsBinding.tvWaterUnitConsumption.setText(mProjectWorkList.get(position).getDayWaterCost());
+            holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(String.valueOf(mProjectWorkList.get(position).getDayFuelCost()));
+            holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(String.valueOf(mProjectWorkList.get(position).getDayElectricityCost()));
+            holder.itemHistoryDatastaticsBinding.tvWaterUnitConsumption.setText(String.valueOf(mProjectWorkList.get(position).getDayWaterCost()));
             if (MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel() != 3) {
                 holder.itemHistoryDatastaticsBinding.tvProfit.setVisibility(View.GONE);
             } else {
@@ -188,6 +188,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
             public ItemHistoryDatastaticsBinding itemHistoryDatastaticsBinding;
+
             public MyViewHolder(final View itemView) {
                 super(itemView);
                 itemHistoryDatastaticsBinding = DataBindingUtil.bind(itemView);

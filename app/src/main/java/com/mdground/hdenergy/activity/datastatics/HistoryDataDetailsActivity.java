@@ -18,6 +18,8 @@ import com.mdground.hdenergy.databinding.ActivityHistoryDataDetailsBinding;
 import com.mdground.hdenergy.databinding.ItemCheckBoilerBinding;
 import com.mdground.hdenergy.models.ProjectWork;
 import com.mdground.hdenergy.models.ProjectWorkFurnace;
+import com.mdground.hdenergy.utils.ViewUtils;
+import com.mdground.hdenergy.views.itemdecoration.NormalItemDecoration;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -30,6 +32,7 @@ import java.util.Date;
  */
 
 public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryDataDetailsBinding> {
+
     private DataDetailsAdapter mAdapter;
     private ProjectWork mProjectWork;
     private int mAuthorityLevel;
@@ -42,7 +45,6 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
 
     @Override
     protected void initData() {
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         mProjectWork = (ProjectWork) bundle.getParcelable(Constants.KEY_HISTORY_DATA_PROJECT);
@@ -63,6 +65,7 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(linearLayoutManager);
+        mDataBinding.recyclerView.addItemDecoration(new NormalItemDecoration(ViewUtils.dp2px(1)));
         mDataBinding.recyclerView.setAdapter(mAdapter);
     }
 

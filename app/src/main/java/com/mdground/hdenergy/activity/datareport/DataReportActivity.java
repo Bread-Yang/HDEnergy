@@ -117,7 +117,6 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         getUserProjectListRequest();
         if (mIsNewProjectWork) {
             mDataBinding.tvDate.setText(DateUtils.getYearMonthDayWithDash(previousDate));
-            mDataBinding.tvSaleProduct.setText(salesProductStrings[0]);
         } else {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
@@ -146,28 +145,18 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
             @Override
             public void onScrollingFinished(WheelView wheel) {
-
                 int currentPosition = wheel.getCurrentItem();
 
                 switch (mWheelViewChooseResID) {
-
                     case R.id.tvProject:
-
-                        if (mIsNewProjectWork) {
-
-                            mSelectProjectIndex = currentPosition;
-                            Project project = mProjectArrayList.get(currentPosition);
-                            mDataBinding.tvProject.setText(project.getProjectName());
-                            getProjectFurnaceList(project.getProjectID());
-
-                        } else {
-                            Project project = mProjectArrayList.get(currentPosition);
-                            mDataBinding.tvProject.setText(project.getProjectName());
-                        }
-
+                        mSelectProjectIndex = currentPosition;
+                        Project project = mProjectArrayList.get(currentPosition);
+                        mDataBinding.tvProject.setText(project.getProjectName());
+                        mDataBinding.tvSaleProduct.setText(project.getSaleType());
+                        getProjectFurnaceList(project.getProjectID());
                         break;
-                    case tvSaleProduct:
 
+                    case tvSaleProduct:
                         mIsHeatProduct = (currentPosition == 1);
                         mDataBinding.tvSaleProduct.setText(mSalesProductArrayList.get(currentPosition));
                         break;
@@ -213,6 +202,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
             projectStringArrayList.add(project.getProjectName());
         }
         mBaoPickerDialog.bindWheelViewData(projectStringArrayList);
+        mBaoPickerDialog.setCurrentItem(mSelectProjectIndex);
         mBaoPickerDialog.show();
     }
 
@@ -324,10 +314,10 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                 });
 
                 if (mProjectArrayList.size() > 0) {
-
                     if (mIsNewProjectWork) {
                         getProjectFurnaceList(mProjectArrayList.get(0).getProjectID());
                         mDataBinding.tvProject.setText(mProjectArrayList.get(0).getProjectName());
+                        mDataBinding.tvSaleProduct.setText(mProjectArrayList.get(0).getSaleType());
                     } else {
                         mDataBinding.tvProject.setText(mProjectWork.getProjectName());
                     }

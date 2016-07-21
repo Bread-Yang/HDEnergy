@@ -37,6 +37,7 @@ public class Project implements Parcelable {
     private int ProjectStatus;  // 停炉//正常//维修状态
     private String Remark;      // //停炉//维修//原因
     private float RemouldFee;     // 财务费用
+    private String SaleType;
     private float SteamPrice;      // 蒸汽单价
     private float ThermalPrice;   // 热力单价
     private float WaterPrice;     // 水单价
@@ -63,6 +64,7 @@ public class Project implements Parcelable {
         ProjectStatus = in.readInt();
         Remark = in.readString();
         RemouldFee = in.readFloat();
+        SaleType = in.readString();
         SteamPrice = in.readFloat();
         ThermalPrice = in.readFloat();
         WaterPrice = in.readFloat();
@@ -92,6 +94,7 @@ public class Project implements Parcelable {
         dest.writeInt(ProjectStatus);
         dest.writeString(Remark);
         dest.writeFloat(RemouldFee);
+        dest.writeString(SaleType);
         dest.writeFloat(SteamPrice);
         dest.writeFloat(ThermalPrice);
         dest.writeFloat(WaterPrice);
@@ -225,6 +228,14 @@ public class Project implements Parcelable {
 
     public void setRemouldFee(float remouldFee) {
         RemouldFee = remouldFee;
+    }
+
+    public String getSaleType() {
+        return SaleType;
+    }
+
+    public void setSaleType(String saleType) {
+        SaleType = saleType;
     }
 
     public float getSteamPrice() {

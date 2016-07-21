@@ -45,7 +45,8 @@
         <activity
             android:name=".activity.datareport.DataReportActivity"
             android:label="@string/data_report"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.datareport.BoilerEditOneActivity"
             android:label="@string/data_report"

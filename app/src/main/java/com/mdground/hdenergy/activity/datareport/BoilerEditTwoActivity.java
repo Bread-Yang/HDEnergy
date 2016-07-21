@@ -148,6 +148,9 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
         ArrayList<ProjectFuelWarehouse> projectFuelWarehouseArrayList = new ArrayList<>();
         ProjectFuelWarehouse projectFuelWarehouse = new ProjectFuelWarehouse();
+        projectFuelWarehouse.setFuelName(projectWorkFuel.getFuelName());
+        projectFuelWarehouse.setProjectID(mProjectWorkFurnace.getProjectID());
+
         projectFuelWarehouseArrayList.add(projectFuelWarehouse);
 
         projectWorkFuel.setProjectFuelWarehouseList(projectFuelWarehouseArrayList);
@@ -160,7 +163,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
         ProjectFuelWarehouse projectFuelWarehouse = new ProjectFuelWarehouse();
         projectFuelWarehouse.setFuelName(projectWorkFuel.getFuelName());
-        projectFuelWarehouse.setProjectID(projectFuelWarehouse.getProjectID());
+        projectFuelWarehouse.setProjectID(mProjectWorkFurnace.getProjectID());
 
         return projectFuelWarehouse;
     }

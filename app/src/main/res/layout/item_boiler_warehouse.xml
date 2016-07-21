@@ -42,8 +42,8 @@
             <TextView
                 android:id="@+id/tvSupplier"
                 style="@style/WithArrowIconTextStyle"
-                android:textSize="@dimen/text_size_16"
                 android:text="@{projectFuelWarehouse.supplier}"
+                android:textSize="@dimen/text_size_16"
                 tools:text="盛大" />
 
         </RelativeLayout>
@@ -59,8 +59,8 @@
 
             <EditText
                 android:id="@+id/etLicensePlate"
-                android:text="@{projectFuelWarehouse.plateNumber}"
-                style="@style/WithArrowEdittextStyle" />
+                style="@style/WithArrowEdittextStyle"
+                android:text="@{projectFuelWarehouse.plateNumber}" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -73,8 +73,9 @@
 
             <com.mdground.hdenergy.views.EdittextWithUnitIcon
                 android:id="@+id/etuiDeliveryCapacity"
-                android:text='@{projectFuelWarehouse.amount == 0 ? "" : String.valueOf(projectFuelWarehouse.amount)}'
                 style="@style/WithArrowEdittextStyle"
+                android:text='@{projectFuelWarehouse.amount == 0 ? "" : String.valueOf(projectFuelWarehouse.amount)}'
+                app:iconResId="@drawable/icon_more"
                 app:unitResId="@string/ton" />
 
         </RelativeLayout>

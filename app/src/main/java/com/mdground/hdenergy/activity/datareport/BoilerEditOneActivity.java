@@ -331,50 +331,50 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
     }
 
     public void nextStepAction(View view) {
-        for (ProjectWorkFlowrate projectWorkFlowrate : mProjectWorkFlowrateArrayList) {
-            if (projectWorkFlowrate.getBeginFlow() == 0 || projectWorkFlowrate.getEndFlow() == 0) {
-                ViewUtils.toast(R.string.fill_flow_info);
-                return;
-            }
-        }
+//        for (ProjectWorkFlowrate projectWorkFlowrate : mProjectWorkFlowrateArrayList) {
+//            if (projectWorkFlowrate.getBeginFlow() == 0 || projectWorkFlowrate.getEndFlow() == 0) {
+//                ViewUtils.toast(R.string.fill_flow_info);
+//                return;
+//            }
+//        }
 
-        if (mProjectWorkFurnace.getElectricity1() == 0) {
-            ViewUtils.toast(R.string.fill_electric_info);
-            return;
-        }
+//        if (mProjectWorkFurnace.getElectricity1() == 0) {
+//            ViewUtils.toast(R.string.fill_electric_info);
+//            return;
+//        }
+//
+//        if (mDataBinding.rltElectricQuantityTwo.getVisibility() == View.VISIBLE) {
+//            if (mProjectWorkFurnace.getElectricity2() == 0) {
+//                ViewUtils.toast(R.string.fill_electric_info);
+//                return;
+//            }
+//        }
+//
+//        if (mDataBinding.rltElectricQuantityThree.getVisibility() == View.VISIBLE) {
+//            if (mProjectWorkFurnace.getElectricity3() == 0) {
+//                ViewUtils.toast(R.string.fill_electric_info);
+//                return;
+//            }
+//        }
 
-        if (mDataBinding.rltElectricQuantityTwo.getVisibility() == View.VISIBLE) {
-            if (mProjectWorkFurnace.getElectricity2() == 0) {
-                ViewUtils.toast(R.string.fill_electric_info);
-                return;
-            }
-        }
-
-        if (mDataBinding.rltElectricQuantityThree.getVisibility() == View.VISIBLE) {
-            if (mProjectWorkFurnace.getElectricity3() == 0) {
-                ViewUtils.toast(R.string.fill_electric_info);
-                return;
-            }
-        }
-
-        if (mProjectWorkFurnace.getWater1() == 0) {
-            ViewUtils.toast(R.string.fill_water_info);
-            return;
-        }
-
-        if (mDataBinding.rltWaterQuantityTwo.getVisibility() == View.VISIBLE) {
-            if (mProjectWorkFurnace.getWater2() == 0) {
-                ViewUtils.toast(R.string.fill_water_info);
-                return;
-            }
-        }
-
-        if (mDataBinding.rltWaterQuantityThree.getVisibility() == View.VISIBLE) {
-            if (mProjectWorkFurnace.getWater3() == 0) {
-                ViewUtils.toast(R.string.fill_water_info);
-                return;
-            }
-        }
+//        if (mProjectWorkFurnace.getWater1() == 0) {
+//            ViewUtils.toast(R.string.fill_water_info);
+//            return;
+//        }
+//
+//        if (mDataBinding.rltWaterQuantityTwo.getVisibility() == View.VISIBLE) {
+//            if (mProjectWorkFurnace.getWater2() == 0) {
+//                ViewUtils.toast(R.string.fill_water_info);
+//                return;
+//            }
+//        }
+//
+//        if (mDataBinding.rltWaterQuantityThree.getVisibility() == View.VISIBLE) {
+//            if (mProjectWorkFurnace.getWater3() == 0) {
+//                ViewUtils.toast(R.string.fill_water_info);
+//                return;
+//            }
+//        }
 
         // 开炉时长
         mProjectWorkFurnace.setWorkingHour(mSelectHourIndex + 1);

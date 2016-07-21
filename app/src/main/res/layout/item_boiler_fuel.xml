@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -38,10 +39,10 @@
                 android:text="@string/fuel_type_with_colon" />
 
             <TextView
-                style="@style/WithArrowIconTextStyle"
                 android:id="@+id/tvFuelCategory"
-                android:textSize="@dimen/text_size_16"
+                style="@style/WithArrowIconTextStyle"
                 android:text="@{fuel.fuelName}"
+                android:textSize="@dimen/text_size_16"
                 tools:text="颗粒(8元)" />
 
         </RelativeLayout>
@@ -55,11 +56,13 @@
                 style="@style/DimTextStyle"
                 android:text="@string/last_period_stock_with_colon" />
 
-            <EditText
-                android:text="@{String.valueOf(fuel.previousInventory)}"
+            <com.mdground.hdenergy.views.EdittextWithUnitIcon
                 android:id="@+id/etLastPeriodStock"
                 style="@style/WithArrowEdittextStyle"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="@{String.valueOf(fuel.previousInventory)}"
+                app:iconResId="@drawable/icon_more"
+                app:unitResId="@string/ton" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -70,10 +73,12 @@
                 style="@style/DimTextStyle"
                 android:text="@string/current_period_stock_with_colon" />
 
-            <EditText
+            <com.mdground.hdenergy.views.EdittextWithUnitIcon
                 android:id="@+id/etCurrentPeriodStock"
                 style="@style/WithArrowEdittextStyle"
-                android:inputType="number" />
+                android:inputType="number"
+                app:iconResId="@drawable/icon_more"
+                app:unitResId="@string/ton" />
 
         </RelativeLayout>
 

@@ -30,13 +30,13 @@ import java.util.Date;
  */
 
 public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerDetailBinding> {
+
     private BolierDetailAdapter mAdapter;
     private ProjectWorkFurnace mProjectWorkFurnace;
     private ArrayList<ProjectWorkFlowrate> mFlowArrayList = new ArrayList<>();
     private ArrayList<ProjectWorkFuel> mFuelArrayList = new ArrayList<>();
     private double mFlowAmount;
     private String mSaleType;
-//    private List<ProjectFuelWarehouse> mProjectFuelWarehouseList;
 
     @Override
     protected int getContentLayout() {

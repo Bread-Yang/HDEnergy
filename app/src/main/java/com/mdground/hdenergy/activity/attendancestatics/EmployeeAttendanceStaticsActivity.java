@@ -58,6 +58,7 @@ public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityE
     @Override
     protected void initData() {
         mUserAttendance = getIntent().getParcelableExtra(Constants.KEY_USER_ATTENDANCE);
+        getSupportActionBar().setTitle(mUserAttendance.getUserName());
         mQueryDate = mUserAttendance.getBeginTime();
         showMonthString();
 

@@ -29,6 +29,7 @@ public class EmployeeAttendanceDetailActivity extends ToolbarActivity<ActivityEm
 
         mUserAttendance = getIntent().getParcelableExtra(Constants.KEY_USER_ATTENDANCE);
         mDataBinding.setUserAttendance(mUserAttendance);
+        getSupportActionBar().setTitle(mUserAttendance.getUserName());
 
         long startTime = DateUtils.getDateByServerDateString(mUserAttendance.getBeginTime()).getMillis();
         long endTime = DateUtils.getDateByServerDateString(mUserAttendance.getEndTime()).getMillis();

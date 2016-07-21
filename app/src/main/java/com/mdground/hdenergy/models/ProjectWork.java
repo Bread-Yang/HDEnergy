@@ -22,10 +22,10 @@ public class ProjectWork implements Parcelable {
     private int UserID;
     private String UserName;
     private int WorkID;
-    private String DayElectricityCost;  //电耗（电单耗）---新增
-    private String DayWaterCost;  // 水耗（水单耗）
-    private String DayFuelCost;   // 单耗（燃料单耗）
-    public int FuelCost;//标准燃料单耗
+    private float DayElectricityCost;  //电耗（电单耗）---新增
+    private float DayWaterCost;  // 水耗（水单耗）
+    private float DayFuelCost;   // 单耗（燃料单耗）
+    private float FuelCost;//标准燃料单耗
 
     protected ProjectWork(Parcel in) {
         CreatedTime = in.readString();
@@ -39,9 +39,9 @@ public class ProjectWork implements Parcelable {
         UserID = in.readInt();
         UserName = in.readString();
         WorkID = in.readInt();
-        DayElectricityCost = in.readString();
-        DayWaterCost = in.readString();
-        DayFuelCost = in.readString();
+        DayElectricityCost = in.readFloat();
+        DayWaterCost = in.readFloat();
+        DayFuelCost = in.readFloat();
         FuelCost = in.readInt();
     }
 
@@ -57,35 +57,35 @@ public class ProjectWork implements Parcelable {
         }
     };
 
-    public int getFuelCost() {
+    public float getFuelCost() {
         return FuelCost;
     }
 
-    public void setFuelCost(int fuelCost) {
+    public void setFuelCost(float fuelCost) {
         FuelCost = fuelCost;
     }
 
-    public String getDayElectricityCost() {
+    public float getDayElectricityCost() {
         return DayElectricityCost;
     }
 
-    public void setDayElectricityCost(String dayElectricityCost) {
+    public void setDayElectricityCost(float dayElectricityCost) {
         DayElectricityCost = dayElectricityCost;
     }
 
-    public String getDayWaterCost() {
+    public float getDayWaterCost() {
         return DayWaterCost;
     }
 
-    public void setDayWaterCost(String dayWaterCost) {
+    public void setDayWaterCost(float dayWaterCost) {
         DayWaterCost = dayWaterCost;
     }
 
-    public String getDayFuelCost() {
+    public float getDayFuelCost() {
         return DayFuelCost;
     }
 
-    public void setDayFuelCost(String dayFuelCost) {
+    public void setDayFuelCost(float dayFuelCost) {
         DayFuelCost = dayFuelCost;
     }
 
@@ -181,7 +181,6 @@ public class ProjectWork implements Parcelable {
 
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -200,9 +199,9 @@ public class ProjectWork implements Parcelable {
         dest.writeInt(UserID);
         dest.writeString(UserName);
         dest.writeInt(WorkID);
-        dest.writeString(DayElectricityCost);
-        dest.writeString(DayWaterCost);
-        dest.writeString(DayFuelCost);
-        dest.writeInt(FuelCost);
+        dest.writeFloat(DayElectricityCost);
+        dest.writeFloat(DayWaterCost);
+        dest.writeFloat(DayFuelCost);
+        dest.writeFloat(FuelCost);
     }
 }

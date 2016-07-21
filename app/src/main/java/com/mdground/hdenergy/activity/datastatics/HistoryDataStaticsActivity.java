@@ -21,7 +21,6 @@ import com.mdground.hdenergy.models.ProjectWork;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.ViewUtils;
-import com.socks.library.KLog;
 
 import java.util.ArrayList;
 
@@ -34,13 +33,14 @@ import retrofit2.Response;
  */
 
 public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryDatastaticsBinding> {
+
     private HistoryDateAdapter mAdapter;
     private ArrayList<String> mArrayList = new ArrayList<>();
     private ArrayList<ProjectWork> mProjectList = new ArrayList<>();
-    private int authorityLevel;
-    private LinearLayout.LayoutParams layoutParams;
+    private LinearLayout.LayoutParams mLayoutParams;
     private LinearLayoutManager mLinearLayoutManager;
-    int mPageIndex = 0;
+    private int mAuthorityLevel;
+    private int mPageIndex = 0;
     private boolean mIsLoadeMore;
 
     @Override
@@ -53,11 +53,11 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
         getDateList();
         GetProjectSummeryListRequest(0);
         mAdapter = new HistoryDateAdapter();
-        layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mLinearLayoutManager = new LinearLayoutManager(HistoryDataStaticsActivity.this);
         mDataBinding.recyclerView.setLayoutManager(mLinearLayoutManager);
         mDataBinding.recyclerView.setAdapter(mAdapter);
-        authorityLevel = MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel();
+        mAuthorityLevel = MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel();
     }
 
     @Override
@@ -79,6 +79,28 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
                 }
             }
         });
+    }
+
+    private void getDateList() {
+        ArrayList<String> lists = new ArrayList<>();
+        for (int i = 0; i <= 21; i++) {
+            lists.add(getString(R.string.yongxing) + i);
+        }
+        for (String str : lists) {
+            mArrayList.add(str);
+        }
+
+    }
+
+    //跳转到对应页面的
+    private void toHistoryDataListActivity(View view) {
+        int position = mDataBinding.recyclerView.getChildAdapterPosition(view);
+        int projectID = mProjectList.get(position).getProjectID();
+        String projectName = mProjectList.get(position).getProjectName();
+        Intent intent = new Intent(this, HistoryDataListActivity.class);
+        intent.putExtra(Constants.KEY_HISTORY_DATE_NAME, projectName);
+        intent.putExtra(Constants.KEY_HISTORY_DATE_PROJECT_ID, projectID);
+        startActivity(intent);
     }
 
     //region SERVERN
@@ -117,34 +139,6 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
         });
 
     }
-
-    //endregion
-
-    //region METHOD
-    public void getDateList() {
-        ArrayList<String> lists = new ArrayList<>();
-        for (int i = 0; i <= 21; i++) {
-            lists.add(getString(R.string.yongxing) + i);
-        }
-        for (String str : lists) {
-            mArrayList.add(str);
-        }
-
-    }
-
-
-    //跳转到对应页面的
-    public void toHistoryDataListActivity(View view) {
-        int position = mDataBinding.recyclerView.getChildAdapterPosition(view);
-     //   String name = mArrayList.get(position);
-        int projectID=mProjectList.get(position).getProjectID();
-        KLog.e("projectID---"+projectID);
-        String projectName=mProjectList.get(position).getProjectName();
-        Intent intent = new Intent(this, HistoryDataListActivity.class);
-        intent.putExtra(Constants.KEY_HISTORY_DATE_NAME, projectName);
-        intent.putExtra(Constants.KEY_HISTORY_DATE_PROJECT_ID,projectID);
-        startActivity(intent);
-    }
     //endregion
 
     //region ADAPTER
@@ -161,24 +155,50 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            if(Integer.valueOf(mProjectList.get(position).getDayFuelCost())>mProjectList.get(position).getFuelCost()){
-                 holder.itemHistoryDatastaticsBinding.ivWarning.setImageResource(R.drawable.icon_warning);
+            if (mProjectList.get(position).getDayFuelCost() > mProjectList.get(position).getFuelCost()) {
+                holder.itemHistoryDatastaticsBinding.ivWarning.setImageResource(R.drawable.icon_warning);
             }
-            if (authorityLevel < 3) {
+            if (mAuthorityLevel < 3) {
                 holder.itemHistoryDatastaticsBinding.lltProfit.setVisibility(View.GONE);
-                layoutParams.setMargins(0, 0, 0, 0);
-                holder.itemHistoryDatastaticsBinding.tvQue.setLayoutParams(layoutParams);
+                mLayoutParams.setMargins(0, 0, 0, 0);
+                holder.itemHistoryDatastaticsBinding.tvQue.setLayoutParams(mLayoutParams);
             }
+
+            ProjectWork projectWork = mProjectList.get(position);
             holder.itemHistoryDatastaticsBinding.tvTitles.setText(mProjectList.get(position).getProjectName());
-            holder.itemHistoryDatastaticsBinding.tvStandardUnit.setText(String.valueOf(mProjectList.get(position).getFuelCost()));
-            holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(mProjectList.get(position).getDayElectricityCost());
-            holder.itemHistoryDatastaticsBinding.tvProfit.setText(mProjectList.get(position).getExpenseDetail());
             holder.itemHistoryDatastaticsBinding.tvQuestion.setText(mProjectList.get(position).getRemark());
-            holder.itemHistoryDatastaticsBinding.tvWaterUnitConsumption.setText(mProjectList.get(position).getDayWaterCost());
-            holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(mProjectList.get(position).getDayFuelCost());
+            holder.itemHistoryDatastaticsBinding.tvProfit.setText(projectWork.getExpenseDetail());
 
+            if (projectWork.getSaleType().equals(getString(R.string.steam))) {
+                // 销售产品为蒸汽
+                // 标单
+                holder.itemHistoryDatastaticsBinding.tvStandardUnit.setText(
+                        getString(R.string.kg_per_ton_steam, projectWork.getFuelCost()));
+                // 单耗
+                holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(
+                        getString(R.string.kg_per_ton_steam, mProjectList.get(position).getDayFuelCost()));
+                // 电单耗
+                holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(
+                        getString(R.string.kw_per_ton_steam, projectWork.getDayElectricityCost()));
+                // 水单耗
+                holder.itemHistoryDatastaticsBinding.tvWaterUnitConsumption.setText(
+                        getString(R.string.ton_per_ton_steam, projectWork.getDayWaterCost()));
+            } else {
+                // 销售产品为热力
+                // 标单
+                holder.itemHistoryDatastaticsBinding.tvStandardUnit.setText(
+                        getString(R.string.kg_per_ton, projectWork.getFuelCost()));
+                // 单耗
+                holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(
+                        getString(R.string.kg_per_ton, mProjectList.get(position).getDayFuelCost()));
+                // 电单耗
+                holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(
+                        getString(R.string.kw_per_ton, projectWork.getDayElectricityCost()));
+                // 水单耗
+                holder.itemHistoryDatastaticsBinding.tvWaterUnitConsumption.setText(
+                        getString(R.string.ton_per_ton, projectWork.getDayWaterCost()));
+            }
         }
-
 
         @Override
         public int getItemCount() {

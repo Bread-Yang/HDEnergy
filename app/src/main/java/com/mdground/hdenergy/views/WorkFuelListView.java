@@ -74,14 +74,14 @@ public class WorkFuelListView extends LinearLayout {
         tvFuelName.setText(mProjectWorkFuel.getFuelName());
         tvPreviousInventory.setText(String.valueOf(previousInventory) + context.getString(R.string.ton));
         tvCurrentInventory.setText(String.valueOf(currentInventory) + context.getString(R.string.ton));
-        tvFuelCost.setText(String.valueOf(fuelCost) + context.getString(R.string._kg) + context.getString(R.string.zen_ton));
+        tvFuelCost.setText(String.valueOf(fuelCost) + context.getString(R.string.kg_unit) + context.getString(R.string.zen_ton));
         if (adjustInventory > 0) {
             tvAdjustInventory.setText("+" + String.valueOf(adjustInventory) + R.string.ton);
         } else {
             tvAdjustInventory.setText(String.valueOf(adjustInventory) + R.string.ton);
         }
         tvAdjustInventoryExplian.setText(mProjectWorkFuel.getAdjustReason());
-        tvFuelUnitConsume.setText(fuelUntiCosts + context.getString(R.string._kg) + context.getString(R.string.zen_ton));
+        tvFuelUnitConsume.setText(fuelUntiCosts + context.getString(R.string.kg_unit) + context.getString(R.string.zen_ton));
     }
 
 

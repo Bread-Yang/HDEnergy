@@ -282,6 +282,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
         // 部门
         String department = mDataBinding.tvDepartment.getText().toString();
         userAttendance.setDepartment(department);
+        userAttendance.setDepartmentID(mDepartmentArrayList.get(mSelectDepartment).getDepartmentID());
 
         // 项目
         if (mProjectArrayList.size() > 0) {
