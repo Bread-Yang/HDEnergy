@@ -3,14 +3,16 @@ package com.mdground.hdenergy.restfuls;
 import android.graphics.Bitmap;
 import android.util.Base64;
 
+import com.google.gson.JsonObject;
+import com.mdground.hdenergy.constants.Constants;
+import com.mdground.hdenergy.enumobject.restfuls.BusinessType;
+import com.mdground.hdenergy.models.MDImage;
+import com.mdground.hdenergy.restfuls.bean.ResponseData;
+
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-
-import com.mdground.hdenergy.constants.Constants;
-import com.mdground.hdenergy.enumobject.restfuls.BusinessType;
-import com.mdground.hdenergy.models.MDImage;
 
 /**
  * Created by yoghourt on 5/6/16.
@@ -43,6 +45,14 @@ public class FileRestful extends BaseRestful {
             mIntance = new FileRestful();
         }
         return mIntance;
+    }
+
+    // 获取图片
+    public ResponseData GetPhoto(int PhotoID) {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("PhotoID", PhotoID);
+
+        return synchronousPost("GetPhoto", obj);
     }
 
     private String bitmapToString(Bitmap bitmap) {

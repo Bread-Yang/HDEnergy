@@ -21,6 +21,7 @@ import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.models.ProjectWork;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
+import com.mdground.hdenergy.utils.ViewUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,8 +37,8 @@ import retrofit2.Response;
  */
 
 public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryDatastaticsBinding> {
+
     private HistoryDateListAdapter mAdapter;
-    private ArrayList<String> mArrayList = new ArrayList<>();
     private int mPageIndex = 0;
     private int authorityLevel;
     int mProjectID;
@@ -52,17 +53,10 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
     protected void initData() {
         Intent intent = getIntent();
         String title = intent.getStringExtra(Constants.KEY_HISTORY_DATE_NAME);
         mProjectID = intent.getIntExtra(Constants.KEY_HISTORY_DATE_PROJECT_ID, 0);
-        getDateList();
         setTitle(title);
         GetProjectWorkList(mProjectID, mPageIndex);
         authorityLevel = MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel();
@@ -71,7 +65,6 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
         mLinearLayoutManager = new LinearLayoutManager(HistoryDataListActivity.this);
         mDataBinding.recyclerView.setLayoutManager(mLinearLayoutManager);
         mDataBinding.recyclerView.setAdapter(mAdapter);
-
     }
 
     @Override
@@ -86,15 +79,15 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
         bundle.putParcelable(Constants.KEY_HISTORY_DATA_PROJECT, mProjectWorkList.get(postion));
         intent.putExtras(bundle);
         startActivity(intent);
-
     }
 
     //region SERVER
     public void GetProjectWorkList(int ProjectID, int PageIndex) {
+        ViewUtils.loading(this);
         GlobalRestful.getInstance().GetProjectWorkList(ProjectID, PageIndex, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
-
+                ViewUtils.dismiss();
                 if (ResponseCode.isSuccess(response.body())) {
                     String ss = response.body().getContent();
                     ArrayList<ProjectWork> tempList = response.body().getContent(new TypeToken<ArrayList<ProjectWork>>() {
@@ -116,9 +109,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
                         mIsLoadeMore = false;
                     }
                     mAdapter.notifyDataSetChanged();
-
                 }
-
             }
 
             @Override
@@ -127,16 +118,6 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
             }
         });
     }
-    //endregion
-
-    //region METHOD
-    //先别删还要用来调下来刷新
-    public void getDateList() {
-        mArrayList.add(getString(R.string.yongxing));
-        mArrayList.add(getString(R.string.app_name));
-    }
-
-
     //endregion
 
     //region ADAPTER
@@ -152,6 +133,8 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
 
+            ProjectWork projectWork = mProjectWorkList.get(position);
+
             if (authorityLevel != 3) {
                 holder.itemHistoryDatastaticsBinding.lltProfit.setVisibility(View.GONE);
                 layoutParams.setMargins(0, 0, 0, 0);
@@ -159,7 +142,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
             }
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
-                Date ceateDate = format.parse(mProjectWorkList.get(position).getCreatedTime());
+                Date ceateDate = format.parse(projectWork.getCreatedTime());
                 SimpleDateFormat format1 = new SimpleDateFormat("yyyy/MM/dd");
                 String formatDate = format1.format(ceateDate);
                 holder.itemHistoryDatastaticsBinding.tvTitles.setText(formatDate);
@@ -167,16 +150,42 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
                 e.printStackTrace();
             }
 
-            if (mProjectWorkList.get(position).getDayFuelCost() > mProjectWorkList.get(position).getFuelCost()) {
+            if (projectWork.getDayFuelCost() > projectWork.getFuelCost()) {
                 holder.itemHistoryDatastaticsBinding.ivWarning.setImageResource(R.drawable.icon_warning);
             }
-            holder.itemHistoryDatastaticsBinding.tvStandardUnit.setText(String.valueOf(mProjectWorkList.get(position).getFuelCost()));
-            holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(String.valueOf(mProjectWorkList.get(position).getDayFuelCost()));
-            holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(String.valueOf(mProjectWorkList.get(position).getDayElectricityCost()));
-            holder.itemHistoryDatastaticsBinding.tvWaterUnitConsumption.setText(String.valueOf(mProjectWorkList.get(position).getDayWaterCost()));
+
+            if (projectWork.getSaleType().equals(getString(R.string.steam))) {
+                // 销售产品为蒸汽
+                // 标单
+                holder.itemHistoryDatastaticsBinding.tvStandardUnit.setText(
+                        getString(R.string.kg_per_ton_steam, projectWork.getFuelCost()));
+                // 单耗
+                holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(
+                        getString(R.string.kg_per_ton_steam, projectWork.getDayFuelCost()));
+                // 电单耗
+                holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(
+                        getString(R.string.kw_per_ton_steam, projectWork.getDayElectricityCost()));
+                // 水单耗
+                holder.itemHistoryDatastaticsBinding.tvWaterUnitConsumption.setText(
+                        getString(R.string.ton_per_ton_steam, projectWork.getDayWaterCost()));
+            } else {
+                // 销售产品为热力
+                // 标单
+                holder.itemHistoryDatastaticsBinding.tvStandardUnit.setText(
+                        getString(R.string.kg_per_ton, projectWork.getFuelCost()));
+                // 单耗
+                holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(
+                        getString(R.string.kg_per_ton, projectWork.getDayFuelCost()));
+                // 电单耗
+                holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(
+                        getString(R.string.kw_per_ton, projectWork.getDayElectricityCost()));
+                // 水单耗
+                holder.itemHistoryDatastaticsBinding.tvWaterUnitConsumption.setText(
+                        getString(R.string.ton_per_ton, projectWork.getDayWaterCost()));
+            }
+
             if (MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel() != 3) {
                 holder.itemHistoryDatastaticsBinding.tvProfit.setVisibility(View.GONE);
-            } else {
             }
         }
 
@@ -200,7 +209,6 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
                 });
             }
         }
-
     }
     //endregion
 

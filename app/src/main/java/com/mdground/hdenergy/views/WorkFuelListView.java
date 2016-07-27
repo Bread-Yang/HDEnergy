@@ -30,7 +30,7 @@ public class WorkFuelListView extends LinearLayout {
     private List<ProjectFuelWarehouse> mProjectFuelWareHouseList = new ArrayList<>();
     private MyAdatpter mAdapter;
     private Context context;
-    private int mEnterFuelAmount;
+    private float mEnterFuelAmount;
     private double mFlowAmount;
 
     public WorkFuelListView(Context context, ProjectWorkFuel projectWorkFuel, double mFlowAmount) {
@@ -59,7 +59,7 @@ public class WorkFuelListView extends LinearLayout {
 
     //设置数据
     private void setDate() {
-        int previousInventory = mProjectWorkFuel.getPreviousInventory();
+        float previousInventory = mProjectWorkFuel.getPreviousInventory();
         if (mProjectFuelWareHouseList != null) {
             for (int i = 0; i < mProjectFuelWareHouseList.size(); i++) {
                 mEnterFuelAmount = mEnterFuelAmount + mProjectFuelWareHouseList.get(i).getAmount();
@@ -67,7 +67,7 @@ public class WorkFuelListView extends LinearLayout {
         }
         int currentInventory = mProjectWorkFuel.getCurrentInventory();
         int adjustInventory = mProjectWorkFuel.getAdjustInventory();
-        int fuelCost = previousInventory + mEnterFuelAmount - currentInventory + adjustInventory;
+        float fuelCost = previousInventory + mEnterFuelAmount - currentInventory + adjustInventory;
         double fuelUnitCost = fuelCost * 1000 / mFlowAmount;
         DecimalFormat df = new DecimalFormat("#####0.00");
         String fuelUntiCosts = df.format(fuelUnitCost);

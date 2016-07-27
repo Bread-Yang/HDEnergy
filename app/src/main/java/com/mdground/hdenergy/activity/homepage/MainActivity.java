@@ -12,10 +12,6 @@ import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.nineoldandroids.view.ViewHelper;
-
-import java.util.ArrayList;
-
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.advice.ReasonableAdviceActivity;
 import com.mdground.hdenergy.activity.attendancereport.AttendanceReportActivity;
@@ -24,21 +20,20 @@ import com.mdground.hdenergy.activity.datareport.DataReportActivity;
 import com.mdground.hdenergy.activity.projectstartstop.ProjectStartStopActivity;
 import com.mdground.hdenergy.models.BannerItem;
 import com.mdground.hdenergy.views.SimpleImageBanner;
+import com.nineoldandroids.view.ViewHelper;
 
-/**
- * http://blog.csdn.net/lmj623565791/article/details/41531475
- *
- * @author zhy
- */
+import java.util.ArrayList;
+
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
+
     private View mTitleBar;
     private Toolbar mToolbar;
     private TextView tvTitle, tvRight;
     private LinearLayout lltDateReport, lltAttendanceReport;
     private ArrayList<BannerItem> mArrayList = new ArrayList<>();
-    public static SimpleImageBanner simpleImageBanner;
+    public static SimpleImageBanner mSimpleImageBanner;
     private DrawerLayout mDrawerLayout;
-    private boolean isOpen;
+    private boolean mIsOpen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +58,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         sib.setSource(mArrayList)
                 .startScroll();                  //获取图片列表并滚动
         findViewById(R.id.tvRight).setOnClickListener(this);
-        simpleImageBanner = (SimpleImageBanner) findViewById(R.id.simpleImageBanner);
+        mSimpleImageBanner = (SimpleImageBanner) findViewById(R.id.simpleImageBanner);
         lltDateReport = (LinearLayout) findViewById(R.id.lltDateReport);
         lltDateReport.setOnClickListener(this);
         lltAttendanceReport = (LinearLayout) findViewById(R.id.lltAttendanceReport);
@@ -76,14 +71,50 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tvRight: {
+                Intent intent = new Intent(this, BulletinListActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+            case R.id.lltDateReport: {
+
+                Intent intent = new Intent(this, DataReportActivity.class);
+                startActivity(intent);
+
+
+                break;
+            }
+
+            case R.id.lltAttendanceReport: {
+                Intent intent = new Intent(this, AttendanceReportActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+            case R.id.lltProjectStartStop: {
+                Intent intent = new Intent(this, ProjectStartStopActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+            case R.id.lltReasonableAdvice: {
+                Intent intent = new Intent(this, ReasonableAdviceActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+        }
+    }
+
     public void OpenMenu() {
         mDrawerLayout.openDrawer(Gravity.LEFT);
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED,
                 Gravity.LEFT);
     }
-
-
-
 
     private void initEvents() {
         mDrawerLayout.setDrawerListener(new DrawerListener() {
@@ -134,45 +165,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,
                 Gravity.RIGHT);
         mDrawerLayout.setScrimColor(0x00ffffff);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tvRight: {
-                Intent intent = new Intent(this, BulletinListActivity.class);
-                startActivity(intent);
-                break;
-            }
-
-            case R.id.lltDateReport: {
-
-                Intent intent = new Intent(this, DataReportActivity.class);
-                startActivity(intent);
-
-
-                break;
-            }
-
-            case R.id.lltAttendanceReport: {
-                Intent intent = new Intent(this, AttendanceReportActivity.class);
-                startActivity(intent);
-                break;
-            }
-
-            case R.id.lltProjectStartStop: {
-                Intent intent = new Intent(this, ProjectStartStopActivity.class);
-                startActivity(intent);
-                break;
-            }
-
-            case R.id.lltReasonableAdvice: {
-                Intent intent = new Intent(this, ReasonableAdviceActivity.class);
-                startActivity(intent);
-                break;
-            }
-
-        }
     }
 
     //没有网络广告的时候

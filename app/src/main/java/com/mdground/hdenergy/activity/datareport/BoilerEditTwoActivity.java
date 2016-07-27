@@ -50,6 +50,10 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
     private ArrayList<FuelCategory> mFuelCategoryArrayList = new ArrayList<>();
 
+    private boolean mIsHeatProduct; // 销售产品是否是"热力"
+
+    private float mFlowAmount; // 上一个界面计算得到的总流量
+
     private int mClickResId;
 
     private int mClickFuelPosition, mClickWareHousePosition;
@@ -61,6 +65,9 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
     @Override
     protected void initData() {
+        mIsHeatProduct = getIntent().getBooleanExtra(Constants.KEY_IS_HEAT_SALE_PRODUCT, false);
+        mFlowAmount = getIntent().getFloatExtra(Constants.KEY_FLOW_AMOUNT, 1.0f);
+
         mProjectWorkFurnace = getIntent().getParcelableExtra(Constants.KEY_PROJECT_WORK_FURNACE);
 
         mBaoPickerDialog = new BaoPickerDialog(BoilerEditTwoActivity.this);
@@ -113,7 +120,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                         String selectSupplier = suppliers[currentPosition];
 
                         // 一个供应商不能用于多个进料量
-                        for (int i = 0 ;i < projectWorkFuel.getProjectFuelWarehouseList().size(); i++) {
+                        for (int i = 0; i < projectWorkFuel.getProjectFuelWarehouseList().size(); i++) {
                             ProjectFuelWarehouse item = projectWorkFuel.getProjectFuelWarehouseList().get(i);
 
                             if (i != mClickWareHousePosition && item.getSupplier().equals(selectSupplier)) {
@@ -252,6 +259,8 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
             WarehouseAdapter warehouseAdapter = new WarehouseAdapter(position, projectWorkFuel);
             holder.viewDataBinding.recyclerView.setAdapter(warehouseAdapter);
 
+            refreshFuelConsumption(holder, projectWorkFuel);
+
             if (position == 0) {
                 holder.viewDataBinding.ivAddOrDelete.setImageResource(R.drawable.add);
 
@@ -299,25 +308,56 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                 }
             });
 
-            holder.viewDataBinding.etLastPeriodStock.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            holder.viewDataBinding.etLastPeriodStock.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean hasFocus) {
                     if (!hasFocus) {
                         String stringToConvert = ((EditText) view).getText().toString();
                         projectWorkFuel.setPreviousInventory(StringUtils.convertStringToInt(stringToConvert));
+
+                        refreshFuelConsumption(holder, projectWorkFuel);
                     }
                 }
             });
 
-            holder.viewDataBinding.etCurrentPeriodStock.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            holder.viewDataBinding.etCurrentPeriodStock.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean hasFocus) {
                     if (!hasFocus) {
                         String stringToConvert = ((EditText) view).getText().toString();
                         projectWorkFuel.setCurrentInventory(StringUtils.convertStringToInt(stringToConvert));
+
+                        refreshFuelConsumption(holder, projectWorkFuel);
                     }
                 }
             });
+        }
+
+        private void refreshFuelConsumption(ViewHolder viewHolder, ProjectWorkFuel projectWorkFuel) {
+            // 计算该燃料的总进料量
+            float warehouseAmount = 0;
+            for (ProjectFuelWarehouse item : projectWorkFuel.getProjectFuelWarehouseList()) {
+                warehouseAmount += item.getAmount();
+            }
+
+            // 燃料耗量 = 进料量 + 上期库存 - 本期库存
+            float fuelConsumption = warehouseAmount + projectWorkFuel.getPreviousInventory()
+                    - projectWorkFuel.getCurrentInventory();
+
+            // 燃料单耗 = 燃料耗量 / 流量 * 1000
+            float fuelUniConsumption = fuelConsumption / mFlowAmount * 1000;
+
+            if (mIsHeatProduct) {
+                viewHolder.viewDataBinding.tvFuelConsumption.setText(
+                        getString(R.string.kg_per_ton, fuelConsumption));
+                viewHolder.viewDataBinding.tvFuelUnitConsumption.setText(
+                        getString(R.string.kg_per_ton, fuelUniConsumption));
+            } else {
+                viewHolder.viewDataBinding.tvFuelConsumption.setText(
+                        getString(R.string.kg_per_ton_steam, fuelConsumption));
+                viewHolder.viewDataBinding.tvFuelUnitConsumption.setText(
+                        getString(R.string.kg_per_ton_steam, fuelUniConsumption));
+            }
         }
 
         @Override
@@ -337,7 +377,6 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
     }
 
     class WarehouseAdapter extends RecyclerView.Adapter<WarehouseAdapter.ViewHolder> {
-
 
         ProjectWorkFuel projectWorkFuel;
         List<ProjectFuelWarehouse> projectFuelWarehouseArrayList = new ArrayList<>();
@@ -440,6 +479,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                     if (!hasFocus) {
                         String stringToConvert = ((EditText) view).getText().toString();
                         projectFuelWarehouse.setAmount(StringUtils.convertStringToInt(stringToConvert));
+                        mAdapter.notifyItemChanged(fuelPosition);
                     }
                 }
             });

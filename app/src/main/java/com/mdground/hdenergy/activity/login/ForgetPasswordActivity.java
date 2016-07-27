@@ -13,7 +13,9 @@ import com.mdground.hdenergy.databinding.ActivityForgetPasswordBinding;
 import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
+import com.mdground.hdenergy.utils.DeviceUtils;
 import com.mdground.hdenergy.utils.MD5Utils;
+import com.mdground.hdenergy.utils.NavUtils;
 import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.socks.library.KLog;
@@ -31,6 +33,8 @@ import retrofit2.Response;
  * Created by PC on 2016-06-24.
  */
 public class ForgetPasswordActivity extends ToolbarActivity<ActivityForgetPasswordBinding> {
+
+    private boolean mIsResetPassword;
 
     private EventHandler mEventHandler = new EventHandler() {
         @Override
@@ -77,13 +81,12 @@ public class ForgetPasswordActivity extends ToolbarActivity<ActivityForgetPasswo
 
     @Override
     protected void initData() {
-        Intent intent=getIntent();
-        if(intent!=null){
-            String title=intent.getStringExtra(Constants.KEY_RESET_PASSWORD);
-            if(Constants.KEY_RESET_PASSWORD.equals(title)){
-                setTitle(getString(R.string.reset_password_title));
+        Intent intent = getIntent();
+        if (intent != null) {
+            mIsResetPassword = intent.getBooleanExtra(Constants.KEY_RESET_PASSWORD, false);
+            if (mIsResetPassword) {
+                setTitle(getString(R.string.change_password));
             }
-
         }
         SMSSDK.registerEventHandler(mEventHandler);
     }
@@ -183,7 +186,13 @@ public class ForgetPasswordActivity extends ToolbarActivity<ActivityForgetPasswo
                     public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                         if (response.body().getCode() == ResponseCode.Normal.getValue()) {
                             ViewUtils.toast(R.string.change_password_success);
-                            finish();
+
+                            if (mIsResetPassword) {
+                                DeviceUtils.logoutUser();
+                                NavUtils.toLoginActivity(ForgetPasswordActivity.this);
+                            } else {
+                                finish();
+                            }
                         }
                     }
 

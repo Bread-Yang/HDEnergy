@@ -1,5 +1,7 @@
 package com.mdground.hdenergy.utils;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
@@ -56,6 +58,23 @@ public class StringUtils {
 //
 //        return completeAddress;
 //    }
+
+    /**
+     * 获取版本号
+     *
+     * @return 当前应用的版本号
+     */
+    public static String getVersion() {
+        try {
+            PackageManager manager = MDGroundApplication.sInstance.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(MDGroundApplication.sInstance.getPackageName(), 0);
+            String version = info.versionName;
+            return version;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 
     public static <T> T getInstanceByJsonString(String jsonString, TypeToken<T> type) {
         if (type == null) {

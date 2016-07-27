@@ -9,7 +9,7 @@ import android.os.Parcelable;
  */
 public class ProjectFuelWarehouse implements Parcelable {
 
-    private int Amount;         // 送货量
+    private float Amount;         // 送货量
     private String CreatedTime;
     private String FuelName;
     private String PlateNumber; // 车牌号
@@ -24,7 +24,7 @@ public class ProjectFuelWarehouse implements Parcelable {
     }
 
     protected ProjectFuelWarehouse(Parcel in) {
-        Amount = in.readInt();
+        Amount = in.readFloat();
         CreatedTime = in.readString();
         FuelName = in.readString();
         PlateNumber = in.readString();
@@ -37,7 +37,7 @@ public class ProjectFuelWarehouse implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(Amount);
+        dest.writeFloat(Amount);
         dest.writeString(CreatedTime);
         dest.writeString(FuelName);
         dest.writeString(PlateNumber);
@@ -65,11 +65,11 @@ public class ProjectFuelWarehouse implements Parcelable {
         }
     };
 
-    public int getAmount() {
+    public float getAmount() {
         return Amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(float amount) {
         Amount = amount;
     }
 

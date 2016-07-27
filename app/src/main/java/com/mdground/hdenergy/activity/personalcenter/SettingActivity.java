@@ -9,6 +9,7 @@ import com.mdground.hdenergy.activity.base.ToolbarActivity;
 import com.mdground.hdenergy.databinding.ActivitySettingBinding;
 import com.mdground.hdenergy.utils.DeviceUtils;
 import com.mdground.hdenergy.utils.NavUtils;
+import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.views.CheckUpdateDialog;
 
 
@@ -28,7 +29,8 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding>
 
     @Override
     protected void initData() {
-        mDialog = new CheckUpdateDialog(this, getString(R.string.current_version), getString(R.string.none));
+
+        mDialog = new CheckUpdateDialog(this, getString(R.string.current_version, StringUtils.getVersion()), getString(R.string.none));
         mDialog.setButtonListen(this);
 
     }
@@ -38,7 +40,7 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding>
 
     }
 
-    //region ACGTION
+    //region ACTION
     public void onPopupUpdatePrompt(View view) {
         mDialog.show();
     }

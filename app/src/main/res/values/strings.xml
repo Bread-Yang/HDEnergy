@@ -22,7 +22,7 @@
     <string name="already_input">已输入</string>
     <string name="yuan">元</string>
     <string name="ton">吨</string>
-    <string name="how_many_ton">%f吨</string>
+    <string name="how_many_ton">%.02f吨</string>
     <string name="zen_ton">/蒸吨</string>
     <string name="electric_unit">kw/h</string>
     <string name="can_not_empty">输入不能为空</string>
@@ -53,10 +53,10 @@
     <string name="after_second_acquire_again">%d秒后重新获取</string>
     <string name="input_corrent_password">密码的字符数应该是6-16位</string>
     <string name="change_password_success">修改密码成功</string>
-    <string name="reset_password_title">修改密码</string>
 
     <!-- 公告 -->
     <string name="bulletin_list">公告列表</string>
+    <string name="detail">详细</string>
 
     <!-- 数据汇报 -->
     <string name="data_report">数据汇报</string>
@@ -76,6 +76,7 @@
     <string name="params_not_full_prompt">项目参数不完整，不能提交</string>
     <string name="fill_project_info">请填写项目情况</string>
     <string name="fill_boiler_info">请填写锅炉信息</string>
+    <string name="flow_amount_not_zero">总流量不能为零</string>
 
     <!-- 锅炉编辑1 -->
     <string name="blow_in_duration">开炉时长</string>
@@ -246,7 +247,7 @@
     <string name="new_version">新版特性:</string>
     <string name="update">更新</string>
     <string name="newest_version">已经是最新版本</string>
-    <string name="current_version">你当前的版本是V1.0.7.3</string>
+    <string name="current_version">你当前的版本是V%s</string>
     <string name="none">无</string>
     <string name="reasonable_suggest_text">合理的建议有助于我们改善用户体验，谢谢</string>
 

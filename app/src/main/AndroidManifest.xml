@@ -43,6 +43,10 @@
             android:label="@string/bulletin_list"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.bulletin.BulletinDetailActivity"
+            android:label="@string/detail"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.datareport.DataReportActivity"
             android:label="@string/data_report"
             android:screenOrientation="portrait"
@@ -118,6 +122,11 @@
         <activity
             android:name=".activity.datastatics.HistoryBoilerDetailActivity"
             android:screenOrientation="portrait" />
+
+        <!-- 自定义Glide Module注册 -->
+        <meta-data
+            android:name="com.mdground.hdenergy.glide.MDGroundGlideModule"
+            android:value="GlideModule" />
 
     </application>
 

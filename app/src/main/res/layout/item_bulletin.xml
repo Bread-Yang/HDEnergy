@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="bulletin"
+            type="com.mdground.hdenergy.models.Bulletin" />
     </data>
 
     <LinearLayout
@@ -19,8 +22,9 @@
             <TextView
                 android:id="@+id/tvTitle"
                 style="@style/NormalTextStyle"
+                android:text="@{bulletin.title}"
                 android:layout_marginTop="@dimen/margin_15"
-                android:text="Three-line item"
+                tools:text="Three-line item"
                 android:textSize="@dimen/text_size_16" />
 
             <TextView
@@ -31,7 +35,8 @@
                 android:layout_marginTop="@dimen/margin_8"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容" />
+                android:text="@{bulletin.remark}"
+                tools:text="这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容这是公告内容" />
 
             <TextView
                 style="@style/DimTextStyle"

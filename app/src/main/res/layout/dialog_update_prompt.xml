@@ -1,80 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-        <LinearLayout
-            android:background="@color/color_white"
-            android:layout_width="268dp"
-            android:paddingLeft="@dimen/margin_26"
-            android:paddingRight="@dimen/margin_26"
+        android:layout_width="268dp"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white"
+        android:minWidth="268dp"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/margin_26"
+        android:paddingRight="@dimen/margin_26"
+        android:paddingTop="@dimen/margin_20">
+
+        <TextView
+            android:id="@+id/tvCurrentVersion"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin_16"
-            android:orientation="vertical">
+            android:layout_marginBottom="@dimen/margin_12"
+            android:lineSpacingExtra="@dimen/margin_4"
+            android:textColor="@color/color_404040"
+            android:textSize="@dimen/text_size_14"
+            tools:text="@string/date_details" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_4"
+            android:text="@string/new_version"
+            android:textColor="@color/color_404040"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/tvNewestProperty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:lineSpacingExtra="@dimen/margin_4"
+            android:textColor="@color/color_404040"
+            android:textSize="@dimen/text_size_14"
+            tools:text="@string/date_details" />
+
+        <View style="@style/DividerHorizontalStyle" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_50"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tvCurrentVersion"
+                android:id="@+id/tvCancel"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="@string/date_details"
-                android:lineSpacingExtra="@dimen/margin_4"
-                android:textColor="@color/color_404040"
-                android:textSize="@dimen/text_size_14"
-                android:layout_marginBottom="@dimen/size_18"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_version"
-                android:textColor="@color/color_404040"
-                android:textSize="@dimen/text_size_14"
-                android:layout_marginBottom="@dimen/margin_4"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textSize="@dimen/margin_16" />
 
-                />
+            <View
+                style="@style/DividerVerticalStyle"
+                android:layout_marginBottom="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_12" />
 
             <TextView
-                android:id="@+id/tvNewestProperty"
+                android:id="@+id/tvUpdate"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="@string/date_details"
-                android:lineSpacingExtra="@dimen/margin_4"
-                android:textColor="@color/color_404040"
-                android:textSize="@dimen/text_size_14"
-                android:layout_marginBottom="12dp"
-                />
-            <View style="@style/DividerHorizontalStyle"></View>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="@dimen/size_50">
-                <TextView
-                    android:id="@+id/tvCancel"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/cancel"
-                    android:textSize="@dimen/margin_16"
-                    android:gravity="center"
-                    android:layout_height="match_parent" />
-                <View
-                  style="@style/DividerVerticalStyle"
-                    android:layout_margin="@dimen/size_6"
-                    />
-                <TextView
-                    android:id="@+id/tvUpdate"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/update"
-                    android:textSize="@dimen/margin_16"
-                    android:gravity="center"
-                    android:textColor="@color/color_31C967"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/update"
+                android:textColor="@color/color_31C967"
+                android:textSize="@dimen/margin_16" />
         </LinearLayout>
     </LinearLayout>
 </layout>

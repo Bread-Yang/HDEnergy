@@ -74,4 +74,9 @@ public class EdittextWithUnitIcon extends LinearLayout {
     public ImageView getIvIcon() {
         return ivIcon;
     }
+
+    @Override
+    public void setOnFocusChangeListener(OnFocusChangeListener l) {
+        getEtInput().setOnFocusChangeListener(l);
+    }
 }

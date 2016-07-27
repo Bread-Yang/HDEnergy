@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,7 +10,7 @@
 
         <variable
             name="warehouse"
-            type="com.mdground.hdenergy.models.ProjectFuelWarehouse"/>
+            type="com.mdground.hdenergy.models.ProjectFuelWarehouse" />
 
     </data>
 
@@ -27,28 +27,25 @@
                 style="@style/TitleTextStyle"
                 android:text="@string/feedstock_amount" />
 
-              <TextView
-                  android:id="@+id/tvPosition"
-                  android:layout_toRightOf="@id/tvTitle"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="@dimen/text_size_16"
-                  />
+            <TextView
+                android:id="@+id/tvPosition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tvTitle"
+                android:textSize="@dimen/text_size_16" />
         </RelativeLayout>
 
         <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
 
             <TextView
                 style="@style/DimTextStyle"
-                android:text="@string/supplier"
-
-                 />
+                android:text="@string/supplier" />
 
             <TextView
                 android:id="@+id/tvSupplier"
                 style="@style/AlignRightNoPaddingTextStyle"
-                android:textSize="@dimen/text_size_16"
                 android:text="@{warehouse.supplier}"
+                android:textSize="@dimen/text_size_16"
                 tools:text="12345吨" />
 
         </RelativeLayout>
@@ -60,13 +57,12 @@
 
             <TextView
                 style="@style/DimTextStyle"
-                android:text="@string/license_plate"
-                />
+                android:text="@string/license_plate" />
 
             <TextView
                 style="@style/AlignRightNoPaddingTextStyle"
-                android:textSize="@dimen/text_size_16"
                 android:text="@{warehouse.plateNumber}"
+                android:textSize="@dimen/text_size_16"
                 tools:text="1256" />
         </RelativeLayout>
 
@@ -76,19 +72,12 @@
 
             <TextView
                 style="@style/DimTextStyle"
-                android:text="@string/delivery_capacity"
-                />
+                android:text="@string/delivery_capacity" />
 
             <TextView
                 style="@style/AlignRightNoPaddingTextStyle"
                 android:text="@{@string/how_many_ton(warehouse.amount)}"
                 tools:text="25631" />
-
         </RelativeLayout>
-
-
-
-
-
     </LinearLayout>
 </layout>

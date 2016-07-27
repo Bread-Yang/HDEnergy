@@ -100,6 +100,18 @@ public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityE
         mDataBinding.tvMonth.setText(month);
     }
 
+    //region ACTION
+    public void switchStatusLayout(View view) {
+        if (mDataBinding.lltStatus1.getVisibility() == View.VISIBLE) {
+            mDataBinding.lltStatus1.setVisibility(View.INVISIBLE);
+            mDataBinding.lltStatus2.setVisibility(View.VISIBLE);
+        } else {
+            mDataBinding.lltStatus1.setVisibility(View.VISIBLE);
+            mDataBinding.lltStatus2.setVisibility(View.INVISIBLE);
+        }
+    }
+    //endregion
+
     //region SERVER
     private void getUserAttendanceListByMonthRequest() {
         ViewUtils.loading(this);
@@ -114,6 +126,50 @@ public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityE
                         mAttendanceArrayList.addAll(tempAttendanceArrayList);
 
                         mAdapter.notifyDataSetChanged();
+
+                        int normalStatusCount = 0;
+                        int businessStatusCount = 0;
+                        int leaveStatusCount = 0;
+                        int injuryStatusCount = 0;
+                        int dispatchStatusCount =0;
+                        int shiftStatusCount = 0;
+                        int notSubmitStatusCount = 0;
+
+                        for (UserAttendance userAttendance : mAttendanceArrayList) {
+                            AttendanceStatus attendanceStatus = AttendanceStatus.fromValue(userAttendance.getStatus());
+
+                            switch (attendanceStatus) {
+                                case Normal:
+                                    normalStatusCount++;
+                                    break;
+                                case Business:
+                                    businessStatusCount++;
+                                    break;
+                                case Leave:
+                                    leaveStatusCount++;
+                                    break;
+                                case Injury:
+                                    injuryStatusCount++;
+                                    break;
+                                case Dispatch:
+                                    dispatchStatusCount++;
+                                    break;
+                                case Shift:
+                                    shiftStatusCount++;
+                                    break;
+                                case NotSubmitted:
+                                    notSubmitStatusCount++;
+                                    break;
+                            }
+                        }
+
+                        mDataBinding.tvNormalCount.setText(String.valueOf(normalStatusCount));
+                        mDataBinding.tvBusinessCount.setText(String.valueOf(businessStatusCount));
+                        mDataBinding.tvLeaveCount.setText(String.valueOf(leaveStatusCount));
+                        mDataBinding.tvInjuryCount.setText(String.valueOf(injuryStatusCount));
+                        mDataBinding.tvDispatchCount.setText(String.valueOf(dispatchStatusCount));
+                        mDataBinding.tvShiftCount.setText(String.valueOf(shiftStatusCount));
+                        mDataBinding.tvNotSubmittedCount.setText(String.valueOf(notSubmitStatusCount));
                     }
 
                     @Override
@@ -191,7 +247,7 @@ public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityE
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            private ItemEmployeeAttendanceStaticsBinding viewDataBinding;
+            privItemEmployeeAttendanceStaticsBinding viewDataBinding;
 
             public ViewHolder(View itemView) {
                 super(itemView);

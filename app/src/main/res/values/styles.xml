@@ -61,6 +61,7 @@
         <item name="android:scrollbars">vertical</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
+
     <style name="LargeTextViewLayoutStyle" parent="NormalLayoutStyle">
         <item name="android:paddingTop">@dimen/margin_20</item>
         <item name="android:gravity">top|left</item>
@@ -185,11 +186,10 @@
     </style>
 
     <style name="CheckUpdateDialogStyle" parent="android:style/Theme.Dialog">
-
         <!-- 背景颜色及透明程度 -->
         <item name="android:windowBackground">@color/color_white</item>
         <!-- 是否有标题 -->
-        <item name="android:windowNoTitle">false</item>
+        <item name="android:windowNoTitle">true</item>
         <!-- 是否浮现在activity之上 -->
         <item name="android:windowIsFloating">true</item>
         <!-- 是否模糊 -->

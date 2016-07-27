@@ -17,6 +17,7 @@ import com.mdground.hdenergy.databinding.ActivityBoilerEditOneBinding;
 import com.mdground.hdenergy.databinding.ItemBoilerFlowBinding;
 import com.mdground.hdenergy.models.ProjectWorkFlowrate;
 import com.mdground.hdenergy.models.ProjectWorkFurnace;
+import com.mdground.hdenergy.utils.HDUtils;
 import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
@@ -61,22 +62,22 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
         mProjectWorkFurnace = getIntent().getParcelableExtra(Constants.KEY_PROJECT_WORK_FURNACE);
 
-          ArrayList<ProjectWorkFlowrate> projectWorkFlowrateList= (ArrayList<ProjectWorkFlowrate>) mProjectWorkFurnace.getProjectWorkFlowrateList();
-           if(projectWorkFlowrateList!=null){
-               mProjectWorkFlowrateArrayList.clear();
-               mProjectWorkFlowrateArrayList.addAll(projectWorkFlowrateList);
-               //锅炉增加一个流量
-               if(mProjectWorkFlowrateArrayList.size()==0){
-                    mProjectWorkFlowrateArrayList.add(createFlowrate());
-               }
-           }else {
-               mProjectWorkFlowrateArrayList.add(createFlowrate());
-           }
-         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-         mDataBinding.recyclerView.setLayoutManager(layoutManager);
-         mDataBinding.recyclerView.setNestedScrollingEnabled(false);
-         mDataBinding.recyclerView.setFocusable(false);
+        ArrayList<ProjectWorkFlowrate> projectWorkFlowrateList = (ArrayList<ProjectWorkFlowrate>) mProjectWorkFurnace.getProjectWorkFlowrateList();
+        if (projectWorkFlowrateList != null) {
+            mProjectWorkFlowrateArrayList.clear();
+            mProjectWorkFlowrateArrayList.addAll(projectWorkFlowrateList);
+            //锅炉增加一个流量
+            if (mProjectWorkFlowrateArrayList.size() == 0) {
+                mProjectWorkFlowrateArrayList.add(createFlowrate());
+            }
+        } else {
+            mProjectWorkFlowrateArrayList.add(createFlowrate());
+        }
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mDataBinding.recyclerView.setLayoutManager(layoutManager);
+        mDataBinding.recyclerView.setNestedScrollingEnabled(false);
+        mDataBinding.recyclerView.setFocusable(false);
 
         mAdapter = new EditOneAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
@@ -265,26 +266,22 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         return projectWorkFlowrate;
     }
 
-    private float caculateFlow(float beginFlow, float endFlow) {
-        float resultFlow = 0;
-
-        resultFlow = endFlow - beginFlow;
-        if (mIsHeatProduct) {   // 当销售产品选择热力时，流量位置 =（截止流量 - 起始流量）* 23.8845 / 60，单位用吨
-            resultFlow = (int) (resultFlow * 23.8845 / 60);
-        }
-        return resultFlow;
-    }
-
     // 计算电单耗, 电单耗 = 电量总和 / 流量
     private void calculateElectricityUnitConsumption() {
         // 电量总和
         float electricityAmount = mProjectWorkFurnace.getElectricity1()
                 + mProjectWorkFurnace.getElectricity2() + mProjectWorkFurnace.getElectricity3();
 
-        float flowAmount = calculateFlowAmount();
+        float flowAmount = HDUtils.calculateFlowAmount(mIsHeatProduct, mProjectWorkFlowrateArrayList);
         if (flowAmount != 0) {
             float electircityUnitConsumption = electricityAmount / flowAmount;
-            mDataBinding.tvElectircUnitConsumption.setText(String.valueOf(electircityUnitConsumption));
+            if (mIsHeatProduct) {
+                mDataBinding.tvElectircUnitConsumption.setText(
+                        getString(R.string.kw_per_ton, electircityUnitConsumption));
+            } else {
+                mDataBinding.tvElectircUnitConsumption.setText(
+                        getString(R.string.kw_per_ton_steam, electircityUnitConsumption));
+            }
         }
     }
 
@@ -294,21 +291,18 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         float waterAmount = mProjectWorkFurnace.getWater1()
                 + mProjectWorkFurnace.getWater2() + mProjectWorkFurnace.getWater3();
 
-        float flowAmount = calculateFlowAmount();
+        float flowAmount = HDUtils.calculateFlowAmount(mIsHeatProduct, mProjectWorkFlowrateArrayList);
         if (flowAmount != 0) {
             float waterUnitConsumption = waterAmount / flowAmount;
-            mDataBinding.tvWaterUnitConsumption.setText(String.valueOf(waterUnitConsumption));
-        }
-    }
 
-    // 流量总和
-    private float calculateFlowAmount() {
-        float flowAmount = 0;
-        for (ProjectWorkFlowrate projectWorkFlowrate : mProjectWorkFlowrateArrayList) {
-            flowAmount = caculateFlow(projectWorkFlowrate.getBeginFlow(), projectWorkFlowrate.getEndFlow())
-                    + projectWorkFlowrate.getAdjustFlow();
+            if (mIsHeatProduct) {
+                mDataBinding.tvWaterUnitConsumption.setText(
+                        getString(R.string.ton_per_ton, waterUnitConsumption));
+            } else {
+                mDataBinding.tvWaterUnitConsumption.setText(
+                        getString(R.string.ton_per_ton_steam, waterUnitConsumption));
+            }
         }
-        return flowAmount;
     }
 
     private void refreshUnitConsumption() {
@@ -384,8 +378,16 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         // 流量列表
         mProjectWorkFurnace.setProjectWorkFlowrateList(mProjectWorkFlowrateArrayList);
 
+        float flowAmount = HDUtils.calculateFlowAmount(mIsHeatProduct, mProjectWorkFlowrateArrayList);
+        if (flowAmount == 0) {
+            ViewUtils.toast(R.string.flow_amount_not_zero);
+            return;
+        }
+
         Intent intent = new Intent(this, BoilerEditTwoActivity.class);
         intent.putExtra(Constants.KEY_PROJECT_WORK_FURNACE, mProjectWorkFurnace);
+        intent.putExtra(Constants.KEY_IS_HEAT_SALE_PRODUCT, mIsHeatProduct);
+        intent.putExtra(Constants.KEY_FLOW_AMOUNT, flowAmount);
         startActivityForResult(intent, 0);
     }
     //endregion
@@ -473,7 +475,9 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                             itemBoilerFlowBinding.etuiCloseFlow.setText(String.valueOf(startFlow));
                         }
 
-                        float resultFlow = caculateFlow(projectWorkFlowrate.getBeginFlow(), projectWorkFlowrate.getEndFlow());
+                        float resultFlow = HDUtils.caculateSingleFlow(mIsHeatProduct,
+                                projectWorkFlowrate.getBeginFlow(),
+                                projectWorkFlowrate.getEndFlow());
                         itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
 
                         refreshUnitConsumption();
@@ -497,7 +501,9 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                         }
                         projectWorkFlowrate.setEndFlow(StringUtils.convertStringToFloat(closeFlowString));
 
-                        float resultFlow = caculateFlow(projectWorkFlowrate.getBeginFlow(), projectWorkFlowrate.getEndFlow());
+                        float resultFlow = HDUtils.caculateSingleFlow(mIsHeatProduct,
+                                projectWorkFlowrate.getBeginFlow(),
+                                projectWorkFlowrate.getEndFlow());
                         itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
 
                         refreshUnitConsumption();

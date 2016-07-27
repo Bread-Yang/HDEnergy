@@ -151,13 +151,11 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                     case R.id.tvProject:
                         mSelectProjectIndex = currentPosition;
                         Project project = mProjectArrayList.get(currentPosition);
-                        mDataBinding.tvProject.setText(project.getProjectName());
-                        mDataBinding.tvSaleProduct.setText(project.getSaleType());
+                        setProjectInfoAfterSelectProject(project);
                         getProjectFurnaceList(project.getProjectID());
                         break;
 
                     case tvSaleProduct:
-                        mIsHeatProduct = (currentPosition == 1);
                         mDataBinding.tvSaleProduct.setText(mSalesProductArrayList.get(currentPosition));
                         break;
                 }
@@ -194,6 +192,13 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         }
     }
 
+    private void setProjectInfoAfterSelectProject(Project project) {
+        mDataBinding.tvProject.setText(project.getProjectName());
+        String saleType = project.getSaleType();
+        mDataBinding.tvSaleProduct.setText(saleType);
+        mIsHeatProduct = !saleType.equals(getString(R.string.steam));
+    }
+
     //region  ACTION
     public void selectProjectAction(View view) {
         mWheelViewChooseResID = R.id.tvProject;
@@ -222,7 +227,6 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
     }
 
     public void submitAction(View view) {
-
         //项目名称
         String projectName = mDataBinding.tvProject.getText().toString();
         if (StringUtils.isEmpty(projectName)) {
@@ -317,11 +321,11 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                     if (mIsNewProjectWork) {
                         getProjectFurnaceList(mProjectArrayList.get(0).getProjectID());
                         mDataBinding.tvProject.setText(mProjectArrayList.get(0).getProjectName());
-                        mDataBinding.tvSaleProduct.setText(mProjectArrayList.get(0).getSaleType());
+
+                        setProjectInfoAfterSelectProject(mProjectArrayList.get(0));
                     } else {
                         mDataBinding.tvProject.setText(mProjectWork.getProjectName());
                     }
-
                 }
             }
 

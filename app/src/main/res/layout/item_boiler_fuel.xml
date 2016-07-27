@@ -91,6 +91,7 @@
                 android:text="@string/fuel_consumption_with_colon" />
 
             <TextView
+                android:id="@+id/tvFuelConsumption"
                 style="@style/AlignWithRightArrowTextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="25631" />
@@ -106,6 +107,7 @@
                 android:text="@string/fuel_unit_consumption_with_colon" />
 
             <TextView
+                android:id="@+id/tvFuelUnitConsumption"
                 style="@style/AlignWithRightArrowTextStyle"
                 android:textSize="@dimen/text_size_16"
                 tools:text="25631" />

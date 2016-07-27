@@ -1,6 +1,7 @@
 package com.mdground.hdenergy.activity.attendancestatics;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -9,11 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 
 import com.google.gson.reflect.TypeToken;
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.adapter.DateAdapter;
 import com.mdground.hdenergy.constants.Constants;
+import com.mdground.hdenergy.databinding.ActivityHistoryAttendanceStaticsBinding;
 import com.mdground.hdenergy.databinding.ItemHistoryAttendanceStaticsBinding;
 import com.mdground.hdenergy.enumobject.AttendanceStatus;
 import com.mdground.hdenergy.models.DateModel;
@@ -22,7 +25,6 @@ import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.DateUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
-import com.mdground.hdenergy.views.MyTopView;
 
 import org.joda.time.DateTime;
 
@@ -30,7 +32,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import cn.aigestudio.datepicker.views.DatePicker;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,21 +40,25 @@ import retrofit2.Response;
  * Created by yoghourt on 6/29/16.
  */
 
-public class HistoryAttendanceStaticsActivity extends Activity {
+public class HistoryAttendanceStaticsActivity extends Activity
+        implements DatePickerDialog.OnDateSetListener {
+
+    private ActivityHistoryAttendanceStaticsBinding mDataBinding;
+
+    private DatePickerDialog mDatePickerDialog;
 
     private HistoryAttendanceStaticsAdapter mAdapter;
-    private RecyclerView mRecyclerView;
-    private MyTopView myTopView;
-    private RecyclerView mDateRecyclerView;
     private ArrayList<UserAttendance> mAttendanceArrayList = new ArrayList<>();
+
     private List<DateModel> modelArrayList = new ArrayList<>();
     private DateAdapter mDateAdapter;
+
     private String mQueryDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history_attendance_statics);
+        mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_history_attendance_statics);
 
         initData();
         setListenr();
@@ -66,45 +71,52 @@ public class HistoryAttendanceStaticsActivity extends Activity {
         getUserAttendanceByDateRequest();
     }
 
-    private void initData() {
-        myTopView = (MyTopView) findViewById(R.id.mytopview);
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        getDateData(year, monthOfYear, dayOfMonth);
+    }
 
+    private void initData() {
         {
-            mDateRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
             LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(this);
             horizontalLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-            mDateRecyclerView.setLayoutManager(horizontalLayoutManager);
+            mDataBinding.dateRecyclerView.setLayoutManager(horizontalLayoutManager);
 
             mDateAdapter = new DateAdapter(this, modelArrayList);
-            mDateRecyclerView.setAdapter(mDateAdapter);
+            mDataBinding.dateRecyclerView.setAdapter(mDateAdapter);
         }
 
         {
-            mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
             LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(this);
             verticalLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            mRecyclerView.setLayoutManager(verticalLayoutManager);
+            mDataBinding.recyclerView.setLayoutManager(verticalLayoutManager);
 
             mAdapter = new HistoryAttendanceStaticsAdapter();
-            mRecyclerView.setAdapter(mAdapter);
+            mDataBinding.recyclerView.setAdapter(mAdapter);
         }
 
-//        myTopView.setDateText(DateUtils.getYearMonthWithChinese(new Date()));
-//        getUserAttendanceByDateRequest(DateUtils.getServerDateStringByDate(new Date()));
+        {
+            Calendar calendar = Calendar.getInstance();
+            mDatePickerDialog = new DatePickerDialog(this, this, calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        }
+
         DateTime dateTime = new DateTime();
         getDateData(dateTime.getYear(), dateTime.getMonthOfYear(), dateTime.getDayOfMonth());
     }
 
     private void setListenr() {
-        myTopView.setOnDataSelectListner(new DatePicker.OnDatePickedListener() {
+        mDataBinding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDatePicked(String date) {
-                String[] split = date.split("-");
-                int year = Integer.parseInt(split[0]);
-                int month = Integer.parseInt(split[1]);
-                int day = Integer.parseInt(split[2]);
-                getDateData(year, month, day);
-                myTopView.closeDateDialog();
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        mDataBinding.tvDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDatePickerDialog.show();
             }
         });
 
@@ -122,7 +134,7 @@ public class HistoryAttendanceStaticsActivity extends Activity {
     }
 
     private void getDateData(int year, int month, int day) {
-        myTopView.setDateText(getString(R.string.year_month, year, month));
+        mDataBinding.tvDate.setText(getString(R.string.year_month, year, month));
         modelArrayList.clear();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
@@ -165,7 +177,7 @@ public class HistoryAttendanceStaticsActivity extends Activity {
 
         mDateAdapter.publicHighlightPosition = day - 1;
         mDateAdapter.notifyDataSetChanged();
-        mDateRecyclerView.scrollToPosition(day - 1);
+        mDataBinding.dateRecyclerView.scrollToPosition(day - 1);
 
         mQueryDate = DateUtils.getServerDateStringByYearMonthDay(year, month, day);
         getUserAttendanceByDateRequest();
@@ -185,6 +197,50 @@ public class HistoryAttendanceStaticsActivity extends Activity {
                         mAttendanceArrayList.addAll(tempAttendanceArrayList);
 
                         mAdapter.notifyDataSetChanged();
+
+                        int normalStatusCount = 0;
+                        int businessStatusCount = 0;
+                        int leaveStatusCount = 0;
+                        int injuryStatusCount = 0;
+                        int dispatchStatusCount = 0;
+                        int shiftStatusCount = 0;
+                        int notSubmitStatusCount = 0;
+
+                        for (UserAttendance userAttendance : mAttendanceArrayList) {
+                            AttendanceStatus attendanceStatus = AttendanceStatus.fromValue(userAttendance.getStatus());
+
+                            switch (attendanceStatus) {
+                                case Normal:
+                                    normalStatusCount++;
+                                    break;
+                                case Business:
+                                    businessStatusCount++;
+                                    break;
+                                case Leave:
+                                    leaveStatusCount++;
+                                    break;
+                                case Injury:
+                                    injuryStatusCount++;
+                                    break;
+                                case Dispatch:
+                                    dispatchStatusCount++;
+                                    break;
+                                case Shift:
+                                    shiftStatusCount++;
+                                    break;
+                                case NotSubmitted:
+                                    notSubmitStatusCount++;
+                                    break;
+                            }
+                        }
+
+                        mDataBinding.tvNormalCount.setText(String.valueOf(normalStatusCount));
+                        mDataBinding.tvBusinessCount.setText(String.valueOf(businessStatusCount));
+                        mDataBinding.tvLeaveCount.setText(String.valueOf(leaveStatusCount));
+                        mDataBinding.tvInjuryCount.setText(String.valueOf(injuryStatusCount));
+                        mDataBinding.tvDispatchCount.setText(String.valueOf(dispatchStatusCount));
+                        mDataBinding.tvShiftCount.setText(String.valueOf(shiftStatusCount));
+                        mDataBinding.tvNotSubmittedCount.setText(String.valueOf(notSubmitStatusCount));
                     }
 
                     @Override
@@ -193,6 +249,18 @@ public class HistoryAttendanceStaticsActivity extends Activity {
                     }
                 });
     }
+
+    //region ACTION
+    public void switchStatusLayout(View view) {
+        if (mDataBinding.lltStatus1.getVisibility() == View.VISIBLE) {
+            mDataBinding.lltStatus1.setVisibility(View.INVISIBLE);
+            mDataBinding.lltStatus2.setVisibility(View.VISIBLE);
+        } else {
+            mDataBinding.lltStatus1.setVisibility(View.VISIBLE);
+            mDataBinding.lltStatus2.setVisibility(View.INVISIBLE);
+        }
+    }
+    //endregion
 
     //region ADAPTER
     class HistoryAttendanceStaticsAdapter extends RecyclerView.Adapter<HistoryAttendanceStaticsAdapter.ViewHolder> {
@@ -243,6 +311,9 @@ public class HistoryAttendanceStaticsActivity extends Activity {
                     holder.viewDataBinding.viewStatus.setBackgroundColor(getResources().getColor(R.color.color_64C5E4));
                     break;
             }
+
+            // 头像
+//            GlideUtils.loadImageByPhotoSID(holder.viewDataBinding.civAvatar, userAttendance.getPhotoSID(), false);
 
             holder.viewDataBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override

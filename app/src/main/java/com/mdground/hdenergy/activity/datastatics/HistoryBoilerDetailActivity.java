@@ -86,13 +86,19 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(layoutManager);
+        mDataBinding.recyclerView.setNestedScrollingEnabled(false);
         mAdapter = new BolierDetailAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
         for (int i = 0; i < mFuelArrayList.size(); i++) {
             ProjectWorkFuel projectWorkFuel = mFuelArrayList.get(i);
-            WorkFuelListView myTopView = new WorkFuelListView(this, projectWorkFuel, mFlowAmount);
-            mDataBinding.lltContent.addView(myTopView);
+            WorkFuelListView workFuelListView = new WorkFuelListView(this, projectWorkFuel, mFlowAmount);
+            mDataBinding.lltContent.addView(workFuelListView);
         }
+    }
+
+    @Override
+    protected void setListener() {
+
     }
 
     private void intiView() {
@@ -114,13 +120,6 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
         mDataBinding.tvWater2.setText(mProjectWorkFurnace.getWater2() + getString(R.string.ton));
         mDataBinding.tvWater3.setText(mProjectWorkFurnace.getWater3() + getString(R.string.ton));
         mDataBinding.tvWaterSingleCost.setText(mProjectWorkFurnace.getWaterSingleCost() + getString(R.string.ton) + getString(R.string.zen_ton));
-        mDataBinding.tvOtherProblem.setText(mProjectWorkFurnace.getDescription());
-
-    }
-
-    @Override
-    protected void setListener() {
-
     }
 
     private boolean isHeader(int positon) {

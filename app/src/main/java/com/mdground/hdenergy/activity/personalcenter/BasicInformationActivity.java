@@ -10,8 +10,10 @@ import com.mdground.hdenergy.application.MDGroundApplication;
 import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityBasicInformationBinding;
 import com.mdground.hdenergy.models.UserInfo;
+import com.mdground.hdenergy.utils.GlideUtils;
 
 public class BasicInformationActivity extends ToolbarActivity<ActivityBasicInformationBinding> {
+
     private UserInfo mUserInfo;
 
     @Override
@@ -21,32 +23,32 @@ public class BasicInformationActivity extends ToolbarActivity<ActivityBasicInfor
 
     @Override
     protected void initData() {
-     mUserInfo= MDGroundApplication.sInstance.getLoginUser();
-        String userName=mUserInfo.getUserName();
-        String userPhone=mUserInfo.getUserPhone();
-        String userDepartment=mUserInfo.getDepartment();
-        mDataBinding.tvUserName.setText(userName);
-        mDataBinding.tvUserPhone.setText(userPhone);
-        mDataBinding.tvUserDepartment.setText(userDepartment);
+        mUserInfo = MDGroundApplication.sInstance.getLoginUser();
+//        GlideUtils.loadImageByPhotoSID(mDataBinding.civAvatar, mUserInfo.getPhotoSID(), false);
+        mDataBinding.tvUserName.setText(mUserInfo.getUserName());
+        mDataBinding.tvUserPhone.setText(mUserInfo.getUserPhone());
+        mDataBinding.tvUserDepartment.setText(mUserInfo.getDepartment());
     }
 
     @Override
     protected void setListener() {
 
     }
+
     //region ACTION
-    public void toCommonContactsActivity(View view){
-        Intent intent=new Intent(BasicInformationActivity.this,CommonContactsActivity.class);
+    public void toCommonContactsActivity(View view) {
+        Intent intent = new Intent(BasicInformationActivity.this, CommonContactsActivity.class);
         startActivity(intent);
     }
 
-    public void toCommonProjectActivity(View view){
-        Intent intent=new Intent(BasicInformationActivity.this,CommonProjectActivity.class);
+    public void toCommonProjectActivity(View view) {
+        Intent intent = new Intent(BasicInformationActivity.this, CommonProjectActivity.class);
         startActivity(intent);
     }
-    public void toRestPassword(View view){
-        Intent intent=new Intent(BasicInformationActivity.this, ForgetPasswordActivity.class);
-        intent.putExtra(Constants.KEY_RESET_PASSWORD,Constants.KEY_RESET_PASSWORD);
+
+    public void toRestPassword(View view) {
+        Intent intent = new Intent(BasicInformationActivity.this, ForgetPasswordActivity.class);
+        intent.putExtra(Constants.KEY_RESET_PASSWORD, true);
         startActivity(intent);
     }
     //endregion
