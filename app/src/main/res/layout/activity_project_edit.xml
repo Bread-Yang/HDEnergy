@@ -4,11 +4,11 @@
 
     <data>
 
-        <import type="com.mdground.hdenergy.utils.StringUtils" />
+        <import type="com.mdground.hdenergy.utils.StringUtils"/>
 
         <variable
             name="project"
-            type="com.mdground.hdenergy.models.Project" />
+            type="com.mdground.hdenergy.models.Project"/>
     </data>
 
     <ScrollView
@@ -30,14 +30,14 @@
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:text="@string/project_with_colon" />
+                    android:text="@string/project_with_colon"/>
 
                 <TextView
                     style="@style/NormalTextStyle"
                     android:layout_marginTop="@dimen/margin_8"
                     android:text="@{project.projectName}"
                     android:textSize="@dimen/text_size_16"
-                    tools:text="永新" />
+                    tools:text="永新"/>
             </LinearLayout>
 
 
@@ -55,7 +55,7 @@
 
                     <TextView
                         style="@style/DimTextStyle"
-                        android:text="@string/status_with_colon" />
+                        android:text="@string/status_with_colon"/>
 
                     <TextView
                         android:id="@+id/tvProjectStatus"
@@ -63,10 +63,10 @@
                         android:layout_marginTop="@dimen/margin_8"
                         android:text="@{StringUtils.getProjectStatus(project.projectStatus)}"
                         android:textSize="@dimen/text_size_16"
-                        tools:text="维修" />
+                        tools:text="维修"/>
                 </LinearLayout>
 
-                <TextView style="@style/WithArrowIconTextStyle" />
+                <TextView style="@style/WithArrowIconTextStyle"/>
 
             </RelativeLayout>
 
@@ -85,7 +85,7 @@
 
                     <TextView
                         style="@style/DimTextStyle"
-                        android:text="@string/start_time_with_colon" />
+                        android:text="@string/start_time_with_colon"/>
 
                     <TextView
                         android:id="@+id/tvStartTime"
@@ -93,10 +93,10 @@
                         android:layout_marginTop="@dimen/margin_8"
                         android:text="@{project.beginTime}"
                         android:textSize="@dimen/text_size_16"
-                        tools:text="2016/1/1 12:00:00" />
+                        tools:text="2016/1/1 12:00:00"/>
                 </LinearLayout>
 
-                <TextView style="@style/WithArrowIconTextStyle" />
+                <TextView style="@style/WithArrowIconTextStyle"/>
 
             </RelativeLayout>
 
@@ -115,7 +115,7 @@
 
                     <TextView
                         style="@style/DimTextStyle"
-                        android:text="@string/end_time_with_colon" />
+                        android:text="@string/end_time_with_colon"/>
 
                     <TextView
                         android:id="@+id/tvEndTime"
@@ -123,10 +123,10 @@
                         android:layout_marginTop="@dimen/margin_8"
                         android:text="@{project.endTime}"
                         android:textSize="@dimen/text_size_16"
-                        tools:text="2016/1/1 12:00:00" />
+                        tools:text="2016/1/1 12:00:00"/>
                 </LinearLayout>
 
-                <TextView style="@style/WithArrowIconTextStyle" />
+                <TextView style="@style/WithArrowIconTextStyle"/>
 
             </RelativeLayout>
 
@@ -143,20 +143,20 @@
 
                     <TextView
                         style="@style/DimTextStyle"
-                        android:text="@string/reason_with_colon" />
+                        android:text="@string/reason_with_colon"/>
 
                     <EditText
                         android:id="@+id/etRemark"
                         style="@style/EditTextStyle"
-                        android:layout_height="@dimen/size_24"
                         android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_24"
                         android:layout_marginTop="@dimen/margin_8"
                         android:text="@{project.remark}"
                         android:textSize="@dimen/text_size_16"
-                        tools:text="太累了" />
+                        tools:text="太累了"/>
                 </LinearLayout>
 
-                <TextView style="@style/WithArrowIconTextStyle" />
+                <TextView style="@style/WithArrowIconTextStyle"/>
 
             </RelativeLayout>
 
@@ -164,10 +164,11 @@
             <Button
                 android:id="@+id/btnNextStep"
                 style="@style/NormalButtonStyle"
-                android:layout_marginTop="@dimen/margin_48"
+                android:layout_marginBottom="@dimen/margin_40"
+                android:layout_marginTop="@dimen/margin_40"
                 android:onClick="submitAction"
                 android:text="@string/submit"
-                android:textSize="@dimen/text_size_16" />
+                android:textSize="@dimen/text_size_16"/>
         </LinearLayout>
     </ScrollView>
 </layout>

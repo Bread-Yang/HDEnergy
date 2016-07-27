@@ -14,7 +14,7 @@
         <shape android:shape="rectangle">
             <corners android:radius="3dp" />
             <!-- Use your border color in place of #f00 -->
-            <solid android:color="@color/color_green" />
+            <solid android:color="@color/color_00943F" />
         </shape>
     </item>
 </ripple>

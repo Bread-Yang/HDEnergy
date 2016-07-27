@@ -319,7 +319,8 @@
             <Button
                 android:id="@+id/btnNextStep"
                 style="@style/NormalButtonStyle"
-                android:layout_marginTop="@dimen/margin_48"
+                android:layout_marginTop="@dimen/margin_40"
+                android:layout_marginBottom="@dimen/margin_40"
                 android:onClick="submitAction"
                 android:text="@string/submit"
                 android:textSize="@dimen/text_size_16" />

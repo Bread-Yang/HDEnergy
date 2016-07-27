@@ -11,8 +11,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.mdground.hdenergy.R.id.date;
-
 /**
  * 日期工具类
  *

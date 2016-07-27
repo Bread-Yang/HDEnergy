@@ -23,27 +23,27 @@
 
                 <ImageView
                     android:id="@+id/ivWarning"
-                    android:layout_width="wrap_content"
+                    android:layout_width="25dp"
                     android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tvTitles"
                     android:layout_marginLeft="@dimen/margin_8"
-                    android:src="@drawable/icon_normal" />
+                    android:src="@drawable/icon_normal"/>
 
                 <TextView
                     android:id="@+id/tvTitles"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_8"
                     android:layout_toRightOf="@id/ivWarning"
                     android:text="2016/01/09"
                     android:textColor="@color/color_404040"
-                    android:textSize="@dimen/text_size_18" />
+                    android:textSize="@dimen/text_size_18"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/margin_12"
-                    android:src="@drawable/icon_more" />
+                    android:src="@drawable/icon_more"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -58,7 +58,7 @@
                     android:layout_marginLeft="@dimen/margin_32"
                     android:text="@string/standard_form"
                     android:textColor="@color/color_9A9A9A"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/individual2"
@@ -67,7 +67,7 @@
                     android:layout_marginLeft="206dp"
                     android:text="@string/individual_consumepotion"
                     android:textColor="@color/color_9A9A9A"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/tvUnitIndivdual"
@@ -77,7 +77,7 @@
                     android:layout_toRightOf="@id/individual2"
                     android:textColor="@color/color_404040"
                     android:textSize="@dimen/text_size_14"
-                    tools:text="@string/yongxing" />
+                    tools:text="@string/yongxing"/>
 
                 <TextView
                     android:id="@+id/tvStandardUnit"
@@ -90,7 +90,7 @@
                     android:layout_toRightOf="@+id/tvStandard2"
                     android:textColor="@color/color_404040"
                     android:textSize="@dimen/text_size_14"
-                    tools:text="@string/yongxing" />
+                    tools:text="@string/yongxing"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -105,7 +105,7 @@
                     android:layout_marginLeft="@dimen/margin_32"
                     android:text="@string/electricity_unit_consumption"
                     android:textColor="@color/color_9A9A9A"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/tvElectircUnitConsumption"
@@ -115,7 +115,7 @@
                     android:layout_toRightOf="@id/tvElectricity"
                     android:textColor="@color/color_404040"
                     android:textSize="@dimen/text_size_14"
-                    tools:text="551吨" />
+                    tools:text="551吨"/>
 
                 <TextView
                     android:id="@+id/tvWater"
@@ -124,7 +124,7 @@
                     android:layout_marginLeft="206dp"
                     android:text="@string/waters_untit_consumption"
                     android:textColor="@color/color_9A9A9A"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/tvWaterUnitConsumption"
@@ -134,7 +134,7 @@
                     android:layout_toRightOf="@id/tvWater"
                     android:textColor="@color/color_404040"
                     android:textSize="@dimen/text_size_14"
-                    tools:text="@string/yongxing" />
+                    tools:text="@string/yongxing"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -155,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/profit"
                         android:textColor="@color/color_9A9A9A"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"/>
 
                     <TextView
                         android:id="@+id/tvProfit"
@@ -165,7 +165,7 @@
                         android:layout_toRightOf="@id/tvPro"
                         android:textColor="@color/color_404040"
                         android:textSize="@dimen/text_size_14"
-                        tools:text="@string/yongxing" />
+                        tools:text="@string/yongxing"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -180,7 +180,7 @@
                         android:layout_marginLeft="174dp"
                         android:text="@string/question"
                         android:textColor="@color/color_9A9A9A"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"/>
 
                     <TextView
                         android:id="@+id/tvQuestion"
@@ -190,7 +190,7 @@
                         android:layout_toRightOf="@id/tvQue"
                         android:textColor="@color/color_404040"
                         android:textSize="@dimen/text_size_14"
-                        tools:text="@string/yongxing" />
+                        tools:text="@string/yongxing"/>
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>

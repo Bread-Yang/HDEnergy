@@ -208,7 +208,7 @@ public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityE
             AttendanceStatus attendanceStatus = AttendanceStatus.fromValue(userAttendance.getStatus());
             switch (attendanceStatus) {
                 case Normal:
-                    holder.viewDataBinding.viewStatus.setBackgroundColor(getResources().getColor(R.color.color_green));
+                    holder.viewDataBinding.viewStatus.setBackgroundColor(getResources().getColor(R.color.color_00943F));
                     break;
                 case Business:
                     holder.viewDataBinding.viewStatus.setBackgroundColor(getResources().getColor(R.color.color_black));
@@ -228,6 +228,7 @@ public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityE
                 case NotSubmitted:
                     holder.viewDataBinding.viewStatus.setBackgroundColor(getResources().getColor(R.color.color_64C5E4));
                     break;
+                default:
             }
 
             holder.viewDataBinding.getRoot().setOnClickListener(new View.OnClickListener() {
@@ -247,7 +248,7 @@ public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityE
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            privItemEmployeeAttendanceStaticsBinding viewDataBinding;
+            ItemEmployeeAttendanceStaticsBinding viewDataBinding;
 
             public ViewHolder(View itemView) {
                 super(itemView);

@@ -89,7 +89,7 @@
                     <View
                         android:layout_width="@dimen/size_14"
                         android:layout_height="@dimen/size_14"
-                        android:background="@color/color_green" />
+                        android:background="@color/color_00943F" />
 
                 </LinearLayout>
 
@@ -289,7 +289,7 @@
                     <View
                         android:layout_width="@dimen/size_14"
                         android:layout_height="@dimen/size_14"
-                        android:background="@color/color_green" />
+                        android:background="@color/color_00943F" />
 
                 </LinearLayout>
 

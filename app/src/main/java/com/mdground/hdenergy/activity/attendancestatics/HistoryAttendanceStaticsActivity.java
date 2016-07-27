@@ -73,7 +73,7 @@ public class HistoryAttendanceStaticsActivity extends Activity
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        getDateData(year, monthOfYear, dayOfMonth);
+        getDateData(year, monthOfYear + 1, dayOfMonth);
     }
 
     private void initData() {
@@ -290,7 +290,7 @@ public class HistoryAttendanceStaticsActivity extends Activity
             AttendanceStatus attendanceStatus = AttendanceStatus.fromValue(userAttendance.getStatus());
             switch (attendanceStatus) {
                 case Normal:
-                    holder.viewDataBinding.viewStatus.setBackgroundColor(getResources().getColor(R.color.color_green));
+                    holder.viewDataBinding.viewStatus.setBackgroundColor(getResources().getColor(R.color.color_00943F));
                     break;
                 case Business:
                     holder.viewDataBinding.viewStatus.setBackgroundColor(getResources().getColor(R.color.color_black));

@@ -14,7 +14,7 @@
 
             <TextView
                 style="@style/SingleTitleLayoutStyle"
-                android:text="@string/blow_in_duration" />
+                android:text="@string/blow_in_duration"/>
 
             <RelativeLayout
                 style="@style/WhiteFixHeightLayoutStyle"
@@ -22,21 +22,21 @@
 
                 <TextView
                     style="@style/DimTextStyle"
-                    android:text="@string/blow_in_duration_with_colon" />
+                    android:text="@string/blow_in_duration_with_colon"/>
 
                 <TextView
                     android:id="@+id/tvHours"
                     style="@style/WithArrowIconTextStyle"
                     android:hint="@string/please_choose_duration"
                     android:text="1h"
-                    android:textSize="@dimen/text_size_16" />
+                    android:textSize="@dimen/text_size_16"/>
 
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -48,21 +48,21 @@
 
                     <TextView
                         style="@style/TitleTextStyle"
-                        android:text="@string/electric_quantity" />
+                        android:text="@string/electric_quantity"/>
 
                     <ImageView
                         android:id="@+id/ivAddOrDeleteElectricQuantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:src="@drawable/add" />
+                        android:src="@drawable/add"/>
                 </RelativeLayout>
 
                 <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
 
                     <TextView
                         style="@style/DimTextStyle"
-                        android:text="@string/electric_quantity_with_colon" />
+                        android:text="@string/electric_quantity_with_colon"/>
 
                     <com.mdground.hdenergy.views.EdittextWithUnitIcon
                         android:id="@+id/etuiElectricQuantityOne"
@@ -70,12 +70,12 @@
                         android:layout_alignParentRight="false"
                         android:layout_marginRight="-2dp"
                         android:layout_toLeftOf="@+id/ivDeleteElectricOne"
-                        app:unitResId="@string/electric_unit" />
+                        app:unitResId="@string/electric_unit"/>
 
                     <ImageView
                         android:id="@+id/ivDeleteElectricOne"
                         style="@style/DeleteImageViewStyle"
-                        android:visibility="invisible" />
+                        android:visibility="invisible"/>
 
                 </RelativeLayout>
 
@@ -87,13 +87,13 @@
 
                     <TextView
                         style="@style/DimTextStyle"
-                        android:text="@string/electric_quantity_two_with_colon" />
+                        android:text="@string/electric_quantity_two_with_colon"/>
 
                     <com.mdground.hdenergy.views.EdittextWithUnitIcon
                         android:id="@+id/etuiElectricQuantityTwo"
                         style="@style/WithArrowEdittextStyle"
                         app:iconResId="@drawable/icon_delete2"
-                        app:unitResId="@string/electric_unit" />
+                        app:unitResId="@string/electric_unit"/>
 
                 </RelativeLayout>
 
@@ -105,13 +105,13 @@
 
                     <TextView
                         style="@style/DimTextStyle"
-                        android:text="@string/electric_quantity_three_with_colon" />
+                        android:text="@string/electric_quantity_three_with_colon"/>
 
                     <com.mdground.hdenergy.views.EdittextWithUnitIcon
                         android:id="@+id/etuiElectricQuantityThree"
                         style="@style/WithArrowEdittextStyle"
                         app:iconResId="@drawable/icon_delete2"
-                        app:unitResId="@string/electric_unit" />
+                        app:unitResId="@string/electric_unit"/>
 
                 </RelativeLayout>
 
@@ -121,12 +121,12 @@
 
                     <TextView
                         style="@style/DimTextStyle"
-                        android:text="@string/electric_unit_consumption" />
+                        android:text="@string/electric_unit_consumption"/>
 
                     <TextView
                         android:id="@+id/tvElectircUnitConsumption"
                         style="@style/AlignWithRightArrowTextStyle"
-                        tools:text="25631" />
+                        tools:text="25631"/>
 
                 </RelativeLayout>
 
@@ -143,21 +143,21 @@
 
                     <TextView
                         style="@style/TitleTextStyle"
-                        android:text="@string/water_quantity" />
+                        android:text="@string/water_quantity"/>
 
                     <ImageView
                         android:id="@+id/ivAddOrDeleteWaterQuantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:src="@drawable/add" />
+                        android:src="@drawable/add"/>
                 </RelativeLayout>
 
                 <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
 
                     <TextView
                         style="@style/DimTextStyle"
-                        android:text="@string/water_quantity_with_colon" />
+                        android:text="@string/water_quantity_with_colon"/>
 
                     <com.mdground.hdenergy.views.EdittextWithUnitIcon
                         android:id="@+id/etuiWaterQuantityOne"
@@ -165,12 +165,12 @@
                         android:layout_alignParentRight="false"
                         android:layout_marginRight="-2dp"
                         android:layout_toLeftOf="@+id/ivDeleteWaterOne"
-                        app:unitResId="@string/ton" />
+                        app:unitResId="@string/ton"/>
 
                     <ImageView
                         android:id="@+id/ivDeleteWaterOne"
                         style="@style/DeleteImageViewStyle"
-                        android:visibility="invisible" />
+                        android:visibility="invisible"/>
 
                 </RelativeLayout>
 
@@ -183,13 +183,13 @@
 
                     <TextView
                         style="@style/DimTextStyle"
-                        android:text="@string/water_quantity_two_with_colon" />
+                        android:text="@string/water_quantity_two_with_colon"/>
 
                     <com.mdground.hdenergy.views.EdittextWithUnitIcon
                         android:id="@+id/etuiWaterQuantityTwo"
                         style="@style/WithArrowEdittextStyle"
                         app:iconResId="@drawable/icon_delete2"
-                        app:unitResId="@string/ton" />
+                        app:unitResId="@string/ton"/>
 
                 </RelativeLayout>
 
@@ -201,13 +201,13 @@
 
                     <TextView
                         style="@style/DimTextStyle"
-                        android:text="@string/water_quantity_three_with_colon" />
+                        android:text="@string/water_quantity_three_with_colon"/>
 
                     <com.mdground.hdenergy.views.EdittextWithUnitIcon
                         android:id="@+id/etuiWaterQuantityThree"
                         style="@style/WithArrowEdittextStyle"
                         app:iconResId="@drawable/icon_delete2"
-                        app:unitResId="@string/ton" />
+                        app:unitResId="@string/ton"/>
 
                 </RelativeLayout>
 
@@ -217,26 +217,26 @@
 
                     <TextView
                         style="@style/DimTextStyle"
-                        android:text="@string/water_unit_consumption" />
+                        android:text="@string/water_unit_consumption"/>
 
                     <TextView
                         android:id="@+id/tvWaterUnitConsumption"
                         style="@style/AlignWithRightArrowTextStyle"
                         android:textSize="@dimen/text_size_16"
-                        tools:text="25631" />
+                        tools:text="25631"/>
 
                 </RelativeLayout>
 
             </LinearLayout>
 
-
             <Button
                 android:id="@+id/btnNextStep"
                 style="@style/NormalButtonStyle"
-                android:layout_marginTop="@dimen/margin_36"
+                android:layout_marginBottom="@dimen/margin_40"
+                android:layout_marginTop="@dimen/margin_40"
                 android:onClick="nextStepAction"
                 android:text="@string/next_step"
-                android:textSize="@dimen/text_size_16" />
+                android:textSize="@dimen/text_size_16"/>
         </LinearLayout>
     </ScrollView>
 </layout>
