@@ -24,6 +24,7 @@ import java.util.List;
  * Created by jiongyi on 2016/7/6.
  */
 public class WorkFuelListView extends LinearLayout {
+
     private RecyclerView recyclerView;
     private ProjectWorkFuel mProjectWorkFuel;
     private TextView tvPreviousInventory, tvFuelName, tvCurrentInventory, tvFuelCost, tvAdjustInventory, tvAdjustInventoryExplian, tvFuelUnitConsume;
@@ -34,9 +35,7 @@ public class WorkFuelListView extends LinearLayout {
     private double mFlowAmount;
 
     public WorkFuelListView(Context context, ProjectWorkFuel projectWorkFuel, double mFlowAmount) {
-
         this(context, null, -1, projectWorkFuel, mFlowAmount);
-
     }
 
     public WorkFuelListView(Context context, AttributeSet attrs, int defStyleAttr, ProjectWorkFuel projectWorkFuel, double mFlowAmount) {
@@ -54,7 +53,6 @@ public class WorkFuelListView extends LinearLayout {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(mAdapter);
-
     }
 
     //设置数据
@@ -65,8 +63,8 @@ public class WorkFuelListView extends LinearLayout {
                 mEnterFuelAmount = mEnterFuelAmount + mProjectFuelWareHouseList.get(i).getAmount();
             }
         }
-        int currentInventory = mProjectWorkFuel.getCurrentInventory();
-        int adjustInventory = mProjectWorkFuel.getAdjustInventory();
+        float currentInventory = mProjectWorkFuel.getCurrentInventory();
+        float adjustInventory = mProjectWorkFuel.getAdjustInventory();
         float fuelCost = previousInventory + mEnterFuelAmount - currentInventory + adjustInventory;
         double fuelUnitCost = fuelCost * 1000 / mFlowAmount;
         DecimalFormat df = new DecimalFormat("#####0.00");
@@ -76,16 +74,14 @@ public class WorkFuelListView extends LinearLayout {
         tvCurrentInventory.setText(String.valueOf(currentInventory) + context.getString(R.string.ton));
         tvFuelCost.setText(String.valueOf(fuelCost) + context.getString(R.string.kg_unit) + context.getString(R.string.zen_ton));
         if (adjustInventory > 0) {
-            tvAdjustInventory.setText("+" + String.valueOf(adjustInventory) + R.string.ton);
+            tvAdjustInventory.setText("+" + adjustInventory + context.getString(R.string.ton));
         } else {
-            tvAdjustInventory.setText(String.valueOf(adjustInventory) + R.string.ton);
+            tvAdjustInventory.setText(String.valueOf(adjustInventory) + context.getString(R.string.ton));
         }
         tvAdjustInventoryExplian.setText(mProjectWorkFuel.getAdjustReason());
         tvFuelUnitConsume.setText(fuelUntiCosts + context.getString(R.string.kg_unit) + context.getString(R.string.zen_ton));
     }
 
-
-    //findByID
     private void initView(View view) {
         tvFuelName = (TextView) view.findViewById(R.id.tvFuelName);
         tvPreviousInventory = (TextView) view.findViewById(R.id.tvPreviousInventory);
@@ -97,7 +93,6 @@ public class WorkFuelListView extends LinearLayout {
     }
 
     public class MyAdatpter extends RecyclerView.Adapter<MyAdatpter.MyViewHolder> {
-
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -111,7 +106,7 @@ public class WorkFuelListView extends LinearLayout {
 //            holder.itemHistoryBoilerWarehouseBinding.tvSupplier.setText(mProjectFuelWareHouseList.get(position).getSupplier());
             ProjectFuelWarehouse projectFuelWarehouse = mProjectFuelWareHouseList.get(position);
             holder.itemHistoryBoilerWarehouseBinding.setWarehouse(projectFuelWarehouse);
-            holder.itemHistoryBoilerWarehouseBinding.tvPosition.setText(String.valueOf(position+1) + context.getString(R.string.conlon));
+            holder.itemHistoryBoilerWarehouseBinding.tvPosition.setText(String.valueOf(position + 1) + context.getString(R.string.conlon));
         }
 
         @Override
@@ -128,6 +123,4 @@ public class WorkFuelListView extends LinearLayout {
             }
         }
     }
-
-
 }

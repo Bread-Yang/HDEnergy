@@ -21,6 +21,7 @@ import com.mdground.hdenergy.databinding.ItemHistoryAttendanceStaticsBinding;
 import com.mdground.hdenergy.enumobject.AttendanceStatus;
 import com.mdground.hdenergy.models.DateModel;
 import com.mdground.hdenergy.models.UserAttendance;
+import com.mdground.hdenergy.models.UserInfo;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.DateUtils;
@@ -53,6 +54,7 @@ public class HistoryAttendanceStaticsActivity extends Activity
     private List<DateModel> modelArrayList = new ArrayList<>();
     private DateAdapter mDateAdapter;
 
+    private int mAllUserCount;
     private String mQueryDate;
 
     @Override
@@ -68,7 +70,7 @@ public class HistoryAttendanceStaticsActivity extends Activity
     protected void onResume() {
         super.onResume();
 
-        getUserAttendanceByDateRequest();
+        getAllUserListRequest();
     }
 
     @Override
@@ -183,8 +185,28 @@ public class HistoryAttendanceStaticsActivity extends Activity
         getUserAttendanceByDateRequest();
     }
 
-    private void getUserAttendanceByDateRequest() {
+    //region SERVER
+    private void getAllUserListRequest() {
         ViewUtils.loading(this);
+        GlobalRestful.getInstance().GetAllUserList(new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                ArrayList<UserInfo> userInfoArrayList = response.body().getContent(new TypeToken<ArrayList<UserInfo>>() {
+                });
+
+                mAllUserCount = userInfoArrayList.size();
+
+                getUserAttendanceByDateRequest();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void getUserAttendanceByDateRequest() {
         GlobalRestful.getInstance().GetAllUserAttendanceByDate(mQueryDate,
                 new Callback<ResponseData>() {
                     @Override
@@ -195,6 +217,10 @@ public class HistoryAttendanceStaticsActivity extends Activity
                         ArrayList<UserAttendance> tempAttendanceArrayList = response.body().getContent(new TypeToken<ArrayList<UserAttendance>>() {
                         });
                         mAttendanceArrayList.addAll(tempAttendanceArrayList);
+
+                        // "未提交"人数
+                        int notSubmitCount = mAllUserCount - mAttendanceArrayList.size();
+                        mDataBinding.tvNotSubmittedCount.setText(String.valueOf(notSubmitCount));
 
                         mAdapter.notifyDataSetChanged();
 
@@ -240,7 +266,6 @@ public class HistoryAttendanceStaticsActivity extends Activity
                         mDataBinding.tvInjuryCount.setText(String.valueOf(injuryStatusCount));
                         mDataBinding.tvDispatchCount.setText(String.valueOf(dispatchStatusCount));
                         mDataBinding.tvShiftCount.setText(String.valueOf(shiftStatusCount));
-                        mDataBinding.tvNotSubmittedCount.setText(String.valueOf(notSubmitStatusCount));
                     }
 
                     @Override
@@ -249,6 +274,7 @@ public class HistoryAttendanceStaticsActivity extends Activity
                     }
                 });
     }
+    //endregion
 
     //region ACTION
     public void switchStatusLayout(View view) {

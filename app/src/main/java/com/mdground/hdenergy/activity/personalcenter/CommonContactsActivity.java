@@ -36,9 +36,9 @@ public class CommonContactsActivity extends ToolbarActivity<ActivityCommonContac
 
     private ContactsAdataper mAdapter;
 
-    ArrayList<UserInfo> mAllUserContactsList = new ArrayList<>();
+    private ArrayList<UserInfo> mAllUserContactsList = new ArrayList<>();
 
-    ArrayList<UserContacts> mCommonUserContactsList = new ArrayList<>();
+    private ArrayList<UserContacts> mCommonUserContactsList = new ArrayList<>();
 
     @Override
     protected int getContentLayout() {
@@ -67,7 +67,6 @@ public class CommonContactsActivity extends ToolbarActivity<ActivityCommonContac
 
     }
 
-
     //进行一个排序
     public void sortAllProject(List<UserContacts> userContacts) {
 
@@ -88,9 +87,7 @@ public class CommonContactsActivity extends ToolbarActivity<ActivityCommonContac
         mAdapter.notifyDataSetChanged();
     }
 
-
     //region SERVER
-
     public void GetUserContactListRequest() {
         GlobalRestful.getInstance().GetUserContactList(new Callback<ResponseData>() {
             @Override
@@ -100,7 +97,7 @@ public class CommonContactsActivity extends ToolbarActivity<ActivityCommonContac
                     ArrayList<UserContacts> userContacts = response.body().getContent(new TypeToken<ArrayList<UserContacts>>() {
                     });
                     mCommonUserContactsList.addAll(userContacts);
-                    KLog.e("mCommonUserContactList"+mCommonUserContactsList.size());
+                    KLog.e("mCommonUserContactList" + mCommonUserContactsList.size());
 
                     sortAllProject(mCommonUserContactsList);
                 }
@@ -120,12 +117,22 @@ public class CommonContactsActivity extends ToolbarActivity<ActivityCommonContac
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 ViewUtils.dismiss();
                 if (ResponseCode.isSuccess(response.body())) {
-
-
                     mAllUserContactsList.clear();
-                    ArrayList<UserInfo> userInfos = response.body().getContent(new TypeToken<ArrayList<UserInfo>>() {
+
+                    ArrayList<UserInfo> userInfoArrayList = response.body().getContent(new TypeToken<ArrayList<UserInfo>>() {
                     });
-                    mAllUserContactsList.addAll(userInfos);
+
+                    UserInfo loginUserInfo = MDGroundApplication.sInstance.getLoginUser();
+
+                    // 把自己从所有联系人中删除
+                    for (UserInfo userInfo : userInfoArrayList) {
+                        if (userInfo.getUserID() == loginUserInfo.getUserID()) {
+                            userInfoArrayList.remove(userInfo);
+                            break;
+                        }
+                    }
+
+                    mAllUserContactsList.addAll(userInfoArrayList);
                     mDataBinding.tvContactsAmount.setText(getString(R.string.left_bracket) +
                             mAllUserContactsList.size() + getString(R.string.right_bracket));
                     GetUserContactListRequest();
@@ -140,7 +147,6 @@ public class CommonContactsActivity extends ToolbarActivity<ActivityCommonContac
     }
 
     public void SaveUserContactListRequset(List<UserContacts> userContactsList) {
-
         GlobalRestful.getInstance().SaveUserContactList(userContactsList, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
@@ -173,9 +179,8 @@ public class CommonContactsActivity extends ToolbarActivity<ActivityCommonContac
             holder.itemContactsBinding.tvContacts.setText(mAllUserContactsList.get(position).getUserName());
             holder.itemContactsBinding.cbSelector.setChecked(false);
             for (int j = 0; j < mCommonUserContactsList.size(); j++) {
-                if (mCommonUserContactsList.get(j).getContactUserId()==mAllUserContactsList.get(position).getUserID()) {
+                if (mCommonUserContactsList.get(j).getContactUserId() == mAllUserContactsList.get(position).getUserID()) {
                     holder.itemContactsBinding.cbSelector.setChecked(true);
-                    KLog.e("ddd+"+ mAllUserContactsList.get(position).getUserID());
                 }
             }
             holder.itemContactsBinding.cbSelector.setOnClickListener(new View.OnClickListener() {
@@ -199,7 +204,6 @@ public class CommonContactsActivity extends ToolbarActivity<ActivityCommonContac
                     }
                 }
             });
-
         }
 
         @Override

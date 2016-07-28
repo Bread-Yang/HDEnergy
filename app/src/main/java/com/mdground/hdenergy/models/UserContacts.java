@@ -5,6 +5,7 @@ package com.mdground.hdenergy.models;
  */
 
 public class UserContacts {
+
     private int UserID;
     private int ContactUserId;
 

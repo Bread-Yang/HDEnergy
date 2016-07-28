@@ -11,7 +11,8 @@ import android.view.ViewTreeObserver;
 public abstract class OnInputLayoutChangeListener implements ViewTreeObserver.OnGlobalLayoutListener {
 
     private View mRootView;
-    private int curRectHeight = -1;
+
+    boolean isOpened = false;
 
     public OnInputLayoutChangeListener(View rootView) {
         this.mRootView = rootView;
@@ -21,8 +22,9 @@ public abstract class OnInputLayoutChangeListener implements ViewTreeObserver.On
     public void onGlobalLayout() {
         Rect rect = new Rect();
         mRootView.getWindowVisibleDisplayFrame(rect);
+        int wholeHeight = mRootView.getHeight();
 
-        int displayHight = rect.bottom - rect.top;
+        int displayHeight = rect.bottom - rect.top;
         int height = mRootView.getHeight();
 
 //        KLog.e("rootView.getHeight() : " + height);
@@ -30,7 +32,7 @@ public abstract class OnInputLayoutChangeListener implements ViewTreeObserver.On
 //        KLog.e("RectHeight:" + displayHight + ",DecorViewHeigt:" + height);
         boolean isHide = (height == rect.bottom);
         if (isHide) {  // 两者相等时,说明软键盘被隐藏了
-            onLayoutChange(isHide, displayHight, height);
+            onLayoutChange(isHide, displayHeight, height);
         }
     }
 

@@ -91,7 +91,6 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
 
     }
 
-
     @Override
     protected void setListener() {
         tvRight.setOnClickListener(new View.OnClickListener() {

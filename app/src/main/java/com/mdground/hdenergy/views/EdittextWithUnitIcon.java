@@ -2,15 +2,15 @@ package com.mdground.hdenergy.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.databinding.DataBindingUtil;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.mdground.hdenergy.R;
+import com.mdground.hdenergy.databinding.ViewEdittextWithUnitBinding;
 
 /**
  * Created by yoghourt on 7/5/16.
@@ -18,9 +18,7 @@ import com.mdground.hdenergy.R;
 
 public class EdittextWithUnitIcon extends LinearLayout {
 
-    private EditText etInput;
-
-    private ImageView ivIcon;
+    private ViewEdittextWithUnitBinding mDataBinding;
 
     public EdittextWithUnitIcon(Context context) {
         super(context);
@@ -37,42 +35,35 @@ public class EdittextWithUnitIcon extends LinearLayout {
     }
 
     private void initAttributeSet(Context context, AttributeSet attrs) {
-        LayoutInflater mInflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View inflateLayout = mInflater.inflate(R.layout.view_edittext_with_unit_icon, null);
-        this.addView(inflateLayout);
-
-        etInput = (EditText) inflateLayout.findViewById(R.id.etInput);
-
-        TextView tvUnit = (TextView) inflateLayout.findViewById(R.id.tvUnit);
+        mDataBinding = DataBindingUtil.inflate(LayoutInflater.from(context),
+                R.layout.view_edittext_with_unit, this, true);
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EdittextWithUnitIcon);
         int unitResId = typedArray.getResourceId(R.styleable.EdittextWithUnitIcon_unitResId, 0);
         if (unitResId != 0) {
-            tvUnit.setText(unitResId);
+            mDataBinding.tvUnit.setText(unitResId);
         }
 
-        ivIcon = (ImageView) inflateLayout.findViewById(R.id.ivIcon);
         int iconResId = typedArray.getResourceId(R.styleable.EdittextWithUnitIcon_iconResId, 0);
         if (iconResId != 0) {
-            ivIcon.setImageResource(iconResId);
+            mDataBinding.ivIcon.setImageResource(iconResId);
         }
     }
 
-    public String getText() {
-        return etInput.getText().toString();
+    public String getTextString() {
+        return mDataBinding.etInput.getText().toString();
     }
 
     public void setText(String text) {
-        etInput.setText(text);
+        mDataBinding.etInput.setText(text);
     }
 
     public EditText getEtInput() {
-        return etInput;
+        return mDataBinding.etInput;
     }
 
     public ImageView getIvIcon() {
-        return ivIcon;
+        return mDataBinding.ivIcon;
     }
 
     @Override

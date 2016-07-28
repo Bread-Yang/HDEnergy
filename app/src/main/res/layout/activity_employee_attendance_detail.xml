@@ -248,7 +248,7 @@
 
                 <TextView
                     style="@style/AlignRightTextStyle"
-                    android:text="@{String.valueOf(userAttendance.trafficTime) + @string/minute}"
+                    android:text="@{String.valueOf(userAttendance.trafficTime) + @string/hours}"
                     android:textSize="@dimen/text_size_16"
                     tools:text="用新" />
 

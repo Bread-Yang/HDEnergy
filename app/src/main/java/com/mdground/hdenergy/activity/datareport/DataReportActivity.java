@@ -249,7 +249,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         }
 
         // 项目费用
-        String projectExpenseString = mDataBinding.etuiProjectExpense.getText();
+        String projectExpenseString = mDataBinding.etuiProjectExpense.getTextString();
         int projectExpense = 0;
         if (!StringUtils.isEmpty(projectExpenseString)) {
             projectExpense = Integer.parseInt(projectExpenseString);

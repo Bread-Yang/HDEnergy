@@ -54,11 +54,14 @@
             android:layout_marginTop="@dimen/margin_1">
 
             <TextView
+                android:id="@+id/tvLicensePlate"
                 style="@style/DimTextStyle"
                 android:text="@string/license_plate" />
 
             <EditText
                 android:id="@+id/etLicensePlate"
+                android:layout_marginLeft="@dimen/margin_8"
+                android:layout_toRightOf="@+id/tvLicensePlate"
                 style="@style/WithArrowEdittextStyle"
                 android:text="@{projectFuelWarehouse.plateNumber}" />
         </RelativeLayout>

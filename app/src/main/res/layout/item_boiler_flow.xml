@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -86,12 +86,14 @@
             android:layout_marginTop="@dimen/margin_1">
 
             <TextView
+                android:id="@+id/tvAdjustFlow"
                 style="@style/DimTextStyle"
                 android:text="@string/flow_adjustment" />
 
             <com.mdground.hdenergy.views.EdittextWithUnitIcon
                 android:id="@+id/etuiAdjustFlow"
                 style="@style/WithArrowEdittextStyle"
+                android:layout_alignParentRight="true"
                 app:unitResId="@string/ton" />
 
         </RelativeLayout>
@@ -101,12 +103,15 @@
             android:layout_marginTop="@dimen/margin_1">
 
             <TextView
+                android:id="@+id/tvAjustDescription"
                 style="@style/DimTextStyle"
                 android:text="@string/adjustment_description" />
 
             <EditText
                 android:id="@+id/etAjustDescription"
                 style="@style/WithArrowEdittextStyle"
+                android:layout_marginLeft="@dimen/margin_8"
+                android:layout_toRightOf="@+id/tvAjustDescription"
                 android:textSize="@dimen/text_size_16"
                 tools:text="25631" />
 

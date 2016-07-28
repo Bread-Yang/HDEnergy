@@ -72,6 +72,12 @@ public abstract class ToolbarActivity<T extends ViewDataBinding> extends AppComp
         setListener();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        lltRoot.requestFocus();  // 隐藏键盘的时候, 去除所有EditText的focus
+    }
+
     private void setOnInputLayoutChangeListener() {
         getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(new OnInputLayoutChangeListener(getWindow().getDecorView()) {
 

@@ -9,6 +9,7 @@
     <string name="month">月</string>
     <string name="day">日</string>
     <string name="hour">时</string>
+    <string name="hours">小时</string>
     <string name="minute">分</string>
     <string name="loading">加载中</string>
     <string name="request_timeout">请求超时</string>
@@ -27,6 +28,8 @@
     <string name="electric_unit">kw/h</string>
     <string name="can_not_empty">输入不能为空</string>
     <string name="submit_success">提交成功</string>
+    <string name="tips">温馨提示</string>
+    <string name="confirm_to_submit">您确认内容无误且确认提交吗？</string>
 
     <!-- 引导页 -->
     <string name="guide_page">引导页</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -178,12 +178,15 @@
                 android:layout_marginTop="@dimen/margin_1">
 
                 <TextView
+                    android:id="@+id/tvOverTimeReason"
                     style="@style/DimTextStyle"
                     android:text="@string/overtime_reason" />
 
                 <EditText
                     android:id="@+id/etOverTimeReason"
-                    style="@style/WithArrowEdittextStyle" />
+                    style="@style/WithArrowEdittextStyle"
+                    android:layout_marginLeft="@dimen/margin_8"
+                    android:layout_toRightOf="@+id/tvOverTimeReason" />
 
             </RelativeLayout>
 
@@ -233,12 +236,15 @@
             <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
 
                 <TextView
+                    android:id="@+id/tvBusinessTripLocation"
                     style="@style/DimTextStyle"
                     android:text="@string/business_trip_location" />
 
                 <EditText
                     android:id="@+id/etBusinessTripLocation"
-                    style="@style/WithArrowEdittextStyle" />
+                    style="@style/WithArrowEdittextStyle"
+                    android:layout_marginLeft="@dimen/margin_8"
+                    android:layout_toRightOf="@+id/tvBusinessTripLocation" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -267,7 +273,7 @@
                 <com.mdground.hdenergy.views.EdittextWithUnitIcon
                     android:id="@+id/etuiTransportationTimeconsuming"
                     style="@style/WithArrowEdittextStyle"
-                    app:unitResId="@string/minute" />
+                    app:unitResId="@string/hours" />
 
             </RelativeLayout>
 
@@ -310,8 +316,9 @@
 
                 <EditText
                     android:id="@+id/etScore"
-                    android:hint="@string/last_day_fill"
                     style="@style/WithArrowEdittextStyle"
+                    android:gravity="right"
+                    android:hint="@string/last_day_fill"
                     android:inputType="number" />
 
             </RelativeLayout>
@@ -319,8 +326,8 @@
             <Button
                 android:id="@+id/btnNextStep"
                 style="@style/NormalButtonStyle"
-                android:layout_marginTop="@dimen/margin_40"
                 android:layout_marginBottom="@dimen/margin_40"
+                android:layout_marginTop="@dimen/margin_40"
                 android:onClick="submitAction"
                 android:text="@string/submit"
                 android:textSize="@dimen/text_size_16" />

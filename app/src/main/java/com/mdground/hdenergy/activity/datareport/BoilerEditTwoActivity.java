@@ -123,7 +123,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                         for (int i = 0; i < projectWorkFuel.getProjectFuelWarehouseList().size(); i++) {
                             ProjectFuelWarehouse item = projectWorkFuel.getProjectFuelWarehouseList().get(i);
 
-                            if (i != mClickWareHousePosition && item.getSupplier().equals(selectSupplier)) {
+                            if (i != mClickWareHousePosition && selectSupplier.equals(item.getSupplier())) {
                                 ViewUtils.toast(R.string.not_same_supplier);
                                 return;
                             }
@@ -313,7 +313,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                 public void onFocusChange(View view, boolean hasFocus) {
                     if (!hasFocus) {
                         String stringToConvert = ((EditText) view).getText().toString();
-                        projectWorkFuel.setPreviousInventory(StringUtils.convertStringToInt(stringToConvert));
+                        projectWorkFuel.setPreviousInventory(StringUtils.convertStringToFloat(stringToConvert));
 
                         refreshFuelConsumption(holder, projectWorkFuel);
                     }
@@ -325,7 +325,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                 public void onFocusChange(View view, boolean hasFocus) {
                     if (!hasFocus) {
                         String stringToConvert = ((EditText) view).getText().toString();
-                        projectWorkFuel.setCurrentInventory(StringUtils.convertStringToInt(stringToConvert));
+                        projectWorkFuel.setCurrentInventory(StringUtils.convertStringToFloat(stringToConvert));
 
                         refreshFuelConsumption(holder, projectWorkFuel);
                     }
@@ -478,7 +478,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                 public void onFocusChange(View view, boolean hasFocus) {
                     if (!hasFocus) {
                         String stringToConvert = ((EditText) view).getText().toString();
-                        projectFuelWarehouse.setAmount(StringUtils.convertStringToInt(stringToConvert));
+                        projectFuelWarehouse.setAmount(StringUtils.convertStringToFloat(stringToConvert));
                         mAdapter.notifyItemChanged(fuelPosition);
                     }
                 }

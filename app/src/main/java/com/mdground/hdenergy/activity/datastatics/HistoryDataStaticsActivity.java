@@ -14,7 +14,7 @@ import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
 import com.mdground.hdenergy.application.MDGroundApplication;
 import com.mdground.hdenergy.constants.Constants;
-import com.mdground.hdenergy.databinding.ActivityHistoryDatastaticsBinding;
+import com.mdground.hdenergy.databinding.ActivityHistoryDataStaticsBinding;
 import com.mdground.hdenergy.databinding.ItemHistoryDatastaticsBinding;
 import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.models.ProjectWork;
@@ -32,7 +32,7 @@ import retrofit2.Response;
  * Created by PC on 2016-06-28.
  */
 
-public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryDatastaticsBinding> {
+public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryDataStaticsBinding> {
 
     private HistoryDateAdapter mAdapter;
     private ArrayList<String> mArrayList = new ArrayList<>();
@@ -45,7 +45,7 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
 
     @Override
     protected int getContentLayout() {
-        return R.layout.activity_history_datastatics;
+        return R.layout.activity_history_data_statics;
     }
 
     @Override

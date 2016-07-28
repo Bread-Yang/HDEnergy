@@ -1,58 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
-        <RelativeLayout style="@style/TitleLayoutStyle">
+    <RelativeLayout style="@style/TitleLayoutStyle">
 
-            <TextView
-                style="@style/TitleTextStyle"
-                android:text="@string/fuel" />
+        <TextView
+            style="@style/TitleTextStyle"
+            android:text="@string/fuel" />
+    </RelativeLayout>
 
-        </RelativeLayout>
+    <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
 
-        <RelativeLayout style="@style/WhiteFixHeightLayoutStyle">
+        <TextView
+            style="@style/DimTextStyle"
+            android:text="@string/fuel_type_with_colon" />
 
-            <TextView
-                style="@style/DimTextStyle"
-                android:text="@string/fuel_type_with_colon"
-              />
+        <TextView
+            android:id="@+id/tvFuelName"
+            style="@style/AlignRightNoPaddingTextStyle"
+            android:gravity="right"
+            tools:text="12345kw/h" />
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/tvFuelName"
-                style="@style/AlignRightNoPaddingTextStyle"
-                android:gravity="right"
-                tools:text="12345kw/h" />
+    <RelativeLayout
+        android:id="@+id/rltElectricQuantityTwo"
+        style="@style/WhiteFixHeightLayoutStyle"
+        android:layout_marginTop="@dimen/margin_1">
 
+        <TextView
+            style="@style/DimTextStyle"
+            android:text="@string/last_period_stock_with_colon" />
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rltElectricQuantityTwo"
-            style="@style/WhiteFixHeightLayoutStyle"
-            android:layout_marginTop="@dimen/margin_1">
-
-            <TextView
-                style="@style/DimTextStyle"
-                android:text="@string/last_period_stock_with_colon" />
-
-            <TextView
-                android:id="@+id/tvPreviousInventory"
-                style="@style/AlignRightNoPaddingTextStyle"
-                android:gravity="right"
-                tools:text="1256" />
-
-
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/tvPreviousInventory"
+            style="@style/AlignRightNoPaddingTextStyle"
+            android:gravity="right"
+            tools:text="1256" />
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
         style="@style/WhiteFixHeightLayoutStyle"
@@ -69,22 +62,20 @@
             tools:text="25631" />
 
     </RelativeLayout>
+
     <RelativeLayout
-        android:layout_marginTop="@dimen/margin_1"
-        style="@style/WhiteFixHeightLayoutStyle">
+        style="@style/WhiteFixHeightLayoutStyle"
+        android:layout_marginTop="@dimen/margin_1">
 
         <TextView
             style="@style/DimTextStyle"
-            android:text="@string/fuel_consumption_with_colon"
-
-            />
+            android:text="@string/fuel_consumption_with_colon" />
 
         <TextView
             android:id="@+id/tvFuelCost"
-            android:textColor="@color/color_E92C0A"
             style="@style/AlignRightNoPaddingTextStyle"
+            android:textColor="@color/color_E92C0A"
             tools:text="12345吨" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -94,8 +85,7 @@
 
         <TextView
             style="@style/DimTextStyle"
-            android:text="@string/fuel_adjust_with_colon"
-            />
+            android:text="@string/fuel_adjust_with_colon" />
 
         <TextView
             android:id="@+id/tvAdjustInventory"
@@ -110,14 +100,12 @@
 
         <TextView
             style="@style/DimTextStyle"
-            android:text="@string/adjust_explain_with_colon"
-            />
+            android:text="@string/adjust_explain_with_colon" />
 
         <TextView
             android:id="@+id/tvAdjustInventoryExplian"
             style="@style/AlignRightNoPaddingTextStyle"
             tools:text="25631" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -130,13 +118,11 @@
 
         <TextView
             android:id="@+id/tvFuelUnitConsume"
-            android:textColor="@color/color_E92C0A"
             style="@style/AlignRightNoPaddingTextStyle"
+            android:textColor="@color/color_E92C0A"
             android:textSize="@dimen/text_size_16"
             tools:text="25631" />
-
     </RelativeLayout>
-
 </LinearLayout>
 
 

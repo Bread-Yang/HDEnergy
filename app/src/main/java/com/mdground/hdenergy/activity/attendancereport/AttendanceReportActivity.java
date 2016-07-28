@@ -1,5 +1,7 @@
 package com.mdground.hdenergy.activity.attendancereport;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.View;
 
 import com.google.gson.reflect.TypeToken;
@@ -11,10 +13,12 @@ import com.mdground.hdenergy.activity.base.ToolbarActivity;
 import com.mdground.hdenergy.application.MDGroundApplication;
 import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityAttendanceReportBinding;
+import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.models.Department;
 import com.mdground.hdenergy.models.Project;
 import com.mdground.hdenergy.models.ProjectCategory;
 import com.mdground.hdenergy.models.UserAttendance;
+import com.mdground.hdenergy.models.UserContacts;
 import com.mdground.hdenergy.models.UserInfo;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
@@ -24,7 +28,6 @@ import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 
 import kankan.wheel.widget.OnWheelScrollListener;
@@ -45,11 +48,15 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
     private UserAttendance mUserAttendance;
 
+    private AlertDialog mAlertDialog;
+
     private ArrayList<Department> mDepartmentArrayList = new ArrayList<>();
 
     private ArrayList<Project> mProjectArrayList = new ArrayList<>();
 
     private ArrayList<UserInfo> mUserInfoArrayList = new ArrayList<>();
+
+    private ArrayList<UserContacts> mLoginUserContactsList = new ArrayList<>();
 
     private ArrayList<String> mAttendanceStatusArrayList = new ArrayList<>();
 
@@ -69,6 +76,19 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
     @Override
     protected void initData() {
+        // 初始化对话框
+        mAlertDialog = ViewUtils.createAlertDialog(this, getString(R.string.confirm_to_submit),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        submit();
+                    }
+                });
+
         mUserAttendance = getIntent().getParcelableExtra(Constants.KEY_USER_ATTENDANCE);
 
         if (mUserAttendance == null) {
@@ -77,7 +97,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
         }
 
-        getDepartmentListRequest();
+        getUserContactListRequest();
         getProjectCategoryListRequest(0);
 
         initTimePickerDialog();
@@ -97,7 +117,12 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
         // 上班状态数据
         String[] attendanceStatusStrings = getResources().getStringArray(R.array.attendance_status_array);
-        Collections.addAll(mAttendanceStatusArrayList, attendanceStatusStrings);
+
+        // 最后的"未提交"状态不用显示出来
+        for (int i = 0; i < attendanceStatusStrings.length - 1; i++) {
+            mAttendanceStatusArrayList.add(attendanceStatusStrings[i]);
+        }
+//        Collections.addAll(mAttendanceStatusArrayList, attendanceStatusStrings);
 
     }
 
@@ -204,76 +229,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
         mDataBinding.tvManHours.setText(DateUtils.toManHours(mEndTime - mStartTime));
     }
 
-    //region ACTION
-    public void selectDepartmentAction(View view) {
-        mWheelViewChooseResID = R.id.tvDepartment;
-        ArrayList<String> departmentStringArrayList = new ArrayList<>();
-        for (Department department : mDepartmentArrayList) {
-            departmentStringArrayList.add(department.getDepartmentName());
-        }
-        mBaoPickerDialog.bindWheelViewData(departmentStringArrayList);
-        mBaoPickerDialog.setCurrentItem(mSelectDepartment);
-        mBaoPickerDialog.show();
-    }
-
-    public void selectProjectAction(View view) {
-        mWheelViewChooseResID = R.id.tvProject;
-        ArrayList<String> projectStringArrayList = new ArrayList<>();
-        for (Project project : mProjectArrayList) {
-            projectStringArrayList.add(project.getProjectName());
-        }
-        mBaoPickerDialog.bindWheelViewData(projectStringArrayList);
-        mBaoPickerDialog.setCurrentItem(mSelectProjectIndex);
-        mBaoPickerDialog.show();
-    }
-
-    public void selectUserInfoAction(View view) {
-        mWheelViewChooseResID = R.id.tvName;
-        ArrayList<String> userNameStringArrayList = new ArrayList<>();
-        for (UserInfo userInfo : mUserInfoArrayList) {
-            userNameStringArrayList.add(userInfo.getUserName());
-        }
-        mBaoPickerDialog.bindWheelViewData(userNameStringArrayList);
-        mBaoPickerDialog.setCurrentItem(mSelectUserInfoIndex);
-        mBaoPickerDialog.show();
-    }
-
-    public void selectAttendanceStatusAction(View view) {
-        mWheelViewChooseResID = R.id.tvAttendanceStatus;
-        mBaoPickerDialog.bindWheelViewData(mAttendanceStatusArrayList);
-        mBaoPickerDialog.setCurrentItem(mSelectAttendanceStatus);
-        mBaoPickerDialog.show();
-    }
-
-    public void selectDateAction(View view) {
-        mClickResID = view.getId();
-
-        mTimePickerDialog.show(getSupportFragmentManager(), String.valueOf(mClickResID));
-    }
-
-    public void selectCategoryAction(View view) {
-        mWheelViewChooseResID = R.id.tvCategory;
-        ArrayList<String> categoryStringArrayList = new ArrayList<>();
-        for (ProjectCategory projectCategory : mProjectCategoryArrayList) {
-            categoryStringArrayList.add(projectCategory.getCategoryName());
-        }
-        mBaoPickerDialog.bindWheelViewData(categoryStringArrayList);
-        mBaoPickerDialog.setCurrentItem(mSelectCategoryIndex);
-        mBaoPickerDialog.show();
-    }
-
-    public void selectContentAction(View view) {
-        mWheelViewChooseResID = R.id.tvContent;
-        ArrayList<String> contentStringArrayList = new ArrayList<>();
-        for (ProjectCategory projectContent : mProjectContentArrayList) {
-            contentStringArrayList.add(projectContent.getCategoryName());
-        }
-        mBaoPickerDialog.bindWheelViewData(contentStringArrayList);
-        mBaoPickerDialog.setCurrentItem(mSelectContentIndex);
-        mBaoPickerDialog.show();
-    }
-
-    public void submitAction(View view) {
+    private void submit() {
         UserAttendance userAttendance = mUserAttendance;
 
         userAttendance.setReportUserID(MDGroundApplication.sInstance.getLoginUser().getUserID());
@@ -349,21 +305,21 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
         userAttendance.setBusinessAddress(businessTripLocation);
 
         // 交通费
-        String transporatationFareString = mDataBinding.etuiTransportationFare.getText();
+        String transporatationFareString = mDataBinding.etuiTransportationFare.getTextString();
         if (!StringUtils.isEmpty(transporatationFareString)) {
             int transporatationFare = Integer.parseInt(transporatationFareString);
             userAttendance.setTransportation(transporatationFare);
         }
 
         // 交通耗时
-        String transportationTimeConsumingString = mDataBinding.etuiTransportationTimeconsuming.getText();
+        String transportationTimeConsumingString = mDataBinding.etuiTransportationTimeconsuming.getTextString();
         if (!StringUtils.isEmpty(transportationTimeConsumingString)) {
             int transportationTimeConsuming = Integer.parseInt(transportationTimeConsumingString);
             userAttendance.setTrafficTime(transportationTimeConsuming);
         }
 
         // 住宿费
-        String accommodationFeeString = mDataBinding.etuiAccommodationFee.getText();
+        String accommodationFeeString = mDataBinding.etuiAccommodationFee.getTextString();
         if (!StringUtils.isEmpty(accommodationFeeString)) {
             int accommodationFee = Integer.parseInt(accommodationFeeString);
             userAttendance.setAccommodationFee(accommodationFee);
@@ -382,17 +338,126 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
         saveUserAttendanceRequest(userAttendance);
     }
+
+    //region ACTION
+    public void selectDepartmentAction(View view) {
+        mWheelViewChooseResID = R.id.tvDepartment;
+        ArrayList<String> departmentStringArrayList = new ArrayList<>();
+        for (Department department : mDepartmentArrayList) {
+            departmentStringArrayList.add(department.getDepartmentName());
+        }
+        mBaoPickerDialog.bindWheelViewData(departmentStringArrayList);
+        mBaoPickerDialog.setCurrentItem(mSelectDepartment);
+        mBaoPickerDialog.show();
+    }
+
+    public void selectProjectAction(View view) {
+        mWheelViewChooseResID = R.id.tvProject;
+        ArrayList<String> projectStringArrayList = new ArrayList<>();
+        for (Project project : mProjectArrayList) {
+            projectStringArrayList.add(project.getProjectName());
+        }
+        mBaoPickerDialog.bindWheelViewData(projectStringArrayList);
+        mBaoPickerDialog.setCurrentItem(mSelectProjectIndex);
+        mBaoPickerDialog.show();
+    }
+
+    public void selectUserInfoAction(View view) {
+        mWheelViewChooseResID = R.id.tvName;
+        ArrayList<String> userNameStringArrayList = new ArrayList<>();
+        for (UserInfo userInfo : mUserInfoArrayList) {
+            userNameStringArrayList.add(userInfo.getUserName());
+        }
+        mBaoPickerDialog.bindWheelViewData(userNameStringArrayList);
+        mBaoPickerDialog.setCurrentItem(mSelectUserInfoIndex);
+        mBaoPickerDialog.show();
+    }
+
+    public void selectAttendanceStatusAction(View view) {
+        mWheelViewChooseResID = R.id.tvAttendanceStatus;
+        mBaoPickerDialog.bindWheelViewData(mAttendanceStatusArrayList);
+        mBaoPickerDialog.setCurrentItem(mSelectAttendanceStatus);
+        mBaoPickerDialog.show();
+    }
+
+    public void selectDateAction(View view) {
+        mClickResID = view.getId();
+
+        mTimePickerDialog.show(getSupportFragmentManager(), String.valueOf(mClickResID));
+    }
+
+    public void selectCategoryAction(View view) {
+        mWheelViewChooseResID = R.id.tvCategory;
+        ArrayList<String> categoryStringArrayList = new ArrayList<>();
+        for (ProjectCategory projectCategory : mProjectCategoryArrayList) {
+            categoryStringArrayList.add(projectCategory.getCategoryName());
+        }
+        mBaoPickerDialog.bindWheelViewData(categoryStringArrayList);
+        mBaoPickerDialog.setCurrentItem(mSelectCategoryIndex);
+        mBaoPickerDialog.show();
+    }
+
+    public void selectContentAction(View view) {
+        mWheelViewChooseResID = R.id.tvContent;
+        ArrayList<String> contentStringArrayList = new ArrayList<>();
+        for (ProjectCategory projectContent : mProjectContentArrayList) {
+            contentStringArrayList.add(projectContent.getCategoryName());
+        }
+        mBaoPickerDialog.bindWheelViewData(contentStringArrayList);
+        mBaoPickerDialog.setCurrentItem(mSelectContentIndex);
+        mBaoPickerDialog.show();
+    }
+
+    public void submitAction(View view) {
+        mAlertDialog.show();
+    }
     //endregion
 
     //region SERVER
-    private void getDepartmentListRequest() {
+    public void getUserContactListRequest() {
         ViewUtils.loading(this);
+        GlobalRestful.getInstance().GetUserContactList(new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                if (ResponseCode.isSuccess(response.body())) {
+                    mLoginUserContactsList.clear();
+                    ArrayList<UserContacts> userContacts = response.body().getContent(new TypeToken<ArrayList<UserContacts>>() {
+                    });
+                    mLoginUserContactsList.addAll(userContacts);
+
+                    getDepartmentListRequest();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void getDepartmentListRequest() {
         GlobalRestful.getInstance().GetDepartmentList(new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 mDepartmentArrayList = response.body().getContent(new TypeToken<ArrayList<Department>>() {
                 });
-                mDataBinding.tvDepartment.setText(mDepartmentArrayList.get(0).getDepartmentName());
+
+                UserInfo userInfo = MDGroundApplication.sInstance.getLoginUser();
+                for (int i = 0; i < mDepartmentArrayList.size(); i++) {
+                    Department department = mDepartmentArrayList.get(i);
+
+                    if (department.getDepartmentName().equals(userInfo.getDepartment())) {
+                        mSelectDepartment = i;
+                        mDataBinding.tvDepartment.setText(department.getDepartmentName());
+                        break;
+                    }
+                }
+
+                if (StringUtils.isEmpty(mDataBinding.tvDepartment.getText().toString())
+                        && mDepartmentArrayList.size() > 0) {
+                    mDataBinding.tvDepartment.setText(mDepartmentArrayList.get(0).getDepartmentName());
+                }
 
                 getProjectListRequest();
             }
@@ -423,7 +488,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
     }
 
     private void getUserListByDepartmentRequest() {
-        String department = mDataBinding.tvDepartment.getText().toString();
+        final String department = mDataBinding.tvDepartment.getText().toString();
 
         ViewUtils.loading(this);
         GlobalRestful.getInstance().GetUserListByDepartment(department, new Callback<ResponseData>() {
@@ -431,13 +496,46 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 ViewUtils.dismiss();
 
-                mUserInfoArrayList = response.body().getContent(new TypeToken<ArrayList<UserInfo>>() {
+
+                ArrayList<UserInfo> tempUserInfoArrayList = response.body().getContent(new TypeToken<ArrayList<UserInfo>>() {
                 });
 
-                if (mUserInfoArrayList.size() > 0) {
+                mUserInfoArrayList.clear();
+
+                UserInfo loginUserInfo = MDGroundApplication.sInstance.getLoginUser();
+
+                if (department.equals(loginUserInfo.getDepartment())) {
+                    mUserInfoArrayList.add(loginUserInfo);
+                }
+
+                for (UserInfo userinfo : tempUserInfoArrayList) {
+                    for (UserContacts userContacts : mLoginUserContactsList) {
+                        if (userinfo.getUserID() == userContacts.getContactUserId()) {
+                            mUserInfoArrayList.add(userinfo);
+                            break;
+                        }
+                    }
+                }
+
+                mDataBinding.tvName.setText("");
+
+                // 如果是登录者的部门,则默认选中登录者
+                if (department.equals(loginUserInfo.getDepartment())) {
+                    // 把登陆者加进去
+                    for (int i = 0; i < mUserInfoArrayList.size(); i++) {
+                        UserInfo userInfo = mUserInfoArrayList.get(i);
+
+                        if (userInfo.getUserID() == loginUserInfo.getUserID()) {
+                            mSelectUserInfoIndex = i;
+                            mDataBinding.tvName.setText(userInfo.getUserName());
+                            break;
+                        }
+                    }
+                }
+
+                if (StringUtils.isEmpty(mDataBinding.tvName.getText().toString())
+                        && mUserInfoArrayList.size() > 0) {
                     mDataBinding.tvName.setText(mUserInfoArrayList.get(0).getUserName());
-                } else {
-                    mDataBinding.tvName.setText("");
                 }
             }
 
@@ -484,6 +582,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 ViewUtils.dismiss();
+                ViewUtils.toast(R.string.submit_success);
                 finish();
             }
 

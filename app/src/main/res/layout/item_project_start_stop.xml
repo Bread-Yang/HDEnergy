@@ -40,8 +40,10 @@
                 <TextView
                     style="@style/NormalTextStyle"
                     android:layout_marginLeft="@dimen/margin_16"
+                    android:ellipsize="end"
                     android:text="@{project.remark}"
                     android:textSize="@dimen/text_size_16"
+                    android:maxLines="1"
                     tools:text="新工程" />
             </LinearLayout>
 

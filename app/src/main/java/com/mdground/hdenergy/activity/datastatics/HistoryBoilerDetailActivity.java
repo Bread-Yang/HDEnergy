@@ -145,21 +145,29 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
+
+            ProjectWorkFlowrate projectWorkFlowrate = mFlowArrayList.get(position);
+
             holder.viewDataBinding.setPosition(position + 1);
-            holder.viewDataBinding.tvBeginFlow.setText(String.valueOf(mFlowArrayList.get(position).getBeginFlow()));
-            holder.viewDataBinding.tvEndFlow.setText(String.valueOf(mFlowArrayList.get(position).getEndFlow()));
+            holder.viewDataBinding.tvBeginFlow.setText(String.valueOf(projectWorkFlowrate.getBeginFlow()));
+            holder.viewDataBinding.tvEndFlow.setText(String.valueOf(projectWorkFlowrate.getEndFlow()));
             double flow;
             if (mSaleType.equals(getString(R.string.heating_power))) {
-                flow = (mFlowArrayList.get(position).getEndFlow() - mFlowArrayList.get(position).getBeginFlow()) * 23.8845 / 60;
+                flow = (projectWorkFlowrate.getEndFlow() - projectWorkFlowrate.getBeginFlow()) * 23.8845 / 60;
             } else {
-                flow = (mFlowArrayList.get(position).getEndFlow() - mFlowArrayList.get(position).getBeginFlow());
+                flow = (projectWorkFlowrate.getEndFlow() - projectWorkFlowrate.getBeginFlow());
             }
             DecimalFormat df = new DecimalFormat("#####0.00");
             //   mFlowAmount= (int) (flow+mFlowAmount);
             String s = df.format(flow);
             holder.viewDataBinding.tvFlow.setText(s + getString(R.string.ton));
-            holder.viewDataBinding.tvAdjustFlow.setText(String.valueOf(mFlowArrayList.get(position).getAdjustFlow()) + getString(R.string.ton));
-            holder.viewDataBinding.tvDescription.setText(String.valueOf(mFlowArrayList.get(position).getDescription()));
+            holder.viewDataBinding.tvAdjustFlow.setText(projectWorkFlowrate.getAdjustFlow() + getString(R.string.ton));
+
+            if (projectWorkFlowrate.getDescription() != null) {
+                holder.viewDataBinding.tvDescription.setText(projectWorkFlowrate.getDescription());
+            } else {
+                holder.viewDataBinding.tvDescription.setText("");
+            }
         }
 
         @Override

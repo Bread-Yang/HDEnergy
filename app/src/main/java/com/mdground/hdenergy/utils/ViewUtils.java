@@ -1,9 +1,11 @@
 package com.mdground.hdenergy.utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -186,6 +188,26 @@ public class ViewUtils {
     }
 
     public static void setEditTextWithMinusAndPlusSignal(EditText editText) {
-        editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        editText.setInputType(InputType.TYPE_CLASS_NUMBER
+                | InputType.TYPE_NUMBER_FLAG_DECIMAL
+                | InputType.TYPE_NUMBER_FLAG_SIGNED);
+    }
+
+    public static AlertDialog createAlertDialog(Context context, String message,
+                                                DialogInterface.OnClickListener cancelListener,
+                                                DialogInterface.OnClickListener confirmListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(R.string.tips);
+        builder.setMessage(message);
+
+        if (cancelListener != null) {
+            builder.setNegativeButton(R.string.cancel, cancelListener);
+        }
+
+        if (confirmListener != null) {
+            builder.setPositiveButton(R.string.confirm, confirmListener);
+        }
+
+        return builder.create();
     }
 }

@@ -36,6 +36,7 @@ import retrofit2.Response;
  */
 
 public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProjectBinding> implements AddProjectDialog.OnClickUpdateListener {
+
     private ArrayList<Project> mAllProjectList = new ArrayList<>();
     //    private ArrayList<Project> mCommonProjectList = new ArrayList<>();
     private ArrayList<UserProject> mUserProjectList = new ArrayList<>();
@@ -58,8 +59,8 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
 
     @Override
     protected void initData() {
-        mUserID=MDGroundApplication.sInstance.getLoginUser().getUserID();
-        KLog.e("userID"+mUserID);
+        mUserID = MDGroundApplication.sInstance.getLoginUser().getUserID();
+        KLog.e("userID" + mUserID);
         GetProjectListRequest();
         mDialog = new AddProjectDialog(this);
         mAdapter = new CommonProjectAdapter();
@@ -76,10 +77,8 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
 
     }
 
-    //region METHOD
-
     //进行一个排序
-    public void sortAllProject(List<UserProject> userProjects) {
+    private void sortAllProject(List<UserProject> userProjects) {
 
         for (int i = 0; i < mAllProjectList.size(); i++) {
 
@@ -97,8 +96,6 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
         }
         mAdapter.notifyDataSetChanged();
     }
-
-    //endregion
 
     //region SERVERR
 
@@ -133,13 +130,13 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 if (ResponseCode.isSuccess(response.body())) {
-                    KLog.e("---->"+response.body().getContent());
+                    KLog.e("---->" + response.body().getContent());
                     mUserProjectList.clear();
                     ArrayList<Project> Projects = response.body().getContent(new TypeToken<ArrayList<Project>>() {
                     });
-                    ArrayList<UserProject> userProjectList=new ArrayList<UserProject>();
-                    for(Project project:Projects){
-                        UserProject userProject1=new UserProject();
+                    ArrayList<UserProject> userProjectList = new ArrayList<UserProject>();
+                    for (Project project : Projects) {
+                        UserProject userProject1 = new UserProject();
                         userProject1.setUserID(mUserID);
                         userProject1.setProjectID(project.getProjectID());
                         userProjectList.add(userProject1);
@@ -178,8 +175,8 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
     }
 
     public void SaveUserProjectListRequest(final List<UserProject> userProjects) {
-        for(int i=0;i<userProjects.size();i++){
-            KLog.e("----"+userProjects.get(i).getUserID());
+        for (int i = 0; i < userProjects.size(); i++) {
+            KLog.e("----" + userProjects.get(i).getUserID());
         }
         GlobalRestful.getInstance().SaveUserProjectList(userProjects, new Callback<ResponseData>() {
             @Override
@@ -209,10 +206,10 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
     @Override
     public void clickUpdate(String projectName) {
         if (!"".equals(projectName)) {
-            for(int i=0;i<mAllProjectList.size();i++){
-                if(mAllProjectList.get(i).getProjectName().equals(projectName)){
+            for (int i = 0; i < mAllProjectList.size(); i++) {
+                if (mAllProjectList.get(i).getProjectName().equals(projectName)) {
                     ViewUtils.toast("项目已经存在");
-                    return ;
+                    return;
                 }
 
             }
@@ -259,7 +256,7 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
                     UserProject userProject = new UserProject();
                     userProject.setUserID(mUserID);
                     userProject.setProjectID(mAllProjectList.get(position).getProjectID());
-                    KLog.e("加进去的UseID"+mUserID);
+                    KLog.e("加进去的UseID" + mUserID);
                     if (holder.itemContactsBinding.cbSelector.isChecked()) {
                         mUserProjectList.add(userProject);
                         SaveUserProjectListRequest(mUserProjectList);
