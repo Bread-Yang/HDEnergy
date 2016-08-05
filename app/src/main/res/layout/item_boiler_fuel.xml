@@ -76,6 +76,7 @@
             <com.mdground.hdenergy.views.EdittextWithUnitIcon
                 android:id="@+id/etCurrentPeriodStock"
                 style="@style/WithArrowEdittextStyle"
+                android:text="@{String.valueOf(fuel.currentInventory)}"
                 android:inputType="number"
                 app:iconResId="@drawable/icon_more"
                 app:unitResId="@string/ton" />

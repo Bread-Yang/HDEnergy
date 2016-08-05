@@ -37,9 +37,12 @@ public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityE
 
     private EmployeeAttendanceStaticsAdapter mAdapter;
 
-    private ArrayList<UserAttendance> mAttendanceArrayList = new ArrayList<>();
+    private ArrayList<UserAttendance> mAllAttendanceArrayList = new ArrayList<>();
+    private ArrayList<UserAttendance> mShowAttendanceArrayList = new ArrayList<>();
 
     private UserAttendance mUserAttendance;
+
+    private AttendanceStatus mClickAttendanceStatus = AttendanceStatus.All;
 
     private String mQueryDate;
 
@@ -74,25 +77,6 @@ public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityE
 
     @Override
     protected void setListener() {
-        mDataBinding.ivPreviousMonth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mQueryDate = DateUtils.previousMonth(mQueryDate);
-
-                showMonthString();
-                getUserAttendanceListByMonthRequest();
-            }
-        });
-
-        mDataBinding.ivNextMonth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mQueryDate = DateUtils.nextMonth(mQueryDate);
-
-                showMonthString();
-                getUserAttendanceListByMonthRequest();
-            }
-        });
     }
 
     private void showMonthString() {
@@ -100,8 +84,44 @@ public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityE
         mDataBinding.tvMonth.setText(month);
     }
 
+    private void refreshRecyclerViewByAttendanceStatus() {
+        mShowAttendanceArrayList.clear();
+
+        if (mClickAttendanceStatus == AttendanceStatus.All) {
+            mShowAttendanceArrayList.addAll(mAllAttendanceArrayList);
+        } else {
+            for (UserAttendance userAttendance : mAllAttendanceArrayList) {
+                AttendanceStatus attendanceStatus = AttendanceStatus.fromValue(userAttendance.getStatus());
+
+                if (attendanceStatus == mClickAttendanceStatus) {
+                    mShowAttendanceArrayList.add(userAttendance);
+                }
+            }
+        }
+
+        mAdapter.notifyDataSetChanged();
+    }
+
     //region ACTION
-    public void switchStatusLayout(View view) {
+    public void previousMonthAction(View view) {
+        mQueryDate = DateUtils.previousMonth(mQueryDate);
+
+        showMonthString();
+
+        mClickAttendanceStatus = AttendanceStatus.All;
+        getUserAttendanceListByMonthRequest();
+    }
+
+    public void nextMonthAction(View view) {
+        mQueryDate = DateUtils.nextMonth(mQueryDate);
+
+        showMonthString();
+
+        mClickAttendanceStatus = AttendanceStatus.All;
+        getUserAttendanceListByMonthRequest();
+    }
+
+    public void switchStatusLayoutAction(View view) {
         if (mDataBinding.lltStatus1.getVisibility() == View.VISIBLE) {
             mDataBinding.lltStatus1.setVisibility(View.INVISIBLE);
             mDataBinding.lltStatus2.setVisibility(View.VISIBLE);
@@ -109,6 +129,42 @@ public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityE
             mDataBinding.lltStatus1.setVisibility(View.VISIBLE);
             mDataBinding.lltStatus2.setVisibility(View.INVISIBLE);
         }
+    }
+
+    public void normalStatusClickAction(View view) {
+        mClickAttendanceStatus = AttendanceStatus.Normal;
+
+        refreshRecyclerViewByAttendanceStatus();
+    }
+
+    public void businessStatusClickAction(View view) {
+        mClickAttendanceStatus = AttendanceStatus.Business;
+
+        refreshRecyclerViewByAttendanceStatus();
+    }
+
+    public void leaveStatusClickAction(View view) {
+        mClickAttendanceStatus = AttendanceStatus.Leave;
+
+        refreshRecyclerViewByAttendanceStatus();
+    }
+
+    public void injuryStatusClickAction(View view) {
+        mClickAttendanceStatus = AttendanceStatus.Injury;
+
+        refreshRecyclerViewByAttendanceStatus();
+    }
+
+    public void dispatchStatusClickAction(View view) {
+        mClickAttendanceStatus = AttendanceStatus.Dispatch;
+
+        refreshRecyclerViewByAttendanceStatus();
+    }
+
+    public void shiftStatusClickAction(View view) {
+        mClickAttendanceStatus = AttendanceStatus.Shift;
+
+        refreshRecyclerViewByAttendanceStatus();
     }
     //endregion
 
@@ -120,22 +176,23 @@ public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityE
                     @Override
                     public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                         ViewUtils.dismiss();
-                        mAttendanceArrayList.clear();
+                        mAllAttendanceArrayList.clear();
+
                         ArrayList<UserAttendance> tempAttendanceArrayList = response.body().getContent(new TypeToken<ArrayList<UserAttendance>>() {
                         });
-                        mAttendanceArrayList.addAll(tempAttendanceArrayList);
+                        mAllAttendanceArrayList.addAll(tempAttendanceArrayList);
 
-                        mAdapter.notifyDataSetChanged();
+                        refreshRecyclerViewByAttendanceStatus();
 
                         int normalStatusCount = 0;
                         int businessStatusCount = 0;
                         int leaveStatusCount = 0;
                         int injuryStatusCount = 0;
-                        int dispatchStatusCount =0;
+                        int dispatchStatusCount = 0;
                         int shiftStatusCount = 0;
                         int notSubmitStatusCount = 0;
 
-                        for (UserAttendance userAttendance : mAttendanceArrayList) {
+                        for (UserAttendance userAttendance : mAllAttendanceArrayList) {
                             AttendanceStatus attendanceStatus = AttendanceStatus.fromValue(userAttendance.getStatus());
 
                             switch (attendanceStatus) {
@@ -192,7 +249,7 @@ public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityE
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-            final UserAttendance userAttendance = mAttendanceArrayList.get(position);
+            final UserAttendance userAttendance = mShowAttendanceArrayList.get(position);
 
             holder.viewDataBinding.tvAttendanceReason.setText(DateUtils.getYearMonthDayWithDash(userAttendance.getBeginTime()));
 
@@ -243,7 +300,7 @@ public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityE
 
         @Override
         public int getItemCount() {
-            return mAttendanceArrayList.size();
+            return mShowAttendanceArrayList.size();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {

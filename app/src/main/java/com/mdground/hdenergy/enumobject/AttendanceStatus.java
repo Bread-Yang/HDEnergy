@@ -7,6 +7,7 @@ package com.mdground.hdenergy.enumobject;
 
 public enum AttendanceStatus {
 
+    All(-1),                // 所有
     Normal(0),              // 正常
     Business (1),           // 出差
     Leave (2),              // 请假

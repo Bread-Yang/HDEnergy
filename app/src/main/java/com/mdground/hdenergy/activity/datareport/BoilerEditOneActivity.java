@@ -73,6 +73,45 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         } else {
             mProjectWorkFlowrateArrayList.add(createFlowrate());
         }
+
+        // 设置电量
+        if (mProjectWorkFurnace.getElectricity1() != 0 ) {
+            mDataBinding.etuiElectricQuantityOne.setText(
+                    String.valueOf(mProjectWorkFurnace.getElectricity1()));
+        }
+        if (mProjectWorkFurnace.getElectricity2() != 0 ) {
+            mDataBinding.rltElectricQuantityTwo.setVisibility(View.VISIBLE);
+
+            mDataBinding.etuiElectricQuantityTwo.setText(
+                    String.valueOf(mProjectWorkFurnace.getElectricity2()));
+        }
+        if (mProjectWorkFurnace.getElectricity3() != 0 ) {
+            mDataBinding.rltElectricQuantityThree.setVisibility(View.VISIBLE);
+
+            mDataBinding.etuiElectricQuantityThree.setText(
+                    String.valueOf(mProjectWorkFurnace.getElectricity3()));
+        }
+        calculateElectricityUnitConsumption();
+
+        // 设置水量
+        if (mProjectWorkFurnace.getWater1() != 0 ) {
+            mDataBinding.etuiWaterQuantityOne.setText(
+                    String.valueOf(mProjectWorkFurnace.getWater1()));
+        }
+        if (mProjectWorkFurnace.getWater2() != 0 ) {
+            mDataBinding.rltWaterQuantityTwo.setVisibility(View.VISIBLE);
+
+            mDataBinding.etuiWaterQuantityTwo.setText(
+                    String.valueOf(mProjectWorkFurnace.getWater2()));
+        }
+        if (mProjectWorkFurnace.getWater3() != 0 ) {
+            mDataBinding.rltWaterQuantityThree.setVisibility(View.VISIBLE);
+
+            mDataBinding.etuiWaterQuantityThree.setText(
+                    String.valueOf(mProjectWorkFurnace.getWater3()));
+        }
+        calculateWaterUnitConsumption();
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(layoutManager);
@@ -411,9 +450,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             itemBoilerFlowBinding.setFlow(projectWorkFlowrate);
             itemBoilerFlowBinding.setPosition(position + 1);
 
-            if (projectWorkFlowrate.getBeginFlow() != 0) {
-                itemBoilerFlowBinding.etuiInitialFlow.getEtInput().setText(String.valueOf(projectWorkFlowrate.getBeginFlow()));
-            }
+            itemBoilerFlowBinding.etuiInitialFlow.getEtInput().setText(String.valueOf(projectWorkFlowrate.getBeginFlow()));
 
             if (projectWorkFlowrate.getEndFlow() != 0) {
                 itemBoilerFlowBinding.etuiCloseFlow.getEtInput().setText(String.valueOf(projectWorkFlowrate.getEndFlow()));
