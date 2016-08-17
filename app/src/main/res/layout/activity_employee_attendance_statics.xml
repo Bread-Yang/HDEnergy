@@ -15,8 +15,7 @@
             android:layout_height="@dimen/size_90"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/lltContent"
-            android:layout_marginTop="@dimen/margin_24"
-            android:src="@drawable/home_banner" />
+            android:layout_marginTop="@dimen/margin_24" />
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -31,6 +31,10 @@ public class BaoPickerDialog extends Dialog {
 
     private List<String> mStringList;
 
+    private boolean mIsCyclic;
+
+    private int mCurrentItem;
+
     public BaoPickerDialog(Context context) {
         super(context, R.style.customDialogStyle);
         mContext = context;
@@ -64,6 +68,8 @@ public class BaoPickerDialog extends Dialog {
         mDataBinding.wheelView.setVisibleItems(7);
         if (mStringList != null) {
             mDataBinding.wheelView.setViewAdapter(new BaoWheelAdapter(mContext, mStringList));
+            mDataBinding.wheelView.setCyclic(mIsCyclic);
+            mDataBinding.wheelView.setCurrentItem(mCurrentItem);
         }
         if (onWheelScrollListener != null) {
             mDataBinding.wheelView.addScrollingListener(onWheelScrollListener);
@@ -78,10 +84,19 @@ public class BaoPickerDialog extends Dialog {
         }
     }
 
+    public void bindWheelViewData(List<String> items, boolean isCyclic, int currentItem) {
+        mStringList = items;
+        mIsCyclic = isCyclic;
+        mCurrentItem = currentItem;
+        if (mDataBinding != null) {
+            mDataBinding.wheelView.setCurrentItem(0);
+            mDataBinding.wheelView.setViewAdapter(new BaoWheelAdapter(mContext, mStringList));
+        }
+    }
+
     public void setCurrentItem(int index) {
         if (mDataBinding != null) {
             mDataBinding.wheelView.setCurrentItem(index);
-
         }
     }
 

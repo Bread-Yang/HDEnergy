@@ -14,8 +14,6 @@ import com.mdground.hdenergy.utils.GlideUtils;
 
 public class BasicInformationActivity extends ToolbarActivity<ActivityBasicInformationBinding> {
 
-    private UserInfo mUserInfo;
-
     @Override
     protected int getContentLayout() {
         return R.layout.activity_basic_information;
@@ -23,11 +21,11 @@ public class BasicInformationActivity extends ToolbarActivity<ActivityBasicInfor
 
     @Override
     protected void initData() {
-        mUserInfo = MDGroundApplication.sInstance.getLoginUser();
-//        GlideUtils.loadImageByPhotoSID(mDataBinding.civAvatar, mUserInfo.getPhotoSID(), false);
-        mDataBinding.tvUserName.setText(mUserInfo.getUserName());
-        mDataBinding.tvUserPhone.setText(mUserInfo.getUserPhone());
-        mDataBinding.tvUserDepartment.setText(mUserInfo.getDepartment());
+        UserInfo userInfo = MDGroundApplication.sInstance.getLoginUser();
+        GlideUtils.loadImageByPhotoSID(mDataBinding.civAvatar, userInfo.getPhotoSID(), false);
+        mDataBinding.tvUserName.setText(userInfo.getUserName());
+        mDataBinding.tvUserPhone.setText(userInfo.getUserPhone());
+        mDataBinding.tvUserDepartment.setText(userInfo.getDepartment());
     }
 
     @Override

@@ -4,10 +4,11 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.mdground.hdenergy.R;
@@ -75,17 +76,17 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         }
 
         // 设置电量
-        if (mProjectWorkFurnace.getElectricity1() != 0 ) {
+        if (mProjectWorkFurnace.getElectricity1() != 0) {
             mDataBinding.etuiElectricQuantityOne.setText(
                     String.valueOf(mProjectWorkFurnace.getElectricity1()));
         }
-        if (mProjectWorkFurnace.getElectricity2() != 0 ) {
+        if (mProjectWorkFurnace.getElectricity2() != 0) {
             mDataBinding.rltElectricQuantityTwo.setVisibility(View.VISIBLE);
 
             mDataBinding.etuiElectricQuantityTwo.setText(
                     String.valueOf(mProjectWorkFurnace.getElectricity2()));
         }
-        if (mProjectWorkFurnace.getElectricity3() != 0 ) {
+        if (mProjectWorkFurnace.getElectricity3() != 0) {
             mDataBinding.rltElectricQuantityThree.setVisibility(View.VISIBLE);
 
             mDataBinding.etuiElectricQuantityThree.setText(
@@ -94,17 +95,17 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         calculateElectricityUnitConsumption();
 
         // 设置水量
-        if (mProjectWorkFurnace.getWater1() != 0 ) {
+        if (mProjectWorkFurnace.getWater1() != 0) {
             mDataBinding.etuiWaterQuantityOne.setText(
                     String.valueOf(mProjectWorkFurnace.getWater1()));
         }
-        if (mProjectWorkFurnace.getWater2() != 0 ) {
+        if (mProjectWorkFurnace.getWater2() != 0) {
             mDataBinding.rltWaterQuantityTwo.setVisibility(View.VISIBLE);
 
             mDataBinding.etuiWaterQuantityTwo.setText(
                     String.valueOf(mProjectWorkFurnace.getWater2()));
         }
-        if (mProjectWorkFurnace.getWater3() != 0 ) {
+        if (mProjectWorkFurnace.getWater3() != 0) {
             mDataBinding.rltWaterQuantityThree.setVisibility(View.VISIBLE);
 
             mDataBinding.etuiWaterQuantityThree.setText(
@@ -155,40 +156,94 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         });
 
         // 电量1
-        mDataBinding.etuiElectricQuantityOne.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mDataBinding.etuiElectricQuantityOne.getEtInput().setOnlyOneTextWatcher(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!b) {
-                    float electricity1 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
-                    mProjectWorkFurnace.setElectricity1(electricity1);
-                    calculateElectricityUnitConsumption();
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                float electricity1 = StringUtils.convertStringToFloat(s.toString());
+                mProjectWorkFurnace.setElectricity1(electricity1);
+                calculateElectricityUnitConsumption();
             }
         });
+//        mDataBinding.etuiElectricQuantityOne.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                if (!b) {
+//                    float electricity1 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
+//                    mProjectWorkFurnace.setElectricity1(electricity1);
+//                    calculateElectricityUnitConsumption();
+//                }
+//            }
+//        });
 
         // 电量2
-        mDataBinding.etuiElectricQuantityTwo.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mDataBinding.etuiElectricQuantityTwo.getEtInput().setOnlyOneTextWatcher(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!b) {
-                    float electricity2 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
-                    mProjectWorkFurnace.setElectricity2(electricity2);
-                    calculateElectricityUnitConsumption();
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                float electricity2 = StringUtils.convertStringToFloat(s.toString());
+                mProjectWorkFurnace.setElectricity2(electricity2);
+                calculateElectricityUnitConsumption();
             }
         });
+//        mDataBinding.etuiElectricQuantityTwo.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                if (!b) {
+//                    float electricity2 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
+//                    mProjectWorkFurnace.setElectricity2(electricity2);
+//                    calculateElectricityUnitConsumption();
+//                }
+//            }
+//        });
 
         // 电量3
-        mDataBinding.etuiElectricQuantityThree.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mDataBinding.etuiElectricQuantityThree.getEtInput().setOnlyOneTextWatcher(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!b) {
-                    float electricity3 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
-                    mProjectWorkFurnace.setElectricity3(electricity3);
-                    calculateElectricityUnitConsumption();
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                float electricity3 = StringUtils.convertStringToFloat(s.toString());
+                mProjectWorkFurnace.setElectricity3(electricity3);
+                calculateElectricityUnitConsumption();
             }
         });
+//        mDataBinding.etuiElectricQuantityThree.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                if (!b) {
+//                    float electricity3 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
+//                    mProjectWorkFurnace.setElectricity3(electricity3);
+//                    calculateElectricityUnitConsumption();
+//                }
+//            }
+//        });
 
         // 电量2删除
         mDataBinding.etuiElectricQuantityTwo.getIvIcon().setOnClickListener(new View.OnClickListener() {
@@ -225,40 +280,94 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         });
 
         // 水量1
-        mDataBinding.etuiWaterQuantityOne.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mDataBinding.etuiWaterQuantityOne.getEtInput().setOnlyOneTextWatcher(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!b) {
-                    float water1 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
-                    mProjectWorkFurnace.setWater1(water1);
-                    calculateWaterUnitConsumption();
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                float water1 = StringUtils.convertStringToFloat(s.toString());
+                mProjectWorkFurnace.setWater1(water1);
+                calculateWaterUnitConsumption();
             }
         });
+//        mDataBinding.etuiWaterQuantityOne.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                if (!b) {
+//                    float water1 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
+//                    mProjectWorkFurnace.setWater1(water1);
+//                    calculateWaterUnitConsumption();
+//                }
+//            }
+//        });
 
         // 水量2
-        mDataBinding.etuiWaterQuantityTwo.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mDataBinding.etuiWaterQuantityTwo.getEtInput().setOnlyOneTextWatcher(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!b) {
-                    float water2 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
-                    mProjectWorkFurnace.setWater2(water2);
-                    calculateWaterUnitConsumption();
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                float water2 = StringUtils.convertStringToFloat(s.toString());
+                mProjectWorkFurnace.setWater2(water2);
+                calculateWaterUnitConsumption();
             }
         });
+//        mDataBinding.etuiWaterQuantityTwo.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                if (!b) {
+//                    float water2 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
+//                    mProjectWorkFurnace.setWater2(water2);
+//                    calculateWaterUnitConsumption();
+//                }
+//            }
+//        });
 
         // 水量3
-        mDataBinding.etuiWaterQuantityThree.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mDataBinding.etuiWaterQuantityThree.getEtInput().setOnlyOneTextWatcher(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!b) {
-                    float water3 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
-                    mProjectWorkFurnace.setWater3(water3);
-                    calculateWaterUnitConsumption();
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                float water3 = StringUtils.convertStringToFloat(s.toString());
+                mProjectWorkFurnace.setWater3(water3);
+                calculateWaterUnitConsumption();
             }
         });
+//        mDataBinding.etuiWaterQuantityThree.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                if (!b) {
+//                    float water3 = StringUtils.convertStringToFloat(((EditText) view).getText().toString());
+//                    mProjectWorkFurnace.setWater3(water3);
+//                    calculateWaterUnitConsumption();
+//                }
+//            }
+//        });
 
         // 水量2删除
         mDataBinding.etuiWaterQuantityTwo.getIvIcon().setOnClickListener(new View.OnClickListener() {
@@ -296,7 +405,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         for (int i = 1; i < 25; i++) {
             hourArrayList.add(String.valueOf(i));
         }
-        mBaoPickerDialog.bindWheelViewData(hourArrayList);
+        mBaoPickerDialog.bindWheelViewData(hourArrayList, true, 23);
     }
 
     private ProjectWorkFlowrate createFlowrate() {
@@ -312,15 +421,19 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                 + mProjectWorkFurnace.getElectricity2() + mProjectWorkFurnace.getElectricity3();
 
         float flowAmount = HDUtils.calculateFlowAmount(mIsHeatProduct, mProjectWorkFlowrateArrayList);
+
+        float electircityUnitConsumption = 0;
         if (flowAmount != 0) {
-            float electircityUnitConsumption = electricityAmount / flowAmount;
-            if (mIsHeatProduct) {
-                mDataBinding.tvElectircUnitConsumption.setText(
-                        getString(R.string.kw_per_ton, electircityUnitConsumption));
-            } else {
-                mDataBinding.tvElectircUnitConsumption.setText(
-                        getString(R.string.kw_per_ton_steam, electircityUnitConsumption));
-            }
+            electircityUnitConsumption = electricityAmount / flowAmount;
+        }
+        mProjectWorkFurnace.setElectricitySingleCost(electircityUnitConsumption);
+
+        if (mIsHeatProduct) {
+            mDataBinding.tvElectircUnitConsumption.setText(
+                    getString(R.string.kw_per_ton, electircityUnitConsumption));
+        } else {
+            mDataBinding.tvElectircUnitConsumption.setText(
+                    getString(R.string.kw_per_ton_steam, electircityUnitConsumption));
         }
     }
 
@@ -331,16 +444,19 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                 + mProjectWorkFurnace.getWater2() + mProjectWorkFurnace.getWater3();
 
         float flowAmount = HDUtils.calculateFlowAmount(mIsHeatProduct, mProjectWorkFlowrateArrayList);
-        if (flowAmount != 0) {
-            float waterUnitConsumption = waterAmount / flowAmount;
 
-            if (mIsHeatProduct) {
-                mDataBinding.tvWaterUnitConsumption.setText(
-                        getString(R.string.ton_per_ton, waterUnitConsumption));
-            } else {
-                mDataBinding.tvWaterUnitConsumption.setText(
-                        getString(R.string.ton_per_ton_steam, waterUnitConsumption));
-            }
+        float waterUnitConsumption = 0;
+        if (flowAmount != 0) {
+            waterUnitConsumption = waterAmount / flowAmount;
+        }
+        mProjectWorkFurnace.setWaterSingleCost(waterUnitConsumption);
+
+        if (mIsHeatProduct) {
+            mDataBinding.tvWaterUnitConsumption.setText(
+                    getString(R.string.ton_per_ton, waterUnitConsumption));
+        } else {
+            mDataBinding.tvWaterUnitConsumption.setText(
+                    getString(R.string.ton_per_ton_steam, waterUnitConsumption));
         }
     }
 
@@ -408,6 +524,17 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 //                return;
 //            }
 //        }
+
+        for (ProjectWorkFlowrate projectWorkFlowrate : mProjectWorkFlowrateArrayList) {
+            float closeFlow = projectWorkFlowrate.getEndFlow();
+            float startFlow = projectWorkFlowrate.getBeginFlow();
+
+            if (closeFlow < startFlow) {
+                closeFlow = startFlow;
+                ViewUtils.toast(R.string.close_flow_must_bigger_than_initial_flow);
+                return;
+            }
+        }
 
         // 开炉时长
         mProjectWorkFurnace.setWorkingHour(mSelectHourIndex + 1);
@@ -499,75 +626,173 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                 });
             }
 
-            itemBoilerFlowBinding.etuiInitialFlow.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            itemBoilerFlowBinding.etuiInitialFlow.getEtInput().setOnlyOneTextWatcher(new TextWatcher() {
                 @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (!hasFocus) {
-                        String initialFlowString = ((EditText) v).getText().toString();
-                        float startFlow = StringUtils.convertStringToFloat(initialFlowString);
-                        projectWorkFlowrate.setBeginFlow(startFlow);
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                        if (startFlow > projectWorkFlowrate.getEndFlow()) {
-                            projectWorkFlowrate.setEndFlow(startFlow);
-                            itemBoilerFlowBinding.etuiCloseFlow.setText(String.valueOf(startFlow));
-                        }
+                }
 
-                        float resultFlow = HDUtils.caculateSingleFlow(mIsHeatProduct,
-                                projectWorkFlowrate.getBeginFlow(),
-                                projectWorkFlowrate.getEndFlow());
-                        itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                        refreshUnitConsumption();
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    String initialFlowString = s.toString();
+                    float startFlow = StringUtils.convertStringToFloat(initialFlowString);
+                    projectWorkFlowrate.setBeginFlow(startFlow);
+
+                    if (startFlow > projectWorkFlowrate.getEndFlow()) {
+                        projectWorkFlowrate.setEndFlow(startFlow);
+                        itemBoilerFlowBinding.etuiCloseFlow.setText(String.valueOf(startFlow));
                     }
+
+                    float resultFlow = HDUtils.caculateSingleFlow(mIsHeatProduct,
+                            projectWorkFlowrate.getBeginFlow(),
+                            projectWorkFlowrate.getEndFlow());
+                    itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
+
+                    refreshUnitConsumption();
                 }
             });
+//            itemBoilerFlowBinding.etuiInitialFlow.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//                @Override
+//                public void onFocusChange(View v, boolean hasFocus) {
+//                    if (!hasFocus) {
+//                        String initialFlowString = ((EditText) v).getText().toString();
+//                        float startFlow = StringUtils.convertStringToFloat(initialFlowString);
+//                        projectWorkFlowrate.setBeginFlow(startFlow);
+//
+//                        if (startFlow > projectWorkFlowrate.getEndFlow()) {
+//                            projectWorkFlowrate.setEndFlow(startFlow);
+//                            itemBoilerFlowBinding.etuiCloseFlow.setText(String.valueOf(startFlow));
+//                        }
+//
+//                        float resultFlow = HDUtils.caculateSingleFlow(mIsHeatProduct,
+//                                projectWorkFlowrate.getBeginFlow(),
+//                                projectWorkFlowrate.getEndFlow());
+//                        itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
+//
+//                        refreshUnitConsumption();
+//                    }
+//                }
+//            });
 
-            itemBoilerFlowBinding.etuiCloseFlow.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            itemBoilerFlowBinding.etuiCloseFlow.getEtInput().setOnlyOneTextWatcher(new TextWatcher() {
                 @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (!hasFocus) {
-                        String closeFlowString = ((EditText) v).getText().toString();
-                        float closeFlow = StringUtils.convertStringToFloat(closeFlowString);
-                        float startFlow = projectWorkFlowrate.getBeginFlow();
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                        if (closeFlow < startFlow) {
-                            closeFlow = startFlow;
-                            itemBoilerFlowBinding.etuiCloseFlow.setText(String.valueOf(startFlow));
-                            ViewUtils.toast(R.string.close_flow_must_bigger_than_initial_flow);
-                            return;
-                        }
-                        projectWorkFlowrate.setEndFlow(StringUtils.convertStringToFloat(closeFlowString));
+                }
 
-                        float resultFlow = HDUtils.caculateSingleFlow(mIsHeatProduct,
-                                projectWorkFlowrate.getBeginFlow(),
-                                projectWorkFlowrate.getEndFlow());
-                        itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                        refreshUnitConsumption();
-                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    String closeFlowString = s.toString();
+                    float closeFlow = StringUtils.convertStringToFloat(closeFlowString);
+                    float startFlow = projectWorkFlowrate.getBeginFlow();
+
+//                    if (closeFlow < startFlow) {
+//                        closeFlow = startFlow;
+//                        itemBoilerFlowBinding.etuiCloseFlow.setText(String.valueOf(startFlow));
+//                        ViewUtils.toast(R.string.close_flow_must_bigger_than_initial_flow);
+//                        return;
+//                    }
+                    projectWorkFlowrate.setEndFlow(StringUtils.convertStringToFloat(closeFlowString));
+
+                    float resultFlow = HDUtils.caculateSingleFlow(mIsHeatProduct,
+                            projectWorkFlowrate.getBeginFlow(),
+                            projectWorkFlowrate.getEndFlow());
+                    itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
+
+                    refreshUnitConsumption();
                 }
             });
+//            itemBoilerFlowBinding.etuiCloseFlow.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//                @Override
+//                public void onFocusChange(View v, boolean hasFocus) {
+//                    if (!hasFocus) {
+//                        String closeFlowString = ((EditText) v).getText().toString();
+//                        float closeFlow = StringUtils.convertStringToFloat(closeFlowString);
+//                        float startFlow = projectWorkFlowrate.getBeginFlow();
+//
+//                        if (closeFlow < startFlow) {
+//                            closeFlow = startFlow;
+//                            itemBoilerFlowBinding.etuiCloseFlow.setText(String.valueOf(startFlow));
+//                            ViewUtils.toast(R.string.close_flow_must_bigger_than_initial_flow);
+//                            return;
+//                        }
+//                        projectWorkFlowrate.setEndFlow(StringUtils.convertStringToFloat(closeFlowString));
+//
+//                        float resultFlow = HDUtils.caculateSingleFlow(mIsHeatProduct,
+//                                projectWorkFlowrate.getBeginFlow(),
+//                                projectWorkFlowrate.getEndFlow());
+//                        itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
+//
+//                        refreshUnitConsumption();
+//                    }
+//                }
+//            });
 
-            itemBoilerFlowBinding.etuiAdjustFlow.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            itemBoilerFlowBinding.etuiAdjustFlow.getEtInput().setOnlyOneTextWatcher(new TextWatcher() {
                 @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (!hasFocus) {
-                        String adjustFlowString = ((EditText) v).getText().toString();
-                        projectWorkFlowrate.setAdjustFlow(StringUtils.convertStringToFloat(adjustFlowString));
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                        refreshUnitConsumption();
-                    }
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    String adjustFlowString = s.toString();
+                    projectWorkFlowrate.setAdjustFlow(StringUtils.convertStringToFloat(adjustFlowString));
+
+                    refreshUnitConsumption();
                 }
             });
+//            itemBoilerFlowBinding.etuiAdjustFlow.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//                @Override
+//                public void onFocusChange(View v, boolean hasFocus) {
+//                    if (!hasFocus) {
+//                        String adjustFlowString = ((EditText) v).getText().toString();
+//                        projectWorkFlowrate.setAdjustFlow(StringUtils.convertStringToFloat(adjustFlowString));
+//
+//                        refreshUnitConsumption();
+//                    }
+//                }
+//            });
 
-            itemBoilerFlowBinding.etAjustDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            itemBoilerFlowBinding.etAjustDescription.setOnlyOneTextWatcher(new TextWatcher() {
                 @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (!hasFocus) {
-                        projectWorkFlowrate.setDescription(((EditText) v).getText().toString());
-                    }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    projectWorkFlowrate.setDescription(s.toString());
                 }
             });
+//            itemBoilerFlowBinding.etAjustDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//                @Override
+//                public void onFocusChange(View v, boolean hasFocus) {
+//                    if (!hasFocus) {
+//                        projectWorkFlowrate.setDescription(((EditText) v).getText().toString());
+//                    }
+//                }
+//            });
         }
 
         @Override

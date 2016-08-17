@@ -62,7 +62,7 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
 
     @Override
     protected void setListener() {
-        //上啦加载  有问题
+        //上拉加载  有问题
         mDataBinding.recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -75,7 +75,6 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
                         //    GetUserMessageListRequset(mPageIndex);
                         mAdapter.notifyDataSetChanged();
                     }
-
                 }
             }
         });
@@ -89,17 +88,14 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
         for (String str : lists) {
             mArrayList.add(str);
         }
-
     }
 
     //跳转到对应页面的
     private void toHistoryDataListActivity(View view) {
         int position = mDataBinding.recyclerView.getChildAdapterPosition(view);
-        int projectID = mProjectList.get(position).getProjectID();
-        String projectName = mProjectList.get(position).getProjectName();
+        ProjectWork projectWork = mProjectList.get(position);
         Intent intent = new Intent(this, HistoryDataListActivity.class);
-        intent.putExtra(Constants.KEY_HISTORY_DATE_NAME, projectName);
-        intent.putExtra(Constants.KEY_HISTORY_DATE_PROJECT_ID, projectID);
+        intent.putExtra(Constants.KEY_HISTORY_DATE_PROJECT, projectWork);
         startActivity(intent);
     }
 
@@ -144,7 +140,6 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
     //region ADAPTER
     public class HistoryDateAdapter extends RecyclerView.Adapter<HistoryDateAdapter.MyViewHolder> {
 
-
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(HistoryDataStaticsActivity.this)
@@ -165,8 +160,8 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
             }
 
             ProjectWork projectWork = mProjectList.get(position);
-            holder.itemHistoryDatastaticsBinding.tvTitles.setText(mProjectList.get(position).getProjectName());
-            holder.itemHistoryDatastaticsBinding.tvQuestion.setText(mProjectList.get(position).getRemark());
+            holder.itemHistoryDatastaticsBinding.tvTitles.setText(projectWork.getProjectName());
+            holder.itemHistoryDatastaticsBinding.tvQuestion.setText(projectWork.getRemark());
             holder.itemHistoryDatastaticsBinding.tvProfit.setText(projectWork.getExpenseDetail());
 
             if (projectWork.getSaleType().equals(getString(R.string.steam))) {
@@ -176,7 +171,7 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
                         getString(R.string.kg_per_ton_steam, projectWork.getFuelCost()));
                 // 单耗
                 holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(
-                        getString(R.string.kg_per_ton_steam, mProjectList.get(position).getDayFuelCost()));
+                        getString(R.string.kg_per_ton_steam, projectWork.getDayFuelCost()));
                 // 电单耗
                 holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(
                         getString(R.string.kw_per_ton_steam, projectWork.getDayElectricityCost()));
@@ -190,7 +185,7 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
                         getString(R.string.kg_per_ton, projectWork.getFuelCost()));
                 // 单耗
                 holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(
-                        getString(R.string.kg_per_ton, mProjectList.get(position).getDayFuelCost()));
+                        getString(R.string.kg_per_ton, projectWork.getDayFuelCost()));
                 // 电单耗
                 holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(
                         getString(R.string.kw_per_ton, projectWork.getDayElectricityCost()));

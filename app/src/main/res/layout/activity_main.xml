@@ -1,8 +1,7 @@
-<android.support.v4.widget.DrawerLayout
-    android:id="@+id/id_drawerLayout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_31C967">
@@ -27,9 +26,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:text="@string/app_name"
                 android:textColor="@color/color_white"
-                android:textSize="@dimen/text_size_18"
-                tools:text="Toolbar Title"/>
+                android:textSize="@dimen/text_size_18" />
 
             <TextView
                 android:id="@+id/tvRight"
@@ -37,7 +36,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/nav_icon_announcemen"/>
+                android:background="@drawable/nav_icon_announcemen"
+                android:onClick="onClick" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -54,8 +54,7 @@
                 android:layout_height="@dimen/size_216"
                 android:layout_marginBottom="@dimen/margin_14"
                 android:background="@color/color_999999"
-                app:bb_scale="0.8"/>
-
+                app:bb_scale="0.8" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,23 +82,21 @@
                         android:layout_weight="1"
                         android:background="@drawable/home_bg"
                         android:gravity="center"
-                        android:orientation="vertical"
-
-
-                        >
+                        android:onClick="onClick"
+                        android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/size_22"
-                            android:src="@drawable/home_data"/>
+                            android:src="@drawable/home_data" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/data_report"
                             android:textColor="@color/color_404040"
-                            android:textSize="@dimen/margin_16"/>
+                            android:textSize="@dimen/margin_16" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -110,20 +107,21 @@
                         android:layout_weight="1"
                         android:background="@drawable/home_bg"
                         android:gravity="center"
+                        android:onClick="onClick"
                         android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/size_22"
-                            android:src="@drawable/home_attendance"/>
+                            android:src="@drawable/home_attendance" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/attendance_report"
                             android:textColor="@color/color_404040"
-                            android:textSize="@dimen/margin_16"/>
+                            android:textSize="@dimen/margin_16" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -144,20 +142,21 @@
                         android:layout_weight="1"
                         android:background="@drawable/home_bg"
                         android:gravity="center"
+                        android:onClick="onClick"
                         android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/size_22"
-                            android:src="@drawable/home_project"/>
+                            android:src="@drawable/home_project" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/project_start_stop"
                             android:textColor="@color/color_404040"
-                            android:textSize="@dimen/margin_16"/>
+                            android:textSize="@dimen/margin_16" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -168,24 +167,23 @@
                         android:layout_weight="1"
                         android:background="@drawable/home_bg"
                         android:gravity="center"
+                        android:onClick="onClick"
                         android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/size_22"
-                            android:src="@drawable/home_suggest"/>
+                            android:src="@drawable/home_suggest" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/resonable_suggest"
                             android:textColor="@color/color_404040"
-                            android:textSize="@dimen/margin_16"/>
+                            android:textSize="@dimen/margin_16" />
                     </LinearLayout>
-
                 </LinearLayout>
-
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -196,7 +194,7 @@
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="left"
-        android:tag="LEFT"/>
-
+        android:tag="LEFT"
+        tools:layout="@layout/fragment_left_menu" />
 
 </android.support.v4.widget.DrawerLayout>

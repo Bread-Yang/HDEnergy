@@ -82,7 +82,7 @@
                 <TextView
                     android:id="@+id/tvAttendanceStatus"
                     style="@style/WithArrowIconTextStyle"
-                    android:text="@string/normal"
+                    tools:text="@string/normal"
                     android:textSize="@dimen/text_size_16" />
 
             </RelativeLayout>

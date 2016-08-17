@@ -107,7 +107,7 @@
                 style="@style/DimTextStyle"
                 android:text="@string/adjustment_description" />
 
-            <EditText
+            <com.mdground.hdenergy.views.ExtendedEditText
                 android:id="@+id/etAjustDescription"
                 style="@style/WithArrowEdittextStyle"
                 android:layout_marginLeft="@dimen/margin_8"

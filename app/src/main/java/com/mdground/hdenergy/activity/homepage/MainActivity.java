@@ -9,114 +9,66 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.advice.ReasonableAdviceActivity;
 import com.mdground.hdenergy.activity.attendancereport.AttendanceReportActivity;
 import com.mdground.hdenergy.activity.bulletin.BulletinListActivity;
 import com.mdground.hdenergy.activity.datareport.DataReportActivity;
 import com.mdground.hdenergy.activity.projectstartstop.ProjectStartStopActivity;
-import com.mdground.hdenergy.models.BannerItem;
+import com.mdground.hdenergy.models.Bulletin;
+import com.mdground.hdenergy.models.MDImage;
+import com.mdground.hdenergy.restfuls.GlobalRestful;
+import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.views.SimpleImageBanner;
 import com.nineoldandroids.view.ViewHelper;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
-    private View mTitleBar;
     private Toolbar mToolbar;
-    private TextView tvTitle, tvRight;
-    private LinearLayout lltDateReport, lltAttendanceReport;
-    private ArrayList<BannerItem> mArrayList = new ArrayList<>();
-    public static SimpleImageBanner mSimpleImageBanner;
     private DrawerLayout mDrawerLayout;
-    private boolean mIsOpen;
+    private ArrayList<Bulletin> mBulletinArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
+        initView();
+        initData();
+        setListener();
+    }
+
+    private void initView() {
         mToolbar = (Toolbar) findViewById(R.id.toolbars);
-        // 左边返回键
+        // 左边按钮
         mToolbar.setNavigationIcon(R.drawable.nav_icon_menu);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OpenMenu();
+                openMenu();
             }
         });
 
-        // 标题
-        tvTitle = ((TextView) mToolbar.findViewById(R.id.tvTitle));
-        tvTitle.setText(R.string.app_name);
-        SimpleImageBanner sib = (SimpleImageBanner) findViewById(R.id.simpleImageBanner);
-        getUsertGuides();
-        sib.setSource(mArrayList)
-                .startScroll();                  //获取图片列表并滚动
-        findViewById(R.id.tvRight).setOnClickListener(this);
-        mSimpleImageBanner = (SimpleImageBanner) findViewById(R.id.simpleImageBanner);
-        lltDateReport = (LinearLayout) findViewById(R.id.lltDateReport);
-        lltDateReport.setOnClickListener(this);
-        lltAttendanceReport = (LinearLayout) findViewById(R.id.lltAttendanceReport);
-        lltAttendanceReport.setOnClickListener(this);
-        findViewById(R.id.lltProjectStartStop).setOnClickListener(this);
-        findViewById(R.id.lltReasonableAdvice).setOnClickListener(this);
-
-        initView();
-        initEvents();
-
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,
+                Gravity.RIGHT);
+        mDrawerLayout.setScrimColor(0x00ffffff);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tvRight: {
-                Intent intent = new Intent(this, BulletinListActivity.class);
-                startActivity(intent);
-                break;
-            }
-
-            case R.id.lltDateReport: {
-
-                Intent intent = new Intent(this, DataReportActivity.class);
-                startActivity(intent);
-
-
-                break;
-            }
-
-            case R.id.lltAttendanceReport: {
-                Intent intent = new Intent(this, AttendanceReportActivity.class);
-                startActivity(intent);
-                break;
-            }
-
-            case R.id.lltProjectStartStop: {
-                Intent intent = new Intent(this, ProjectStartStopActivity.class);
-                startActivity(intent);
-                break;
-            }
-
-            case R.id.lltReasonableAdvice: {
-                Intent intent = new Intent(this, ReasonableAdviceActivity.class);
-                startActivity(intent);
-                break;
-            }
-
-        }
+    private void initData() {
+        getBulletinListRequest();
     }
 
-    public void OpenMenu() {
-        mDrawerLayout.openDrawer(Gravity.LEFT);
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED,
-                Gravity.LEFT);
-    }
-
-    private void initEvents() {
+    private void setListener() {
         mDrawerLayout.setDrawerListener(new DrawerListener() {
             @Override
             public void onDrawerStateChanged(int newState) {
@@ -160,20 +112,83 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         });
     }
 
-    private void initView() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawerLayout);
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,
-                Gravity.RIGHT);
-        mDrawerLayout.setScrimColor(0x00ffffff);
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tvRight: {
+                Intent intent = new Intent(this, BulletinListActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+            case R.id.lltDateReport: {
+
+                Intent intent = new Intent(this, DataReportActivity.class);
+                startActivity(intent);
+
+
+                break;
+            }
+
+            case R.id.lltAttendanceReport: {
+                Intent intent = new Intent(this, AttendanceReportActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+            case R.id.lltProjectStartStop: {
+                Intent intent = new Intent(this, ProjectStartStopActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+            case R.id.lltReasonableAdvice: {
+                Intent intent = new Intent(this, ReasonableAdviceActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+        }
     }
 
-    //没有网络广告的时候
-    public void getUsertGuides() {
-        BannerItem bannerItem = new BannerItem();
-        bannerItem.setmLoadImage(R.drawable.home_banner);
-        mArrayList.add(bannerItem);
-        BannerItem bannerItem1 = new BannerItem();
-        bannerItem1.setmLoadImage(R.drawable.home_banners);
-        mArrayList.add(bannerItem1);
+    public void openMenu() {
+        mDrawerLayout.openDrawer(Gravity.LEFT);
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED,
+                Gravity.LEFT);
     }
+
+    private void getBulletinListRequest() {
+        GlobalRestful.getInstance().GetBulletinList(new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                mBulletinArrayList = response.body().getContent(new TypeToken<ArrayList<Bulletin>>() {
+                });
+
+                ArrayList<MDImage> mdImageArrayList = new ArrayList<>();
+
+                for (int i = 0; i < mBulletinArrayList.size(); i++) {
+                    Bulletin bulletin = mBulletinArrayList.get(i);
+                    if (i < 5) {
+                        MDImage mdImage = new MDImage();
+
+                        mdImage.setPhotoID(bulletin.getPhotoID());
+                        mdImage.setPhotoSID(bulletin.getPhotoSID());
+
+                        mdImageArrayList.add(mdImage);
+                    } else {
+                        break;
+                    }
+                }
+
+                SimpleImageBanner sib = (SimpleImageBanner) findViewById(R.id.simpleImageBanner);
+                sib.setSource(mdImageArrayList).startScroll();                  //获取图片列表并滚动
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

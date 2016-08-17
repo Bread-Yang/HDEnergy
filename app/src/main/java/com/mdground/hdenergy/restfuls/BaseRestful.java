@@ -54,10 +54,10 @@ public abstract class BaseRestful {
         @POST("api/RpcService.ashx/")
         Call<ResponseData> normalRequest(@Body RequestBody requestBody);  // 普通接口请求地址
 
-        @POST("Api/RpcInternalService.ashx/")
+        @POST("api/RpcService.ashx/")
         Call<ResponseData> fileRequest(@Body RequestBody requestBody);    // 图片请求地址
 
-        @POST("Api/RpcInternalService.ashx/")
+        @POST("api/RpcService.ashx/")
         Call<ResponseData> imageUploadRequest(@Body ProgressRequestBody requestBody);    // 图片请求地址
 
 //        @POST("Api/RShareWorkPhoto.aspx/")
@@ -92,6 +92,15 @@ public abstract class BaseRestful {
 //
 //            builder = builder.client(httpClient.build());
         } else {    // 其他普通请求需要加密
+//            OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+//            httpClientBuilder.connectTimeout(60, TimeUnit.SECONDS);
+//            httpClientBuilder.interceptors().add(new DecryptedPayloadInterceptor());  //请求前加密,返回前解密
+//
+//            builder = builder.client(httpClientBuilder.build());
+        }
+
+        // 改成所有请求都要加密
+        {
             OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
             httpClientBuilder.connectTimeout(60, TimeUnit.SECONDS);
             httpClientBuilder.interceptors().add(new DecryptedPayloadInterceptor());  //请求前加密,返回前解密

@@ -93,27 +93,12 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
         if (mUserAttendance == null) {
             mUserAttendance = new UserAttendance();
-        } else {
-
         }
-
         getUserContactListRequest();
         getProjectCategoryListRequest(0);
 
         initTimePickerDialog();
         mBaoPickerDialog = new BaoPickerDialog(this);
-
-        // 默认上班时间,早上9点
-        Date previousStartWorkDate = DateUtils.previousDate(new Date(), 9);
-        mStartTime = previousStartWorkDate.getTime();
-        mDataBinding.tvStartTime.setText(DateUtils.getYearMonthDayHourMinuteWithDash(previousStartWorkDate));
-
-        // 默认下班时间,下午17点
-        Date previousEndWorkDate = DateUtils.previousDate(new Date(), 17);
-        mEndTime = previousEndWorkDate.getTime();
-        mDataBinding.tvEndTime.setText(DateUtils.getYearMonthDayHourMinuteWithDash(previousEndWorkDate));
-
-        calculateManHours();
 
         // 上班状态数据
         String[] attendanceStatusStrings = getResources().getStringArray(R.array.attendance_status_array);
@@ -122,9 +107,62 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
         for (int i = 0; i < attendanceStatusStrings.length - 1; i++) {
             mAttendanceStatusArrayList.add(attendanceStatusStrings[i]);
         }
-//        Collections.addAll(mAttendanceStatusArrayList, attendanceStatusStrings);
 
-    }
+        // 工作状态
+        mSelectAttendanceStatus = mUserAttendance.getStatus();
+        mDataBinding.tvAttendanceStatus.setText(mAttendanceStatusArrayList.get(mUserAttendance.getStatus()));
+
+        // 上班时间
+        String startTime = mUserAttendance.getBeginTime();
+        if (StringUtils.isEmpty(startTime)) {
+            // 默认上班时间,早上9点
+            Date previousStartWorkDate = DateUtils.previousDate(new Date(), 9);
+            mStartTime = previousStartWorkDate.getTime();
+            mDataBinding.tvStartTime.setText(DateUtils.getYearMonthDayHourMinuteWithDash(previousStartWorkDate));
+        } else {
+            mStartTime = DateUtils.getDateByServerDateString(startTime).getMillis();
+            mDataBinding.tvStartTime.setText(startTime.substring(0, startTime.length() - 3));
+        }
+
+        // 下班时间
+        String endTime = mUserAttendance.getEndTime();
+        if (StringUtils.isEmpty(endTime)) {
+            // 默认下班时间,下午17点
+            Date previousEndWorkDate = DateUtils.previousDate(new Date(), 17);
+            mEndTime = previousEndWorkDate.getTime();
+            mDataBinding.tvEndTime.setText(DateUtils.getYearMonthDayHourMinuteWithDash(previousEndWorkDate));
+        } else {
+            mEndTime = DateUtils.getDateByServerDateString(endTime).getMillis();
+            mDataBinding.tvEndTime.setText(endTime.substring(0, endTime.length() - 3));
+        }
+
+        // 工时
+        calculateManHours();
+
+        // 加班时间
+        mDataBinding.etOverTimeHour.setText(String.valueOf(mUserAttendance.getOverTime()));
+
+        // 加班事由
+        mDataBinding.etOverTimeReason.setText(String.valueOf(mUserAttendance.getOverTimeReason()));
+
+        // 出差地点
+        mDataBinding.etBusinessTripLocation.setText(mUserAttendance.getBusinessAddress());
+
+        // 交通费
+        mDataBinding.etuiTransportationFare.setText(String.valueOf(mUserAttendance.getTransportation()));
+
+        // 交通耗时
+        mDataBinding.etuiTransportationTimeconsuming.setText(String.valueOf(mUserAttendance.getTrafficTime()));
+
+        // 住宿费
+        mDataBinding.etuiAccommodationFee.setText(String.valueOf(mUserAttendance.getAccommodationFee()));
+
+        // 其他问题
+        mDataBinding.etOtherProblem.setText(mUserAttendance.getRemark());
+
+        // 打分
+        mDataBinding.etScore.setText(String.valueOf(mUserAttendance.getScore()));
+      }
 
     @Override
     protected void setListener() {
@@ -444,10 +482,18 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
                 });
 
                 UserInfo userInfo = MDGroundApplication.sInstance.getLoginUser();
+
+                String userDepartmentName = userInfo.getDepartment();
+                String oldDepartment = mUserAttendance.getDepartment();
+
+                if (StringUtils.isEmpty(oldDepartment)) {
+                    oldDepartment = userDepartmentName;
+                }
+
                 for (int i = 0; i < mDepartmentArrayList.size(); i++) {
                     Department department = mDepartmentArrayList.get(i);
 
-                    if (department.getDepartmentName().equals(userInfo.getDepartment())) {
+                    if (department.getDepartmentName().equals(oldDepartment)) {
                         mSelectDepartment = i;
                         mDataBinding.tvDepartment.setText(department.getDepartmentName());
                         break;
@@ -475,7 +521,17 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 mProjectArrayList = response.body().getContent(new TypeToken<ArrayList<Project>>() {
                 });
-                mDataBinding.tvProject.setText(mProjectArrayList.get(0).getProjectName());
+
+                int projectID = mUserAttendance.getProjectID();
+
+                for (int i = 0; i < mProjectArrayList.size(); i++) {
+                    if (mProjectArrayList.get(i).getProjectID() == projectID) {
+                        mSelectProjectIndex = i;
+                        break;
+                    }
+                }
+
+                mDataBinding.tvProject.setText(mProjectArrayList.get(mSelectProjectIndex).getProjectName());
 
                 getUserListByDepartmentRequest();
             }
@@ -555,16 +611,38 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
                     });
 
                     if (mProjectCategoryArrayList.size() > 0) {
-                        ProjectCategory firstCategory = mProjectCategoryArrayList.get(0);
-                        mDataBinding.tvCategory.setText(firstCategory.getCategoryName());
-                        getProjectCategoryListRequest(mProjectCategoryArrayList.get(0).getCategoryID());
+                        ProjectCategory setCategory = mProjectCategoryArrayList.get(0);
+
+                        int categoryId = mUserAttendance.getCategoryID1();
+
+                        for (int i = 0; i < mProjectCategoryArrayList.size(); i++) {
+                            if (categoryId == mProjectCategoryArrayList.get(i).getCategoryID()) {
+                                mSelectCategoryIndex = i;
+                                setCategory = mProjectCategoryArrayList.get(i);
+                                break;
+                            }
+                        }
+
+                        mDataBinding.tvCategory.setText(setCategory.getCategoryName());
+                        getProjectCategoryListRequest(setCategory.getCategoryID());
                     }
                 } else {
                     mProjectContentArrayList = response.body().getContent(new TypeToken<ArrayList<ProjectCategory>>() {
                     });
                     if (mProjectContentArrayList.size() > 0) {
-                        ProjectCategory firstContent = mProjectContentArrayList.get(0);
-                        mDataBinding.tvContent.setText(firstContent.getCategoryName());
+                        ProjectCategory setContent = mProjectContentArrayList.get(0);
+
+                        int contentId = mUserAttendance.getCategoryID2();
+
+                        for (int i = 0; i < mProjectContentArrayList.size(); i++) {
+                            if (contentId == mProjectContentArrayList.get(i).getCategoryID()) {
+                                mSelectContentIndex = i;
+                                setContent = mProjectContentArrayList.get(i);
+                                break;
+                            }
+                        }
+
+                        mDataBinding.tvContent.setText(setContent.getCategoryName());
                     }
                 }
             }

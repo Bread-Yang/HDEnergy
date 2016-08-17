@@ -25,6 +25,7 @@ import com.mdground.hdenergy.models.UserInfo;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.DateUtils;
+import com.mdground.hdenergy.utils.GlideUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 
 import org.joda.time.DateTime;
@@ -362,7 +363,7 @@ public class HistoryAttendanceStaticsActivity extends Activity
         public void onBindViewHolder(ViewHolder holder, final int position) {
             final UserAttendance userAttendance = mShowAttendanceArrayList.get(position);
 
-            holder.viewDataBinding.tvAttendanceReason.setText(userAttendance.getCategoryName2());
+            holder.viewDataBinding.tvAttendanceReason.setText(userAttendance.getUserName());
 
             DateTime beginTime = DateUtils.getDateByServerDateString(userAttendance.getBeginTime());
             DateTime endTime = DateUtils.getDateByServerDateString(userAttendance.getEndTime());
@@ -399,7 +400,7 @@ public class HistoryAttendanceStaticsActivity extends Activity
             }
 
             // 头像
-//            GlideUtils.loadImageByPhotoSID(holder.viewDataBinding.civAvatar, userAttendance.getPhotoSID(), false);
+            GlideUtils.loadImageByPhotoSID(holder.viewDataBinding.civAvatar, userAttendance.getPhotoSID(), false);
 
             holder.viewDataBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -58,7 +57,7 @@ public class EdittextWithUnitIcon extends LinearLayout {
         mDataBinding.etInput.setText(text);
     }
 
-    public EditText getEtInput() {
+    public ExtendedEditText getEtInput() {
         return mDataBinding.etInput;
     }
 

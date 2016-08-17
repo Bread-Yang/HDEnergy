@@ -37,7 +37,9 @@ public class UserAttendance implements Parcelable{
     private String UserName;
 
     public UserAttendance() {
-
+        OverTimeReason = "";
+        OverTimeReason = "";
+        Remark = "";
     }
 
     protected UserAttendance(Parcel in) {

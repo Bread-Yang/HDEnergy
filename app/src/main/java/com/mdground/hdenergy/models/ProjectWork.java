@@ -23,9 +23,9 @@ public class ProjectWork implements Parcelable {
     private String UserName;
     private int WorkID;
     private float DayElectricityCost;  //电耗（电单耗）---新增
-    private float DayWaterCost;  // 水耗（水单耗）
-    private float DayFuelCost;   // 单耗（燃料单耗）
-    private float FuelCost;//标准燃料单耗
+    private float DayWaterCost;     // 水耗（水单耗）
+    private float DayFuelCost;      // 单耗（燃料单耗）
+    private float FuelCost;         //标准燃料单耗
 
     protected ProjectWork(Parcel in) {
         CreatedTime = in.readString();
@@ -42,7 +42,7 @@ public class ProjectWork implements Parcelable {
         DayElectricityCost = in.readFloat();
         DayWaterCost = in.readFloat();
         DayFuelCost = in.readFloat();
-        FuelCost = in.readInt();
+        FuelCost = in.readFloat();
     }
 
     public static final Creator<ProjectWork> CREATOR = new Creator<ProjectWork>() {

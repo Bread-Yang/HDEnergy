@@ -67,9 +67,9 @@
 
                 <TextView
                     android:id="@+id/tvSaleProduct"
-                    style="@style/WithArrowIconTextStyle"
+                    style="@style/AlignRightTextStyle"
+                    android:layout_marginRight="@dimen/margin_24"
                     tools:text="蒸汽" />
-
             </RelativeLayout>
 
             <TextView

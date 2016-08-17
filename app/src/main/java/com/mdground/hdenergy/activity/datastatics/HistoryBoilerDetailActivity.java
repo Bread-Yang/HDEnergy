@@ -17,6 +17,7 @@ import com.mdground.hdenergy.databinding.ItemHistoryBoilerFlowBinding;
 import com.mdground.hdenergy.models.ProjectWorkFlowrate;
 import com.mdground.hdenergy.models.ProjectWorkFuel;
 import com.mdground.hdenergy.models.ProjectWorkFurnace;
+import com.mdground.hdenergy.utils.HDUtils;
 import com.mdground.hdenergy.views.WorkFuelListView;
 
 import java.text.DecimalFormat;
@@ -36,7 +37,7 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
     private ArrayList<ProjectWorkFlowrate> mFlowArrayList = new ArrayList<>();
     private ArrayList<ProjectWorkFuel> mFuelArrayList = new ArrayList<>();
     private double mFlowAmount;
-    private String mSaleType;
+    private boolean mIsHeatProduct;
 
     @Override
     protected int getContentLayout() {
@@ -48,15 +49,18 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         mProjectWorkFurnace = bundle.getParcelable(Constants.KEY_BOILERR_PROJECT);
+
         String title = mProjectWorkFurnace.getFurnaceName();
         String reportName = bundle.getString(Constants.KEY_HISTORY_DATE_NAME);
-        mSaleType = bundle.getString(Constants.KEY_SALE_TYPE);
+        String saleType = bundle.getString(Constants.KEY_SALE_TYPE);
         setTitle(title);
         mDataBinding.tvReportName.setText(reportName);
-        mDataBinding.tvSaleType.setText(mSaleType);
+        mDataBinding.tvSaleType.setText(saleType);
+
+        mIsHeatProduct = saleType.equals(getString(R.string.heating_power));
 
         //为热力时，水量布局消失
-        if (mSaleType.equals(getString(R.string.heating_power))) {
+        if (mIsHeatProduct) {
             mDataBinding.lltWater.setVisibility(View.GONE);
         }
 
@@ -74,7 +78,7 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
         if (mFlowArrayList != null) {
             for (int i = 0; i < mFlowArrayList.size(); i++) {
                 double flow;
-                if (mSaleType.equals(getString(R.string.heating_power))) {
+                if (mIsHeatProduct) {
                     flow = (mFlowArrayList.get(i).getEndFlow() - mFlowArrayList.get(i).getBeginFlow()) * 23.8845 / 60;
                 } else {
                     flow = (mFlowArrayList.get(i).getEndFlow() - mFlowArrayList.get(i).getBeginFlow()) * 23.8845 / 60;
@@ -115,11 +119,66 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
         mDataBinding.tvElectirc1.setText(mProjectWorkFurnace.getElectricity1() + getString(R.string.electric_unit));
         mDataBinding.tvElectricity2.setText(mProjectWorkFurnace.getElectricity2() + getString(R.string.electric_unit));
         mDataBinding.tvElectricity3.setText(mProjectWorkFurnace.getElectricity3() + getString(R.string.electric_unit));
-        mDataBinding.tvElectricitySingleCost.setText(mProjectWorkFurnace.getElectricitySingleCost() + getString(R.string.electric_unit) + getString(R.string.zen_ton));
+
         mDataBinding.tvWater1.setText(mProjectWorkFurnace.getWater1() + getString(R.string.ton));
         mDataBinding.tvWater2.setText(mProjectWorkFurnace.getWater2() + getString(R.string.ton));
         mDataBinding.tvWater3.setText(mProjectWorkFurnace.getWater3() + getString(R.string.ton));
-        mDataBinding.tvWaterSingleCost.setText(mProjectWorkFurnace.getWaterSingleCost() + getString(R.string.ton) + getString(R.string.zen_ton));
+
+        if (mIsHeatProduct) {
+            mDataBinding.tvElectricitySingleCost.setText(
+                    getString(R.string.kw_per_ton, mProjectWorkFurnace.getElectricitySingleCost()));
+            mDataBinding.tvWaterSingleCost.setText(
+                    getString(R.string.ton_per_ton, mProjectWorkFurnace.getWaterSingleCost()));
+        } else {
+            mDataBinding.tvElectricitySingleCost.setText(
+                    getString(R.string.kw_per_ton_steam, mProjectWorkFurnace.getElectricitySingleCost()));
+            mDataBinding.tvWaterSingleCost.setText(
+                    getString(R.string.ton_per_ton_steam, mProjectWorkFurnace.getWaterSingleCost()));
+        }
+    }
+
+    // 计算电单耗, 电单耗 = 电量总和 / 流量
+    private void calculateElectricityUnitConsumption() {
+        // 电量总和
+        float electricityAmount = mProjectWorkFurnace.getElectricity1()
+                + mProjectWorkFurnace.getElectricity2() + mProjectWorkFurnace.getElectricity3();
+
+        float flowAmount = HDUtils.calculateFlowAmount(mIsHeatProduct, mProjectWorkFurnace.getProjectWorkFlowrateList());
+
+        float electircityUnitConsumption = 0;
+        if (flowAmount != 0) {
+            electircityUnitConsumption = electricityAmount / flowAmount;
+        }
+
+        if (mIsHeatProduct) {
+            mDataBinding.tvElectricitySingleCost.setText(
+                    getString(R.string.kw_per_ton, electircityUnitConsumption));
+        } else {
+            mDataBinding.tvElectricitySingleCost.setText(
+                    getString(R.string.kw_per_ton_steam, electircityUnitConsumption));
+        }
+    }
+
+    // 计算水单耗, 若销售产品为热力，则没有该选项，水单耗等于水量总和 / 流量
+    private void calculateWaterUnitConsumption() {
+        // 水量总和
+        float waterAmount = mProjectWorkFurnace.getWater1()
+                + mProjectWorkFurnace.getWater2() + mProjectWorkFurnace.getWater3();
+
+        float flowAmount = HDUtils.calculateFlowAmount(mIsHeatProduct, mProjectWorkFurnace.getProjectWorkFlowrateList());
+
+        float waterUnitConsumption = 0;
+        if (flowAmount != 0) {
+            waterUnitConsumption = waterAmount / flowAmount;
+        }
+
+        if (mIsHeatProduct) {
+            mDataBinding.tvWaterSingleCost.setText(
+                    getString(R.string.ton_per_ton, waterUnitConsumption));
+        } else {
+            mDataBinding.tvWaterSingleCost.setText(
+                    getString(R.string.ton_per_ton_steam, waterUnitConsumption));
+        }
     }
 
     private boolean isHeader(int positon) {
@@ -152,7 +211,7 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
             holder.viewDataBinding.tvBeginFlow.setText(String.valueOf(projectWorkFlowrate.getBeginFlow()));
             holder.viewDataBinding.tvEndFlow.setText(String.valueOf(projectWorkFlowrate.getEndFlow()));
             double flow;
-            if (mSaleType.equals(getString(R.string.heating_power))) {
+            if (mIsHeatProduct) {
                 flow = (projectWorkFlowrate.getEndFlow() - projectWorkFlowrate.getBeginFlow()) * 23.8845 / 60;
             } else {
                 flow = (projectWorkFlowrate.getEndFlow() - projectWorkFlowrate.getBeginFlow());

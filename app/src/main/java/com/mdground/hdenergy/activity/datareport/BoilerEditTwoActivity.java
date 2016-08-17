@@ -4,10 +4,11 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.google.gson.reflect.TypeToken;
 import com.mdground.hdenergy.R;
@@ -27,6 +28,7 @@ import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import kankan.wheel.widget.OnWheelScrollListener;
@@ -171,8 +173,37 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
         ProjectFuelWarehouse projectFuelWarehouse = new ProjectFuelWarehouse();
         projectFuelWarehouse.setFuelName(projectWorkFuel.getFuelName());
         projectFuelWarehouse.setProjectID(mProjectWorkFurnace.getProjectID());
+        projectFuelWarehouse.setSupplier("");
+        projectFuelWarehouse.setPlateNumber("");
 
         return projectFuelWarehouse;
+    }
+
+    private void refreshFuelConsumption(FuelViewHolder fuelViewHolder, ProjectWorkFuel projectWorkFuel) {
+        // 计算该燃料的总进料量
+        float warehouseAmount = 0;
+        for (ProjectFuelWarehouse item : projectWorkFuel.getProjectFuelWarehouseList()) {
+            warehouseAmount += item.getAmount();
+        }
+
+        // 燃料耗量 = 进料量 + 上期库存 - 本期库存
+        float fuelConsumption = warehouseAmount + projectWorkFuel.getPreviousInventory()
+                - projectWorkFuel.getCurrentInventory();
+
+        // 燃料单耗 = 燃料耗量 / 流量 * 1000
+        float fuelUniConsumption = fuelConsumption / mFlowAmount * 1000;
+
+        if (mIsHeatProduct) {
+            fuelViewHolder.viewDataBinding.tvFuelConsumption.setText(
+                    getString(R.string.kg_per_ton, fuelConsumption));
+            fuelViewHolder.viewDataBinding.tvFuelUnitConsumption.setText(
+                    getString(R.string.kg_per_ton, fuelUniConsumption));
+        } else {
+            fuelViewHolder.viewDataBinding.tvFuelConsumption.setText(
+                    getString(R.string.kg_per_ton_steam, fuelConsumption));
+            fuelViewHolder.viewDataBinding.tvFuelUnitConsumption.setText(
+                    getString(R.string.kg_per_ton_steam, fuelUniConsumption));
+        }
     }
 
     //region  ACTION
@@ -185,11 +216,22 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
             List<ProjectFuelWarehouse> projectFuelWarehouseArrayList = projectWorkFuel.getProjectFuelWarehouseList();
 
-            for (ProjectFuelWarehouse projectFuelWarehouse : projectFuelWarehouseArrayList) {
-                if (StringUtils.isEmpty(projectFuelWarehouse.getSupplier())
-                        || StringUtils.isEmpty(projectFuelWarehouse.getPlateNumber())) {
-                    ViewUtils.toast(R.string.fill_feedstock_info);
-                    return;
+            // 进料量不是必填项
+//            for (ProjectFuelWarehouse projectFuelWarehouse : projectFuelWarehouseArrayList) {
+//                if (StringUtils.isEmpty(projectFuelWarehouse.getSupplier())
+//                        || StringUtils.isEmpty(projectFuelWarehouse.getPlateNumber())) {
+//                    ViewUtils.toast(R.string.fill_feedstock_info);
+//                    return;
+//                }
+//            }
+            Iterator<ProjectFuelWarehouse> iterator = projectFuelWarehouseArrayList.iterator();
+            while (iterator.hasNext()) {
+                ProjectFuelWarehouse item = iterator.next();
+
+                if (StringUtils.isEmpty(item.getSupplier())
+                        && StringUtils.isEmpty(item.getPlateNumber())
+                        && item.getAmount() == 0) {
+                    iterator.remove();
                 }
             }
         }
@@ -237,17 +279,17 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
     //endregion
 
     //region ADAPTER
-    class FuelAdapter extends RecyclerView.Adapter<FuelAdapter.ViewHolder> {
+    class FuelAdapter extends RecyclerView.Adapter<FuelViewHolder> {
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public FuelViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_boiler_fuel, parent, false);
-            return new ViewHolder(itemView);
+            return new FuelViewHolder(itemView);
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, final int position) {
+        public void onBindViewHolder(final FuelViewHolder holder, final int position) {
             final ProjectWorkFuel projectWorkFuel = mProjectWorkFuelArrayList.get(position);
             holder.viewDataBinding.setFuel(projectWorkFuel);
 
@@ -256,7 +298,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
             holder.viewDataBinding.recyclerView.setLayoutManager(layoutManager);
             holder.viewDataBinding.recyclerView.setNestedScrollingEnabled(false);
 
-            WarehouseAdapter warehouseAdapter = new WarehouseAdapter(position, projectWorkFuel);
+            WarehouseAdapter warehouseAdapter = new WarehouseAdapter(position, projectWorkFuel, holder);
             holder.viewDataBinding.recyclerView.setAdapter(warehouseAdapter);
 
             refreshFuelConsumption(holder, projectWorkFuel);
@@ -308,95 +350,109 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                 }
             });
 
-            holder.viewDataBinding.etLastPeriodStock.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            holder.viewDataBinding.etLastPeriodStock.getEtInput().setOnlyOneTextWatcher(new TextWatcher() {
                 @Override
-                public void onFocusChange(View view, boolean hasFocus) {
-                    if (!hasFocus) {
-                        String stringToConvert = ((EditText) view).getText().toString();
-                        projectWorkFuel.setPreviousInventory(StringUtils.convertStringToFloat(stringToConvert));
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                        refreshFuelConsumption(holder, projectWorkFuel);
-                    }
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    String stringToConvert = s.toString();
+                    projectWorkFuel.setPreviousInventory(StringUtils.convertStringToFloat(stringToConvert));
+
+                    refreshFuelConsumption(holder, projectWorkFuel);
                 }
             });
+//            holder.viewDataBinding.etLastPeriodStock.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//                @Override
+//                public void onFocusChange(View view, boolean hasFocus) {
+//                    if (!hasFocus) {
+//                        String stringToConvert = ((EditText) view).getText().toString();
+//                        projectWorkFuel.setPreviousInventory(StringUtils.convertStringToFloat(stringToConvert));
+//
+//                        refreshFuelConsumption(holder, projectWorkFuel);
+//                    }
+//                }
+//            });
 
-            holder.viewDataBinding.etCurrentPeriodStock.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            holder.viewDataBinding.etCurrentPeriodStock.getEtInput().setOnlyOneTextWatcher(new TextWatcher() {
                 @Override
-                public void onFocusChange(View view, boolean hasFocus) {
-                    if (!hasFocus) {
-                        String stringToConvert = ((EditText) view).getText().toString();
-                        projectWorkFuel.setCurrentInventory(StringUtils.convertStringToFloat(stringToConvert));
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                        refreshFuelConsumption(holder, projectWorkFuel);
-                    }
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    String stringToConvert = s.toString();
+                    projectWorkFuel.setCurrentInventory(StringUtils.convertStringToFloat(stringToConvert));
+
+                    refreshFuelConsumption(holder, projectWorkFuel);
                 }
             });
-        }
-
-        private void refreshFuelConsumption(ViewHolder viewHolder, ProjectWorkFuel projectWorkFuel) {
-            // 计算该燃料的总进料量
-            float warehouseAmount = 0;
-            for (ProjectFuelWarehouse item : projectWorkFuel.getProjectFuelWarehouseList()) {
-                warehouseAmount += item.getAmount();
-            }
-
-            // 燃料耗量 = 进料量 + 上期库存 - 本期库存
-            float fuelConsumption = warehouseAmount + projectWorkFuel.getPreviousInventory()
-                    - projectWorkFuel.getCurrentInventory();
-
-            // 燃料单耗 = 燃料耗量 / 流量 * 1000
-            float fuelUniConsumption = fuelConsumption / mFlowAmount * 1000;
-
-            if (mIsHeatProduct) {
-                viewHolder.viewDataBinding.tvFuelConsumption.setText(
-                        getString(R.string.kg_per_ton, fuelConsumption));
-                viewHolder.viewDataBinding.tvFuelUnitConsumption.setText(
-                        getString(R.string.kg_per_ton, fuelUniConsumption));
-            } else {
-                viewHolder.viewDataBinding.tvFuelConsumption.setText(
-                        getString(R.string.kg_per_ton_steam, fuelConsumption));
-                viewHolder.viewDataBinding.tvFuelUnitConsumption.setText(
-                        getString(R.string.kg_per_ton_steam, fuelUniConsumption));
-            }
+//            holder.viewDataBinding.etCurrentPeriodStock.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//                @Override
+//                public void onFocusChange(View view, boolean hasFocus) {
+//                    if (!hasFocus) {
+//                        String stringToConvert = ((EditText) view).getText().toString();
+//                        projectWorkFuel.setCurrentInventory(StringUtils.convertStringToFloat(stringToConvert));
+//
+//                        refreshFuelConsumption(holder, projectWorkFuel);
+//                    }
+//                }
+//            });
         }
 
         @Override
         public int getItemCount() {
             return mProjectWorkFuelArrayList.size();
         }
+    }
 
-        class ViewHolder extends RecyclerView.ViewHolder {
 
-            public ItemBoilerFuelBinding viewDataBinding;
+    class FuelViewHolder extends RecyclerView.ViewHolder {
 
-            public ViewHolder(View itemView) {
-                super(itemView);
-                viewDataBinding = DataBindingUtil.bind(itemView);
-            }
+        public ItemBoilerFuelBinding viewDataBinding;
+
+        public FuelViewHolder(View itemView) {
+            super(itemView);
+            viewDataBinding = DataBindingUtil.bind(itemView);
         }
     }
 
-    class WarehouseAdapter extends RecyclerView.Adapter<WarehouseAdapter.ViewHolder> {
+    class WarehouseAdapter extends RecyclerView.Adapter<WarehouseAdapter.WarehouseViewHolder> {
 
         ProjectWorkFuel projectWorkFuel;
         List<ProjectFuelWarehouse> projectFuelWarehouseArrayList = new ArrayList<>();
+        FuelViewHolder parentViewHolder;
         int fuelPosition;
 
-        public WarehouseAdapter(int fuelPosition, ProjectWorkFuel projectWorkFuel) {
+        public WarehouseAdapter(int fuelPosition, ProjectWorkFuel projectWorkFuel, FuelViewHolder parentViewHolder) {
             this.fuelPosition = fuelPosition;
             this.projectWorkFuel = projectWorkFuel;
+            this.parentViewHolder = parentViewHolder;
             this.projectFuelWarehouseArrayList = projectWorkFuel.getProjectFuelWarehouseList();
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public WarehouseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_boiler_warehouse, parent, false);
-            return new ViewHolder(itemView);
+            return new WarehouseViewHolder(itemView);
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, final int position) {
+        public void onBindViewHolder(final WarehouseViewHolder holder, final int position) {
             final ProjectFuelWarehouse projectFuelWarehouse = projectFuelWarehouseArrayList.get(position);
 
             holder.viewDataBinding.setProjectFuelWarehouse(projectFuelWarehouse);
@@ -464,25 +520,60 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                 }
             });
 
-            holder.viewDataBinding.etLicensePlate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            holder.viewDataBinding.etLicensePlate.setOnlyOneTextWatcher(new TextWatcher() {
                 @Override
-                public void onFocusChange(View view, boolean hasFocus) {
-                    if (!hasFocus) {
-                        projectFuelWarehouse.setPlateNumber(((EditText) view).getText().toString());
-                    }
-                }
-            });
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            holder.viewDataBinding.etuiDeliveryCapacity.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                }
+
                 @Override
-                public void onFocusChange(View view, boolean hasFocus) {
-                    if (!hasFocus) {
-                        String stringToConvert = ((EditText) view).getText().toString();
-                        projectFuelWarehouse.setAmount(StringUtils.convertStringToFloat(stringToConvert));
-                        mAdapter.notifyItemChanged(fuelPosition);
-                    }
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    projectFuelWarehouse.setPlateNumber(s.toString());
                 }
             });
+//            holder.viewDataBinding.etLicensePlate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//                @Override
+//                public void onFocusChange(View view, boolean hasFocus) {
+//                    if (!hasFocus) {
+//                        projectFuelWarehouse.setPlateNumber(((EditText) view).getText().toString());
+//                    }
+//                }
+//            });
+
+            holder.viewDataBinding.etuiDeliveryCapacity.getEtInput().setOnlyOneTextWatcher(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    String stringToConvert = s.toString();
+                    projectFuelWarehouse.setAmount(StringUtils.convertStringToFloat(stringToConvert));
+                    refreshFuelConsumption(parentViewHolder, projectWorkFuel);
+//                    mAdapter.notifyItemChanged(fuelPosition);
+                }
+            });
+//            holder.viewDataBinding.etuiDeliveryCapacity.getEtInput().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//                @Override
+//                public void onFocusChange(View view, boolean hasFocus) {
+//                    if (!hasFocus) {
+//                        String stringToConvert = ((EditText) view).getText().toString();
+//                        projectFuelWarehouse.setAmount(StringUtils.convertStringToFloat(stringToConvert));
+//                        mAdapter.notifyItemChanged(fuelPosition);
+//                    }
+//                }
+//            });
         }
 
         @Override
@@ -490,11 +581,11 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
             return projectFuelWarehouseArrayList.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder {
+        class WarehouseViewHolder extends RecyclerView.ViewHolder {
 
             public ItemBoilerWarehouseBinding viewDataBinding;
 
-            public ViewHolder(View itemView) {
+            public WarehouseViewHolder(View itemView) {
                 super(itemView);
                 viewDataBinding = DataBindingUtil.bind(itemView);
             }

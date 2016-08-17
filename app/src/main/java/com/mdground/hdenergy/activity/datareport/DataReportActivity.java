@@ -96,7 +96,6 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
         Date previousDate = DateUtils.previousDate(new Date(), 0);
 
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDataBinding.recyclerView.setLayoutManager(layoutManager);
@@ -132,7 +131,6 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
             mDataBinding.etProjectDetail.setText(mProjectWork.getExpenseDetail());
             mDataBinding.etOtherProblem.setText(mProjectWork.getRemark());
         }
-
     }
 
     @Override
@@ -219,7 +217,9 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     public void selectDateAction(View view) {
         if (mDatePickerDialog == null) {
+            Date previousDate = DateUtils.previousDate(new Date(), 0);
             Calendar calendar = Calendar.getInstance();
+            calendar.setTime(previousDate);
             mDatePickerDialog = new DatePickerDialog(this, this, calendar.get(Calendar.YEAR),
                     calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         }
@@ -254,15 +254,16 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         if (!StringUtils.isEmpty(projectExpenseString)) {
             projectExpense = Integer.parseInt(projectExpenseString);
         } else {
-            ViewUtils.toast(getString(R.string.fill_cost_info));
-            return;
+//            ViewUtils.toast(getString(R.string.fill_cost_info));
+//            return;
         }
 
         // 费用明细
         String feeDetail = mDataBinding.etProjectDetail.getText().toString();
         if (StringUtils.isEmpty(feeDetail)) {
-            ViewUtils.toast(getString(R.string.fill_cost_info));
-            return;
+//            ViewUtils.toast(getString(R.string.fill_cost_info));
+//            return;
+            feeDetail = "";
         }
 
         // 其他问题

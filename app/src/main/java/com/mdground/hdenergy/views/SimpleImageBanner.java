@@ -11,12 +11,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.flyco.banner.widget.Banner.BaseIndicatorBanner;
-
 import com.mdground.hdenergy.R;
-import com.mdground.hdenergy.models.BannerItem;
+import com.mdground.hdenergy.models.MDImage;
 
 
-public class SimpleImageBanner extends BaseIndicatorBanner<BannerItem, SimpleImageBanner> {
+public class SimpleImageBanner extends BaseIndicatorBanner<MDImage, SimpleImageBanner> {
 
     private ColorDrawable colorDrawable;
 
@@ -35,7 +34,7 @@ public class SimpleImageBanner extends BaseIndicatorBanner<BannerItem, SimpleIma
 
     @Override
     public void onTitleSlect(TextView tv, int position) {
-        final BannerItem item = mDatas.get(position);
+        final MDImage item = mDatas.get(position);
 //        tv.setText(item.title);
     }
 
@@ -44,32 +43,21 @@ public class SimpleImageBanner extends BaseIndicatorBanner<BannerItem, SimpleIma
         View inflate = View.inflate(mContext, R.layout.item_banner, null);
         ImageView iv = (ImageView) inflate.findViewById(R.id.iv);
 
-        final BannerItem item = mDatas.get(position);
+        final MDImage item = mDatas.get(position);
         int itemWidth = mDisplayMetrics.widthPixels;
         int itemHeight = (int) (itemWidth * 360 * 1.0f / 640);
 //        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 //        iv.setLayoutParams(new LinearLayout.LayoutParams(itemWidth, itemHeight));
-        String imgUrl=item.getImgUrl();
-        int loadImage=item.getmLoadImage();
-//        if (item != null) {
-//            Glide.with(mContext)
-//                    .load(imgUrl)
-//                    .override(itemWidth, itemHeight)
-//                    .placeholder(colorDrawable)
-//                    .into(iv);
-//        } else {
-//           iv.setImageDrawable(colorDrawable);
-//        }
 
-        if (imgUrl != null) {
+        if (item != null) {
             Glide.with(mContext)
-                    .load(imgUrl)
-                    .override(itemWidth, itemHeight)
+                    .load(item)
+//                    .override(itemWidth, itemHeight)
+                    .centerCrop()
                     .placeholder(colorDrawable)
                     .into(iv);
         } else {
-           // iv.setImageDrawable(colorDrawable);
-            iv.setImageResource(loadImage);
+           iv.setImageDrawable(colorDrawable);
         }
 
         return inflate;

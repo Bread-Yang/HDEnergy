@@ -42,11 +42,6 @@
             tools:text="1256" />
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <RelativeLayout
         style="@style/WhiteFixHeightLayoutStyle"
         android:layout_marginTop="@dimen/margin_1">
@@ -123,6 +118,12 @@
             android:textSize="@dimen/text_size_16"
             tools:text="25631" />
     </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
 
 

@@ -14,7 +14,11 @@ import com.mdground.hdenergy.activity.datastatics.HistoryDataStaticsActivity;
 import com.mdground.hdenergy.activity.personalcenter.BasicInformationActivity;
 import com.mdground.hdenergy.activity.personalcenter.SettingActivity;
 import com.mdground.hdenergy.application.MDGroundApplication;
+import com.mdground.hdenergy.models.UserInfo;
+import com.mdground.hdenergy.utils.GlideUtils;
 import com.mdground.hdenergy.views.CustomImageButton;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -25,14 +29,21 @@ public class LeftMenuFragment extends Fragment implements View.OnClickListener {
 
     private CustomImageButton cibBasicInformation, cibHistoryDate, cibHistoryAttendanceStatics, cibSetting;
     private TextView tvUserName;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_left_menu, container, false);
+
+        CircleImageView civAvatar = (CircleImageView) view.findViewById(R.id.civAvatar);
+
+        UserInfo userInfo = MDGroundApplication.sInstance.getLoginUser();
+        GlideUtils.loadImageByPhotoSID(civAvatar, userInfo.getPhotoSID(), false);
+
         cibBasicInformation = (CustomImageButton) view.findViewById(R.id.cibBasicInformation);
         cibHistoryDate = (CustomImageButton) view.findViewById(R.id.cibHistoryDate);
         cibHistoryAttendanceStatics = (CustomImageButton) view.findViewById(R.id.cibHistoryAttendanceStatics);
-        tvUserName= (TextView) view.findViewById(R.id.tvUserName);
-        String UserName=MDGroundApplication.sInstance.getLoginUser().getUserName();
+        tvUserName = (TextView) view.findViewById(R.id.tvUserName);
+        String UserName = MDGroundApplication.sInstance.getLoginUser().getUserName();
         tvUserName.setText(UserName);
         cibSetting = (CustomImageButton) view.findViewById(R.id.cibSetting);
         cibSetting.setOnClickListener(this);

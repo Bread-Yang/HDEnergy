@@ -19,6 +19,7 @@ import com.mdground.hdenergy.models.UserAttendance;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.DateUtils;
+import com.mdground.hdenergy.utils.GlideUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 
 import org.joda.time.DateTime;
@@ -62,6 +63,9 @@ public class EmployeeAttendanceStaticsActivity extends ToolbarActivity<ActivityE
     protected void initData() {
         mUserAttendance = getIntent().getParcelableExtra(Constants.KEY_USER_ATTENDANCE);
         getSupportActionBar().setTitle(mUserAttendance.getUserName());
+
+        GlideUtils.loadImageByPhotoSID(mDataBinding.civAvatar, mUserAttendance.getPhotoSID(), false);
+
         mQueryDate = mUserAttendance.getBeginTime();
         showMonthString();
 

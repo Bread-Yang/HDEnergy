@@ -43,6 +43,7 @@
     <string name="reset_password">重设密码</string>
     <string name="please_input_account">请输入账号</string>
     <string name="input_password">请输入密码</string>
+    <string name="input_new_password">请输入新密码</string>
     <string name="home_page">首页</string>
     <string name="people_name">人名</string>
     <string name="input_phone">请输入手机号码</string>

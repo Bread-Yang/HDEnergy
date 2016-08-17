@@ -39,13 +39,11 @@ import retrofit2.Response;
 public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryDataStaticsBinding> {
 
     private HistoryDateListAdapter mAdapter;
-    private int mPageIndex = 0;
-    private int authorityLevel;
-    int mProjectID;
     private List<ProjectWork> mProjectWorkList = new ArrayList<>();
-    private LinearLayoutManager mLinearLayoutManager;
+    private ProjectWork mProjectWork;
+    private int mPageIndex = 0;
+    private int mAuthorityLevel;
     private boolean mIsLoadeMore = false;
-    private LinearLayout.LayoutParams layoutParams;
 
     @Override
     protected int getContentLayout() {
@@ -54,16 +52,13 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
 
     @Override
     protected void initData() {
-        Intent intent = getIntent();
-        String title = intent.getStringExtra(Constants.KEY_HISTORY_DATE_NAME);
-        mProjectID = intent.getIntExtra(Constants.KEY_HISTORY_DATE_PROJECT_ID, 0);
-        setTitle(title);
-        GetProjectWorkList(mProjectID, mPageIndex);
-        authorityLevel = MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel();
-        layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mProjectWork = getIntent().getParcelableExtra(Constants.KEY_HISTORY_DATE_PROJECT);
+        setTitle(mProjectWork.getProjectName());
+        GetProjectWorkList(mProjectWork.getProjectID(), mPageIndex);
+        mAuthorityLevel = MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel();
         mAdapter = new HistoryDateListAdapter();
-        mLinearLayoutManager = new LinearLayoutManager(HistoryDataListActivity.this);
-        mDataBinding.recyclerView.setLayoutManager(mLinearLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(HistoryDataListActivity.this);
+        mDataBinding.recyclerView.setLayoutManager(linearLayoutManager);
         mDataBinding.recyclerView.setAdapter(mAdapter);
     }
 
@@ -135,8 +130,9 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
 
             ProjectWork projectWork = mProjectWorkList.get(position);
 
-            if (authorityLevel != 3) {
+            if (mAuthorityLevel != 3) {
                 holder.itemHistoryDatastaticsBinding.lltProfit.setVisibility(View.GONE);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(0, 0, 0, 0);
                 holder.itemHistoryDatastaticsBinding.tvQue.setLayoutParams(layoutParams);
             }
@@ -158,7 +154,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
                 // 销售产品为蒸汽
                 // 标单
                 holder.itemHistoryDatastaticsBinding.tvStandardUnit.setText(
-                        getString(R.string.kg_per_ton_steam, projectWork.getFuelCost()));
+                        getString(R.string.kg_per_ton_steam, mProjectWork.getFuelCost()));
                 // 单耗
                 holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(
                         getString(R.string.kg_per_ton_steam, projectWork.getDayFuelCost()));
@@ -172,7 +168,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
                 // 销售产品为热力
                 // 标单
                 holder.itemHistoryDatastaticsBinding.tvStandardUnit.setText(
-                        getString(R.string.kg_per_ton, projectWork.getFuelCost()));
+                        getString(R.string.kg_per_ton, mProjectWork.getFuelCost()));
                 // 单耗
                 holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(
                         getString(R.string.kg_per_ton, projectWork.getDayFuelCost()));

@@ -47,7 +47,7 @@ public class ProjectWorkFurnace implements Parcelable{
         Electricity1 = in.readFloat();
         Electricity2 = in.readFloat();
         Electricity3 = in.readFloat();
-        ElectricitySingleCost = in.readInt();
+        ElectricitySingleCost = in.readFloat();
         Water1 = in.readFloat();
         Water2 = in.readFloat();
         Water3 = in.readFloat();
@@ -146,7 +146,7 @@ public class ProjectWorkFurnace implements Parcelable{
         return ElectricitySingleCost;
     }
 
-    public void setElectricitySingleCost(int electricitySingleCost) {
+    public void setElectricitySingleCost(float electricitySingleCost) {
         ElectricitySingleCost = electricitySingleCost;
     }
 

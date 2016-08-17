@@ -58,7 +58,7 @@
                 style="@style/DimTextStyle"
                 android:text="@string/license_plate" />
 
-            <EditText
+            <com.mdground.hdenergy.views.ExtendedEditText
                 android:id="@+id/etLicensePlate"
                 style="@style/WithArrowEdittextStyle"
                 android:layout_width="@dimen/size_150"
