@@ -18,7 +18,6 @@ import com.mdground.hdenergy.activity.bulletin.BulletinListActivity;
 import com.mdground.hdenergy.activity.datareport.DataReportActivity;
 import com.mdground.hdenergy.activity.projectstartstop.ProjectStartStopActivity;
 import com.mdground.hdenergy.models.Bulletin;
-import com.mdground.hdenergy.models.MDImage;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.views.SimpleImageBanner;
@@ -164,24 +163,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 mBulletinArrayList = response.body().getContent(new TypeToken<ArrayList<Bulletin>>() {
                 });
 
-                ArrayList<MDImage> mdImageArrayList = new ArrayList<>();
+                ArrayList<Bulletin> temBulletinArrayList = new ArrayList<>();
 
                 for (int i = 0; i < mBulletinArrayList.size(); i++) {
                     Bulletin bulletin = mBulletinArrayList.get(i);
                     if (i < 5) {
-                        MDImage mdImage = new MDImage();
-
-                        mdImage.setPhotoID(bulletin.getPhotoID());
-                        mdImage.setPhotoSID(bulletin.getPhotoSID());
-
-                        mdImageArrayList.add(mdImage);
+                        temBulletinArrayList.add(bulletin);
                     } else {
                         break;
                     }
                 }
 
                 SimpleImageBanner sib = (SimpleImageBanner) findViewById(R.id.simpleImageBanner);
-                sib.setSource(mdImageArrayList).startScroll();                  //获取图片列表并滚动
+                sib.setSource(temBulletinArrayList).startScroll();                  //获取图片列表并滚动
             }
 
             @Override

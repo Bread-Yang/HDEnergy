@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class ProjectWork implements Parcelable {
 
+    private String ReportedTime;
     private String CreatedTime;
     private float DailyExpense;   // 项目日常费用
     private String ExpenseDetail; // 费用明细
@@ -26,36 +27,6 @@ public class ProjectWork implements Parcelable {
     private float DayWaterCost;     // 水耗（水单耗）
     private float DayFuelCost;      // 单耗（燃料单耗）
     private float FuelCost;         //标准燃料单耗
-
-    protected ProjectWork(Parcel in) {
-        CreatedTime = in.readString();
-        DailyExpense = in.readFloat();
-        ExpenseDetail = in.readString();
-        ProjectID = in.readInt();
-        ProjectName = in.readString();
-        ProjectWorkFurnaceList = in.createTypedArrayList(ProjectWorkFurnace.CREATOR);
-        Remark = in.readString();
-        SaleType = in.readString();
-        UserID = in.readInt();
-        UserName = in.readString();
-        WorkID = in.readInt();
-        DayElectricityCost = in.readFloat();
-        DayWaterCost = in.readFloat();
-        DayFuelCost = in.readFloat();
-        FuelCost = in.readFloat();
-    }
-
-    public static final Creator<ProjectWork> CREATOR = new Creator<ProjectWork>() {
-        @Override
-        public ProjectWork createFromParcel(Parcel in) {
-            return new ProjectWork(in);
-        }
-
-        @Override
-        public ProjectWork[] newArray(int size) {
-            return new ProjectWork[size];
-        }
-    };
 
     public float getFuelCost() {
         return FuelCost;
@@ -177,6 +148,14 @@ public class ProjectWork implements Parcelable {
         WorkID = workID;
     }
 
+    public String getReportedTime() {
+        return ReportedTime;
+    }
+
+    public void setReportedTime(String reportedTime) {
+        ReportedTime = reportedTime;
+    }
+
     public ProjectWork() {
 
     }
@@ -188,20 +167,52 @@ public class ProjectWork implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(CreatedTime);
-        dest.writeFloat(DailyExpense);
-        dest.writeString(ExpenseDetail);
-        dest.writeInt(ProjectID);
-        dest.writeString(ProjectName);
-        dest.writeTypedList(ProjectWorkFurnaceList);
-        dest.writeString(Remark);
-        dest.writeString(SaleType);
-        dest.writeInt(UserID);
-        dest.writeString(UserName);
-        dest.writeInt(WorkID);
-        dest.writeFloat(DayElectricityCost);
-        dest.writeFloat(DayWaterCost);
-        dest.writeFloat(DayFuelCost);
-        dest.writeFloat(FuelCost);
+        dest.writeString(this.ReportedTime);
+        dest.writeString(this.CreatedTime);
+        dest.writeFloat(this.DailyExpense);
+        dest.writeString(this.ExpenseDetail);
+        dest.writeInt(this.ProjectID);
+        dest.writeString(this.ProjectName);
+        dest.writeTypedList(this.ProjectWorkFurnaceList);
+        dest.writeString(this.Remark);
+        dest.writeString(this.SaleType);
+        dest.writeInt(this.UserID);
+        dest.writeString(this.UserName);
+        dest.writeInt(this.WorkID);
+        dest.writeFloat(this.DayElectricityCost);
+        dest.writeFloat(this.DayWaterCost);
+        dest.writeFloat(this.DayFuelCost);
+        dest.writeFloat(this.FuelCost);
     }
+
+    protected ProjectWork(Parcel in) {
+        this.ReportedTime = in.readString();
+        this.CreatedTime = in.readString();
+        this.DailyExpense = in.readFloat();
+        this.ExpenseDetail = in.readString();
+        this.ProjectID = in.readInt();
+        this.ProjectName = in.readString();
+        this.ProjectWorkFurnaceList = in.createTypedArrayList(ProjectWorkFurnace.CREATOR);
+        this.Remark = in.readString();
+        this.SaleType = in.readString();
+        this.UserID = in.readInt();
+        this.UserName = in.readString();
+        this.WorkID = in.readInt();
+        this.DayElectricityCost = in.readFloat();
+        this.DayWaterCost = in.readFloat();
+        this.DayFuelCost = in.readFloat();
+        this.FuelCost = in.readFloat();
+    }
+
+    public static final Creator<ProjectWork> CREATOR = new Creator<ProjectWork>() {
+        @Override
+        public ProjectWork createFromParcel(Parcel source) {
+            return new ProjectWork(source);
+        }
+
+        @Override
+        public ProjectWork[] newArray(int size) {
+            return new ProjectWork[size];
+        }
+    };
 }

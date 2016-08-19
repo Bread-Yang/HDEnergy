@@ -138,7 +138,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
             }
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
-                Date ceateDate = format.parse(projectWork.getCreatedTime());
+                Date ceateDate = format.parse(projectWork.getReportedTime());
                 SimpleDateFormat format1 = new SimpleDateFormat("yyyy/MM/dd");
                 String formatDate = format1.format(ceateDate);
                 holder.itemHistoryDatastaticsBinding.tvTitles.setText(formatDate);

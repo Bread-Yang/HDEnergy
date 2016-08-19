@@ -250,9 +250,9 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
         // 项目费用
         String projectExpenseString = mDataBinding.etuiProjectExpense.getTextString();
-        int projectExpense = 0;
+        float projectExpense = 0;
         if (!StringUtils.isEmpty(projectExpenseString)) {
-            projectExpense = Integer.parseInt(projectExpenseString);
+            projectExpense = Float.parseFloat(projectExpenseString);
         } else {
 //            ViewUtils.toast(getString(R.string.fill_cost_info));
 //            return;
@@ -277,7 +277,8 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
             Project project = mProjectArrayList.get(mSelectProjectIndex);
             projectWork.setProjectID(project.getProjectID());
             projectWork.setProjectName(projectName);
-            projectWork.setCreatedTime(date);
+            projectWork.setReportedTime(date);
+            projectWork.setCreatedTime(DateUtils.getServerDateStringByDate(new Date()));
             projectWork.setSaleType(saleProduct);
             // 锅炉
             if (mProjectWorkFurnaceArrayList.size() <= 0) {
@@ -361,16 +362,18 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
     }
 
     private void saveProjectWorkRequest(ProjectWork projectWork) {
+        ViewUtils.loading(this);
         GlobalRestful.getInstance().SaveProjectWork(projectWork, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                ViewUtils.dismiss();
                 ViewUtils.toast(R.string.submit_success);
                 finish();
             }
 
             @Override
             public void onFailure(Call<ResponseData> call, Throwable t) {
-
+                ViewUtils.dismiss();
             }
         });
     }

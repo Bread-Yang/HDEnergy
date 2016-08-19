@@ -1,6 +1,7 @@
 package com.mdground.hdenergy.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
@@ -12,10 +13,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.flyco.banner.widget.Banner.BaseIndicatorBanner;
 import com.mdground.hdenergy.R;
+import com.mdground.hdenergy.activity.bulletin.BulletinDetailActivity;
+import com.mdground.hdenergy.constants.Constants;
+import com.mdground.hdenergy.models.Bulletin;
 import com.mdground.hdenergy.models.MDImage;
 
 
-public class SimpleImageBanner extends BaseIndicatorBanner<MDImage, SimpleImageBanner> {
+public class SimpleImageBanner extends BaseIndicatorBanner<Bulletin, SimpleImageBanner> {
 
     private ColorDrawable colorDrawable;
 
@@ -34,24 +38,29 @@ public class SimpleImageBanner extends BaseIndicatorBanner<MDImage, SimpleImageB
 
     @Override
     public void onTitleSlect(TextView tv, int position) {
-        final MDImage item = mDatas.get(position);
+        final Bulletin item = mDatas.get(position);
 //        tv.setText(item.title);
     }
 
     @Override
     public View onCreateItemView(int position) {
-        View inflate = View.inflate(mContext, R.layout.item_banner, null);
-        ImageView iv = (ImageView) inflate.findViewById(R.id.iv);
+        View view = View.inflate(mContext, R.layout.item_banner, null);
+        ImageView iv = (ImageView) view.findViewById(R.id.iv);
 
-        final MDImage item = mDatas.get(position);
+        final Bulletin bulletin = mDatas.get(position);
         int itemWidth = mDisplayMetrics.widthPixels;
         int itemHeight = (int) (itemWidth * 360 * 1.0f / 640);
 //        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 //        iv.setLayoutParams(new LinearLayout.LayoutParams(itemWidth, itemHeight));
 
-        if (item != null) {
+        MDImage mdImage = new MDImage();
+
+        mdImage.setPhotoID(bulletin.getPhotoID());
+        mdImage.setPhotoSID(bulletin.getPhotoSID());
+
+        if (bulletin != null) {
             Glide.with(mContext)
-                    .load(item)
+                    .load(mdImage)
 //                    .override(itemWidth, itemHeight)
                     .centerCrop()
                     .placeholder(colorDrawable)
@@ -60,7 +69,16 @@ public class SimpleImageBanner extends BaseIndicatorBanner<MDImage, SimpleImageB
            iv.setImageDrawable(colorDrawable);
         }
 
-        return inflate;
+        iv.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, BulletinDetailActivity.class);
+                intent.putExtra(Constants.KEY_BULLETIN, bulletin);
+                mContext.startActivity(intent);
+            }
+        });
+
+        return view;
     }
 
     @Override

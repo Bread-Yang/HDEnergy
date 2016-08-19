@@ -114,9 +114,12 @@ public class StringUtils {
     }
 
     public static float convertStringToFloat(String convertString) {
+        String regexStr = "-?\\d+(\\.\\d+)?";
         float returnInt = 0;
         if (!StringUtils.isEmpty(convertString)) {
-            returnInt = Float.parseFloat(convertString);
+            if(convertString.matches(regexStr)) {
+                returnInt = Float.parseFloat(convertString);
+            }
         }
         return returnInt;
     }

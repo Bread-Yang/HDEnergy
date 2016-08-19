@@ -162,7 +162,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
         // 打分
         mDataBinding.etScore.setText(String.valueOf(mUserAttendance.getScore()));
-      }
+    }
 
     @Override
     protected void setListener() {
@@ -180,18 +180,26 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
                     case R.id.tvDepartment:
                         mSelectDepartment = currentPosition;
                         hideRateLayout(currentPosition != 1); // 当部门为工程部门时，不显示打分栏
-                        mDataBinding.tvDepartment.setText(mDepartmentArrayList.get(currentPosition).getDepartmentName());
 
-                        mSelectUserInfoIndex = 0;
-                        getUserListByDepartmentRequest();
+                        if (mDepartmentArrayList.size() > 0) {
+                            mDataBinding.tvDepartment.setText(mDepartmentArrayList.get(currentPosition).getDepartmentName());
+
+                            mSelectUserInfoIndex = 0;
+                            getUserListByDepartmentRequest();
+                        }
                         break;
                     case R.id.tvProject:
                         mSelectProjectIndex = currentPosition;
-                        mDataBinding.tvProject.setText(mProjectArrayList.get(currentPosition).getProjectName());
+
+                        if (mProjectArrayList.size() > 0) {
+                            mDataBinding.tvProject.setText(mProjectArrayList.get(currentPosition).getProjectName());
+                        }
                         break;
                     case R.id.tvName:
                         mSelectUserInfoIndex = currentPosition;
-                        mDataBinding.tvName.setText(mUserInfoArrayList.get(currentPosition).getUserName());
+                        if (mUserInfoArrayList.size() > 0) {
+                            mDataBinding.tvName.setText(mUserInfoArrayList.get(currentPosition).getUserName());
+                        }
                         break;
                     case R.id.tvAttendanceStatus:
                         mSelectAttendanceStatus = currentPosition;
@@ -199,14 +207,20 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
                         break;
                     case R.id.tvCategory:
                         mSelectCategoryIndex = currentPosition;
-                        mDataBinding.tvCategory.setText(mProjectCategoryArrayList.get(currentPosition).getCategoryName());
 
-                        mSelectContentIndex = 0;
-                        getProjectCategoryListRequest(mProjectCategoryArrayList.get(currentPosition).getCategoryID());
+                        if (mProjectCategoryArrayList.size() > 0) {
+                            mDataBinding.tvCategory.setText(mProjectCategoryArrayList.get(currentPosition).getCategoryName());
+
+                            mSelectContentIndex = 0;
+                            getProjectCategoryListRequest(mProjectCategoryArrayList.get(currentPosition).getCategoryID());
+                        }
                         break;
                     case R.id.tvContent:
                         mSelectContentIndex = currentPosition;
-                        mDataBinding.tvContent.setText(mProjectContentArrayList.get(currentPosition).getCategoryName());
+
+                        if (mProjectContentArrayList.size() > 0) {
+                            mDataBinding.tvContent.setText(mProjectContentArrayList.get(currentPosition).getCategoryName());
+                        }
                         break;
                 }
             }
@@ -345,7 +359,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
         // 交通费
         String transporatationFareString = mDataBinding.etuiTransportationFare.getTextString();
         if (!StringUtils.isEmpty(transporatationFareString)) {
-            int transporatationFare = Integer.parseInt(transporatationFareString);
+            float transporatationFare = Float.parseFloat(transporatationFareString);
             userAttendance.setTransportation(transporatationFare);
         }
 
@@ -359,7 +373,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
         // 住宿费
         String accommodationFeeString = mDataBinding.etuiAccommodationFee.getTextString();
         if (!StringUtils.isEmpty(accommodationFeeString)) {
-            int accommodationFee = Integer.parseInt(accommodationFeeString);
+            float accommodationFee = Float.parseFloat(accommodationFeeString);
             userAttendance.setAccommodationFee(accommodationFee);
         }
 
@@ -666,7 +680,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
             @Override
             public void onFailure(Call<ResponseData> call, Throwable t) {
-
+                ViewUtils.dismiss();
             }
         });
     }

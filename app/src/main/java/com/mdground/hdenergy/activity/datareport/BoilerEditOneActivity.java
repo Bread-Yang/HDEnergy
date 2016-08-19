@@ -135,7 +135,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             public void onScrollingFinished(WheelView wheel) {
                 mSelectHourIndex = wheel.getCurrentItem();
 
-                int hours = mSelectHourIndex + 1;
+                int hours = mSelectHourIndex;
 
                 mDataBinding.tvHours.setText(getString(R.string.with_hour_unit, hours));
             }
@@ -402,10 +402,10 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         mBaoPickerDialog = new BaoPickerDialog(this);
 
         ArrayList<String> hourArrayList = new ArrayList<>();
-        for (int i = 1; i < 25; i++) {
+        for (int i = 0; i < 25; i++) {
             hourArrayList.add(String.valueOf(i));
         }
-        mBaoPickerDialog.bindWheelViewData(hourArrayList, true, 23);
+        mBaoPickerDialog.bindWheelViewData(hourArrayList, true, 24);
     }
 
     private ProjectWorkFlowrate createFlowrate() {
