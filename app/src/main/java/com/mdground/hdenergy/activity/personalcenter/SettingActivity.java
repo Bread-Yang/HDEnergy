@@ -7,9 +7,15 @@ import android.widget.Toast;
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
 import com.mdground.hdenergy.databinding.ActivitySettingBinding;
+import com.mdground.hdenergy.restfuls.GlobalRestful;
+import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.DeviceUtils;
 import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.views.CheckUpdateDialog;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -53,6 +59,17 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding>
 
     @Override
     public void clickUpdate() {
+        GlobalRestful.getInstance().GetUpdateMessageList(new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
         Toast.makeText(SettingActivity.this, getString(R.string.newest_version), Toast.LENGTH_SHORT).show();
         mDialog.dismiss();
     }

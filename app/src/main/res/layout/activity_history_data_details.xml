@@ -104,16 +104,20 @@
                 android:layout_marginTop="@dimen/margin_1">
 
                 <TextView
+                    android:id="@+id/tvProjectDetailTitle"
                     style="@style/DimTextStyle"
                     android:text="@string/expense_details_with_colon" />
 
                 <TextView
-                    android:id="@+id/etProjectDetail"
+                    android:id="@+id/tvProjectDetail"
                     style="@style/AlignRightNoPaddingTextStyle"
+                    android:layout_toRightOf="@+id/tvProjectDetailTitle"
+                    android:maxLines="1"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    tools:text="@string/maintain_cost" />
+                    android:ellipsize="end"
+                    tools:text="的李开复寄上来的解放路上的房间里扣水电费几时离开的飞机失联的咖啡机是老地方就开始两地分居" />
 
             </RelativeLayout>
 

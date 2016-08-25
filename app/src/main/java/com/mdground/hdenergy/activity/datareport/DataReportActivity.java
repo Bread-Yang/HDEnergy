@@ -253,13 +253,13 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         // 销售产品
         String saleProduct = mDataBinding.tvSaleProduct.getText().toString();
 
-        // 锅炉
-        for (ProjectWorkFurnace item : mProjectWorkFurnaceArrayList) {
-            if (item.getProjectWorkFlowrateList() == null) {
-                ViewUtils.toast(R.string.fill_boiler_info);
-                return;
-            }
-        }
+        // 锅炉, 改为锅炉不作为必填项
+//        for (ProjectWorkFurnace item : mProjectWorkFurnaceArrayList) {
+//            if (item.getProjectWorkFlowrateList() == null) {
+//                ViewUtils.toast(R.string.fill_boiler_info);
+//                return;
+//            }
+//        }
 
         // 项目费用
         String projectExpenseString = mDataBinding.etuiProjectExpense.getTextString();

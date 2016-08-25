@@ -85,7 +85,7 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
         DecimalFormat format2 = new DecimalFormat("0.00");
         String expense = format2.format(dailyExpense);
         mDataBinding.tvSaleProduct.setText(mProjectWork.getSaleType());
-        mDataBinding.etProjectDetail.setText(mProjectWork.getExpenseDetail());
+        mDataBinding.tvProjectDetail.setText(mProjectWork.getExpenseDetail());
         mDataBinding.etProjectExpense.setText(expense);
         mDataBinding.etOtherProblem.setText(mProjectWork.getRemark());
 

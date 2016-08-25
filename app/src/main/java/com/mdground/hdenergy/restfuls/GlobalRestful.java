@@ -226,5 +226,8 @@ public class GlobalRestful extends BaseRestful {
         asynchronousPost("GetProjectWorkList", obj, callback);
     }
 
-
+    //获取系统版本更新列表
+    public void GetUpdateMessageList(Callback<ResponseData> callback) {
+        asynchronousPost("GetUpdateMessageList", null, callback);
+    }
 }
