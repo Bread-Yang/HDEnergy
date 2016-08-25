@@ -53,8 +53,6 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
     @Override
     protected void initData() {
-        initPickerDialog();
-
         mIsHeatProduct = getIntent().getBooleanExtra(Constants.KEY_IS_HEAT_SALE_PRODUCT, false);
         if (mIsHeatProduct) {
             // 若销售产品为热力，则水量整个layout是没有的
@@ -62,6 +60,13 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         }
 
         mProjectWorkFurnace = getIntent().getParcelableExtra(Constants.KEY_PROJECT_WORK_FURNACE);
+
+        // 开炉时长
+        int workingHour = mProjectWorkFurnace.getWorkingHour();
+        if (workingHour == 0) {
+            workingHour = 24;
+        }
+        mDataBinding.tvHours.setText(getString(R.string.with_hour_unit, workingHour));
 
         ArrayList<ProjectWorkFlowrate> projectWorkFlowrateList = (ArrayList<ProjectWorkFlowrate>) mProjectWorkFurnace.getProjectWorkFlowrateList();
         if (projectWorkFlowrateList != null) {
@@ -121,6 +126,8 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
         mAdapter = new EditOneAdapter();
         mDataBinding.recyclerView.setAdapter(mAdapter);
+
+        initPickerDialog();
     }
 
     @Override
@@ -405,7 +412,12 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         for (int i = 0; i < 25; i++) {
             hourArrayList.add(String.valueOf(i));
         }
-        mBaoPickerDialog.bindWheelViewData(hourArrayList, true, 24);
+
+        int currentIndex = mProjectWorkFurnace.getWorkingHour();
+        if (currentIndex == 0) {
+            currentIndex = 24;
+        }
+        mBaoPickerDialog.bindWheelViewData(hourArrayList, true, currentIndex);
     }
 
     private ProjectWorkFlowrate createFlowrate() {
@@ -537,7 +549,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         }
 
         // 开炉时长
-        mProjectWorkFurnace.setWorkingHour(mSelectHourIndex + 1);
+        mProjectWorkFurnace.setWorkingHour(mSelectHourIndex);
 
         // 电量1,2,3,水量1,2,3已经在setListener()中赋值了
 
@@ -602,6 +614,9 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             itemBoilerFlowBinding.etAjustDescription.setText(projectWorkFlowrate.getDescription());
 
             ViewUtils.setEditTextWithMinusAndPlusSignal(itemBoilerFlowBinding.etuiAdjustFlow.getEtInput());
+
+//            itemBoilerFlowBinding.etuiAdjustFlow.getEtInput().setInputType(InputType.TYPE_CLASS_TEXT);
+//            itemBoilerFlowBinding.etuiAdjustFlow.getEtInput().setFilters(new InputFilter[]{new PlusAndMinusSignInputFilter()});
 
             ImageView ivAddOrDelete = itemBoilerFlowBinding.ivAddOrDelete;
             if (isHeader(position)) {

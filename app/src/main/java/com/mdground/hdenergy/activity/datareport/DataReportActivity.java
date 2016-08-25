@@ -1,9 +1,10 @@
 package com.mdground.hdenergy.activity.datareport;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -57,6 +58,8 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     private BaoPickerDialog mBaoPickerDialog;
 
+    private AlertDialog mAlertDialog;
+
     private ArrayList<Project> mProjectArrayList = new ArrayList<>();
 
     private ArrayList<ProjectWorkFurnace> mProjectWorkFurnaceArrayList = new ArrayList<>();
@@ -79,19 +82,16 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
     @Override
     protected void initData() {
         Intent intent = getIntent();
-        if (intent != null) {
-            Bundle bundle = intent.getExtras();
-            if (bundle != null) {
-                mProjectWork = bundle.getParcelable(Constants.KEY_PROJECT);
-                if (mProjectWork != null) {
-                    mIsNewProjectWork = false;
-                    List<ProjectWorkFurnace> furnaceList = (ArrayList<ProjectWorkFurnace>) mProjectWork.getProjectWorkFurnaceList();
-                    if (furnaceList != null) {
-                        mProjectWorkFurnaceArrayList.clear();
-                        mProjectWorkFurnaceArrayList.addAll(furnaceList);
-                    }
-                }
+        mProjectWork = intent.getParcelableExtra(Constants.KEY_PROJECT);
+        if (mProjectWork != null) {
+            mIsNewProjectWork = false;
+            List<ProjectWorkFurnace> furnaceList = mProjectWork.getProjectWorkFurnaceList();
+            if (furnaceList != null) {
+                mProjectWorkFurnaceArrayList.clear();
+                mProjectWorkFurnaceArrayList.addAll(furnaceList);
             }
+        } else {
+            mProjectWork = new ProjectWork();
         }
 
         Date previousDate = DateUtils.previousDate(new Date(), 0);
@@ -119,7 +119,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         } else {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
-                Date ceateDate = format.parse(mProjectWork.getCreatedTime());
+                Date ceateDate = format.parse(mProjectWork.getReportedTime());
                 SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
                 String formatDate = format1.format(ceateDate);
                 mDataBinding.tvDate.setText(formatDate);
@@ -131,6 +131,19 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
             mDataBinding.etProjectDetail.setText(mProjectWork.getExpenseDetail());
             mDataBinding.etOtherProblem.setText(mProjectWork.getRemark());
         }
+
+        // 初始化对话框
+        mAlertDialog = ViewUtils.createAlertDialog(this, getString(R.string.confirm_to_submit),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        saveProjectWorkRequest(mProjectWork);
+                    }
+                });
     }
 
     @Override
@@ -270,29 +283,26 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         String otherProblem = mDataBinding.etOtherProblem.getText().toString();
 
         if (mIsNewProjectWork) {
-            ProjectWork projectWork = new ProjectWork();
-            projectWork.setUserID(MDGroundApplication.sInstance.getLoginUser().getUserID());
-            projectWork.setUserName(MDGroundApplication.sInstance.getLoginUser().getUserName());
+            mProjectWork.setUserID(MDGroundApplication.sInstance.getLoginUser().getUserID());
+            mProjectWork.setUserName(MDGroundApplication.sInstance.getLoginUser().getUserName());
             // 项目
             Project project = mProjectArrayList.get(mSelectProjectIndex);
-            projectWork.setProjectID(project.getProjectID());
-            projectWork.setProjectName(projectName);
-            projectWork.setReportedTime(date);
-            projectWork.setCreatedTime(DateUtils.getServerDateStringByDate(new Date()));
-            projectWork.setSaleType(saleProduct);
+            mProjectWork.setProjectID(project.getProjectID());
+            mProjectWork.setProjectName(projectName);
+            mProjectWork.setReportedTime(date);
+            mProjectWork.setCreatedTime(DateUtils.getServerDateStringByDate(new Date()));
+            mProjectWork.setSaleType(saleProduct);
             // 锅炉
             if (mProjectWorkFurnaceArrayList.size() <= 0) {
                 ViewUtils.toast(getString(R.string.params_not_full_prompt));
                 return;
             }
-            projectWork.setProjectWorkFurnaceList(mProjectWorkFurnaceArrayList);
+            mProjectWork.setProjectWorkFurnaceList(mProjectWorkFurnaceArrayList);
 
-            projectWork.setDailyExpense(projectExpense);
-            projectWork.setExpenseDetail(feeDetail);
-            projectWork.setRemark(otherProblem);
-            saveProjectWorkRequest(projectWork);
+            mProjectWork.setDailyExpense(projectExpense);
+            mProjectWork.setExpenseDetail(feeDetail);
+            mProjectWork.setRemark(otherProblem);
         } else {
-
             mProjectWork.setProjectName(projectName);
             mProjectWork.setCreatedTime(date);
             mProjectWork.setSaleType(saleProduct);
@@ -306,8 +316,8 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
             mProjectWork.setDailyExpense(projectExpense);
             mProjectWork.setExpenseDetail(feeDetail);
             mProjectWork.setRemark(otherProblem);
-            saveProjectWorkRequest(mProjectWork);
         }
+        mAlertDialog.show();
     }
     //endregion
 
@@ -344,8 +354,13 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 ViewUtils.dismiss();
-                mProjectWorkFurnaceArrayList = response.body().getContent(new TypeToken<ArrayList<ProjectWorkFurnace>>() {
+                ArrayList<ProjectWorkFurnace> tempProjectWorkFurnaceArrayList = response.body().getContent(new TypeToken<ArrayList<ProjectWorkFurnace>>() {
                 });
+
+                mProjectWorkFurnaceArrayList.clear();
+                if (tempProjectWorkFurnaceArrayList != null) {
+                    mProjectWorkFurnaceArrayList.addAll(tempProjectWorkFurnaceArrayList);
+                }
 
                 for (ProjectWorkFurnace projectWorkFurnace : mProjectWorkFurnaceArrayList) {
                     projectWorkFurnace.setProjectID(projectID);

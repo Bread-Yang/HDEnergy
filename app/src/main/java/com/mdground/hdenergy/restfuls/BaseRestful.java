@@ -192,7 +192,7 @@ public abstract class BaseRestful {
                         + "\"Content\" : " + response.body().getContent() + "}" + "\n\n");
 
                 if (response.body().getCode() == ResponseCode.InvalidToken.getValue()) { // 请求token失效,重新登录
-                    DeviceUtils.logoutUser();
+                    DeviceUtils.logoutUser(mContext);
                 } else if (response.body().getCode() == ResponseCode.SystemError.getValue()) {
                     ViewUtils.toast(R.string.request_fail);  // 请求超时
                     ViewUtils.dismiss();
@@ -258,7 +258,7 @@ public abstract class BaseRestful {
                         + "\"Message\" :" + response.body().getMessage() + ","
                         + "\"Content\" : " + response.body().getContent() + "}" + "\n\n");
                 if (response.body().getCode() == ResponseCode.InvalidToken.getValue()) { // 请求token失效,重新登录
-                    DeviceUtils.logoutUser();
+                    DeviceUtils.logoutUser(mContext);
                 } else if (response.body().getCode() == ResponseCode.SystemError.getValue()) {
                     KLog.e("请求超时!!!");
                     ViewUtils.toast(R.string.request_fail);  // 请求超时

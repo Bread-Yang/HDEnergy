@@ -21,6 +21,7 @@ import com.mdground.hdenergy.utils.FileUtils;
 import com.mdground.hdenergy.utils.MD5Utils;
 import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,9 +58,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-       String  userName= (String) FileUtils.getObject(Constants.KEY_LAST_LOGIN_ACCOUNT);
-        if(userName!=null){
-            etAccount.setText(userName);
+        String userName = (String) FileUtils.getObject(Constants.KEY_LAST_LOGIN_ACCOUNT);
+        if (userName != null) {
+            etAccount.append(userName);
         }
     }
 
@@ -99,14 +100,14 @@ public class LoginActivity extends AppCompatActivity {
                     if (cbAutoLogin.isChecked()) {
                         saveUserAndToMainActivity(userInfo);
                     }
-                     FileUtils.setObject(Constants.KEY_LAST_LOGIN_ACCOUNT,userInfo.getUserPhone());
+                    FileUtils.setObject(Constants.KEY_LAST_LOGIN_ACCOUNT, userInfo.getUserPhone());
                     MDGroundApplication.sInstance.setLoginUserInfo(userInfo);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
                     ViewUtils.toast(response.body().getMessage());
-                    FileUtils.setObject(Constants.KEY_LAST_LOGIN_ACCOUNT,null);
+                    FileUtils.setObject(Constants.KEY_LAST_LOGIN_ACCOUNT, null);
                 }
             }
 

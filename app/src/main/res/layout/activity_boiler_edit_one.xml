@@ -28,7 +28,6 @@
                     android:id="@+id/tvHours"
                     style="@style/WithArrowIconTextStyle"
                     android:hint="@string/please_choose_duration"
-                    android:text="24h"
                     android:textSize="@dimen/text_size_16"/>
 
             </RelativeLayout>

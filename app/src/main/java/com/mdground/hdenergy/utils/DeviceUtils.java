@@ -83,7 +83,8 @@ public class DeviceUtils {
         }
     }
 
-    public static void logoutUser() {
+    public static void logoutUser(Context context) {
         FileUtils.setObject(Constants.KEY_SAVE_LOGIN_USER_INFO, null); // 清空之前的user,保留登录账号
+        NavUtils.toLoginActivity(context);
     }
 }

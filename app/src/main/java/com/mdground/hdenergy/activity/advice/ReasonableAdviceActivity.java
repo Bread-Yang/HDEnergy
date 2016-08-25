@@ -1,5 +1,7 @@
 package com.mdground.hdenergy.activity.advice;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.View;
 
 import com.mdground.hdenergy.R;
@@ -21,6 +23,8 @@ import retrofit2.Response;
  */
 public class ReasonableAdviceActivity extends ToolbarActivity<ActivityReasonableAdviceBinding> {
 
+    private AlertDialog mAlertDialog;
+
     @Override
     protected int getContentLayout() {
         return R.layout.activity_reasonable_advice;
@@ -29,6 +33,20 @@ public class ReasonableAdviceActivity extends ToolbarActivity<ActivityReasonable
     @Override
     protected void initData() {
         tvRight.setText(R.string.submit);
+
+        // 初始化对话框
+        mAlertDialog = ViewUtils.createAlertDialog(this, getString(R.string.confirm_to_submit),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String suggestion = mDataBinding.etSuggestion.getText().toString().trim();
+                        saveUserSuggestionRequest(suggestion);
+                    }
+                });
     }
 
     @Override
@@ -41,7 +59,7 @@ public class ReasonableAdviceActivity extends ToolbarActivity<ActivityReasonable
                     ViewUtils.toast(R.string.can_not_empty);
                     return;
                 }
-                saveUserSuggestionRequest(suggestion);
+                mAlertDialog.show();
             }
         });
     }

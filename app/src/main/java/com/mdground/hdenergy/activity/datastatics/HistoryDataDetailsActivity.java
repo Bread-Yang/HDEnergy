@@ -74,7 +74,7 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
         mDataBinding.tvReportName.setText(mProjectWork.getUserName());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
-            Date ceateDate = format.parse(mProjectWork.getCreatedTime());
+            Date ceateDate = format.parse(mProjectWork.getReportedTime());
             SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
             String formatDate = format1.format(ceateDate);
             mDataBinding.tvData.setText(formatDate);
@@ -97,9 +97,7 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HistoryDataDetailsActivity.this, DataReportActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Constants.KEY_PROJECT, mProjectWork);
-                intent.putExtras(bundle);
+                intent.putExtra(Constants.KEY_PROJECT, mProjectWork);
                 startActivity(intent);
             }
         });

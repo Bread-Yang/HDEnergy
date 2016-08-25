@@ -15,7 +15,6 @@ import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.DeviceUtils;
 import com.mdground.hdenergy.utils.MD5Utils;
-import com.mdground.hdenergy.utils.NavUtils;
 import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.socks.library.KLog;
@@ -188,8 +187,7 @@ public class ForgetPasswordActivity extends ToolbarActivity<ActivityForgetPasswo
                             ViewUtils.toast(R.string.change_password_success);
 
                             if (mIsResetPassword) {
-                                DeviceUtils.logoutUser();
-                                NavUtils.toLoginActivity(ForgetPasswordActivity.this);
+                                DeviceUtils.logoutUser(ForgetPasswordActivity.this);
                             } else {
                                 finish();
                             }
