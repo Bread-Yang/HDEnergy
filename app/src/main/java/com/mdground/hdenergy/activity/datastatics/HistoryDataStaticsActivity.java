@@ -49,9 +49,15 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        getProjectSummeryListRequest(0);
+    }
+
+    @Override
     protected void initData() {
         getDateList();
-        GetProjectSummeryListRequest(0);
         mAdapter = new HistoryDateAdapter();
         mLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mLinearLayoutManager = new LinearLayoutManager(HistoryDataStaticsActivity.this);
@@ -99,17 +105,19 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
         startActivity(intent);
     }
 
-    //region SERVERN
-
-    public void GetProjectSummeryListRequest(int pageIndex) {
+    //region SERVER
+    public void getProjectSummeryListRequest(int pageIndex) {
         ViewUtils.loading(this);
         GlobalRestful.getInstance().GetProjectSummeryList(pageIndex, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 ViewUtils.dismiss();
+
                 if (ResponseCode.isSuccess(response.body())) {
                     ArrayList<ProjectWork> projects = response.body().getContent(new TypeToken<ArrayList<ProjectWork>>() {
                     });
+
+                    mProjectList.clear();
                     if (projects != null) {
                         for (ProjectWork project : projects) {
                             mProjectList.add(project);
@@ -161,8 +169,8 @@ public class HistoryDataStaticsActivity extends ToolbarActivity<ActivityHistoryD
 
             ProjectWork projectWork = mProjectList.get(position);
             holder.itemHistoryDatastaticsBinding.tvTitles.setText(projectWork.getProjectName());
+            holder.itemHistoryDatastaticsBinding.tvProfit.setText(String.valueOf(projectWork.getProfit()));
             holder.itemHistoryDatastaticsBinding.tvQuestion.setText(projectWork.getRemark());
-            holder.itemHistoryDatastaticsBinding.tvProfit.setText(projectWork.getExpenseDetail());
 
             if (projectWork.getSaleType().equals(getString(R.string.steam))) {
                 // 销售产品为蒸汽

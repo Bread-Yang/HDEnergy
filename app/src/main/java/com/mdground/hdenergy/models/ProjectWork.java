@@ -27,6 +27,7 @@ public class ProjectWork implements Parcelable {
     private float DayWaterCost;     // 水耗（水单耗）
     private float DayFuelCost;      // 单耗（燃料单耗）
     private float FuelCost;         //标准燃料单耗
+    private float Profit;
 
     public float getFuelCost() {
         return FuelCost;
@@ -156,6 +157,14 @@ public class ProjectWork implements Parcelable {
         ReportedTime = reportedTime;
     }
 
+    public float getProfit() {
+        return Profit;
+    }
+
+    public void setProfit(float profit) {
+        Profit = profit;
+    }
+
     public ProjectWork() {
 
     }
@@ -183,6 +192,7 @@ public class ProjectWork implements Parcelable {
         dest.writeFloat(this.DayWaterCost);
         dest.writeFloat(this.DayFuelCost);
         dest.writeFloat(this.FuelCost);
+        dest.writeFloat(this.Profit);
     }
 
     protected ProjectWork(Parcel in) {
@@ -202,6 +212,7 @@ public class ProjectWork implements Parcelable {
         this.DayWaterCost = in.readFloat();
         this.DayFuelCost = in.readFloat();
         this.FuelCost = in.readFloat();
+        this.Profit = in.readFloat();
     }
 
     public static final Creator<ProjectWork> CREATOR = new Creator<ProjectWork>() {

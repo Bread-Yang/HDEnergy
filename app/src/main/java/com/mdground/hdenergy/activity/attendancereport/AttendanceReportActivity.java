@@ -97,7 +97,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
         getUserContactListRequest();
         getProjectCategoryListRequest(0);
 
-        initTimePickerDialog();
+//        initTimePickerDialog();
         mBaoPickerDialog = new BaoPickerDialog(this);
 
         // 上班状态数据
@@ -250,7 +250,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
         calculateManHours();
     }
 
-    private void initTimePickerDialog() {
+    private void initTimePickerDialog(long currentTime) {
         mTimePickerDialog = new TimePickerDialog.Builder()
                 .setCallBack(this)
                 .setCancelStringId(getString(R.string.cancel))
@@ -267,6 +267,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
                 .setWheelItemTextNormalColor(getResources().getColor(R.color.timetimepicker_default_text_color))
                 .setWheelItemTextSelectorColor(getResources().getColor(R.color.timepicker_toolbar_bg))
                 .setWheelItemTextSize(12)
+                .setCurrentMillseconds(currentTime)
                 .build();
     }
 
@@ -434,6 +435,12 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
     public void selectDateAction(View view) {
         mClickResID = view.getId();
+
+        if (mClickResID == R.id.rltStartTime) {
+            initTimePickerDialog(mStartTime);
+        } else {
+            initTimePickerDialog(mEndTime);
+        }
 
         mTimePickerDialog.show(getSupportFragmentManager(), String.valueOf(mClickResID));
     }

@@ -64,15 +64,27 @@ public class StringUtils {
      *
      * @return 当前应用的版本号
      */
-    public static String getVersion() {
+    public static String getVersionName() {
         try {
             PackageManager manager = MDGroundApplication.sInstance.getPackageManager();
             PackageInfo info = manager.getPackageInfo(MDGroundApplication.sInstance.getPackageName(), 0);
-            String version = info.versionName;
-            return version;
+            String versionName = info.versionName;
+            return versionName;
         } catch (Exception e) {
             e.printStackTrace();
             return "";
+        }
+    }
+
+    public static int getVersionCode() {
+        try {
+            PackageManager manager = MDGroundApplication.sInstance.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(MDGroundApplication.sInstance.getPackageName(), 0);
+            int versionCode = info.versionCode;
+            return versionCode;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 

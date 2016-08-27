@@ -82,8 +82,8 @@
                 <TextView
                     android:id="@+id/tvAttendanceStatus"
                     style="@style/WithArrowIconTextStyle"
-                    tools:text="@string/normal"
-                    android:textSize="@dimen/text_size_16" />
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="@string/normal" />
 
             </RelativeLayout>
 
@@ -317,6 +317,7 @@
                 <EditText
                     android:id="@+id/etScore"
                     style="@style/WithArrowEdittextStyle"
+                    android:layout_width="280dp"
                     android:gravity="right"
                     android:hint="@string/last_day_fill"
                     android:inputType="number" />

@@ -251,7 +251,7 @@
     <string name="new_version">新版特性:</string>
     <string name="update">更新</string>
     <string name="newest_version">已经是最新版本</string>
-    <string name="current_version">你当前的版本是V%s</string>
+    <string name="newest_version_code">最新版本是V%s</string>
     <string name="none">无</string>
     <string name="reasonable_suggest_text">合理的建议有助于我们改善用户体验，谢谢</string>
 

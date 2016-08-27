@@ -42,7 +42,6 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
     private List<ProjectWork> mProjectWorkList = new ArrayList<>();
     private ProjectWork mProjectWork;
     private int mPageIndex = 0;
-    private int mAuthorityLevel;
     private boolean mIsLoadeMore = false;
 
     @Override
@@ -51,11 +50,18 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        getProjectWorkListRequest(mProjectWork.getProjectID(), mPageIndex);
+    }
+
+    @Override
     protected void initData() {
         mProjectWork = getIntent().getParcelableExtra(Constants.KEY_HISTORY_DATE_PROJECT);
+
         setTitle(mProjectWork.getProjectName());
-        GetProjectWorkList(mProjectWork.getProjectID(), mPageIndex);
-        mAuthorityLevel = MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel();
+
         mAdapter = new HistoryDateListAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(HistoryDataListActivity.this);
         mDataBinding.recyclerView.setLayoutManager(linearLayoutManager);
@@ -67,7 +73,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
 
     }
 
-    public void correspondingDetails(View view) {
+    private void correspondingDetails(View view) {
         int postion = mDataBinding.recyclerView.getChildAdapterPosition(view);
         Intent intent = new Intent(this, HistoryDataDetailsActivity.class);
         Bundle bundle = new Bundle();
@@ -77,17 +83,19 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
     }
 
     //region SERVER
-    public void GetProjectWorkList(int ProjectID, int PageIndex) {
+    private void getProjectWorkListRequest(int ProjectID, int PageIndex) {
         ViewUtils.loading(this);
         GlobalRestful.getInstance().GetProjectWorkList(ProjectID, PageIndex, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 ViewUtils.dismiss();
+
                 if (ResponseCode.isSuccess(response.body())) {
                     String ss = response.body().getContent();
                     ArrayList<ProjectWork> tempList = response.body().getContent(new TypeToken<ArrayList<ProjectWork>>() {
                     });
 
+                    mProjectWorkList.clear();
                     if (tempList != null) {
                         for (ProjectWork projectWork : tempList) {
                             mProjectWorkList.add(projectWork);
@@ -116,7 +124,7 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
     //endregion
 
     //region ADAPTER
-    public class HistoryDateListAdapter extends RecyclerView.Adapter<HistoryDateListAdapter.MyViewHolder> {
+    private class HistoryDateListAdapter extends RecyclerView.Adapter<HistoryDateListAdapter.MyViewHolder> {
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(HistoryDataListActivity.this)
@@ -130,7 +138,8 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
 
             ProjectWork projectWork = mProjectWorkList.get(position);
 
-            if (mAuthorityLevel != 3) {
+            int authorityLevel = MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel();
+            if (authorityLevel != 3) {
                 holder.itemHistoryDatastaticsBinding.lltProfit.setVisibility(View.GONE);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(0, 0, 0, 0);
@@ -180,9 +189,14 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
                         getString(R.string.ton_per_ton, projectWork.getDayWaterCost()));
             }
 
+            // 利润
+            holder.itemHistoryDatastaticsBinding.tvProfit.setText(String.valueOf(projectWork.getProfit()));
             if (MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel() != 3) {
                 holder.itemHistoryDatastaticsBinding.tvProfit.setVisibility(View.GONE);
             }
+
+            // 问题
+            holder.itemHistoryDatastaticsBinding.tvQuestion.setText(projectWork.getRemark());
         }
 
         @Override

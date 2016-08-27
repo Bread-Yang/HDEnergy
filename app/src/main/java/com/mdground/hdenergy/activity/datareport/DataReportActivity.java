@@ -288,35 +288,22 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
             // 项目
             Project project = mProjectArrayList.get(mSelectProjectIndex);
             mProjectWork.setProjectID(project.getProjectID());
-            mProjectWork.setProjectName(projectName);
-            mProjectWork.setReportedTime(date);
-            mProjectWork.setCreatedTime(DateUtils.getServerDateStringByDate(new Date()));
-            mProjectWork.setSaleType(saleProduct);
-            // 锅炉
-            if (mProjectWorkFurnaceArrayList.size() <= 0) {
-                ViewUtils.toast(getString(R.string.params_not_full_prompt));
-                return;
-            }
-            mProjectWork.setProjectWorkFurnaceList(mProjectWorkFurnaceArrayList);
-
-            mProjectWork.setDailyExpense(projectExpense);
-            mProjectWork.setExpenseDetail(feeDetail);
-            mProjectWork.setRemark(otherProblem);
-        } else {
-            mProjectWork.setProjectName(projectName);
-            mProjectWork.setCreatedTime(date);
-            mProjectWork.setSaleType(saleProduct);
-
-            if (mProjectWorkFurnaceArrayList.size() <= 0) {
-                ViewUtils.toast(getString(R.string.params_not_full_prompt));
-                return;
-            }
-
-            mProjectWork.setProjectWorkFurnaceList(mProjectWorkFurnaceArrayList);
-            mProjectWork.setDailyExpense(projectExpense);
-            mProjectWork.setExpenseDetail(feeDetail);
-            mProjectWork.setRemark(otherProblem);
         }
+
+        mProjectWork.setProjectName(projectName);
+        mProjectWork.setReportedTime(date);
+        mProjectWork.setCreatedTime(DateUtils.getServerDateStringByDate(new Date()));
+        mProjectWork.setSaleType(saleProduct);
+        // 锅炉
+        if (mProjectWorkFurnaceArrayList.size() <= 0) {
+            ViewUtils.toast(getString(R.string.params_not_full_prompt));
+            return;
+        }
+        mProjectWork.setProjectWorkFurnaceList(mProjectWorkFurnaceArrayList);
+        mProjectWork.setDailyExpense(projectExpense);
+        mProjectWork.setExpenseDetail(feeDetail);
+        mProjectWork.setRemark(otherProblem);
+
         mAlertDialog.show();
     }
     //endregion
@@ -383,6 +370,12 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 ViewUtils.dismiss();
                 ViewUtils.toast(R.string.submit_success);
+
+                if (!mIsNewProjectWork) {
+                    Intent intent = new Intent();
+                    intent.putExtra(Constants.KEY_PROJECT, mProjectWork);
+                    setResult(RESULT_OK, intent);
+                }
                 finish();
             }
 

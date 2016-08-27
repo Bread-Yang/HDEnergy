@@ -62,7 +62,6 @@ public class SimpleImageBanner extends BaseIndicatorBanner<Bulletin, SimpleImage
             Glide.with(mContext)
                     .load(mdImage)
 //                    .override(itemWidth, itemHeight)
-                    .centerCrop()
                     .placeholder(colorDrawable)
                     .into(iv);
         } else {

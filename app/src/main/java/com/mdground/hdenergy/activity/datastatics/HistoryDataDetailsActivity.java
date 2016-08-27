@@ -48,7 +48,14 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         mProjectWork = (ProjectWork) bundle.getParcelable(Constants.KEY_HISTORY_DATA_PROJECT);
+
+        initView();
+    }
+
+    //初始化界面
+    private void initView() {
         ArrayList<ProjectWorkFurnace> FurnaceList = (ArrayList<ProjectWorkFurnace>) mProjectWork.getProjectWorkFurnaceList();
+        mProjectWorkFurnaceList.clear();
         if (FurnaceList != null) {
             mProjectWorkFurnaceList = FurnaceList;
         }
@@ -60,17 +67,6 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
         } else {
             tvRight.setVisibility(View.GONE);
         }
-        initView();
-        mAdapter = new DataDetailsAdapter();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mDataBinding.recyclerView.setLayoutManager(linearLayoutManager);
-        mDataBinding.recyclerView.addItemDecoration(new NormalItemDecoration(ViewUtils.dp2px(1)));
-        mDataBinding.recyclerView.setAdapter(mAdapter);
-    }
-
-    //初始化界面
-    private void initView() {
         mDataBinding.tvReportName.setText(mProjectWork.getUserName());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
@@ -89,6 +85,12 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
         mDataBinding.etProjectExpense.setText(expense);
         mDataBinding.etOtherProblem.setText(mProjectWork.getRemark());
 
+        mAdapter = new DataDetailsAdapter();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mDataBinding.recyclerView.setLayoutManager(linearLayoutManager);
+        mDataBinding.recyclerView.addItemDecoration(new NormalItemDecoration(ViewUtils.dp2px(1)));
+        mDataBinding.recyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -98,9 +100,17 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
             public void onClick(View view) {
                 Intent intent = new Intent(HistoryDataDetailsActivity.this, DataReportActivity.class);
                 intent.putExtra(Constants.KEY_PROJECT, mProjectWork);
-                startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            mProjectWork = data.getParcelableExtra(Constants.KEY_PROJECT);
+            initView();
+        }
     }
 
     //region ADAPTER

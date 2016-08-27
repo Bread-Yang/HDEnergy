@@ -19,7 +19,7 @@ public class CheckUpdateDialog extends Dialog {
     private TextView tvCancel, tvUpdate;
     public TextView tvCurrentVersion, tvNewestProperty;
     private OnClickUpdateListener onClickUpdateListener;
-    private String mFirstContent, mScendContent;
+    private String mFirstContent, mSecondContent;
 
     public interface OnClickUpdateListener {
         void clickCancel();
@@ -27,10 +27,10 @@ public class CheckUpdateDialog extends Dialog {
         void clickUpdate();
     }
 
-    public CheckUpdateDialog(Context context, String firstContent, String scendContent) {
+    public CheckUpdateDialog(Context context, String firstContent, String secondContent) {
         super(context, R.style.CheckUpdateDialogStyle);
         mFirstContent = firstContent;
-        mScendContent = scendContent;
+        mSecondContent = secondContent;
         mContext = context;
 
     }
@@ -48,7 +48,7 @@ public class CheckUpdateDialog extends Dialog {
         tvCurrentVersion = (TextView) view.findViewById(R.id.tvCurrentVersion);
         tvCurrentVersion.setText(mFirstContent);
         tvNewestProperty = (TextView) view.findViewById(R.id.tvNewestProperty);
-        tvNewestProperty.setText(mScendContent);
+        tvNewestProperty.setText(mSecondContent);
         setContentView(view);
 
 //        Window window = getWindow();

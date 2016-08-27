@@ -65,6 +65,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         int workingHour = mProjectWorkFurnace.getWorkingHour();
         if (workingHour == 0) {
             workingHour = 24;
+            mProjectWorkFurnace.setWorkingHour(24);
         }
         mDataBinding.tvHours.setText(getString(R.string.with_hour_unit, workingHour));
 

@@ -51,10 +51,10 @@
             <com.mdground.hdenergy.views.SimpleImageBanner
                 android:id="@+id/simpleImageBanner"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/size_216"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_14"
                 android:background="@color/color_999999"
-                app:bb_scale="0.8" />
+                app:bb_scale="0.56" />
 
             <LinearLayout
                 android:layout_width="match_parent"
