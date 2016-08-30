@@ -47,4 +47,10 @@ public class MDGroundApplication extends Application {
         FileUtils.setObject(Constants.KEY_ALREADY_LOGIN_USER_INFO, loginUserInfo);
     }
 
+    public void updateLoginUserInfo(UserInfo userInfo) {
+        UserInfo loginUserInfo = getLoginUser();
+        userInfo.setDeviceID(loginUserInfo.getDeviceID());      // 设置之前的deviceID
+        userInfo.setServiceToken(loginUserInfo.getServiceToken());  // 设置之前的ServiceToken
+        setLoginUserInfo(userInfo);
+    }
 }

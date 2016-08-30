@@ -155,8 +155,10 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
                 e.printStackTrace();
             }
 
-            if (projectWork.getDayFuelCost() > projectWork.getFuelCost()) {
+            if (mProjectWork.getFuelCost() < projectWork.getDayFuelCost()) {
                 holder.itemHistoryDatastaticsBinding.ivWarning.setImageResource(R.drawable.icon_warning);
+            } else {
+                holder.itemHistoryDatastaticsBinding.ivWarning.setImageResource(R.drawable.icon_normal);
             }
 
             if (projectWork.getSaleType().equals(getString(R.string.steam))) {

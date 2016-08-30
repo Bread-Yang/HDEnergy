@@ -42,6 +42,8 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
     private ArrayList<ProjectWorkFlowrate> mProjectWorkFlowrateArrayList = new ArrayList<>();
 
+    private float mLastEndFlow;
+
     private boolean mIsHeatProduct; // 销售产品是否是"热力"
 
     private int mSelectHourIndex;
@@ -53,6 +55,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
     @Override
     protected void initData() {
+        mLastEndFlow = getIntent().getFloatExtra(Constants.KEY_LAST_END_FLOW, 0);
         mIsHeatProduct = getIntent().getBooleanExtra(Constants.KEY_IS_HEAT_SALE_PRODUCT, false);
         if (mIsHeatProduct) {
             // 若销售产品为热力，则水量整个layout是没有的
@@ -423,6 +426,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
     private ProjectWorkFlowrate createFlowrate() {
         ProjectWorkFlowrate projectWorkFlowrate = new ProjectWorkFlowrate();
+        projectWorkFlowrate.setBeginFlow(mLastEndFlow);
         projectWorkFlowrate.setWorkFurnaceID(mProjectWorkFurnace.getWorkFurnaceID());
         return projectWorkFlowrate;
     }

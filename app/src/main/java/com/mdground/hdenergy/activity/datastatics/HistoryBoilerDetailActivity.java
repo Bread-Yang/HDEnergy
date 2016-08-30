@@ -81,7 +81,7 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
                 if (mIsHeatProduct) {
                     flow = (mFlowArrayList.get(i).getEndFlow() - mFlowArrayList.get(i).getBeginFlow()) * 23.8845 / 60;
                 } else {
-                    flow = (mFlowArrayList.get(i).getEndFlow() - mFlowArrayList.get(i).getBeginFlow()) * 23.8845 / 60;
+                    flow = mFlowArrayList.get(i).getEndFlow() - mFlowArrayList.get(i).getBeginFlow();
                 }
 
                 mFlowAmount = flow + mFlowAmount;

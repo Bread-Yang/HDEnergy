@@ -211,17 +211,17 @@ public class GlobalRestful extends BaseRestful {
     }
 
     //获取项目统计信息列表
-    public void GetProjectSummeryList(int pageIndex,Callback<ResponseData> callback) {
+    public void GetProjectSummeryList(int pageIndex, Callback<ResponseData> callback) {
 
-        JsonObject obj=new JsonObject();
-        obj.addProperty("PageIndex",pageIndex);
-        asynchronousPost("GetProjectSummeryList",obj, callback);
+        JsonObject obj = new JsonObject();
+        obj.addProperty("PageIndex", pageIndex);
+        asynchronousPost("GetProjectSummeryList", obj, callback);
     }
 
     //分页获取历史数据统计
-    public void GetProjectWorkList(int ProjectID,int PageIndex, Callback<ResponseData> callback) {
+    public void GetProjectWorkList(int ProjectID, int PageIndex, Callback<ResponseData> callback) {
         JsonObject obj = new JsonObject();
-        obj.add("ProjectID",new Gson().toJsonTree(ProjectID));
+        obj.add("ProjectID", new Gson().toJsonTree(ProjectID));
         obj.addProperty("PageIndex", PageIndex);
         asynchronousPost("GetProjectWorkList", obj, callback);
     }
@@ -229,5 +229,15 @@ public class GlobalRestful extends BaseRestful {
     //获取系统版本更新列表
     public void GetUpdateMessageList(Callback<ResponseData> callback) {
         asynchronousPost("GetUpdateMessageList", null, callback);
+    }
+
+    public void GetProjectLastEndFlow(int ProjectID, Callback<ResponseData> callback) {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("ProjectID", ProjectID);
+        asynchronousPost("GetProjectLastEndFlow", obj, callback);
+    }
+
+    public void GetUserInfo(Callback<ResponseData> callback) {
+        asynchronousPost("GetUserInfo", null, callback);
     }
 }

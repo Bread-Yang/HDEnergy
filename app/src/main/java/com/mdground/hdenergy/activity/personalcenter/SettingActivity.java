@@ -30,6 +30,8 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding>
 
     private CheckUpdateDialog mDialog;
 
+    private String mUpdateUrl = "http://fuat.yideguan.com/app/huidi.apk";
+
     @Override
     protected int getContentLayout() {
         return R.layout.activity_setting;
@@ -55,14 +57,14 @@ public class SettingActivity extends ToolbarActivity<ActivitySettingBinding>
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().getContent());
 
-                    float serverVersionCode = jsonObject.getLong("Version");
+                    String serverVersionName = jsonObject.getString("Version");
 
-                    int currentVersionCode = StringUtils.getVersionCode();
+                    String currentVersionName = StringUtils.getVersionName();
 
-                    if (serverVersionCode > currentVersionCode) {
+                    if (!currentVersionName.equals(serverVersionName)) {
                         String description = jsonObject.getString("Description");
 
-                        mDialog = new CheckUpdateDialog(SettingActivity.this, getString(R.string.newest_version_code, String.valueOf(serverVersionCode)),
+                        mDialog = new CheckUpdateDialog(SettingActivity.this, getString(R.string.newest_version_code, serverVersionName),
                                 description);
                         mDialog.setButtonListen(SettingActivity.this);
 

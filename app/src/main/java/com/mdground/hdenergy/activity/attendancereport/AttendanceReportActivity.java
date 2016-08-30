@@ -2,6 +2,7 @@ package com.mdground.hdenergy.activity.attendancereport;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.View;
 
 import com.google.gson.reflect.TypeToken;
@@ -297,6 +298,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
         if (mProjectArrayList.size() > 0) {
             Project project = mProjectArrayList.get(mSelectProjectIndex);
             userAttendance.setProjectID(project.getProjectID());
+            userAttendance.setProjectName(project.getProjectName());
         }
 
         // 姓名
@@ -675,13 +677,16 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
         });
     }
 
-    private void saveUserAttendanceRequest(UserAttendance userAttendance) {
+    private void saveUserAttendanceRequest(final UserAttendance userAttendance) {
         ViewUtils.loading(this);
         GlobalRestful.getInstance().SaveUserAttendance(userAttendance, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 ViewUtils.dismiss();
                 ViewUtils.toast(R.string.submit_success);
+                Intent intent = new Intent();
+                intent.putExtra(Constants.KEY_USER_ATTENDANCE, userAttendance);
+                setResult(RESULT_OK, intent);
                 finish();
             }
 

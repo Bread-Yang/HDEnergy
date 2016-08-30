@@ -15,13 +15,13 @@ import com.mdground.hdenergy.databinding.ActivityCommonProjectBinding;
 import com.mdground.hdenergy.databinding.ItemContactsBinding;
 import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.models.Project;
+import com.mdground.hdenergy.models.UserInfo;
 import com.mdground.hdenergy.models.UserProject;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.DateUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.AddProjectDialog;
-import com.socks.library.KLog;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,7 +38,6 @@ import retrofit2.Response;
 public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProjectBinding> implements AddProjectDialog.OnClickUpdateListener {
 
     private ArrayList<Project> mAllProjectList = new ArrayList<>();
-    //    private ArrayList<Project> mCommonProjectList = new ArrayList<>();
     private ArrayList<UserProject> mUserProjectList = new ArrayList<>();
     private CommonProjectAdapter mAdapter;
     private AddProjectDialog mDialog;
@@ -50,18 +49,8 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel() == 1) {
-            mDataBinding.lltAdd.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
     protected void initData() {
         mUserID = MDGroundApplication.sInstance.getLoginUser().getUserID();
-        KLog.e("userID" + mUserID);
-        GetProjectListRequest();
         mDialog = new AddProjectDialog(this);
         mAdapter = new CommonProjectAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -70,6 +59,8 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
         mDataBinding.recyclerView.setAdapter(mAdapter);
 
         mDialog.setButtonListen(this);
+
+        getUserInfoRequest();
     }
 
     @Override
@@ -79,9 +70,7 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
 
     //进行一个排序
     private void sortAllProject(List<UserProject> userProjects) {
-
         for (int i = 0; i < mAllProjectList.size(); i++) {
-
             for (int j = 0; j < userProjects.size(); j++) {
 
                 if (mAllProjectList.get(i).getProjectID() == userProjects.get(j).getProjectID()) {
@@ -97,11 +86,30 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
         mAdapter.notifyDataSetChanged();
     }
 
-    //region SERVERR
-
-    public void GetProjectListRequest() {
+    //region SERVER
+    private void getUserInfoRequest() {
         ViewUtils.loading(this);
+        GlobalRestful.getInstance().GetUserInfo(new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                UserInfo userInfo = response.body().getContent(UserInfo.class);
+                MDGroundApplication.sInstance.updateLoginUserInfo(userInfo);
 
+                if (userInfo.getAuthorityLevel() == 1) {
+                    mDataBinding.lltAdd.setVisibility(View.GONE);
+                }
+
+                GetProjectListRequest();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void GetProjectListRequest() {
         GlobalRestful.getInstance().GetProjectList(new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
@@ -125,12 +133,11 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
         });
     }
 
-    public void GetUserProjectListRequest() {
+    private void GetUserProjectListRequest() {
         GlobalRestful.getInstance().GetUserProjectList(new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 if (ResponseCode.isSuccess(response.body())) {
-                    KLog.e("---->" + response.body().getContent());
                     mUserProjectList.clear();
                     ArrayList<Project> Projects = response.body().getContent(new TypeToken<ArrayList<Project>>() {
                     });
@@ -154,8 +161,7 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
 
     }
 
-    public void SaveProjectResqust(Project project) {
-
+    private void SaveProjectResqust(Project project) {
         GlobalRestful.getInstance().SaveProject(project, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
@@ -174,10 +180,7 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
         });
     }
 
-    public void SaveUserProjectListRequest(final List<UserProject> userProjects) {
-        for (int i = 0; i < userProjects.size(); i++) {
-            KLog.e("----" + userProjects.get(i).getUserID());
-        }
+    private void SaveUserProjectListRequest(final List<UserProject> userProjects) {
         GlobalRestful.getInstance().SaveUserProjectList(userProjects, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
@@ -256,12 +259,10 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
                     UserProject userProject = new UserProject();
                     userProject.setUserID(mUserID);
                     userProject.setProjectID(mAllProjectList.get(position).getProjectID());
-                    KLog.e("加进去的UseID" + mUserID);
                     if (holder.itemContactsBinding.cbSelector.isChecked()) {
                         mUserProjectList.add(userProject);
                         SaveUserProjectListRequest(mUserProjectList);
                     } else {
-                        KLog.e("移除项目 ");
                         for (int i = 0; i < mUserProjectList.size(); i++) {
                             if (mUserProjectList.get(i).getProjectID() == userProject.getProjectID()) {
                                 mUserProjectList.remove(i);
@@ -272,7 +273,6 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
                     }
                 }
             });
-
         }
 
         @Override
@@ -286,7 +286,6 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
             public MyViewHolder(View itemView) {
                 super(itemView);
                 itemContactsBinding = DataBindingUtil.bind(itemView);
-
             }
         }
     }

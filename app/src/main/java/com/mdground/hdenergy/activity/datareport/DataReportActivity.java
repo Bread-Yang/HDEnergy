@@ -74,6 +74,8 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     private boolean mIsNewProjectWork = true;
 
+    private float mLastEndFlow;
+
     @Override
     protected int getContentLayout() {
         return R.layout.activity_data_report;
@@ -164,6 +166,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                         Project project = mProjectArrayList.get(currentPosition);
                         setProjectInfoAfterSelectProject(project);
                         getProjectFurnaceList(project.getProjectID());
+                        getProjectLastEndFlowRequest(project.getProjectID());
                         break;
 
                     case tvSaleProduct:
@@ -207,7 +210,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         mDataBinding.tvProject.setText(project.getProjectName());
         String saleType = project.getSaleType();
         mDataBinding.tvSaleProduct.setText(saleType);
-        mIsHeatProduct = !saleType.equals(getString(R.string.steam));
+        mIsHeatProduct = !getString(R.string.steam).equals(saleType);
     }
 
     //region  ACTION
@@ -319,6 +322,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                 if (mProjectArrayList.size() > 0) {
                     if (mIsNewProjectWork) {
                         getProjectFurnaceList(mProjectArrayList.get(0).getProjectID());
+                        getProjectLastEndFlowRequest(mProjectArrayList.get(0).getProjectID());
                         mDataBinding.tvProject.setText(mProjectArrayList.get(0).getProjectName());
 
                         setProjectInfoAfterSelectProject(mProjectArrayList.get(0));
@@ -354,6 +358,24 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                 }
 
                 mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void getProjectLastEndFlowRequest(int projectID) {
+        GlobalRestful.getInstance().GetProjectLastEndFlow(projectID, new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                if (!StringUtils.isEmpty(response.body().getContent())) {
+                    mLastEndFlow = Float.valueOf(response.body().getContent());
+                } else {
+                    mLastEndFlow = 0;
+                }
             }
 
             @Override
@@ -415,6 +437,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                     Intent intent = new Intent(DataReportActivity.this, BoilerEditOneActivity.class);
                     intent.putExtra(Constants.KEY_PROJECT_WORK_FURNACE, projectWorkFurnace);
                     intent.putExtra(Constants.KEY_IS_HEAT_SALE_PRODUCT, mIsHeatProduct);
+                    intent.putExtra(Constants.KEY_LAST_END_FLOW, mLastEndFlow);
                     startActivityForResult(intent, 0);
                 }
             });

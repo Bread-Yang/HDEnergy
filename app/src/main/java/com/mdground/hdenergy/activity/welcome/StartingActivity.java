@@ -12,8 +12,14 @@ import com.mdground.hdenergy.activity.login.LoginActivity;
 import com.mdground.hdenergy.application.MDGroundApplication;
 import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.models.UserInfo;
+import com.mdground.hdenergy.restfuls.GlobalRestful;
+import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.NavUtils;
 import com.mdground.hdenergy.utils.PreferenceUtils;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class StartingActivity extends AppCompatActivity {
 
@@ -46,8 +52,9 @@ public class StartingActivity extends AppCompatActivity {
                     UserInfo saveUserInfo = MDGroundApplication.sInstance.getSaveUser();
                     if (saveUserInfo != null) {
                         MDGroundApplication.sInstance.setLoginUserInfo(saveUserInfo);
-                        NavUtils.toHomeActivity(StartingActivity.this);
-                        finish();
+
+                        // 更新用户信息
+                        getUserInfoRequest();
                     } else {
                         toLoginActivity();
                     }
@@ -73,4 +80,21 @@ public class StartingActivity extends AppCompatActivity {
         finish();
     }
 
+    private void getUserInfoRequest() {
+        GlobalRestful.getInstance().GetUserInfo(new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                UserInfo userInfo = response.body().getContent(UserInfo.class);
+                MDGroundApplication.sInstance.updateLoginUserInfo(userInfo);
+
+                NavUtils.toHomeActivity(StartingActivity.this);
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+                toLoginActivity();
+            }
+        });
+    }
 }

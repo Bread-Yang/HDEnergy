@@ -28,6 +28,10 @@ public class EmployeeAttendanceDetailActivity extends ToolbarActivity<ActivityEm
         tvRight.setText(R.string.edit);
 
         mUserAttendance = getIntent().getParcelableExtra(Constants.KEY_USER_ATTENDANCE);
+        refreshView();
+    }
+
+    private void refreshView() {
         mDataBinding.setUserAttendance(mUserAttendance);
         getSupportActionBar().setTitle(mUserAttendance.getUserName());
 
@@ -51,14 +55,8 @@ public class EmployeeAttendanceDetailActivity extends ToolbarActivity<ActivityEm
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            finish();
+            mUserAttendance = data.getParcelableExtra(Constants.KEY_USER_ATTENDANCE);
+            refreshView();
         }
     }
-
-    //region  ACTION
-    public void nextStepAction(View view) {
-
-    }
-    //endregion
-
 }
