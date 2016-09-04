@@ -19,6 +19,7 @@ import com.mdground.hdenergy.application.MDGroundApplication;
 import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityDataReportBinding;
 import com.mdground.hdenergy.databinding.ItemBoilerBinding;
+import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.models.Project;
 import com.mdground.hdenergy.models.ProjectWork;
 import com.mdground.hdenergy.models.ProjectWorkFurnace;
@@ -391,14 +392,19 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 ViewUtils.dismiss();
-                ViewUtils.toast(R.string.submit_success);
 
-                if (!mIsNewProjectWork) {
-                    Intent intent = new Intent();
-                    intent.putExtra(Constants.KEY_PROJECT, mProjectWork);
-                    setResult(RESULT_OK, intent);
+                if (ResponseCode.isSuccess(response.body())) {
+                    ViewUtils.toast(R.string.submit_success);
+
+                    if (!mIsNewProjectWork) {
+                        Intent intent = new Intent();
+                        intent.putExtra(Constants.KEY_PROJECT, mProjectWork);
+                        setResult(RESULT_OK, intent);
+                    }
+                    finish();
+                } else {
+                    ViewUtils.toast(response.body().getMessage());
                 }
-                finish();
             }
 
             @Override

@@ -6,6 +6,7 @@ import android.view.View;
 import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.activity.attendancereport.AttendanceReportActivity;
 import com.mdground.hdenergy.activity.base.ToolbarActivity;
+import com.mdground.hdenergy.application.MDGroundApplication;
 import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.databinding.ActivityEmployeeAttendanceDetailBinding;
 import com.mdground.hdenergy.models.UserAttendance;
@@ -25,7 +26,13 @@ public class EmployeeAttendanceDetailActivity extends ToolbarActivity<ActivityEm
 
     @Override
     protected void initData() {
-        tvRight.setText(R.string.edit);
+        int authorityLevel = MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel();
+        if (authorityLevel != 1) {
+            tvRight.setVisibility(View.VISIBLE);
+            tvRight.setText(getString(R.string.edit));
+        } else {
+            tvRight.setVisibility(View.GONE);
+        }
 
         mUserAttendance = getIntent().getParcelableExtra(Constants.KEY_USER_ATTENDANCE);
         refreshView();

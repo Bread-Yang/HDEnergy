@@ -35,7 +35,6 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
 
     private DataDetailsAdapter mAdapter;
     private ProjectWork mProjectWork;
-    private int mAuthorityLevel;
     private ArrayList<ProjectWorkFurnace> mProjectWorkFurnaceList = new ArrayList<>();
 
     @Override
@@ -60,8 +59,8 @@ public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryD
             mProjectWorkFurnaceList = FurnaceList;
         }
         setTitle(mProjectWork.getProjectName());
-        mAuthorityLevel = MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel();
-        if (mAuthorityLevel != 1) {
+        int authorityLevel = MDGroundApplication.sInstance.getLoginUser().getAuthorityLevel();
+        if (authorityLevel != 1) {
             tvRight.setVisibility(View.VISIBLE);
             tvRight.setText(getString(R.string.edit));
         } else {

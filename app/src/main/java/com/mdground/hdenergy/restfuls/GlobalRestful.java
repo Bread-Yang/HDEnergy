@@ -14,6 +14,7 @@ import com.mdground.hdenergy.models.UserProject;
 import com.mdground.hdenergy.restfuls.bean.Device;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.DeviceUtils;
+import com.tencent.android.tpush.XGPushConfig;
 
 import java.util.List;
 
@@ -51,7 +52,8 @@ public class GlobalRestful extends BaseRestful {
     // 用户登录
     public void LoginUser(String userPhone, String pwd, Callback<ResponseData> callback) {
         Device device = DeviceUtils.getDeviceInfo(MDGroundApplication.sInstance);
-        device.setDeviceToken("abc");   // 信鸽的token, XGPushConfig.getToken(this);
+        device.setDeviceToken(XGPushConfig.getToken(MDGroundApplication.sInstance)); // 信鸽的token, XGPushConfig.getToken(this);
+//        device.setDeviceToken("abc");   // 信鸽的token, XGPushConfig.getToken(this);
         device.setDeviceID(DeviceUtils.getDeviceId());
 
         JsonObject obj = new JsonObject();

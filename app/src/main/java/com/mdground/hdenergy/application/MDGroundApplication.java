@@ -5,6 +5,9 @@ import android.app.Application;
 import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.models.UserInfo;
 import com.mdground.hdenergy.utils.FileUtils;
+import com.socks.library.KLog;
+import com.tencent.android.tpush.XGIOperateCallback;
+import com.tencent.android.tpush.XGPushManager;
 
 import cn.smssdk.SMSSDK;
 
@@ -24,6 +27,18 @@ public class MDGroundApplication extends Application {
         sInstance = this;
 
         SMSSDK.initSDK(this, Constants.SMS_APP_KEY, Constants.SMS_APP_SECRECT);
+
+        XGPushManager.registerPush(getApplicationContext(), new XGIOperateCallback() {
+            @Override
+            public void onSuccess(Object o, int i) {
+                KLog.e("信鸽注册成功");
+            }
+
+            @Override
+            public void onFail(Object o, int i, String s) {
+                KLog.e("信鸽注册失败");
+            }
+        });
 
 //        initExceptionHandler();
     }
