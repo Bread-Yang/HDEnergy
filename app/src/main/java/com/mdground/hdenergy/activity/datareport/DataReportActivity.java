@@ -77,6 +77,10 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
 
     private float mLastEndFlow;
 
+    private float mPreviousInventory;
+
+    private String mLastReportTime;
+
     @Override
     protected int getContentLayout() {
         return R.layout.activity_data_report;
@@ -88,6 +92,8 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         mProjectWork = intent.getParcelableExtra(Constants.KEY_PROJECT);
         if (mProjectWork != null) {
             mIsNewProjectWork = false;
+            mLastReportTime = mProjectWork.getReportedTime();
+
             List<ProjectWorkFurnace> furnaceList = mProjectWork.getProjectWorkFurnaceList();
             if (furnaceList != null) {
                 mProjectWorkFurnaceArrayList.clear();
@@ -129,7 +135,9 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            mDataBinding.tvSaleProduct.setText(mProjectWork.getSaleType());
+            String saleType = mProjectWork.getSaleType();
+            mDataBinding.tvSaleProduct.setText(saleType);
+            mIsHeatProduct = getString(R.string.heating_power).equals(saleType);
             mDataBinding.etuiProjectExpense.setText(String.valueOf(mProjectWork.getDailyExpense()));
             mDataBinding.etProjectDetail.setText(mProjectWork.getExpenseDetail());
             mDataBinding.etOtherProblem.setText(mProjectWork.getRemark());
@@ -167,7 +175,6 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                         Project project = mProjectArrayList.get(currentPosition);
                         setProjectInfoAfterSelectProject(project);
                         getProjectFurnaceList(project.getProjectID());
-                        getProjectLastEndFlowRequest(project.getProjectID());
                         break;
 
                     case tvSaleProduct:
@@ -211,7 +218,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         mDataBinding.tvProject.setText(project.getProjectName());
         String saleType = project.getSaleType();
         mDataBinding.tvSaleProduct.setText(saleType);
-        mIsHeatProduct = !getString(R.string.steam).equals(saleType);
+        mIsHeatProduct = getString(R.string.heating_power).equals(saleType);
     }
 
     //region  ACTION
@@ -252,7 +259,15 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         }
 
         // 日期
-        String date = mDataBinding.tvDate.getText().toString() + " 00:00:00";
+        String reportTime = mDataBinding.tvDate.getText().toString() + " 00:00:00";
+
+        // 编辑时不能选择已提交过的日期
+//        if (!mIsNewProjectWork) {
+//            if (mLastReportTime.equals(reportTime)) {
+//                ViewUtils.toast(R.string.edit_mode_choose_different_report_time);
+//                return ;
+//            }
+//        }
 
         // 销售产品
         String saleProduct = mDataBinding.tvSaleProduct.getText().toString();
@@ -295,7 +310,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         }
 
         mProjectWork.setProjectName(projectName);
-        mProjectWork.setReportedTime(date);
+        mProjectWork.setReportedTime(reportTime);
         mProjectWork.setCreatedTime(DateUtils.getServerDateStringByDate(new Date()));
         mProjectWork.setSaleType(saleProduct);
         // 锅炉
@@ -323,7 +338,6 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                 if (mProjectArrayList.size() > 0) {
                     if (mIsNewProjectWork) {
                         getProjectFurnaceList(mProjectArrayList.get(0).getProjectID());
-                        getProjectLastEndFlowRequest(mProjectArrayList.get(0).getProjectID());
                         mDataBinding.tvProject.setText(mProjectArrayList.get(0).getProjectName());
 
                         setProjectInfoAfterSelectProject(mProjectArrayList.get(0));
@@ -345,7 +359,6 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         GlobalRestful.getInstance().GetProjectFurnaceList(projectID, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
-                ViewUtils.dismiss();
                 ArrayList<ProjectWorkFurnace> tempProjectWorkFurnaceArrayList = response.body().getContent(new TypeToken<ArrayList<ProjectWorkFurnace>>() {
                 });
 
@@ -359,6 +372,10 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                 }
 
                 mAdapter.notifyDataSetChanged();
+
+                if (mProjectWorkFurnaceArrayList.get(0) != null) {
+                    getProjectLastEndFlowRequest(mProjectWorkFurnaceArrayList.get(0).getWorkFurnaceID());
+                }
             }
 
             @Override
@@ -368,8 +385,8 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         });
     }
 
-    private void getProjectLastEndFlowRequest(int projectID) {
-        GlobalRestful.getInstance().GetProjectLastEndFlow(projectID, new Callback<ResponseData>() {
+    private void getProjectLastEndFlowRequest(final int workFurnaceID) {
+        GlobalRestful.getInstance().GetProjectLastEndFlow(workFurnaceID, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 if (!StringUtils.isEmpty(response.body().getContent())) {
@@ -377,6 +394,29 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                 } else {
                     mLastEndFlow = 0;
                 }
+
+                getProjectFuelPreviousInventoryRequest(workFurnaceID);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+    private void getProjectFuelPreviousInventoryRequest(int workFurnaceID) {
+        GlobalRestful.getInstance().GetProjectFuelPreviousInventory(workFurnaceID, new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                if (!StringUtils.isEmpty(response.body().getContent())) {
+                    mPreviousInventory = Float.valueOf(response.body().getContent());
+                } else {
+                    mPreviousInventory = 0;
+                }
+
+                ViewUtils.dismiss();
             }
 
             @Override
@@ -444,6 +484,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                     intent.putExtra(Constants.KEY_PROJECT_WORK_FURNACE, projectWorkFurnace);
                     intent.putExtra(Constants.KEY_IS_HEAT_SALE_PRODUCT, mIsHeatProduct);
                     intent.putExtra(Constants.KEY_LAST_END_FLOW, mLastEndFlow);
+                    intent.putExtra(Constants.KEY_PREVIOUS_INVENTORY, mPreviousInventory);
                     startActivityForResult(intent, 0);
                 }
             });

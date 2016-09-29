@@ -70,6 +70,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             workingHour = 24;
             mProjectWorkFurnace.setWorkingHour(24);
         }
+        mSelectHourIndex = workingHour;
         mDataBinding.tvHours.setText(getString(R.string.with_hour_unit, workingHour));
 
         ArrayList<ProjectWorkFlowrate> projectWorkFlowrateList = (ArrayList<ProjectWorkFlowrate>) mProjectWorkFurnace.getProjectWorkFlowrateList();
@@ -570,6 +571,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
         Intent intent = new Intent(this, BoilerEditTwoActivity.class);
         intent.putExtra(Constants.KEY_PROJECT_WORK_FURNACE, mProjectWorkFurnace);
         intent.putExtra(Constants.KEY_IS_HEAT_SALE_PRODUCT, mIsHeatProduct);
+        intent.putExtra(Constants.KEY_PREVIOUS_INVENTORY, getIntent().getFloatExtra(Constants.KEY_PREVIOUS_INVENTORY, 0));
         intent.putExtra(Constants.KEY_FLOW_AMOUNT, flowAmount);
         startActivityForResult(intent, 0);
     }
@@ -603,6 +605,9 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
             if (projectWorkFlowrate.getAdjustFlow() != 0) {
                 itemBoilerFlowBinding.etuiAdjustFlow.getEtInput().setText(String.valueOf(projectWorkFlowrate.getAdjustFlow()));
             }
+
+
+            itemBoilerFlowBinding.etuiAdjustFlow.getEtInput().setHint(R.string.input_positive_negative_number);
 
             double flow;
             if (mIsHeatProduct) {

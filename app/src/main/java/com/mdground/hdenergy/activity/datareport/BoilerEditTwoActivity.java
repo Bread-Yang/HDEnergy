@@ -56,6 +56,8 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
     private float mFlowAmount; // 上一个界面计算得到的总流量
 
+    private float mPreviousInventory;
+
     private int mClickResId;
 
     private int mClickFuelPosition, mClickWareHousePosition;
@@ -69,6 +71,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
     protected void initData() {
         mIsHeatProduct = getIntent().getBooleanExtra(Constants.KEY_IS_HEAT_SALE_PRODUCT, false);
         mFlowAmount = getIntent().getFloatExtra(Constants.KEY_FLOW_AMOUNT, 1.0f);
+        mPreviousInventory = getIntent().getFloatExtra(Constants.KEY_PREVIOUS_INVENTORY, 0);
 
         mProjectWorkFurnace = getIntent().getParcelableExtra(Constants.KEY_PROJECT_WORK_FURNACE);
 
@@ -97,7 +100,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
                         projectWorkFuel.setFuelID(fuelCategory.getFuelID());
                         projectWorkFuel.setFuelName(fuelCategory.getFuelName());
-                        projectWorkFuel.setPreviousInventory(fuelCategory.getInventory());
+//                        projectWorkFuel.setPreviousInventory(fuelCategory.getInventory());
 
                         // 重新选择燃料种类后,该燃料下所有的进料量的供应商都重置
                         for (ProjectFuelWarehouse projectFuelWarehouse : projectWorkFuel.getProjectFuelWarehouseList()) {
@@ -152,7 +155,8 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
             projectWorkFuel.setFuelID(fuelCategory.getFuelID());
             projectWorkFuel.setFuelName(fuelCategory.getFuelName());
-            projectWorkFuel.setPreviousInventory(fuelCategory.getInventory());
+//            projectWorkFuel.setPreviousInventory(fuelCategory.getInventory());
+            projectWorkFuel.setPreviousInventory(mPreviousInventory);
         }
 
         ArrayList<ProjectFuelWarehouse> projectFuelWarehouseArrayList = new ArrayList<>();
@@ -195,12 +199,12 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
         if (mIsHeatProduct) {
             fuelViewHolder.viewDataBinding.tvFuelConsumption.setText(
-                    getString(R.string.kg_per_ton, fuelConsumption));
+                    getString(R.string.how_many_ton, fuelConsumption));
             fuelViewHolder.viewDataBinding.tvFuelUnitConsumption.setText(
                     getString(R.string.kg_per_ton, fuelUniConsumption));
         } else {
             fuelViewHolder.viewDataBinding.tvFuelConsumption.setText(
-                    getString(R.string.kg_per_ton_steam, fuelConsumption));
+                    getString(R.string.how_many_steam_ton, fuelConsumption));
             fuelViewHolder.viewDataBinding.tvFuelUnitConsumption.setText(
                     getString(R.string.kg_per_ton_steam, fuelUniConsumption));
         }

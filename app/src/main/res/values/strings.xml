@@ -25,6 +25,7 @@
     <string name="ton">吨</string>
     <string name="how_many_ton">%.02f吨</string>
     <string name="zen_ton">/蒸吨</string>
+    <string name="how_many_steam_ton">%.02f蒸吨</string>
     <string name="electric_unit">kw/h</string>
     <string name="can_not_empty">输入不能为空</string>
     <string name="submit_success">提交成功</string>
@@ -81,6 +82,7 @@
     <string name="fill_project_info">请填写项目情况</string>
     <string name="fill_boiler_info">请填写锅炉信息</string>
     <string name="flow_amount_not_zero">总流量不能为零</string>
+    <string name="edit_mode_choose_different_report_time">不能选择已提交过的日期</string>
 
     <!-- 锅炉编辑1 -->
     <string name="blow_in_duration">开炉时长</string>
@@ -110,6 +112,7 @@
     <string name="fill_electric_info">请填写电量信息</string>
     <string name="fill_water_info">请填写水量信息</string>
     <string name="fill_cost_info">请填写费用信息</string>
+    <string name="input_positive_negative_number">可输入正负数</string>
 
     <!-- 锅炉编辑2 -->
     <string name="fuel">燃料</string>
@@ -244,6 +247,7 @@
 
     <!--设置-->
     <string name="feedback">意见反馈</string>
+    <string name="input_something">请填写内容</string>
     <string name="check_update">检查更新</string>
     <string name="using_help">使用帮助</string>
     <string name="version_num">当前版本:2.1.0</string>

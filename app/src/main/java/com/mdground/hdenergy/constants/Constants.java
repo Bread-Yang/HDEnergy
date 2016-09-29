@@ -48,5 +48,6 @@ public final class Constants {
     public static final String KEY_USER_ATTENDANCE = "KEY_USER_ATTENDANCE";
     public static final String KEY_BULLETIN = "key_bulletin";
     public static final String KEY_LAST_END_FLOW = "key_last_end_flow";
+    public static final String KEY_PREVIOUS_INVENTORY = "key_previous_inventory";
 
 }

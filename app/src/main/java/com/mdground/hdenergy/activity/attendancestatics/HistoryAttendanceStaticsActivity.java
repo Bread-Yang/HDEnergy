@@ -196,7 +196,7 @@ public class HistoryAttendanceStaticsActivity extends Activity
         mShowAttendanceArrayList.clear();
 
         if (mClickAttendanceStatus == AttendanceStatus.All) {
-             mShowAttendanceArrayList.addAll(mAllAttendanceArrayList);
+            mShowAttendanceArrayList.addAll(mAllAttendanceArrayList);
         } else {
             for (UserAttendance userAttendance : mAllAttendanceArrayList) {
                 AttendanceStatus attendanceStatus = AttendanceStatus.fromValue(userAttendance.getStatus());
@@ -232,6 +232,7 @@ public class HistoryAttendanceStaticsActivity extends Activity
     }
 
     private void getUserAttendanceByDateRequest() {
+        ViewUtils.loading(this);
         GlobalRestful.getInstance().GetAllUserAttendanceByDate(mQueryDate,
                 new Callback<ResponseData>() {
                     @Override

@@ -683,11 +683,17 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 ViewUtils.dismiss();
-                ViewUtils.toast(R.string.submit_success);
-                Intent intent = new Intent();
-                intent.putExtra(Constants.KEY_USER_ATTENDANCE, userAttendance);
-                setResult(RESULT_OK, intent);
-                finish();
+
+                if (ResponseCode.isSuccess(response.body())) {
+                    ViewUtils.toast(R.string.submit_success);
+
+                    Intent intent = new Intent();
+                    intent.putExtra(Constants.KEY_USER_ATTENDANCE, userAttendance);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                } else {
+                    ViewUtils.toast(response.body().getMessage());
+                }
             }
 
             @Override

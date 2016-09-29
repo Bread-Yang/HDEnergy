@@ -1,5 +1,7 @@
 package com.mdground.hdenergy.activity.personalcenter;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.View;
 import android.widget.EditText;
 
@@ -11,6 +13,7 @@ import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.ViewUtils;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,7 +23,10 @@ import retrofit2.Response;
  */
 
 public class FeedBackActivity extends ToolbarActivity<ActivityFeedbackBinding> {
-    EditText etSuggest;
+
+    private EditText etSuggest;
+
+    private AlertDialog mAlertDialog;
 
     @Override
     protected int getContentLayout() {
@@ -31,36 +37,48 @@ public class FeedBackActivity extends ToolbarActivity<ActivityFeedbackBinding> {
     protected void initData() {
         etSuggest = (EditText) findViewById(R.id.etSuggest);
         tvRight.setVisibility(View.VISIBLE);
-        tvRight.setText("提交");
+        tvRight.setText(R.string.submit);
+
+        // 初始化对话框
+        mAlertDialog = ViewUtils.createAlertDialog(this, getString(R.string.confirm_to_submit),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String suggest = etSuggest.getText().toString().trim();
+
+                        saveUserSuggestionRequest(suggest);
+                    }
+                });
+    }
+
+    @Override
+    protected void setListener() {
         tvRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String suggest = etSuggest.getText().toString().trim();
                 if ("".equals(suggest)) {
-                    ViewUtils.toast("请填写内容");
+                    ViewUtils.toast(R.string.input_something);
                 } else {
-                    SaveUserSuggestionRequest(suggest);
+                    mAlertDialog.show();
                 }
             }
         });
-
-    }
-
-
-    @Override
-    protected void setListener() {
-
     }
 
     //region SERVER
-    public void SaveUserSuggestionRequest(String Suggestion) {
+    public void saveUserSuggestionRequest(String Suggestion) {
         String UserPhone = MDGroundApplication.sInstance.getLoginUser().getUserPhone();
         GlobalRestful.getInstance().SaveUserSuggestion(Suggestion,
                 new Callback<ResponseData>() {
                     @Override
                     public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                         if (ResponseCode.isSuccess(response.body())) {
-                            ViewUtils.toast("提交成功");
+                            ViewUtils.toast(R.string.submit_success);
                             finish();
                         }
                     }
