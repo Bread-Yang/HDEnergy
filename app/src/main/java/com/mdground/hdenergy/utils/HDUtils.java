@@ -1,6 +1,7 @@
 package com.mdground.hdenergy.utils;
 
 import com.mdground.hdenergy.models.ProjectWorkFlowrate;
+import com.socks.library.KLog;
 
 import java.util.List;
 
@@ -13,13 +14,19 @@ public class HDUtils {
     public static float caculateSingleFlow(boolean isHeatProduct, float beginFlow, float endFlow) {
         float resultFlow = 0;
 
+        KLog.e("beginFlow : " + beginFlow);
+        KLog.e("endFlow : " + endFlow);
+
         resultFlow = endFlow - beginFlow;
         if (resultFlow < 0 ) {
             resultFlow = 0;
         }
         if (isHeatProduct) {   // 当销售产品选择热力时，流量位置 =（截止流量 - 起始流量）* 23.8845 / 60，单位用吨
-            resultFlow = (int) (resultFlow * 23.8845 / 60);
+            resultFlow = (float) (resultFlow * 23.8845 / 60 - 0.005);
         }
+
+        KLog.e("resultFlow : " + resultFlow);
+
         return resultFlow;
     }
 
@@ -28,9 +35,10 @@ public class HDUtils {
                                             List<ProjectWorkFlowrate> projectWorkFlowrateArrayList) {
         float flowAmount = 0;
         for (ProjectWorkFlowrate projectWorkFlowrate : projectWorkFlowrateArrayList) {
-            flowAmount = caculateSingleFlow(isHeatProduct, projectWorkFlowrate.getBeginFlow(), projectWorkFlowrate.getEndFlow())
+            flowAmount += caculateSingleFlow(isHeatProduct, projectWorkFlowrate.getBeginFlow(), projectWorkFlowrate.getEndFlow())
                     + projectWorkFlowrate.getAdjustFlow();
         }
+        KLog.e("flowAmount : " + flowAmount);
         return flowAmount;
     }
 }

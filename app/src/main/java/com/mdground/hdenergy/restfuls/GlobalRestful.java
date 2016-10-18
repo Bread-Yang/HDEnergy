@@ -233,15 +233,17 @@ public class GlobalRestful extends BaseRestful {
         asynchronousPost("GetUpdateMessageList", null, callback);
     }
 
-    public void GetProjectLastEndFlow(int workFurnaceID, Callback<ResponseData> callback) {
+    public void GetProjectLastEndFlow(int projectID, int furnaceID, Callback<ResponseData> callback) {
         JsonObject obj = new JsonObject();
-        obj.addProperty("WorkFurnaceID", workFurnaceID);
+        obj.addProperty("ProjectID", projectID);
+        obj.addProperty("FurnaceID", furnaceID);
         asynchronousPost("GetProjectLastEndFlow", obj, callback);
     }
 
-    public void GetProjectFuelPreviousInventory(int workFurnaceID, Callback<ResponseData> callback) {
+    public void GetProjectFuelPreviousInventory(int projectID, int furnaceID, Callback<ResponseData> callback) {
         JsonObject obj = new JsonObject();
-        obj.addProperty("WorkFurnaceID", workFurnaceID);
+        obj.addProperty("ProjectID", projectID);
+        obj.addProperty("FurnaceID", furnaceID);
         asynchronousPost("GetProjectFuelPreviousInventory", obj, callback);
     }
 

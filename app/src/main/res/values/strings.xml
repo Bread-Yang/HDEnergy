@@ -24,8 +24,8 @@
     <string name="yuan">元</string>
     <string name="ton">吨</string>
     <string name="how_many_ton">%.02f吨</string>
-    <string name="zen_ton">/蒸吨</string>
-    <string name="how_many_steam_ton">%.02f蒸吨</string>
+    <string name="zen_ton">/吨</string>
+    <string name="how_many_steam_ton">%.02f吨</string>
     <string name="electric_unit">kw/h</string>
     <string name="can_not_empty">输入不能为空</string>
     <string name="submit_success">提交成功</string>
@@ -229,11 +229,11 @@
     <string name="kg_unit">kg</string>
     <string name="steam">蒸汽</string>
     <string name="kg_per_ton">%.02fkg/吨</string>
-    <string name="kg_per_ton_steam">%.02fkg/蒸吨</string>
+    <string name="kg_per_ton_steam">%.02fkg/吨</string>
     <string name="kw_per_ton">%.02fkw/h/吨</string>
-    <string name="kw_per_ton_steam">%.02fkw/h/蒸吨</string>
+    <string name="kw_per_ton_steam">%.02fkw/h/吨</string>
     <string name="ton_per_ton">%.02f吨/吨</string>
-    <string name="ton_per_ton_steam">%.02f吨/蒸吨</string>
+    <string name="ton_per_ton_steam">%.02f吨/吨</string>
 
     <!-- 历史考勤统计 -->
     <string name="hostorical_attendance_statics">历史考勤统计</string>

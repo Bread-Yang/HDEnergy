@@ -345,6 +345,8 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                         mDataBinding.tvProject.setText(mProjectWork.getProjectName());
                     }
                 }
+
+                ViewUtils.dismiss();
             }
 
             @Override
@@ -359,6 +361,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         GlobalRestful.getInstance().GetProjectFurnaceList(projectID, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                ViewUtils.dismiss();
                 ArrayList<ProjectWorkFurnace> tempProjectWorkFurnaceArrayList = response.body().getContent(new TypeToken<ArrayList<ProjectWorkFurnace>>() {
                 });
 
@@ -372,10 +375,6 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                 }
 
                 mAdapter.notifyDataSetChanged();
-
-                if (mProjectWorkFurnaceArrayList.get(0) != null) {
-                    getProjectLastEndFlowRequest(mProjectWorkFurnaceArrayList.get(0).getWorkFurnaceID());
-                }
             }
 
             @Override
@@ -385,8 +384,12 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
         });
     }
 
-    private void getProjectLastEndFlowRequest(final int workFurnaceID) {
-        GlobalRestful.getInstance().GetProjectLastEndFlow(workFurnaceID, new Callback<ResponseData>() {
+    private void getProjectLastEndFlowRequest(final ProjectWorkFurnace projectWorkFurnace) {
+        ViewUtils.loading(this);
+        GlobalRestful.getInstance().GetProjectLastEndFlow(
+                projectWorkFurnace.getProjectID(),
+                projectWorkFurnace.getFurnaceID(),
+                new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 if (!StringUtils.isEmpty(response.body().getContent())) {
@@ -395,7 +398,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                     mLastEndFlow = 0;
                 }
 
-                getProjectFuelPreviousInventoryRequest(workFurnaceID);
+                getProjectFuelPreviousInventoryRequest(projectWorkFurnace);
             }
 
             @Override
@@ -406,8 +409,11 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
     }
 
 
-    private void getProjectFuelPreviousInventoryRequest(int workFurnaceID) {
-        GlobalRestful.getInstance().GetProjectFuelPreviousInventory(workFurnaceID, new Callback<ResponseData>() {
+    private void getProjectFuelPreviousInventoryRequest(final ProjectWorkFurnace projectWorkFurnace) {
+        GlobalRestful.getInstance().GetProjectFuelPreviousInventory(
+                projectWorkFurnace.getProjectID(),
+                projectWorkFurnace.getFurnaceID(),
+                new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 if (!StringUtils.isEmpty(response.body().getContent())) {
@@ -417,6 +423,13 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
                 }
 
                 ViewUtils.dismiss();
+
+                Intent intent = new Intent(DataReportActivity.this, BoilerEditOneActivity.class);
+                intent.putExtra(Constants.KEY_PROJECT_WORK_FURNACE, projectWorkFurnace);
+                intent.putExtra(Constants.KEY_IS_HEAT_SALE_PRODUCT, mIsHeatProduct);
+                intent.putExtra(Constants.KEY_LAST_END_FLOW, mLastEndFlow);
+                intent.putExtra(Constants.KEY_PREVIOUS_INVENTORY, mPreviousInventory);
+                startActivityForResult(intent, 0);
             }
 
             @Override
@@ -480,12 +493,7 @@ public class DataReportActivity extends ToolbarActivity<ActivityDataReportBindin
             holder.viewDataBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(DataReportActivity.this, BoilerEditOneActivity.class);
-                    intent.putExtra(Constants.KEY_PROJECT_WORK_FURNACE, projectWorkFurnace);
-                    intent.putExtra(Constants.KEY_IS_HEAT_SALE_PRODUCT, mIsHeatProduct);
-                    intent.putExtra(Constants.KEY_LAST_END_FLOW, mLastEndFlow);
-                    intent.putExtra(Constants.KEY_PREVIOUS_INVENTORY, mPreviousInventory);
-                    startActivityForResult(intent, 0);
+                    getProjectLastEndFlowRequest(projectWorkFurnace);
                 }
             });
         }
