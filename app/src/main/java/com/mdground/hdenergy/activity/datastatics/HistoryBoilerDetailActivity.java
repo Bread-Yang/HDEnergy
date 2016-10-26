@@ -17,6 +17,7 @@ import com.mdground.hdenergy.databinding.ItemHistoryBoilerFlowBinding;
 import com.mdground.hdenergy.models.ProjectWorkFlowrate;
 import com.mdground.hdenergy.models.ProjectWorkFuel;
 import com.mdground.hdenergy.models.ProjectWorkFurnace;
+import com.mdground.hdenergy.utils.BigDecimalUtil;
 import com.mdground.hdenergy.utils.HDUtils;
 import com.mdground.hdenergy.views.WorkFuelListView;
 
@@ -36,7 +37,7 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
     private ProjectWorkFurnace mProjectWorkFurnace;
     private ArrayList<ProjectWorkFlowrate> mFlowArrayList = new ArrayList<>();
     private ArrayList<ProjectWorkFuel> mFuelArrayList = new ArrayList<>();
-    private double mFlowAmount;
+    private float mFlowAmount;
     private boolean mIsHeatProduct;
 
     @Override
@@ -75,17 +76,9 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
             mFlowArrayList.clear();
             mFlowArrayList.addAll(flowrates);
         }
-        if (mFlowArrayList != null) {
-            for (int i = 0; i < mFlowArrayList.size(); i++) {
-                double flow;
-                if (mIsHeatProduct) {
-                    flow = (mFlowArrayList.get(i).getEndFlow() - mFlowArrayList.get(i).getBeginFlow()) * 23.8845 / 60;
-                } else {
-                    flow = mFlowArrayList.get(i).getEndFlow() - mFlowArrayList.get(i).getBeginFlow();
-                }
-
-                mFlowAmount = flow + mFlowAmount;
-            }
+        mFlowAmount = HDUtils.calculateFlowAmount(mIsHeatProduct, mFlowArrayList);
+        if (mIsHeatProduct) {
+            mFlowAmount = mFlowAmount * 23.8845f / 60f;
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -126,14 +119,14 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
 
         if (mIsHeatProduct) {
             mDataBinding.tvElectricitySingleCost.setText(
-                    getString(R.string.kw_per_ton, mProjectWorkFurnace.getElectricitySingleCost()));
+                    getString(R.string.kw_per_ton, BigDecimalUtil.keepTwoDecimalPlaces(mProjectWorkFurnace.getElectricitySingleCost())));
             mDataBinding.tvWaterSingleCost.setText(
-                    getString(R.string.ton_per_ton, mProjectWorkFurnace.getWaterSingleCost()));
+                    getString(R.string.ton_per_ton, BigDecimalUtil.keepTwoDecimalPlaces(mProjectWorkFurnace.getWaterSingleCost())));
         } else {
             mDataBinding.tvElectricitySingleCost.setText(
-                    getString(R.string.kw_per_ton_steam, mProjectWorkFurnace.getElectricitySingleCost()));
+                    getString(R.string.kw_per_ton_steam, BigDecimalUtil.keepTwoDecimalPlaces(mProjectWorkFurnace.getElectricitySingleCost())));
             mDataBinding.tvWaterSingleCost.setText(
-                    getString(R.string.ton_per_ton_steam, mProjectWorkFurnace.getWaterSingleCost()));
+                    getString(R.string.ton_per_ton_steam, BigDecimalUtil.keepTwoDecimalPlaces(mProjectWorkFurnace.getWaterSingleCost())));
         }
     }
 
@@ -152,10 +145,10 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
 
         if (mIsHeatProduct) {
             mDataBinding.tvElectricitySingleCost.setText(
-                    getString(R.string.kw_per_ton, electircityUnitConsumption));
+                    getString(R.string.kw_per_ton, BigDecimalUtil.keepTwoDecimalPlaces(electircityUnitConsumption)));
         } else {
             mDataBinding.tvElectricitySingleCost.setText(
-                    getString(R.string.kw_per_ton_steam, electircityUnitConsumption));
+                    getString(R.string.kw_per_ton_steam, BigDecimalUtil.keepTwoDecimalPlaces(electircityUnitConsumption)));
         }
     }
 
@@ -174,10 +167,10 @@ public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerD
 
         if (mIsHeatProduct) {
             mDataBinding.tvWaterSingleCost.setText(
-                    getString(R.string.ton_per_ton, waterUnitConsumption));
+                    getString(R.string.ton_per_ton, BigDecimalUtil.keepTwoDecimalPlaces(waterUnitConsumption)));
         } else {
             mDataBinding.tvWaterSingleCost.setText(
-                    getString(R.string.ton_per_ton_steam, waterUnitConsumption));
+                    getString(R.string.ton_per_ton_steam, BigDecimalUtil.keepTwoDecimalPlaces(waterUnitConsumption)));
         }
     }
 

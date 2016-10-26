@@ -15,8 +15,8 @@ import com.mdground.hdenergy.R;
 import com.mdground.hdenergy.databinding.ItemHistoryBoilerWarehouseBinding;
 import com.mdground.hdenergy.models.ProjectFuelWarehouse;
 import com.mdground.hdenergy.models.ProjectWorkFuel;
+import com.mdground.hdenergy.utils.BigDecimalUtil;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +32,13 @@ public class WorkFuelListView extends LinearLayout {
     private MyAdatpter mAdapter;
     private Context context;
     private float mEnterFuelAmount;
-    private double mFlowAmount;
+    private float mFlowAmount;
 
-    public WorkFuelListView(Context context, ProjectWorkFuel projectWorkFuel, double mFlowAmount) {
+    public WorkFuelListView(Context context, ProjectWorkFuel projectWorkFuel, float mFlowAmount) {
         this(context, null, -1, projectWorkFuel, mFlowAmount);
     }
 
-    public WorkFuelListView(Context context, AttributeSet attrs, int defStyleAttr, ProjectWorkFuel projectWorkFuel, double mFlowAmount) {
+    public WorkFuelListView(Context context, AttributeSet attrs, int defStyleAttr, ProjectWorkFuel projectWorkFuel, float mFlowAmount) {
         super(context, attrs, defStyleAttr);
         this.context = context;
         this.mFlowAmount = mFlowAmount;
@@ -66,20 +66,18 @@ public class WorkFuelListView extends LinearLayout {
         float currentInventory = mProjectWorkFuel.getCurrentInventory();
         float adjustInventory = mProjectWorkFuel.getAdjustInventory();
         float fuelCost = previousInventory + mEnterFuelAmount - currentInventory + adjustInventory;
-        double fuelUnitCost = fuelCost * 1000 / mFlowAmount;
-        DecimalFormat df = new DecimalFormat("#####0.00");
-        String fuelUntiCosts = df.format(fuelUnitCost);
+        float fuelUnitCost = fuelCost * 1000f / mFlowAmount;
         tvFuelName.setText(mProjectWorkFuel.getFuelName());
         tvPreviousInventory.setText(String.valueOf(previousInventory) + context.getString(R.string.ton));
         tvCurrentInventory.setText(String.valueOf(currentInventory) + context.getString(R.string.ton));
-        tvFuelCost.setText(String.valueOf(fuelCost) + context.getString(R.string.kg_unit) + context.getString(R.string.zen_ton));
+        tvFuelCost.setText(String.valueOf(fuelCost) + context.getString(R.string.ton));
         if (adjustInventory > 0) {
             tvAdjustInventory.setText("+" + adjustInventory + context.getString(R.string.ton));
         } else {
             tvAdjustInventory.setText(String.valueOf(adjustInventory) + context.getString(R.string.ton));
         }
         tvAdjustInventoryExplian.setText(mProjectWorkFuel.getAdjustReason());
-        tvFuelUnitConsume.setText(fuelUntiCosts + context.getString(R.string.kg_unit) + context.getString(R.string.zen_ton));
+        tvFuelUnitConsume.setText(BigDecimalUtil.keepTwoDecimalPlaces(fuelUnitCost) + context.getString(R.string.kg_unit) + context.getString(R.string.zen_ton));
     }
 
     private void initView(View view) {

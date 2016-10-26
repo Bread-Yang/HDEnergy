@@ -18,6 +18,7 @@ import com.mdground.hdenergy.databinding.ActivityBoilerEditOneBinding;
 import com.mdground.hdenergy.databinding.ItemBoilerFlowBinding;
 import com.mdground.hdenergy.models.ProjectWorkFlowrate;
 import com.mdground.hdenergy.models.ProjectWorkFurnace;
+import com.mdground.hdenergy.utils.BigDecimalUtil;
 import com.mdground.hdenergy.utils.HDUtils;
 import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
@@ -448,10 +449,10 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
         if (mIsHeatProduct) {
             mDataBinding.tvElectircUnitConsumption.setText(
-                    getString(R.string.kw_per_ton, electircityUnitConsumption));
+                    getString(R.string.kw_per_ton, BigDecimalUtil.keepTwoDecimalPlaces(electircityUnitConsumption)));
         } else {
             mDataBinding.tvElectircUnitConsumption.setText(
-                    getString(R.string.kw_per_ton_steam, electircityUnitConsumption));
+                    getString(R.string.kw_per_ton_steam, BigDecimalUtil.keepTwoDecimalPlaces(electircityUnitConsumption)));
         }
     }
 
@@ -471,10 +472,10 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
 
         if (mIsHeatProduct) {
             mDataBinding.tvWaterUnitConsumption.setText(
-                    getString(R.string.ton_per_ton, waterUnitConsumption));
+                    getString(R.string.ton_per_ton, BigDecimalUtil.keepTwoDecimalPlaces(waterUnitConsumption)));
         } else {
             mDataBinding.tvWaterUnitConsumption.setText(
-                    getString(R.string.ton_per_ton_steam, waterUnitConsumption));
+                    getString(R.string.ton_per_ton_steam, BigDecimalUtil.keepTwoDecimalPlaces(waterUnitConsumption)));
         }
     }
 
@@ -676,7 +677,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                     float resultFlow = HDUtils.caculateSingleFlow(mIsHeatProduct,
                             projectWorkFlowrate.getBeginFlow(),
                             projectWorkFlowrate.getEndFlow());
-                    itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
+                    itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, BigDecimalUtil.keepTwoDecimalPlaces(resultFlow)));
 
                     refreshUnitConsumption();
                 }
@@ -732,7 +733,7 @@ public class BoilerEditOneActivity extends ToolbarActivity<ActivityBoilerEditOne
                     float resultFlow = HDUtils.caculateSingleFlow(mIsHeatProduct,
                             projectWorkFlowrate.getBeginFlow(),
                             projectWorkFlowrate.getEndFlow());
-                    itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, resultFlow));
+                    itemBoilerFlowBinding.tvResultFlow.setText(getString(R.string.how_many_ton, BigDecimalUtil.keepTwoDecimalPlaces(resultFlow)));
 
                     refreshUnitConsumption();
                 }

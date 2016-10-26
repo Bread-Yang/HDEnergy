@@ -21,6 +21,7 @@ import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.models.ProjectWork;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
+import com.mdground.hdenergy.utils.BigDecimalUtil;
 import com.mdground.hdenergy.utils.ViewUtils;
 
 import java.text.SimpleDateFormat;
@@ -165,30 +166,30 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
                 // 销售产品为蒸汽
                 // 标单
                 holder.itemHistoryDatastaticsBinding.tvStandardUnit.setText(
-                        getString(R.string.kg_per_ton_steam, mProjectWork.getFuelCost()));
+                        getString(R.string.kg_per_ton_steam, BigDecimalUtil.keepTwoDecimalPlaces(mProjectWork.getFuelCost())));
                 // 单耗
                 holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(
-                        getString(R.string.kg_per_ton_steam, projectWork.getDayFuelCost()));
+                        getString(R.string.kg_per_ton_steam, BigDecimalUtil.keepTwoDecimalPlaces(projectWork.getDayFuelCost())));
                 // 电单耗
                 holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(
-                        getString(R.string.kw_per_ton_steam, projectWork.getDayElectricityCost()));
+                        getString(R.string.kw_per_ton_steam, BigDecimalUtil.keepTwoDecimalPlaces(projectWork.getDayElectricityCost())));
                 // 水单耗
                 holder.itemHistoryDatastaticsBinding.tvWaterUnitConsumption.setText(
-                        getString(R.string.ton_per_ton_steam, projectWork.getDayWaterCost()));
+                        getString(R.string.ton_per_ton_steam, BigDecimalUtil.keepTwoDecimalPlaces(projectWork.getDayWaterCost())));
             } else {
                 // 销售产品为热力
                 // 标单
                 holder.itemHistoryDatastaticsBinding.tvStandardUnit.setText(
-                        getString(R.string.kg_per_ton, mProjectWork.getFuelCost()));
+                        getString(R.string.kg_per_ton, BigDecimalUtil.keepTwoDecimalPlaces(mProjectWork.getFuelCost())));
                 // 单耗
                 holder.itemHistoryDatastaticsBinding.tvUnitIndivdual.setText(
-                        getString(R.string.kg_per_ton, projectWork.getDayFuelCost()));
+                        getString(R.string.kg_per_ton, BigDecimalUtil.keepTwoDecimalPlaces(projectWork.getDayFuelCost())));
                 // 电单耗
                 holder.itemHistoryDatastaticsBinding.tvElectircUnitConsumption.setText(
-                        getString(R.string.kw_per_ton, projectWork.getDayElectricityCost()));
+                        getString(R.string.kw_per_ton, BigDecimalUtil.keepTwoDecimalPlaces(projectWork.getDayElectricityCost())));
                 // 水单耗
                 holder.itemHistoryDatastaticsBinding.tvWaterUnitConsumption.setText(
-                        getString(R.string.ton_per_ton, projectWork.getDayWaterCost()));
+                        getString(R.string.ton_per_ton, BigDecimalUtil.keepTwoDecimalPlaces(projectWork.getDayWaterCost())));
             }
 
             // 利润

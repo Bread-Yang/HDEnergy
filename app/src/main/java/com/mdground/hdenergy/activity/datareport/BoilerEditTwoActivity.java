@@ -23,6 +23,7 @@ import com.mdground.hdenergy.models.ProjectWorkFuel;
 import com.mdground.hdenergy.models.ProjectWorkFurnace;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
+import com.mdground.hdenergy.utils.BigDecimalUtil;
 import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
@@ -199,14 +200,14 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
 
         if (mIsHeatProduct) {
             fuelViewHolder.viewDataBinding.tvFuelConsumption.setText(
-                    getString(R.string.how_many_ton, fuelConsumption));
+                    getString(R.string.how_many_ton, BigDecimalUtil.keepTwoDecimalPlaces(fuelConsumption)));
             fuelViewHolder.viewDataBinding.tvFuelUnitConsumption.setText(
-                    getString(R.string.kg_per_ton, fuelUniConsumption));
+                    getString(R.string.kg_per_ton, BigDecimalUtil.keepTwoDecimalPlaces(fuelUniConsumption)));
         } else {
             fuelViewHolder.viewDataBinding.tvFuelConsumption.setText(
-                    getString(R.string.how_many_steam_ton, fuelConsumption));
+                    getString(R.string.how_many_steam_ton, BigDecimalUtil.keepTwoDecimalPlaces(fuelConsumption)));
             fuelViewHolder.viewDataBinding.tvFuelUnitConsumption.setText(
-                    getString(R.string.kg_per_ton_steam, fuelUniConsumption));
+                    getString(R.string.kg_per_ton_steam, BigDecimalUtil.keepTwoDecimalPlaces(fuelUniConsumption)));
         }
     }
 

@@ -22,7 +22,7 @@ public class HDUtils {
             resultFlow = 0;
         }
         if (isHeatProduct) {   // 当销售产品选择热力时，流量位置 =（截止流量 - 起始流量）* 23.8845 / 60，单位用吨
-            resultFlow = (float) (resultFlow * 23.8845 / 60 - 0.005);
+            resultFlow = (float) resultFlow * 23.8845f / 60f;
         }
 
         KLog.e("resultFlow : " + resultFlow);

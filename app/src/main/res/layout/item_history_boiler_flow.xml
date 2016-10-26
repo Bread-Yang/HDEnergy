@@ -20,8 +20,7 @@
 
             <TextView
                 style="@style/TitleTextStyle"
-                android:text="@string/flow"/>
-
+                android:text="@{@string/flow_index(position)}" />
 
         </RelativeLayout>
 
