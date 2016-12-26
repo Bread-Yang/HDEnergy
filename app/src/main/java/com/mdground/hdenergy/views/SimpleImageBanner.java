@@ -38,7 +38,7 @@ public class SimpleImageBanner extends BaseIndicatorBanner<Bulletin, SimpleImage
 
     @Override
     public void onTitleSlect(TextView tv, int position) {
-        final Bulletin item = mDatas.get(position);
+//        final Bulletin item = mDatas.get(position);
 //        tv.setText(item.title);
     }
 

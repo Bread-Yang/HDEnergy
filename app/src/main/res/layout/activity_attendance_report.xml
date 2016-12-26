@@ -158,12 +158,14 @@
                     style="@style/DimTextStyle"
                     android:text="@string/overtime_duration" />
 
-                <EditText
+                <com.mdground.hdenergy.views.ExtendedEditText
                     android:id="@+id/etOverTimeHour"
                     style="@style/EditTextStyle"
-                    android:layout_toLeftOf="@+id/tvOverTimeUnit"
+                    android:layout_width="@dimen/size_180"
                     android:gravity="center_vertical|right"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:layout_toLeftOf="@+id/tvOverTimeUnit"
+                    android:selectAllOnFocus="true" />
 
                 <TextView
                     android:id="@+id/tvOverTimeUnit"

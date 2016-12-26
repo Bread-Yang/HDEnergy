@@ -174,8 +174,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     }
                 }
 
-                SimpleImageBanner sib = (SimpleImageBanner) findViewById(R.id.simpleImageBanner);
-                sib.setSource(temBulletinArrayList).startScroll();                  //获取图片列表并滚动
+                if (temBulletinArrayList.size() != 0) {
+                    SimpleImageBanner sib = (SimpleImageBanner) findViewById(R.id.simpleImageBanner);
+                    sib.setSource(temBulletinArrayList).startScroll();                  //获取图片列表并滚动
+                }
             }
 
             @Override

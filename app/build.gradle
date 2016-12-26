@@ -9,19 +9,12 @@ android {
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0.10.26"
+        versionName "1.0.12.26"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
-        debug {
-            storeFile file('MDGround_Keystore.jks')
-            storePassword "13560506833"
-            keyAlias "yoghourt"
-            keyPassword "13560506833"
-        }
-
         release {
             storeFile file('MDGround_Keystore.jks')
             storePassword "13560506833"
@@ -31,9 +24,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 

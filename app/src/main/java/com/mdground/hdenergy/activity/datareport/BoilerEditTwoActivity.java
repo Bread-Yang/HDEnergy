@@ -316,6 +316,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                     public void onClick(View v) {
                         createProjectWorkFuel();
 
+                        ViewUtils.closeKeyboard(BoilerEditTwoActivity.this);
                         mAdapter.notifyDataSetChanged();
                     }
                 });
@@ -506,7 +507,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                         return;
                     }
 
-                    String[] suppliers = fuelCategory.getSuppliers().split(";");
+                    String[] suppliers = fuelCategory.getSuppliers().split(";|/|、");
                     ArrayList<String> suppliersStringArrayList = new ArrayList<>();
                     for (String item : suppliers) {
                         suppliersStringArrayList.add(item);

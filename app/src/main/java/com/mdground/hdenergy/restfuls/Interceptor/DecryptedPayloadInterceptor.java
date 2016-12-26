@@ -35,6 +35,8 @@ public class DecryptedPayloadInterceptor implements Interceptor {
                 e.printStackTrace();
             }
 
+            KLog.d("加密后的数据 : " + bodyContent);
+
             RequestBody newBody = RequestBody.create(originalRequest.body().contentType(), bodyContent);
 
 //            KLog.e("RequestBody是 : " + requestBodyToString(originalRequest.body()));
