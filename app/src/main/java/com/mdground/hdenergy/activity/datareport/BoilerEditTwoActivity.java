@@ -121,7 +121,7 @@ public class BoilerEditTwoActivity extends ToolbarActivity<ActivityBoilerEditTwo
                             }
                         }
 
-                        String[] suppliers = fuelCategory.getSuppliers().split(";");
+                        String[] suppliers = fuelCategory.getSuppliers().split(";|/|、");
 
                         String selectSupplier = suppliers[currentPosition];
 

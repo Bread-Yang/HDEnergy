@@ -303,7 +303,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
         // 姓名
         if (mUserInfoArrayList.size() > 0) {
-            UserInfo userinfo = mUserInfoArrayList.get(mSelectUserInfoIndex);
+            UserInfo userinfo = mUserInfoArgrayList.get(mSelectUserInfoIndex);
             userAttendance.setUserID(userinfo.getUserID());
             userAttendance.setUserName(userinfo.getUserName());
         }
