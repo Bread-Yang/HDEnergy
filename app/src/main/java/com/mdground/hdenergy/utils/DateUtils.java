@@ -225,6 +225,7 @@ public class DateUtils {
 
     /**
      * 是否一个月后过期
+     *
      * @param date
      * @return
      */
@@ -242,6 +243,7 @@ public class DateUtils {
 
     /**
      * 是否已过期
+     *
      * @param date
      * @return
      */
@@ -263,25 +265,25 @@ public class DateUtils {
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
         String str = "";
         switch (dayOfWeek) {
-            case 1:
+            case Calendar.SUNDAY:
                 str = "星期日";
                 break;
-            case 2:
+            case Calendar.MONDAY:
                 str = "星期一";
                 break;
-            case 3:
+            case Calendar.TUESDAY:
                 str = "星期二";
                 break;
-            case 4:
+            case Calendar.WEDNESDAY:
                 str = "星期三";
                 break;
-            case 5:
+            case Calendar.THURSDAY:
                 str = "星期四";
                 break;
-            case 6:
+            case Calendar.FRIDAY:
                 str = "星期五";
                 break;
-            case 7:
+            case Calendar.SATURDAY:
                 str = "星期六";
                 break;
 
@@ -671,6 +673,7 @@ public class DateUtils {
 
     /**
      * 判断优惠券是否可用条件：当前时间在ActiveTime和ExpireTime之间
+     *
      * @param activeTimeDateString
      * @param expireTimeDateString
      * @return

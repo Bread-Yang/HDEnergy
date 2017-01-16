@@ -15,7 +15,6 @@ import com.mdground.hdenergy.R;
 
 public class CheckUpdateDialog extends Dialog {
 
-    private Context mContext;
     private TextView tvCancel, tvUpdate;
     public TextView tvCurrentVersion, tvNewestProperty;
     private OnClickUpdateListener onClickUpdateListener;
@@ -31,8 +30,6 @@ public class CheckUpdateDialog extends Dialog {
         super(context, R.style.CheckUpdateDialogStyle);
         mFirstContent = firstContent;
         mSecondContent = secondContent;
-        mContext = context;
-
     }
 
     public CheckUpdateDialog(Context context, int themeResId) {

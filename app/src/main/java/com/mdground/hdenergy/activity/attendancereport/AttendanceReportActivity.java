@@ -71,6 +71,12 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
             mSelectContentIndex, mClickResID, mWheelViewChooseResID;
 
     @Override
+    protected void onDestroy() {
+        GlobalRestful.getInstance().cancel();
+        super.onDestroy();
+    }
+
+    @Override
     protected int getContentLayout() {
         return R.layout.activity_attendance_report;
     }
@@ -303,7 +309,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
         // 姓名
         if (mUserInfoArrayList.size() > 0) {
-            UserInfo userinfo = mUserInfoArgrayList.get(mSelectUserInfoIndex);
+            UserInfo userinfo = mUserInfoArrayList.get(mSelectUserInfoIndex);
             userAttendance.setUserID(userinfo.getUserID());
             userAttendance.setUserName(userinfo.getUserName());
         }

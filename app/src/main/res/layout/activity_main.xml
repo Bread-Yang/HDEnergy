@@ -96,7 +96,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/data_report"
                             android:textColor="@color/color_404040"
-                            android:textSize="@dimen/margin_16" />
+                            android:textSize="@dimen/text_size_16" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -121,7 +121,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/attendance_report"
                             android:textColor="@color/color_404040"
-                            android:textSize="@dimen/margin_16" />
+                            android:textSize="@dimen/text_size_16" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -156,7 +156,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/project_start_stop"
                             android:textColor="@color/color_404040"
-                            android:textSize="@dimen/margin_16" />
+                            android:textSize="@dimen/text_size_16" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -181,7 +181,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/resonable_suggest"
                             android:textColor="@color/color_404040"
-                            android:textSize="@dimen/margin_16" />
+                            android:textSize="@dimen/text_size_16" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

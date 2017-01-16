@@ -43,7 +43,9 @@ public abstract class BaseRestful {
 
     private Context mContext;
 
-    private BaseService baseService;
+    private BaseService mBaseService;
+
+    private Call<ResponseData> mCall;
 
     protected abstract BusinessType getBusinessType();
 
@@ -62,6 +64,12 @@ public abstract class BaseRestful {
 
 //        @POST("Api/RShareWorkPhoto.aspx/")
 //        Call<ResponseData> imageUploadRequest(@Body ProgressRequestBody requestBody);
+    }
+
+    public void cancel() {
+        if (mCall != null) {
+            mCall.cancel();
+        }
     }
 
     private int getPlatform() {
@@ -109,7 +117,7 @@ public abstract class BaseRestful {
         }
 
         Retrofit retrofit = builder.build();
-        baseService = retrofit.create(BaseService.class);
+        mBaseService = retrofit.create(BaseService.class);
     }
 
     private RequestData createRequestData(String functionName, JsonObject queryData) {
@@ -216,16 +224,15 @@ public abstract class BaseRestful {
         if (NetworkUtils.getInstance().isConnected()) {
             RequestBody requestBody = createRequestBody(functionName, queryData);
 
-            Call<ResponseData> call = null;
             if (getBusinessType() == BusinessType.Global) {
                 KLog.e("\n\n\"" + functionName + "\"  ---  请求json数据:" + "\n" + createRequestDataForLogOnly(functionName, queryData)
                         + "\n\n");
 
-                call = baseService.normalRequest(requestBody);
+                mCall = mBaseService.normalRequest(requestBody);
             } else if (getBusinessType() == BusinessType.FILE) {
-                call = baseService.fileRequest(requestBody);
+                mCall = mBaseService.fileRequest(requestBody);
             }
-            call.enqueue(firstCallback);
+            mCall.enqueue(firstCallback);
         } else {
             ViewUtils.toast(R.string.network_unavailable);
             ViewUtils.dismiss();
@@ -237,9 +244,9 @@ public abstract class BaseRestful {
     protected ResponseData synchronousPost(String functionName, JsonObject queryData) {
         RequestBody requestBody = createRequestBody(functionName, queryData);
 
-        Call<ResponseData> call = baseService.fileRequest(requestBody);
+        mCall = mBaseService.fileRequest(requestBody);
         try {
-            return call.execute().body();
+            return mCall.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -282,9 +289,8 @@ public abstract class BaseRestful {
 
         ProgressRequestBody requestBody = createProgressRequestBody(functionName, queryData, uploadCallbacks);
 
-        Call<ResponseData> call = null;
-        call = baseService.imageUploadRequest(requestBody);
-        call.enqueue(firstCallback);
+        mCall = mBaseService.imageUploadRequest(requestBody);
+        mCall.enqueue(firstCallback);
     }
 
     protected String convertObjectToString(Object object) {

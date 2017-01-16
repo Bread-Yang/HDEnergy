@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,212 +13,184 @@
         <LinearLayout
             android:id="@+id/lltItem"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/color_white"
-            android:paddingTop="@dimen/margin_12"
             android:orientation="vertical"
-            android:layout_height="wrap_content">
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_marginBottom="@dimen/margin_12"
-               >
-               <ImageView
-                   android:id="@+id/ivWarning"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_marginLeft="@dimen/margin_8"
-                   android:src="@drawable/icon_warning"
-                   tools:src="@drawable/icon_warning"
-                   />
-                <TextView
-
-                    android:id="@+id/tvTitles"
-                    android:layout_toRightOf="@id/ivWarning"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2016/01/09"
-                    android:textColor="@color/color_404040"
-                    android:layout_marginLeft="@dimen/margin_8"
-                    android:textSize="@dimen/text_size_18"
-                    />
-               <ImageView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:src="@drawable/icon_more"
-                   android:layout_marginRight="@dimen/margin_12"
-                   android:layout_alignParentRight="true"
-
-                   />
-           </RelativeLayout>
+            android:paddingTop="@dimen/margin_12">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_10"
-                >
+                android:layout_marginBottom="@dimen/margin_12">
+
+                <ImageView
+                    android:id="@+id/ivWarning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_8"
+                    android:src="@drawable/icon_warning"
+                    tools:src="@drawable/icon_warning"/>
+
+                <TextView
+                    android:id="@+id/tvTitles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_8"
+                    android:layout_toRightOf="@id/ivWarning"
+                    android:text="2016/01/09"
+                    android:textColor="@color/color_404040"
+                    android:textSize="@dimen/text_size_18"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/margin_12"
+                    android:src="@drawable/icon_more"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_10">
 
                 <TextView
                     android:id="@+id/tvStandard2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/standard_form"
                     android:layout_marginLeft="@dimen/margin_32"
-                    android:textSize="@dimen/text_size_14"
+                    android:text="@string/standard_form"
                     android:textColor="@color/color_9A9A9A"
-                    />
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/tvStandardUnit"
-                    android:layout_toRightOf="@id/tvStandard2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/yongxing"
                     android:layout_marginLeft="@dimen/margin_6"
-                    android:textSize="@dimen/text_size_14"
+                    android:layout_toRightOf="@id/tvStandard2"
                     android:textColor="@color/color_404040"
-                    />
-
+                    android:textSize="@dimen/text_size_14"
+                    tools:text="@string/yongxing"/>
 
                 <TextView
                     android:id="@+id/individual2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/individual_consumepotion"
-                    android:textSize="@dimen/text_size_14"
-                    android:textColor="@color/color_9A9A9A"
                     android:layout_marginLeft="206dp"
-                    />
+                    android:text="@string/individual_consumepotion"
+                    android:textColor="@color/color_9A9A9A"
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/tvUnitIndivdual"
-                    android:layout_toRightOf="@id/individual2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/yongxing"
                     android:layout_marginLeft="@dimen/margin_6"
-                    android:textSize="@dimen/text_size_14"
+                    android:layout_toRightOf="@id/individual2"
                     android:textColor="@color/color_404040"
-
-                    />
+                    android:textSize="@dimen/text_size_14"
+                    tools:text="@string/yongxing"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_10"
-                >
+                android:layout_marginBottom="@dimen/margin_10">
 
                 <TextView
                     android:id="@+id/tvElectricity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/electricity_unit_consumption"
                     android:layout_marginLeft="@dimen/margin_32"
-                    android:textSize="@dimen/text_size_14"
+                    android:text="@string/electricity_unit_consumption"
                     android:textColor="@color/color_9A9A9A"
-                    />
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/tvElectircUnitConsumption"
-                    android:layout_toRightOf="@id/tvElectricity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="551吨"
                     android:layout_marginLeft="@dimen/margin_10"
-                    android:textSize="@dimen/text_size_14"
+                    android:layout_toRightOf="@id/tvElectricity"
                     android:textColor="@color/color_404040"
-                    />
-
+                    android:textSize="@dimen/text_size_14"
+                    tools:text="551吨"/>
 
                 <TextView
                     android:id="@+id/tvWater"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/waters_untit_consumption"
-                    android:textSize="@dimen/text_size_14"
-                    android:textColor="@color/color_9A9A9A"
                     android:layout_marginLeft="206dp"
-                    />
+                    android:text="@string/waters_untit_consumption"
+                    android:textColor="@color/color_9A9A9A"
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/tvWaterUnitConsumption"
-                    android:layout_toRightOf="@id/tvWater"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/yongxing"
                     android:layout_marginLeft="@dimen/margin_8"
-
-                    android:textSize="@dimen/text_size_14"
+                    android:layout_toRightOf="@id/tvWater"
                     android:textColor="@color/color_404040"
-
-                    />
+                    android:textSize="@dimen/text_size_14"
+                    tools:text="@string/yongxing"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/margin_32"
                 android:layout_marginBottom="@dimen/margin_10"
-                >
+                android:paddingLeft="@dimen/margin_32">
+
                 <LinearLayout
                     android:id="@+id/lltProfit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tvPro"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/profit"
-                        android:textSize="@dimen/text_size_14"
                         android:textColor="@color/color_9A9A9A"
-                        />
+                        android:textSize="@dimen/text_size_14"/>
 
                     <TextView
                         android:id="@+id/tvProfit"
-                        android:layout_toRightOf="@id/tvPro"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="@string/yongxing"
                         android:layout_marginLeft="@dimen/margin_8"
-                        android:textSize="@dimen/text_size_14"
                         android:textColor="@color/color_404040"
-                        />
-
+                        android:textSize="@dimen/text_size_14"
+                        tools:text="@string/yongxing"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tvQue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/question"
-                        android:textSize="@dimen/text_size_14"
-                        android:textColor="@color/color_9A9A9A"
                         android:layout_marginLeft="174dp"
-                        />
+                        android:text="@string/question"
+                        android:textColor="@color/color_9A9A9A"
+                        android:textSize="@dimen/text_size_14"/>
 
                     <TextView
                         android:id="@+id/tvQuestion"
-                        android:layout_toRightOf="@id/tvQue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="@string/yongxing"
-                        android:textSize="@dimen/text_size_14"
-                        android:textColor="@color/color_404040"
                         android:layout_marginLeft="@dimen/margin_6"
-
-                        />
+                        android:textColor="@color/color_404040"
+                        android:textSize="@dimen/text_size_14"
+                        tools:text="@string/yongxing"/>
                 </LinearLayout>
-
-
             </RelativeLayout>
-
-
         </LinearLayout>
     </LinearLayout>
-    </layout>
+</layout>

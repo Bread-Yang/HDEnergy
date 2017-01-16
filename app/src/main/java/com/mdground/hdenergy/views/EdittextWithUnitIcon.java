@@ -47,6 +47,8 @@ public class EdittextWithUnitIcon extends LinearLayout {
         if (iconResId != 0) {
             mDataBinding.ivIcon.setImageResource(iconResId);
         }
+
+        typedArray.recycle();
     }
 
     public String getTextString() {

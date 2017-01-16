@@ -19,7 +19,6 @@ import com.mdground.hdenergy.R;
 
 public class AddProjectDialog extends Dialog {
 
-    private Context mContext;
     private TextView mTvCancel, tvConfirm;
     private EditText etProjectName;
     private OnClickUpdateListener onClickUpdateListener;
@@ -32,7 +31,6 @@ public class AddProjectDialog extends Dialog {
 
     public AddProjectDialog(Context context) {
         super(context, R.style.CheckUpdateDialogStyle);
-        mContext = context;
 
     }
 

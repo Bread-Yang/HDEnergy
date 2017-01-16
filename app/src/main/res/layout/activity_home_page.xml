@@ -39,7 +39,6 @@
 
                 <fragment
                     android:id="@+id/ftRightContext"
-                    android:name="com.mdground.hdenergy.activity.homepage.RightContextFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 

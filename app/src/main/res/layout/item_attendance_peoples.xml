@@ -1,49 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    >
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="@dimen/margin_75"
-        android:layout_height="@dimen/size_120"
-        android:padding="@dimen/margin_10"
-        >
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:gravity="center"
+                  android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/normal"
-            android:gravity="center"
-            />
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="@dimen/margin_75"
+                      android:layout_height="@dimen/size_120"
+                      android:orientation="vertical"
+                      android:padding="@dimen/margin_10">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/add"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_size_18"
-            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/normal"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_leave"
-            android:layout_gravity="bottom|center_horizontal"
-            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/add"
+                android:textSize="@dimen/text_size_18"
+                android:textStyle="bold"/>
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:src="@drawable/icon_leave"/>
+        </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
-
 </layout>

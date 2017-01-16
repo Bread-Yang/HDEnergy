@@ -162,7 +162,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_4"
-                        android:layout_toRightOf="@id/tvPro"
                         android:textColor="@color/color_404040"
                         android:textSize="@dimen/text_size_14"
                         tools:text="@string/yongxing"/>
@@ -187,7 +186,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_4"
-                        android:layout_toRightOf="@id/tvQue"
                         android:textColor="@color/color_404040"
                         android:textSize="@dimen/text_size_14"
                         tools:text="@string/yongxing"/>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="position"
-            type="Integer" />
+            type="Integer"/>
 
     </data>
 
@@ -21,7 +21,7 @@
             android:layout_height="@dimen/size_14"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_10"
-            android:background="@color/color_31C967" />
+            android:background="@color/color_31C967"/>
 
         <LinearLayout
             android:id="@+id/lltContent"
@@ -30,13 +30,12 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_16"
             android:layout_toRightOf="@+id/viewStatus"
-            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 style="@style/NormalTextStyle"
                 android:text="2016/12/28"
-                android:textSize="@dimen/text_size_16" />
+                android:textSize="@dimen/text_size_16"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,7 +50,7 @@
                     android:drawableLeft="@drawable/icon_time"
                     android:gravity="center_vertical"
                     android:text="8 - 10am"
-                    android:textSize="@dimen/text_size_12" />
+                    android:textSize="@dimen/text_size_12"/>
 
                 <TextView
                     style="@style/DimTextStyle"
@@ -59,7 +58,7 @@
                     android:drawableLeft="@drawable/icon_time2"
                     android:gravity="center_vertical"
                     android:text="5H"
-                    android:textSize="@dimen/text_size_12" />
+                    android:textSize="@dimen/text_size_12"/>
             </LinearLayout>
 
 
@@ -69,14 +68,14 @@
             android:id="@+id/civAvatar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/icon_more" />
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_more"/>
 
         <View
             style="@style/DividerHorizontalStyle"
             android:layout_alignLeft="@+id/lltContent"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
 </layout>

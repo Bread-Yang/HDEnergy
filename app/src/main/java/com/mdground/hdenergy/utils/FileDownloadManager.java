@@ -12,12 +12,12 @@ import android.os.Environment;
 public class FileDownloadManager {
 
     private DownloadManager dm;
-    private Context context;
+    private Context mContext;
     private static FileDownloadManager instance;
 
     private FileDownloadManager(Context context) {
         dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-        this.context = context.getApplicationContext();
+        this.mContext = context.getApplicationContext();
     }
 
     public static FileDownloadManager getInstance(Context context) {
@@ -45,7 +45,7 @@ public class FileDownloadManager {
         //设置文件的保存的位置[三种方式]
         //第一种
         //file:///storage/emulated/0/Android/data/your-package/files/Download/update.apk
-        req.setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, "update.apk");
+        req.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, "update.apk");
         //第二种
         //file:///storage/emulated/0/Download/update.apk
         //req.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "update.apk");

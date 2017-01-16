@@ -2,36 +2,28 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="354dp"
-        android:paddingLeft="@dimen/margin_12"
-        android:paddingRight="@dimen/margin_12"
-        android:paddingBottom="@dimen/margin_12"
         android:background="@color/color_white"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_12"
+        android:paddingLeft="@dimen/margin_12"
+        android:paddingRight="@dimen/margin_12">
 
         <EditText
             android:id="@+id/etSuggest"
-            android:background="@color/color_white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/reasonable_suggest_text"
-            android:gravity="top"
-            android:textColorHint="@color/color_9A9A9A"
-            android:textColor="@color/color_404040"
-            android:textSize="@dimen/text_size_14"
-            android:lineSpacingExtra="@dimen/margin_4"
             android:layout_marginTop="@dimen/size_18"
-            />
+            android:background="@color/color_white"
+            android:gravity="top"
+            android:hint="@string/reasonable_suggest_text"
+            android:lineSpacingExtra="@dimen/margin_4"
+            android:textColor="@color/color_404040"
+            android:textColorHint="@color/color_9A9A9A"
+            android:textSize="@dimen/text_size_14"/>
     </LinearLayout>
-
-
-    </LinearLayout>
-    </layout>
+</layout>

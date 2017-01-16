@@ -8,7 +8,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -114,7 +114,6 @@
                         <TextView
                             android:id="@+id/tvElectirc1"
                             style="@style/AlignRightNoPaddingTextStyle"
-                            android:layout_toLeftOf="@+id/ivDeleteOne"
                             android:gravity="right"
                             tools:text="12345kw/h" />
                     </RelativeLayout>
@@ -192,7 +191,6 @@
                         <TextView
                             android:id="@+id/tvWater1"
                             style="@style/AlignRightNoPaddingTextStyle"
-                            android:layout_toLeftOf="@+id/ivDeleteOne"
                             android:gravity="right"
                             tools:text="12345kw/h" />
                     </RelativeLayout>

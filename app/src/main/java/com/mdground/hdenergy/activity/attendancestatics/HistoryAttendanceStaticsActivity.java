@@ -159,25 +159,25 @@ public class HistoryAttendanceStaticsActivity extends Activity
             calendar.set(Calendar.DAY_OF_MONTH, i);
             dateModel.setDaynum(String.valueOf(i));
             switch (calendar.get(Calendar.DAY_OF_WEEK)) {
-                case 1:
+                case Calendar.SUNDAY:
                     dateModel.setWeeknum("Sun");
                     break;
-                case 2:
+                case Calendar.MONDAY:
                     dateModel.setWeeknum("Mon");
                     break;
-                case 3:
+                case Calendar.TUESDAY:
                     dateModel.setWeeknum("Tus");
                     break;
-                case 4:
+                case Calendar.WEDNESDAY:
                     dateModel.setWeeknum("Wed");
                     break;
-                case 5:
+                case Calendar.THURSDAY:
                     dateModel.setWeeknum("Thu");
                     break;
-                case 6:
+                case Calendar.FRIDAY:
                     dateModel.setWeeknum("Fri");
                     break;
-                case 7:
+                case Calendar.SATURDAY:
                     dateModel.setWeeknum("Sat");
                     break;
             }

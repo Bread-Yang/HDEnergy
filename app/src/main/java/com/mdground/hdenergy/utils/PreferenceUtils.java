@@ -67,6 +67,6 @@ public class PreferenceUtils {
 	public static void clearPreference() {
 		final Editor editor = getSharedPreferences().edit();
 		editor.clear();
-		editor.commit();
+		editor.apply();
 	}
 }

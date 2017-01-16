@@ -457,7 +457,7 @@ public class ToolFileUtils {
 					editor.putInt(entry.getKey(),(Integer) entry.getValue());
 				}
 			}
-			editor.commit();
+			editor.apply();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

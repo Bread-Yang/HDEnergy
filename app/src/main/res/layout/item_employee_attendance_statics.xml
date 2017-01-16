@@ -30,7 +30,6 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_16"
             android:layout_toRightOf="@+id/viewStatus"
-            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView

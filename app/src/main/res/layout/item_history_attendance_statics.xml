@@ -18,7 +18,7 @@
             android:layout_height="@dimen/size_14"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_10"
-            android:background="@color/color_31C967" />
+            android:background="@color/color_31C967"/>
 
         <LinearLayout
             android:id="@+id/lltContent"
@@ -27,14 +27,13 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_16"
             android:layout_toRightOf="@+id/viewStatus"
-            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvAttendanceReason"
                 style="@style/NormalTextStyle"
                 android:textSize="@dimen/text_size_16"
-                tools:text="Meeting with Janet" />
+                tools:text="Meeting with Janet"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,7 +50,7 @@
                     android:drawablePadding="@dimen/margin_8"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/text_size_12"
-                    tools:text="8 - 10am" />
+                    tools:text="8 - 10am"/>
 
                 <TextView
                     android:id="@+id/tvAmountHour"
@@ -61,7 +60,7 @@
                     android:drawablePadding="@dimen/margin_8"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/text_size_12"
-                    tools:text="5H" />
+                    tools:text="5H"/>
             </LinearLayout>
 
 
@@ -73,12 +72,12 @@
             android:layout_height="@dimen/size_36"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/lltContent"
-            tools:src="@drawable/home_banner" />
+            tools:src="@drawable/home_banner"/>
 
         <View
             style="@style/DividerHorizontalStyle"
             android:layout_alignLeft="@+id/lltContent"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
 </layout>
