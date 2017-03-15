@@ -5,7 +5,8 @@ package com.mdground.hdenergy.constants;
  */
 public final class Constants {
 
-    public static final String HOST = "http://huidi.yideguan.com/";
+    public static final String HOST = "psuat.yideguan.com/";
+//    public static final String HOST = "http://huidi.yideguan.com/";
 //    public static final String HOST = "http://119.29.14.31:8080/";
 
     public static final String FILE_HOST = "http://huidi.yideguan.com/";
