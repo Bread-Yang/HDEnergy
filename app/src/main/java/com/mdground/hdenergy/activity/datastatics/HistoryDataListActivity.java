@@ -99,7 +99,9 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
                     mProjectWorkList.clear();
                     if (tempList != null) {
                         for (ProjectWork projectWork : tempList) {
-                            mProjectWorkList.add(projectWork);
+                            if (projectWork.getUserID() == MDGroundApplication.sInstance.getLoginUser().getUserID()) {
+                                mProjectWorkList.add(projectWork);
+                            }
                         }
                     }
                     if (tempList != null) {
