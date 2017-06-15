@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by PC on 2016-07-03.
+ * Created by RobinYang on 2016-07-03.
  */
 
 public class HistoryBoilerDetailActivity extends ToolbarActivity<ActivityBoilerDetailBinding> {

@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by PC on 2016-06-28.
+ * Created by RobinYang on 2016-06-28.
  */
 
 public class HistoryDataDetailsActivity extends ToolbarActivity<ActivityHistoryDataDetailsBinding> {
