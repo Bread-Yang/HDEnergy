@@ -29,7 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by PC on 2016-06-24.
+ * Created by RobinYang on 2016-06-24.
  */
 public class ForgetPasswordActivity extends ToolbarActivity<ActivityForgetPasswordBinding> {
 

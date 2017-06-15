@@ -1,7 +1,7 @@
 package com.mdground.hdenergy.models;
 
 /**
- * Created by PC on 2016-06-28.
+ * Created by RobinYang on 2016-06-28.
  */
 
 public class BannerItem {

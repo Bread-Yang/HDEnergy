@@ -32,7 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by PC on 2016-06-30.
+ * Created by RobinYang on 2016-06-30.
  */
 
 public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProjectBinding> implements AddProjectDialog.OnClickUpdateListener {
@@ -99,7 +99,7 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
                     mDataBinding.lltAdd.setVisibility(View.GONE);
                 }
 
-                GetProjectListRequest();
+                getProjectListRequest();
             }
 
             @Override
@@ -109,7 +109,7 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
         });
     }
 
-    private void GetProjectListRequest() {
+    private void getProjectListRequest() {
         GlobalRestful.getInstance().GetProjectList(new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
@@ -121,7 +121,7 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
                     mAllProjectList.addAll(tempList);
                     mDataBinding.tvContactsAmount.setText(getString(R.string.left_bracket)
                             + mAllProjectList.size() + getString(R.string.right_bracket));
-                    GetUserProjectListRequest();
+                    getUserProjectListRequest();
                     ViewUtils.dismiss();
                 }
             }
@@ -133,7 +133,7 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
         });
     }
 
-    private void GetUserProjectListRequest() {
+    private void getUserProjectListRequest() {
         GlobalRestful.getInstance().GetUserProjectList(new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
@@ -161,13 +161,13 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
 
     }
 
-    private void SaveProjectResqust(Project project) {
+    private void saveProjectResqust(Project project) {
         GlobalRestful.getInstance().SaveProject(project, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 if (ResponseCode.isSuccess(response.body())) {
                     mDialog.dismiss();
-                    GetProjectListRequest();
+                    getProjectListRequest();
                 } else {
                     ViewUtils.toast(response.message());
                 }
@@ -180,13 +180,13 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
         });
     }
 
-    private void SaveUserProjectListRequest(final List<UserProject> userProjects) {
+    private void saveUserProjectListRequest(final List<UserProject> userProjects) {
         GlobalRestful.getInstance().SaveUserProjectList(userProjects, new Callback<ResponseData>() {
             @Override
             public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
                 if (ResponseCode.isSuccess(response.body())) {
 
-                    GetProjectListRequest();
+                    getProjectListRequest();
                 }
             }
 
@@ -221,7 +221,7 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
             Date date = new Date(System.currentTimeMillis());
             String creteDate = DateUtils.getServerDateStringByDate(date);
             project.setCreatedTime(creteDate);
-            SaveProjectResqust(project);
+            saveProjectResqust(project);
 
         } else {
             ViewUtils.toast(getString(R.string.project_no_empt));
@@ -261,7 +261,7 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
                     userProject.setProjectID(mAllProjectList.get(position).getProjectID());
                     if (holder.itemContactsBinding.cbSelector.isChecked()) {
                         mUserProjectList.add(userProject);
-                        SaveUserProjectListRequest(mUserProjectList);
+                        saveUserProjectListRequest(mUserProjectList);
                     } else {
                         for (int i = 0; i < mUserProjectList.size(); i++) {
                             if (mUserProjectList.get(i).getProjectID() == userProject.getProjectID()) {
@@ -269,7 +269,7 @@ public class CommonProjectActivity extends ToolbarActivity<ActivityCommonProject
                             }
                         }
 
-                        SaveUserProjectListRequest(mUserProjectList);
+                        saveUserProjectListRequest(mUserProjectList);
                     }
                 }
             });

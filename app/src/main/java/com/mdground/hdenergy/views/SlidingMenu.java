@@ -17,7 +17,7 @@ import com.socks.library.KLog;
 import com.mdground.hdenergy.R;
 
 /**
- * Created by PC on 2016-06-06.
+ * Created by RobinYang on 2016-06-06.
  */
 public class SlidingMenu extends HorizontalScrollView {
     public static final String TAG = "SLIDINMENU";

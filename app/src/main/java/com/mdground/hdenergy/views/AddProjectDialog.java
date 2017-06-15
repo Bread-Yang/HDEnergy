@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.mdground.hdenergy.R;
 
 /**
- * Created by PC on 2016-06-29.
+ * Created by RobinYang on 2016-06-29.
  */
 
 public class AddProjectDialog extends Dialog {

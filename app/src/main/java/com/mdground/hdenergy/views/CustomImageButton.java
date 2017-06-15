@@ -14,7 +14,7 @@ import com.mdground.hdenergy.R;
 import static com.mdground.hdenergy.utils.Tools.dip2px;
 
 /**
- * Created by PC on 2016-06-27.
+ * Created by RobinYang on 2016-06-27.
  */
 
 public class CustomImageButton extends RelativeLayout {

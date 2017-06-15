@@ -534,7 +534,9 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
                     mDataBinding.tvDepartment.setText(mDepartmentArrayList.get(0).getDepartmentName());
                 }
 
-                getProjectListRequest();
+//                getProjectListRequest();
+                // 改成只能显示个人中心选择的常用项目
+                getUserProjectListRequest();
             }
 
             @Override
@@ -572,6 +574,38 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
         });
     }
 
+    private void getUserProjectListRequest() {
+        GlobalRestful.getInstance().GetUserProjectList(new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                if (ResponseCode.isSuccess(response.body())) {
+                    mProjectArrayList = response.body().getContent(new TypeToken<ArrayList<Project>>() {
+                    });
+
+                    int projectID = mUserAttendance.getProjectID();
+
+                    for (int i = 0; i < mProjectArrayList.size(); i++) {
+                        if (mProjectArrayList.get(i).getProjectID() == projectID) {
+                            mSelectProjectIndex = i;
+                            break;
+                        }
+                    }
+
+                    mDataBinding.tvProject.setText(mProjectArrayList.get(mSelectProjectIndex).getProjectName());
+
+                    getUserListByDepartmentRequest();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+
     private void getUserListByDepartmentRequest() {
         final String department = mDataBinding.tvDepartment.getText().toString();
 
@@ -589,9 +623,9 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 
                 UserInfo loginUserInfo = MDGroundApplication.sInstance.getLoginUser();
 
-                if (department.equals(loginUserInfo.getDepartment())) {
-                    mUserInfoArrayList.add(loginUserInfo);
-                }
+//                if (department.equals(loginUserInfo.getDepartment())) {
+//                    mUserInfoArrayList.add(loginUserInfo);
+//                }
 
 //                for (UserInfo userinfo : tempUserInfoArrayList) {
 //                    for (UserContacts userContacts : mLoginUserContactsList) {

@@ -1,7 +1,7 @@
 package com.mdground.hdenergy.models;
 
 /**
- * Created by PC on 2016-07-05.
+ * Created by RobinYang on 2016-07-05.
  */
 
 public class UserProject {
