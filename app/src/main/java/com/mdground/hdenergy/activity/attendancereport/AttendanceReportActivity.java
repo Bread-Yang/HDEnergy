@@ -593,13 +593,18 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
                     mUserInfoArrayList.add(loginUserInfo);
                 }
 
+//                for (UserInfo userinfo : tempUserInfoArrayList) {
+//                    for (UserContacts userContacts : mLoginUserContactsList) {
+//                        if (userinfo.getUserID() == userContacts.getContactUserId()) {
+//                            mUserInfoArrayList.add(userinfo);
+//                            break;
+//                        }
+//                    }
+//                }
+
+                // 改为所有人能看到所有人
                 for (UserInfo userinfo : tempUserInfoArrayList) {
-                    for (UserContacts userContacts : mLoginUserContactsList) {
-                        if (userinfo.getUserID() == userContacts.getContactUserId()) {
-                            mUserInfoArrayList.add(userinfo);
-                            break;
-                        }
-                    }
+                    mUserInfoArrayList.add(userinfo);
                 }
 
                 mDataBinding.tvName.setText("");
