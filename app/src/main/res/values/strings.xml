@@ -5,12 +5,6 @@
     <string name="cancel">取消</string>
     <string name="confirm">确定</string>
     <string name="choose_time">选择时间</string>
-    <string name="year">年</string>
-    <string name="month">月</string>
-    <string name="day">日</string>
-    <string name="hour">时</string>
-    <string name="hours">小时</string>
-    <string name="minute">分</string>
     <string name="loading">加载中</string>
     <string name="request_timeout">请求超时</string>
     <string name="request_fail">请求失败</string>
@@ -21,12 +15,6 @@
     <string name="submit">提交</string>
     <string name="please_input">请输入</string>
     <string name="already_input">已输入</string>
-    <string name="yuan">元</string>
-    <string name="ton">吨</string>
-    <string name="how_many_ton">%.02f吨</string>
-    <string name="zen_ton">/吨</string>
-    <string name="how_many_steam_ton">%.02f吨</string>
-    <string name="electric_unit">kw/h</string>
     <string name="can_not_empty">输入不能为空</string>
     <string name="submit_success">提交成功</string>
     <string name="tips">温馨提示</string>
@@ -229,12 +217,27 @@
     <string name="please_check">请查看</string>
     <string name="kg_unit">kg</string>
     <string name="steam">蒸汽</string>
-    <string name="kg_per_ton">%.02fkg/吨</string>
-    <string name="kg_per_ton_steam">%.02fkg/吨</string>
-    <string name="kw_per_ton">%.02fkw/h/吨</string>
-    <string name="kw_per_ton_steam">%.02fkw/h/吨</string>
-    <string name="ton_per_ton">%.02f吨/吨</string>
-    <string name="ton_per_ton_steam">%.02f吨/吨</string>
+
+    <!-- 单位 -->
+    <string name="kg_per_ton">%.04fkg/吨</string>
+    <string name="kg_per_ton_steam">%.04fkg/吨</string>
+    <string name="kw_per_ton">%.04fkw/h/吨</string>
+    <string name="kw_per_ton_steam">%.04fkw/h/吨</string>
+    <string name="ton_per_ton">%.04f吨/吨</string>
+    <string name="ton_per_ton_steam">%.04f吨/吨</string>
+    <string name="yuan">元</string>
+    <string name="ton">吨</string>
+    <string name="how_many_ton">%.04f吨</string>
+    <string name="zen_ton">/吨</string>
+    <string name="how_many_steam_ton">%.04f吨</string>
+    <string name="electric_unit">kw/h</string>
+
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hour">时</string>
+    <string name="hours">小时</string>
+    <string name="minute">分</string>
 
     <!-- 历史考勤统计 -->
     <string name="hostorical_attendance_statics">历史考勤统计</string>

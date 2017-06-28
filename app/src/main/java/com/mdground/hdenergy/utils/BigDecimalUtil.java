@@ -119,7 +119,7 @@ public class BigDecimalUtil {
      */
     public static double keepTwoDecimalPlaces(float value) {
         BigDecimal a = new BigDecimal(Float.toString(value));
-        BigDecimal floored = a.setScale(2, BigDecimal.ROUND_DOWN);  //  == 10.12
+        BigDecimal floored = a.setScale(4, BigDecimal.ROUND_DOWN);  //  == 10.12
         return floored.doubleValue();
     }
 }

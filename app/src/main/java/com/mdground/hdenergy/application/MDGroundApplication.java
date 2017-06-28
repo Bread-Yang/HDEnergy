@@ -6,11 +6,10 @@ import com.mdground.hdenergy.BuildConfig;
 import com.mdground.hdenergy.constants.Constants;
 import com.mdground.hdenergy.models.UserInfo;
 import com.mdground.hdenergy.utils.FileUtils;
+import com.mob.MobSDK;
 import com.socks.library.KLog;
 import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushManager;
-
-import cn.smssdk.SMSSDK;
 
 /**
  * Created by yoghourt on 5/6/16.
@@ -29,7 +28,8 @@ public class MDGroundApplication extends Application {
 
         KLog.init(BuildConfig.DEBUG);
 
-        SMSSDK.initSDK(this, Constants.SMS_APP_KEY, Constants.SMS_APP_SECRECT);
+//        SMSSDK.initSDK(this, Constants.SMS_APP_KEY, Constants.SMS_APP_SECRECT);
+        MobSDK.init(this, Constants.SMS_APP_KEY, Constants.SMS_APP_SECRECT);
 
         XGPushManager.registerPush(getApplicationContext(), new XGIOperateCallback() {
             @Override

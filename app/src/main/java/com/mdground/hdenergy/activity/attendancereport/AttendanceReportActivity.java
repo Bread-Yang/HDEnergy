@@ -27,6 +27,7 @@ import com.mdground.hdenergy.utils.DateUtils;
 import com.mdground.hdenergy.utils.StringUtils;
 import com.mdground.hdenergy.utils.ViewUtils;
 import com.mdground.hdenergy.views.BaoPickerDialog;
+import com.socks.library.KLog;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,6 +59,8 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
     private ArrayList<UserInfo> mUserInfoArrayList = new ArrayList<>();
 
     private ArrayList<UserContacts> mLoginUserContactsList = new ArrayList<>();
+
+    private ArrayList<UserContacts> mCommonUserContactsList = new ArrayList<>();
 
     private ArrayList<String> mAttendanceStatusArrayList = new ArrayList<>();
 
@@ -492,6 +495,28 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
                     });
                     mLoginUserContactsList.addAll(userContacts);
 
+                    GetUserContactListRequest();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void GetUserContactListRequest() {
+        GlobalRestful.getInstance().GetUserContactList(new Callback<ResponseData>() {
+            @Override
+            public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                if (ResponseCode.isSuccess(response.body())) {
+                    mCommonUserContactsList.clear();
+                    ArrayList<UserContacts> userContacts = response.body().getContent(new TypeToken<ArrayList<UserContacts>>() {
+                    });
+                    mCommonUserContactsList.addAll(userContacts);
+                    KLog.e("mCommonUserContactList" + mCommonUserContactsList.size());
+
                     getDepartmentListRequest();
                 }
             }
@@ -502,6 +527,7 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
             }
         });
     }
+
 
     private void getDepartmentListRequest() {
         GlobalRestful.getInstance().GetDepartmentList(new Callback<ResponseData>() {
@@ -627,19 +653,19 @@ public class AttendanceReportActivity extends ToolbarActivity<ActivityAttendance
 //                    mUserInfoArrayList.add(loginUserInfo);
 //                }
 
-//                for (UserInfo userinfo : tempUserInfoArrayList) {
-//                    for (UserContacts userContacts : mLoginUserContactsList) {
-//                        if (userinfo.getUserID() == userContacts.getContactUserId()) {
-//                            mUserInfoArrayList.add(userinfo);
-//                            break;
-//                        }
-//                    }
-//                }
+                for (UserInfo userinfo : tempUserInfoArrayList) {
+                    for (UserContacts userContacts : mCommonUserContactsList) {
+                        if (userinfo.getUserID() == userContacts.getContactUserId()) {
+                            mUserInfoArrayList.add(userinfo);
+                            break;
+                        }
+                    }
+                }
 
                 // 改为所有人能看到所有人
-                for (UserInfo userinfo : tempUserInfoArrayList) {
-                    mUserInfoArrayList.add(userinfo);
-                }
+//                for (UserInfo userinfo : tempUserInfoArrayList) {
+//                    mUserInfoArrayList.add(userinfo);
+//                }
 
                 mDataBinding.tvName.setText("");
 

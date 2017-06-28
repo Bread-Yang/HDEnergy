@@ -19,6 +19,7 @@ import com.mdground.hdenergy.databinding.ActivityHistoryDataStaticsBinding;
 import com.mdground.hdenergy.databinding.ItemHistoryDatastaticsBinding;
 import com.mdground.hdenergy.enumobject.restfuls.ResponseCode;
 import com.mdground.hdenergy.models.ProjectWork;
+import com.mdground.hdenergy.models.UserInfo;
 import com.mdground.hdenergy.restfuls.GlobalRestful;
 import com.mdground.hdenergy.restfuls.bean.ResponseData;
 import com.mdground.hdenergy.utils.BigDecimalUtil;
@@ -98,8 +99,14 @@ public class HistoryDataListActivity extends ToolbarActivity<ActivityHistoryData
 
                     mProjectWorkList.clear();
                     if (tempList != null) {
+                        UserInfo userInfo = MDGroundApplication.sInstance.getLoginUser();
                         for (ProjectWork projectWork : tempList) {
-                            if (projectWork.getUserID() == MDGroundApplication.sInstance.getLoginUser().getUserID()) {
+                            if (userInfo.getAuthorityLevel() == 1) {
+                                // 一级权限账号只能看到自己提交的数据
+                                if (projectWork.getUserID() == MDGroundApplication.sInstance.getLoginUser().getUserID()) {
+                                    mProjectWorkList.add(projectWork);
+                                }
+                            } else {
                                 mProjectWorkList.add(projectWork);
                             }
                         }
