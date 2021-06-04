@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/HDEnergy.iml" filepath="$PROJECT_DIR$/HDEnergy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/WheelviewLibrary/WheelviewLibrary.iml" filepath="$PROJECT_DIR$/WheelviewLibrary/WheelviewLibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WheelviewLibrary/HDEnergy.WheelviewLibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/WheelviewLibrary/HDEnergy.WheelviewLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/HDEnergy.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/HDEnergy.app.iml" />
     </modules>
   </component>
 </project>

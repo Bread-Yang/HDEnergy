@@ -25,7 +25,7 @@ import retrofit2.Callback;
  */
 public class GlobalRestful extends BaseRestful {
 
-    private static GlobalRestful mIntance = new GlobalRestful();
+    private static GlobalRestful mInstance = new GlobalRestful();
 
     @Override
     protected BusinessType getBusinessType() {
@@ -43,10 +43,10 @@ public class GlobalRestful extends BaseRestful {
     }
 
     public static GlobalRestful getInstance() {
-        if (mIntance == null) {
-            mIntance = new GlobalRestful();
+        if (mInstance == null) {
+            mInstance = new GlobalRestful();
         }
-        return mIntance;
+        return mInstance;
     }
 
     // 用户登录

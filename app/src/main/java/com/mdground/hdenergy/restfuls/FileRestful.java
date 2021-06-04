@@ -23,7 +23,7 @@ public class FileRestful extends BaseRestful {
         public void onUploadSuccess(ArrayList<MDImage> mdImageArrayList);
     }
 
-    private static FileRestful mIntance = new FileRestful();
+    private static FileRestful mInstance = new FileRestful();
 
     @Override
     protected BusinessType getBusinessType() {
@@ -41,10 +41,10 @@ public class FileRestful extends BaseRestful {
     }
 
     public static FileRestful getInstance() {
-        if (mIntance == null) {
-            mIntance = new FileRestful();
+        if (mInstance == null) {
+            mInstance = new FileRestful();
         }
-        return mIntance;
+        return mInstance;
     }
 
     // 获取图片
